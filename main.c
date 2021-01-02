@@ -17,8 +17,8 @@
 /*
  * 
  */
-int main(int argc, char** argv) {
-
+int main() {
+//teste commit
     return (EXIT_SUCCESS);
 }
 
