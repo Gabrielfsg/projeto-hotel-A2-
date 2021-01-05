@@ -14,21 +14,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "CatAcomod.h"
+#include "Principal.h"
+#include "Login.h"
 /*
  * 
  */
 int main() {
 //teste commit
     printf("BBBBB\n\n");
-    teste();
+    /*teste();
     //Teste *c1;
     Teste c2;
     //c2.DescCatAcomod="DESC";
     c2.codCatAcomod =1;
     c2.qtePessoas =4;
-    c2.valorDiaria = 10.0;
+    c2.valorDiaria = 10.0;*/
     
-    printf("%d \n %d \n %f \n",c2.codCatAcomod, c2.qtePessoas, c2.valorDiaria);
+    //printf("%d \n %d \n %f \n",c2.codCatAcomod, c2.qtePessoas, c2.valorDiaria);
+    
+    menuLogin();
+    //menuPrincipal();
     return (EXIT_SUCCESS);
 }
 
