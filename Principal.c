@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include<String.h>
 #include "Login.h"
+#include "Principal.h"
 void subArquivo();
 void subCadastros();
 void subListagem();
@@ -19,28 +20,29 @@ void subConfiguracoes();
 void menuPrincipal() {
     int opc = 0;
     while (opc >= 0) {
-        printf("********************Principal*************************\n");
-        printf("1.Principal.\n");
-        printf("2.Cadastros.\n");
-        printf("3.Mostrar Cadastros.\n");
-        printf("4.Caixa.\n");
-        printf("5.Reservas.\n");
-        printf("6.Relatórios.\n");
-        printf("7.Check In.\n");
-        printf("8.Check Out.\n");
-        printf("9.Entrada de Produtos Industrializados.\n");
-        printf("10.Configurações.\n");
-        printf("11.Sair.\n");
+        printf("******************** MENU PRINCIPAL *************************\n");
+        printf("********************    HOTEL    *************************\n");
+        printf("\n");
+        printf("1.Cadastros e Gestão de dados.\n");
+        printf("2.Cadastros Hotel (ADM).\n");
+        printf("3.Caixa.\n");
+        printf("4.Reservas.\n");
+        printf("5.Relatórios.\n");
+        printf("6.Check In.\n");
+        printf("7.Check Out.\n");
+        printf("8.Entrada de Produtos Industrializados.\n");
+        printf("9.Configurações.\n");
+        printf("10.Sair.\n");
+        printf("Opção: ");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-                subArquivo();
-                break;
-            case 2:
                 subCadastros();
                 break;
+            case 2:
+                subArquivo();
+                break;
             case 3:
-                subListagem();
                 break;
             case 4:
                 subCaixa();
@@ -52,19 +54,13 @@ void menuPrincipal() {
                 subRelatorios();
                 break;
             case 7:
-
                 break;
             case 8:
-
                 break;
-
             case 9:
-
-                break;
-            case 10:
                 subConfiguracoes();
                 break;
-            case 11:
+            case 10:
                 exit(0);
                 break;
             default:
@@ -74,14 +70,57 @@ void menuPrincipal() {
     }
 }
 
+void subCadastros() {
+    int opc = 0;
+    while (opc >= 0) {
+        printf("********************Cadastros e Gestão de dados*************************\n");
+        printf("1.Cadastrar Hospedes.\n");      
+        printf("2.Cadastrar Acomodações .\n");
+        printf("3.Cadastrar Categoria de Acomodações .\n");
+        printf("4.Cadastrar Produtos disponíveis para consumo dos hóspedes.\n");
+        printf("5.Cadastrar Fornecedores .\n");
+        printf("6.Cadastrar Operadores de Sistema .\n");
+        printf("7.Voltar.\n");
+        scanf("%d%*c", &opc);
+        switch (opc) {
+            case 1:
+                // função cadastro de hospedes
+                break;
+            case 2:
+                //função cadastro produtos
+                break;
+            case 3:
+                //função cadastro acomodações
+                break;
+            case 4:
+                //função cadastro categoria Acomodação
+                break;
+            case 5:
+                //função cadratro fornecedore
+                break;
+            case 6:
+                //função cadratro operedores do sistema
+                break;
+            case 7:
+                exit(0);
+                break;
+            default:
+                printf("Valor Invalido!\n");
+                menuPrincipal();
+                break;
+        }
+    }
+
+}
+
 void subArquivo() {
     int opc = 0;
     while (opc >= 0) {
-        printf("********************Principal 1.1*************************\n");
+        printf("********************Cadastros Hotel (ADM)*************************\n");
         printf("1.Trocar de Usuario.\n");
         printf("2.Editar  Empresa.\n");
         printf("3.Mostrar Dados  Empresa.\n");
-        printf("4.Sair.\n");
+        printf("4.Voltar.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
@@ -98,93 +137,10 @@ void subArquivo() {
                 break;
             default:
                 printf("Valor Invalido!\n");
+                menuPrincipal();
                 break;
         }
     }
-}
-
-void subCadastros() {
-    int opc = 0;
-    while (opc >= 0) {
-        printf("********************Cadastro 1.1*************************\n");
-        printf("1.Cadastrar Hospedes.\n");
-        printf("2.Cadastrar Produtos .\n");
-        printf("3.Cadastrar Acomodações .\n");
-        printf("4.Cadastrar Categoria de Acomodações .\n");
-        printf("5.Cadastrar Fornecedores .\n");
-        printf("6.Cadastrar Operadores de Sistema .\n");
-        printf("7.Sair.\n");
-        scanf("%d%*c", &opc);
-        switch (opc) {
-            case 1:
-                // função cadastro de hospedes
-                break;
-            case 2:
-                //função cadastro produtos
-                break;
-            case 3:
-                //função cadastro acomodações
-                break;
-            case 4:
-                //função cadastro categoria Acomodação
-                break;
-            case 5:
-                //função cadratro fornecedore
-                break;
-            case 6:
-                //função cadratro operedores do sistema
-                break;
-            case 7:
-                exit(0);
-                break;
-            default:
-                printf("Valor Invalido!\n");
-                break;
-        }
-    }
-
-}
-
-void subListagem() {
-    int opc = 0;
-    while (opc >= 0) {
-        printf("********************Cadastro 1.1*************************\n");
-        printf("1.Cadastrar Hospedes.\n");
-        printf("2.Cadastrar Produtos .\n");
-        printf("3.Cadastrar Acomodações .\n");
-        printf("4.Cadastrar Categoria de Acomodações .\n");
-        printf("5.Cadastrar Fornecedores .\n");
-        printf("6.Cadastrar Operadores de Sistema .\n");
-        printf("7.Sair.\n");
-        scanf("%d%*c", &opc);
-        switch (opc) {
-            case 1:
-                // função cadastro de hospedes
-                break;
-            case 2:
-                //função cadastro produtos
-                break;
-            case 3:
-                //função cadastro acomodações
-                break;
-            case 4:
-                //função cadastro categoria Acomodação
-                break;
-            case 5:
-                //função cadratro fornecedore
-                break;
-            case 6:
-                //função cadratro operedores do sistema
-                break;
-            case 7:
-                exit(0);
-                break;
-            default:
-                printf("Valor Invalido!\n");
-                break;
-        }
-    }
-
 }
 
 void subCaixa() {

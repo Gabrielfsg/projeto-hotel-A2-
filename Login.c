@@ -5,7 +5,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
+//#include <conio.h>
 #include<String.h>
 
 void login(char nome[], char senha[]);
@@ -30,7 +30,7 @@ void menuLogin() {
                 setbuf(stdin, NULL);
                 printf("Senha : ");
                 //Esconde Senha
-                while ((c = getch()) != 13) {// codigo do teclado para 13 = ENTER pela ascii
+               /* while ((c = getch()) != 13) {// codigo do teclado para 13 = ENTER pela ascii
                     if (c == 8) {
                         i--;
                         senha[i] = '\0';
@@ -40,7 +40,7 @@ void menuLogin() {
                     }
                 }
                 senha[i] = '\0';
-                i = 0;
+                i = 0;*/
                 // Aqui vai o metodo que verifica o login
                 break;
             case 2:

@@ -21,7 +21,6 @@
  */
 int main() {
 //teste commit
-    printf("BBBBB\n\n");
     /*teste();
     //Teste *c1;
     Teste c2;
@@ -32,8 +31,8 @@ int main() {
     
     //printf("%d \n %d \n %f \n",c2.codCatAcomod, c2.qtePessoas, c2.valorDiaria);
     
-    menuLogin();
-    //menuPrincipal();
+    //menuLogin();
+    menuPrincipal();
     return (EXIT_SUCCESS);
 }
 
