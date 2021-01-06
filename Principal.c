@@ -3,6 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include<String.h>
@@ -20,8 +25,8 @@ void subConfiguracoes();
 void menuPrincipal() {
     int opc = 0;
     while (opc >= 0) {
-        printf("******************** MENU PRINCIPAL *************************\n");
-        printf("********************    HOTEL    *************************\n");
+        printf("******* MENU PRINCIPAL **********\n");
+        printf("*******    HOTEL    **********\n");
         printf("\n");
         printf("1.Cadastros e Gestão de dados.\n");
         printf("2.Cadastros Hotel (ADM).\n");
@@ -74,24 +79,24 @@ void menuPrincipal() {
 void subCadastros() {
     int opc = 0;
     while (opc >= 0) {
-        printf("********************Cadastros e Gestão de dados*************************\n");
-        printf("1.Cadastrar Hospedes.\n");      
-        printf("2.Cadastrar Acomodações .\n");
-        printf("3.Cadastrar Categoria de Acomodações .\n");
-        printf("4.Cadastrar Produtos disponíveis para consumo dos hóspedes.\n");
-        printf("5.Cadastrar Fornecedores .\n");
-        printf("6.Cadastrar Operadores de Sistema .\n");
+        printf("*******Cadastros e Gestão de dados********\n");
+        printf("1.Hospedes.\n");
+        printf("2.Acomodações .\n");
+        printf("3.Categoria de Acomodações .\n");
+        printf("4.Produtos disponíveis para consumo dos hóspedes.\n");
+        printf("5.Fornecedores .\n");
+        printf("6.Operadores de Sistema .\n");
         printf("7.Voltar.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-                
+                menuHospedes();
                 break;
             case 2:
-                //função cadastro produtos
+                menuAcomodacoes();
                 break;
             case 3:
-                //função cadastro acomodações
+                menuCategoria();
                 break;
             case 4:
                 //função cadastro categoria Acomodação
@@ -113,11 +118,10 @@ void subCadastros() {
     }
 
 }
-
 void subArquivo() {
     int opc = 0;
     while (opc >= 0) {
-        printf("********************Cadastros Hotel (ADM)*************************\n");
+        printf("*******Cadastros Hotel (ADM)********\n");
         printf("1.Trocar de Usuario.\n");
         printf("2.Editar  Empresa.\n");
         printf("3.Mostrar Dados  Empresa.\n");
@@ -147,7 +151,7 @@ void subArquivo() {
 void subCaixa() {
     int opc = 0;
     while (opc >= 0) {
-        printf("********************  Caixa *************************\n");
+        printf("*******  Caixa **********\n");
         printf("1.Vender Produto.\n");
         printf("2.Despesas.\n");
         printf("3.Contas a Pagar.\n");
@@ -186,27 +190,31 @@ void subCaixa() {
 void subReservas() {
     int opc = 0;
     while (opc >= 0) {
-        printf("******************** Reservas 1.1 *************************\n");
+        printf("******* Reservas **********\n");
         printf("1.Cadastrar Reserva.\n");
-        printf("2.Visualizar Reservas Disponiveis.\n");
-        printf("3.Cancelar Reserva.\n");
-        printf("4.Sair.\n");
+        printf("2.Alterar Reservas.\n");
+        printf("3.Visualizar Reservas Disponiveis.\n");
+        printf("4.Cancelar Reserva.\n");
+        printf("5.Voltar.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-                // Cadastrar Reserva
+
                 break;
             case 2:
-                //Visualizar Reservas Disponiveis
+
                 break;
             case 3:
-                
+                subVisualizarReservas();
                 break;
             case 4:
-                exit(0);
+                break;
+            case 5:
+                menuPrincipal();
                 break;
             default:
                 printf("Valor Invalido!\n");
+                menuPrincipal();
                 break;
         }
     }
@@ -217,7 +225,7 @@ void subReservas() {
 void subVisualizarReservas() {
     int opc = 0;
     while (opc >= 0) {
-        printf("******************** Reservas 1.2 *************************\n");
+        printf("******* Visualizar Reservas **********\n");
         printf("1.Visualizar Reserva por data.\n");
         printf("2.Visualizar Reservas categoria de acomodação.\n");
         printf("3.Visualizar Reserva quantidade de pessoas,.\n");
@@ -251,11 +259,10 @@ void subVisualizarReservas() {
 
 
 }
-
 void subRelatorios() {
     int opc = 0;
     while (opc >= 0) {
-        printf("********************Relatorios*************************\n");
+        printf("*******Relatorios********\n");
         printf("1.Listagem de Hospedes.\n");
         printf("2.Listagem de Acomodaçoes.\n");
         printf("3.Listagens de Reservas.\n");
@@ -303,7 +310,7 @@ void subRelatorios() {
 
                 break;
             case 12:
-                exit(0);
+                menuPrincipal();
                 break;
             default:
                 printf("Valor Invalido!\n");
@@ -315,12 +322,12 @@ void subRelatorios() {
 void subConfiguracoes() {
     int opc = 0;
     while (opc >= 0) {
-        printf("********************Configurações*************************\n");
+        printf("*******Configurações********\n");
         printf("1.Op de BD.\n");
         printf("2.Operador Sistema.\n");
         printf("3.Importar Dados.\n");
         printf("4.Exportar Dados.\n");
-        printf("5.Sair.\n");
+        printf("5.Voltar.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
@@ -336,7 +343,7 @@ void subConfiguracoes() {
 
                 break;
             case 5:
-                exit(0);
+                menuPrincipal();
                 break;
             default:
                 printf("Valor Invalido!\n");
