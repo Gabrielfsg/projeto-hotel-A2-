@@ -85,28 +85,7 @@ void subCadastros() {
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-                // função cadastro de hospedes
-                printf("***** CADASTRO DE HÓSPEDES ******\n");
-                printf("Digite o código do Hóspede:\n");
-                //scanf("%d%*c",);
-                printf("Digite o Nome do Hóspede:\n");
-                //scanf("%d%*c",);
-                printf("Digite o Endereço Completo do Hóspede:\n");
-                //scanf("%d%*c",);
-                printf("Digite o CPF do Hóspede:\n");
-                //scanf("%d%*c",);
-                printf("Digite o Telefone do Hóspede:\n");
-                //scanf("%d%*c",);
-                printf("Digite o E-mail do Hóspede:\n");
-                //scanf("%d%*c",);
-                printf("Digite o Sexo do Hóspede:\n");
-                //scanf("%d%*c",);
-                printf("Digite o Estado Civil do Hóspede:\n");
-                //scanf("%d%*c",);
-                printf("Digite o Data de Nascimento do Hóspede:\n");
-                //scanf("%d%*c",);
-                //DPS DE LER TODOS OS DADOS, CHAMA O CONTROLE PARA VALIDAR
-                //CadastrarControl();
+                
                 break;
             case 2:
                 //função cadastro produtos
@@ -221,10 +200,7 @@ void subReservas() {
                 //Visualizar Reservas Disponiveis
                 break;
             case 3:
-                //Cancelar Reserva
-                printf("***** CANCELAR RESERVA ******\n");
-                printf("DIGITE O COD DA ACOMODAÇÃO:");
-                //cancelarReservaControl();
+                
                 break;
             case 4:
                 exit(0);
