@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+#include <stdio.h>
+#include <stdlib.h>
 void menuAcomodacao(){
     int opc, sair =0;
     while(sair ==0){
