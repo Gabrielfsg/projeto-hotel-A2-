@@ -35,8 +35,17 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/AcomodacaoMenu.o \
+	${OBJECTDIR}/CatAcomodMenu.o \
+	${OBJECTDIR}/FornecedorMenu.o \
+	${OBJECTDIR}/HospedeControl.o \
+	${OBJECTDIR}/HospedeMenu.o \
+	${OBJECTDIR}/HotelMenu.o \
 	${OBJECTDIR}/Login.o \
+	${OBJECTDIR}/OperadorMenu.o \
 	${OBJECTDIR}/Principal.o \
+	${OBJECTDIR}/ProdutoConsumoMenu.o \
+	${OBJECTDIR}/ReservaControl.o \
 	${OBJECTDIR}/main.o
 
 
@@ -64,15 +73,60 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projeto-hotel-a2-.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projeto-hotel-a2- ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/AcomodacaoMenu.o: AcomodacaoMenu.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AcomodacaoMenu.o AcomodacaoMenu.c
+
+${OBJECTDIR}/CatAcomodMenu.o: CatAcomodMenu.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CatAcomodMenu.o CatAcomodMenu.c
+
+${OBJECTDIR}/FornecedorMenu.o: FornecedorMenu.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FornecedorMenu.o FornecedorMenu.c
+
+${OBJECTDIR}/HospedeControl.o: HospedeControl.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HospedeControl.o HospedeControl.c
+
+${OBJECTDIR}/HospedeMenu.o: HospedeMenu.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HospedeMenu.o HospedeMenu.c
+
+${OBJECTDIR}/HotelMenu.o: HotelMenu.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HotelMenu.o HotelMenu.c
+
 ${OBJECTDIR}/Login.o: Login.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Login.o Login.c
 
+${OBJECTDIR}/OperadorMenu.o: OperadorMenu.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OperadorMenu.o OperadorMenu.c
+
 ${OBJECTDIR}/Principal.o: Principal.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Principal.o Principal.c
+
+${OBJECTDIR}/ProdutoConsumoMenu.o: ProdutoConsumoMenu.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ProdutoConsumoMenu.o ProdutoConsumoMenu.c
+
+${OBJECTDIR}/ReservaControl.o: ReservaControl.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ReservaControl.o ReservaControl.c
 
 ${OBJECTDIR}/main.o: main.c
 	${MKDIR} -p ${OBJECTDIR}
