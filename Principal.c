@@ -13,6 +13,9 @@
 #include<String.h>
 #include "Login.h"
 #include "Principal.h"
+#include "HospedeControl.h"
+#include "Menus.h"
+
 void subArquivo();
 void subCadastros();
 void subListagem();
@@ -26,7 +29,7 @@ void menuPrincipal() {
     int opc = 0;
     while (opc >= 0) {
         printf("******* MENU PRINCIPAL **********\n");
-        printf("*******    HOTEL    **********\n");
+        //printf("*******    HOTEL    **********\n");
         printf("\n");
         printf("1.Cadastros e Gestão de dados.\n");
         printf("2.Cadastros Hotel (ADM).\n");
@@ -40,6 +43,7 @@ void menuPrincipal() {
         printf("10.Sair.\n");
         printf("Opção: ");
         scanf("%d%*c", &opc);
+        printf("\n");
         switch (opc) {
             case 1:
                 subCadastros();
@@ -90,7 +94,7 @@ void subCadastros() {
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-                menuHospedes();
+                menuCRUDHospedes();
                 break;
             case 2:
                 menuAcomodacoes();
@@ -108,16 +112,63 @@ void subCadastros() {
                 //função cadratro operedores do sistema
                 break;
             case 7:
-                exit(0);
+                menuPrincipal();
+                //exit(0);
                 break;
             default:
                 printf("Valor Invalido!\n");
-                menuPrincipal();
+                //menuPrincipal();
                 break;
         }
     }
 
 }
+
+void subListagem() {
+    int opc = 0;
+    while (opc >= 0) {
+        printf("******* LISTAGEM ********\n");
+        //printf("******* LER DADOS ********\n");
+        printf("1.Hospedes.\n");
+        printf("2.Acomodações .\n");
+        printf("3.Categoria de Acomodações .\n");
+        printf("4.Produtos disponíveis para consumo dos hóspedes.\n");
+        printf("5.Fornecedores .\n");
+        printf("6.Operadores de Sistema .\n");
+        printf("7.Voltar.\n");
+        scanf("%d%*c", &opc);
+        switch (opc) {
+            case 1:
+                //lista os hóspedes
+                listarHospedes();
+                break;
+            case 2:
+               
+                break;
+            case 3:
+                
+                break;
+            case 4:
+                
+                break;
+            case 5:
+                
+                break;
+            case 6:
+                
+                break;
+            case 7:
+                //exit(0);
+                menuPrincipal();
+                break;
+            default:
+                printf("Valor Invalido!\n");
+                
+                break;
+        }
+    }
+}
+
 void subArquivo() {
     int opc = 0;
     while (opc >= 0) {
@@ -259,6 +310,7 @@ void subVisualizarReservas() {
 
 
 }
+
 void subRelatorios() {
     int opc = 0;
     while (opc >= 0) {

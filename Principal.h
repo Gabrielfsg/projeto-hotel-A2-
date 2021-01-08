@@ -16,5 +16,14 @@
 
 void menuPrincipal();
 
+void subArquivo();
+void subCadastros();
+void subListagem();
+void subCaixa();
+void subReservas();
+void subVisualizarReservas();
+void subRelatorios();
+void subConfiguracoes();
+
 #endif /* PRINCIPAL_H */
 
