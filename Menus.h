@@ -19,6 +19,11 @@
 #define MENUS_H
 
 #include "HospedeMenu.h"
+#include "AcomodacaoMenu.h"
+#include "CategoriaMenu.h"
+#include "ProdutoConsumoMenu.h"
+#include "FornecedorMenu.h"
+#include "OperadorsistemaMenu.h"
 
 #endif /* MENUS_H */
 

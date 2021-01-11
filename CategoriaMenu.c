@@ -3,37 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 #include <stdio.h>
 #include <stdlib.h>
-#include "FornecedorControl.h"
+#include "CategoriaControl.h"
 #include "Principal.h"
 
-void menuCRUDFornecedor() {
+void menuCRUDCategoria() {
     int sair = 0;
     int opc;
     while (sair == 0) {
-        printf("******* GESTÃO DE DADOS - HÓSPEDES **********\n");
+        printf("******* GESTÃO DE DADOS - CATEGORIA ACOMODAÇÃO **********\n");
         printf("Opções: \n");
-        printf("1.Cadastrar Hospede. \n");
-        printf("2.Alterar Dados do Hospede. \n");
-        printf("3.Visualizar Hospede. \n");
-        printf("4.Excluir Hospede. \n");
+        printf("1.Cadastrar Categoria de Acomodação. \n");
+        printf("2.Alterar Dados da Categoria de Acomodação. \n");
+        printf("3.Visualizar Categoria de Acomodação. \n");
+        printf("4.Excluir Categoria de Acomodação. \n");
         printf("5.Voltar. \n");
         printf("Digite a opção desejada: \n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-                cadastrarFornecedor();
+                cadastrarCategoria();
                 break;
             case 2:
-                atualizarFornecedor();
+                atualizarCategoria();
                 break;
             case 3:
-                listarFornecedor();
+                listarCategoria();
                 break;
             case 4:
-                deletarFornecedor();
+                deletarCategoria();
                 break;
             case 5:
                 sair = 1;
@@ -47,4 +46,3 @@ void menuCRUDFornecedor() {
 
     }
 }
-

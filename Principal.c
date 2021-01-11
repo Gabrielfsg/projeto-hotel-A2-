@@ -10,10 +10,9 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include<String.h>
+#include <String.h>
 #include "Login.h"
 #include "Principal.h"
-#include "HospedeControl.h"
 #include "Menus.h"
 
 void subArquivo();
@@ -97,19 +96,19 @@ void subCadastros() {
                 menuCRUDHospedes();
                 break;
             case 2:
-                menuAcomodacoes();
+                menuCRUDAcomodacao();
                 break;
             case 3:
-                menuCategoria();
+                menuCRUDCategoria();
                 break;
             case 4:
-                //função cadastro categoria Acomodação
+                menuCRUDProdConsumo();
                 break;
             case 5:
-                //função cadratro fornecedore
+                menuCRUDFornecedor();
                 break;
             case 6:
-                //função cadratro operedores do sistema
+                menuCRUDOperador();
                 break;
             case 7:
                 menuPrincipal();
@@ -250,7 +249,7 @@ void subReservas() {
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-
+                
                 break;
             case 2:
 
@@ -383,7 +382,7 @@ void subConfiguracoes() {
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-                menuLogin();
+                //menuLogin();
                 break;
             case 2:
 

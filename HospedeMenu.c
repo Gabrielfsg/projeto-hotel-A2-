@@ -38,12 +38,6 @@ void menuCRUDHospedes() {
                 sair = 1;
                 subCadastros();
                 break;
-            case 6:
-
-                break;
-            case 7:
-
-                break;
             default:
                 printf("OPÇÃO INVÁLIDA!\n");
 

@@ -36,11 +36,13 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Acomodacao.o \
+	${OBJECTDIR}/AcomodacaoControl.o \
 	${OBJECTDIR}/AcomodacaoMenu.o \
 	${OBJECTDIR}/Caixa.o \
 	${OBJECTDIR}/CatAcomod.o \
-	${OBJECTDIR}/CatAcomodMenu.o \
 	${OBJECTDIR}/Categoria.o \
+	${OBJECTDIR}/CategoriaControl.o \
+	${OBJECTDIR}/CategoriaMenu.o \
 	${OBJECTDIR}/CheckIn.o \
 	${OBJECTDIR}/CheckOut.o \
 	${OBJECTDIR}/CheckOutProduto.o \
@@ -49,6 +51,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Data.o \
 	${OBJECTDIR}/Endereco.o \
 	${OBJECTDIR}/Fornecedor.o \
+	${OBJECTDIR}/FornecedorControl.o \
 	${OBJECTDIR}/FornecedorMenu.o \
 	${OBJECTDIR}/Hora.o \
 	${OBJECTDIR}/Hospede.o \
@@ -59,9 +62,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/Login.o \
 	${OBJECTDIR}/OperadorMenu.o \
 	${OBJECTDIR}/OperadorSistema.o \
+	${OBJECTDIR}/OperadorSistemaControl.o \
 	${OBJECTDIR}/Principal.o \
 	${OBJECTDIR}/Produto.o \
 	${OBJECTDIR}/ProdutoConsumoMenu.o \
+	${OBJECTDIR}/ProdutosConsumoControl.o \
 	${OBJECTDIR}/Reserva.o \
 	${OBJECTDIR}/ReservaControl.o \
 	${OBJECTDIR}/Retirada.o \
@@ -101,6 +106,11 @@ ${OBJECTDIR}/Acomodacao.o: Acomodacao.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Acomodacao.o Acomodacao.c
 
+${OBJECTDIR}/AcomodacaoControl.o: AcomodacaoControl.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AcomodacaoControl.o AcomodacaoControl.c
+
 ${OBJECTDIR}/AcomodacaoMenu.o: AcomodacaoMenu.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -116,15 +126,20 @@ ${OBJECTDIR}/CatAcomod.o: CatAcomod.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CatAcomod.o CatAcomod.c
 
-${OBJECTDIR}/CatAcomodMenu.o: CatAcomodMenu.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CatAcomodMenu.o CatAcomodMenu.c
-
 ${OBJECTDIR}/Categoria.o: Categoria.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Categoria.o Categoria.c
+
+${OBJECTDIR}/CategoriaControl.o: CategoriaControl.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CategoriaControl.o CategoriaControl.c
+
+${OBJECTDIR}/CategoriaMenu.o: CategoriaMenu.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CategoriaMenu.o CategoriaMenu.c
 
 ${OBJECTDIR}/CheckIn.o: CheckIn.c
 	${MKDIR} -p ${OBJECTDIR}
@@ -165,6 +180,11 @@ ${OBJECTDIR}/Fornecedor.o: Fornecedor.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fornecedor.o Fornecedor.c
+
+${OBJECTDIR}/FornecedorControl.o: FornecedorControl.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FornecedorControl.o FornecedorControl.c
 
 ${OBJECTDIR}/FornecedorMenu.o: FornecedorMenu.c
 	${MKDIR} -p ${OBJECTDIR}
@@ -216,6 +236,11 @@ ${OBJECTDIR}/OperadorSistema.o: OperadorSistema.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OperadorSistema.o OperadorSistema.c
 
+${OBJECTDIR}/OperadorSistemaControl.o: OperadorSistemaControl.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OperadorSistemaControl.o OperadorSistemaControl.c
+
 ${OBJECTDIR}/Principal.o: Principal.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -230,6 +255,11 @@ ${OBJECTDIR}/ProdutoConsumoMenu.o: ProdutoConsumoMenu.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ProdutoConsumoMenu.o ProdutoConsumoMenu.c
+
+${OBJECTDIR}/ProdutosConsumoControl.o: ProdutosConsumoControl.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ProdutosConsumoControl.o ProdutosConsumoControl.c
 
 ${OBJECTDIR}/Reserva.o: Reserva.c
 	${MKDIR} -p ${OBJECTDIR}

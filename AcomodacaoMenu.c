@@ -5,42 +5,44 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-void menuAcomodacao(){
-    int opc, sair =0;
-    while(sair ==0){
-        printf("Digite a opção da acomodação:\n");
-        printf("1 - Cadastrar acomodação:\n"); 
-        printf("...:\n");
-        printf("...:\n");
-        
-        scanf("%d%*c",&opc);
+#include "AcomodacaoControl.h"
+#include "Principal.h"
+
+void menuCRUDAcomodacao() {
+    int sair = 0;
+    int opc;
+    while (sair == 0) {
+        printf("******* GESTÃO DE DADOS - ACOMODAÇÃO **********\n");
+        printf("Opções: \n");
+        printf("1.Cadastrar Acomodação. \n");
+        printf("2.Alterar Dados da Acomodação. \n");
+        printf("3.Visualizar Acomodação. \n");
+        printf("4.Excluir Acomodação. \n");
+        printf("5.Voltar. \n");
+        printf("Digite a opção desejada: \n");
+        scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
+                cadastrarAcomodacao();
                 break;
             case 2:
-                
+                atualizarAcomodacao();
                 break;
             case 3:
-      
+                listarAcomodacao();
                 break;
             case 4:
-                
+                deletarAcomodacao();
                 break;
             case 5:
-                
-                break;
-            case 6:
-                
-                break;
-            case 7:
-                exit(0);
+                sair = 1;
+                subCadastros();
                 break;
             default:
-                printf("Valor Invalido!\n");
-                
+                printf("OPÇÃO INVÁLIDA!\n");
+
                 break;
         }
+
     }
-    
-     
 }
