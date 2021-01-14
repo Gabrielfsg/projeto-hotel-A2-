@@ -1,6 +1,6 @@
 build/Debug/Cygwin-Windows/CategoriaMenu.o: CategoriaMenu.c \
- CategoriaControl.h Principal.h
+ CategoriaSUB.h Principal.h
 
-CategoriaControl.h:
+CategoriaSUB.h:
 
 Principal.h:

@@ -13,10 +13,11 @@
 
 #ifndef CATEGORIACONTROL_H
 #define CATEGORIACONTROL_H
-
-void listarCategoria();
-void cadastrarCategoria();
-void atualizarCategoria();
-void deletarCategoria();
+#include "Categoria.h"
+Categoria* listarCategoriaControle();
+void cadastrarCategoriaControle(int codig, char descricao[], float valorDiario, int qtd, char facilidade[]);
+void mostrarCategoriaControle();
+/*void atualizarCategoria();
+void deletarCategoria();*/
 #endif /* CATEGORIACONTROL_H */
 

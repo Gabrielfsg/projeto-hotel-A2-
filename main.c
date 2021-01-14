@@ -16,10 +16,20 @@
 #include "CatAcomod.h"
 #include "Principal.h"
 #include "Login.h"
-#include "HospedeControl.h"
+#include "CategoriaControl.h"
+//#include "Categoria.h"
 /*
  * 
  */
+
+typedef struct categoria {
+    int codigo;
+    char descricao[100];
+    float valorDiario;
+    int quantidadePessoas;
+    char facilidade[];
+} Categoria;
+
 int main() {
 //teste commit
     /*teste();
@@ -35,7 +45,9 @@ int main() {
     //menuLogin();
     //menuPrincipal();
     //cadastrarHospedes();
-    getAllHospedes();
+    cadastrarCategoriaControle(3,"TESTE",99.5,99,"FACILIDADES");
+    Categoria *catPointer = listarCategoriaControle();
+    printf("%d\n",catPointer[2].codigo);
     return (EXIT_SUCCESS);
 }
 

@@ -41,8 +41,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/Caixa.o \
 	${OBJECTDIR}/CatAcomod.o \
 	${OBJECTDIR}/Categoria.o \
-	${OBJECTDIR}/CategoriaControl.o \
+	${OBJECTDIR}/CategoriaControle.o \
 	${OBJECTDIR}/CategoriaMenu.o \
+	${OBJECTDIR}/CategoriaSUB.o \
 	${OBJECTDIR}/CheckIn.o \
 	${OBJECTDIR}/CheckOut.o \
 	${OBJECTDIR}/CheckOutProduto.o \
@@ -131,15 +132,20 @@ ${OBJECTDIR}/Categoria.o: Categoria.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Categoria.o Categoria.c
 
-${OBJECTDIR}/CategoriaControl.o: CategoriaControl.c
+${OBJECTDIR}/CategoriaControle.o: CategoriaControle.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CategoriaControl.o CategoriaControl.c
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CategoriaControle.o CategoriaControle.c
 
 ${OBJECTDIR}/CategoriaMenu.o: CategoriaMenu.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CategoriaMenu.o CategoriaMenu.c
+
+${OBJECTDIR}/CategoriaSUB.o: CategoriaSUB.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CategoriaSUB.o CategoriaSUB.c
 
 ${OBJECTDIR}/CheckIn.o: CheckIn.c
 	${MKDIR} -p ${OBJECTDIR}

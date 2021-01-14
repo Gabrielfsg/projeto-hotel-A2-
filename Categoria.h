@@ -15,6 +15,13 @@
 #define CATEGORIA_H
 
 typedef struct categoria Categoria;
+Categoria* newCategoria(int codig, char descricao[], float valorDiario, int qtd, char facilidade[]);
+void cadastrarCategoriaTXT(int codig, char descricao[], float valorDiario, int qtd, char facilidade[]);
+Categoria* listarCategoriaTXT();
+Categoria* newCate(int num) ;
+void add(Categoria *cat,int posicao, int codig, char descricao[], float valorDiario, int qtd, char facilidade[]);
+void mostrar(Categoria *cat, int numLinha);
+int numLinhas();
 
 #endif /* CATEGORIA_H */
 
