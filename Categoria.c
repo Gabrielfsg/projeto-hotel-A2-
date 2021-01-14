@@ -22,7 +22,7 @@ typedef struct categoria {
     char descricao[100];
     float valorDiario;
     int quantidadePessoas;
-    char facilidade[];
+    char facilidade[100];
 } Categoria;
 
 Categoria* newCategoria(int codig, char descricao[], float valorDiario, int qtd, char facilidade[]) {
@@ -43,24 +43,26 @@ void add(Categoria *cat, int posicao, int codig, char descricao[], float valorDi
 }
 
 void cadastrarCategoriaTXT(int codig, char descricao[], float valorDiario, int qtd, char facilidade[]) {
+    printf("entrou cadastrar\n");
     FILE *cad;
-    int i;
     cad = fopen("arquivos\\CategoriaTXT.txt", "a");
     if (cad == NULL) {
         cad = fopen("arquivos\\CategoriaTXT.txt", "w");
     } else {
-        // escreve cada elemento do vetor no arquivo
-        fprintf(cad, "%d\r\n%s\r\n%d\r\n%s\r\n%f\r\n", codig, descricao, qtd, facilidade, valorDiario); // f
-        fflush(cad);
+        fprintf(cad, "%d\n%s\n%d\n%s\n%f\n", codig, descricao, qtd, facilidade, valorDiario); // f
+        // fflush(cad);
         fclose(cad);
+        free(cad);
     }
+    printf("saiu cadastrar\n");
 }
 
 Categoria* listarCategoriaTXT() {
+    printf("entrou listar\n");
     int numLinha = 0, i = 0;
     FILE *arquivo;
     //numLinha = numLinhas(arquivo);
-    arquivo = fopen("arquivos\\CategoriaTXT.txt", "rt");
+    arquivo = fopen("arquivos\\CategoriaTXT.txt", "r");
     if (arquivo == NULL) {
         printf("Erro ao acessar arquivo\n");
     }
@@ -77,6 +79,8 @@ Categoria* listarCategoriaTXT() {
         i++;
     }
     fclose(arquivo);
+    free(arquivo);
+    printf("saiu listar\n");
     return cat;
 }
 
@@ -91,6 +95,7 @@ void mostrar(Categoria *cat, int numLinha) {
         printf("QUANTIDADE DE PESSOAS : %d\n", cat[i].quantidadePessoas);
         printf("Valor Diaria: %f \n", cat[i].valorDiario);
     }
+    free(cat);
 }
 
 int numLinhas() {
@@ -107,9 +112,12 @@ int numLinhas() {
         }
     }
     fclose(arquivo);
+    free(arquivo);
     return numLinha / 5;
 }
+
 int validar(int cod) {
+    printf("entrou validar\n");
     Categoria *cat = listarCategoriaTXT();
     int lin = numLinhas();
     int i;
@@ -118,6 +126,8 @@ int validar(int cod) {
             return 1;
         }
     }
+    free(cat);
+    printf("saiu validar\n");
     return 0;
 }
 
