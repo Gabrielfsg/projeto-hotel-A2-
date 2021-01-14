@@ -16,6 +16,7 @@
 #include "CatAcomod.h"
 #include "Principal.h"
 #include "Login.h"
+#include "HospedeControl.h"
 /*
  * 
  */
@@ -32,7 +33,9 @@ int main() {
     //printf("%d \n %d \n %f \n",c2.codCatAcomod, c2.qtePessoas, c2.valorDiaria);
     
     //menuLogin();
-    menuPrincipal();
+    //menuPrincipal();
+    //cadastrarHospedes();
+    getAllHospedes();
     return (EXIT_SUCCESS);
 }
 
