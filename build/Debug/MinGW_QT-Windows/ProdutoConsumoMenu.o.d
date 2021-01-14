@@ -1,4 +1,4 @@
-build/Debug/Cygwin-Windows/ProdutoConsumoMenu.o: ProdutoConsumoMenu.c \
+build/Debug/MinGW_QT-Windows/ProdutoConsumoMenu.o: ProdutoConsumoMenu.c \
  ProdutoConsumoControl.h Principal.h
 
 ProdutoConsumoControl.h:

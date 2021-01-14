@@ -5,7 +5,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include "CategoriaControl.h"
+#include "CategoriaSUB.h"
 #include "Principal.h"
 
 void menuCRUDCategoria() {
@@ -23,7 +23,7 @@ void menuCRUDCategoria() {
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-                cadastrarCategoria();
+                cadastrarCategoriaSUB();
                 break;
             case 2:
                 atualizarCategoria();

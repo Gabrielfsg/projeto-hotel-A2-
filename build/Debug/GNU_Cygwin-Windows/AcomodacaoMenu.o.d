@@ -1,4 +1,4 @@
-build/Debug/Cygwin-Windows/AcomodacaoMenu.o: AcomodacaoMenu.c \
+build/Debug/GNU_Cygwin-Windows/AcomodacaoMenu.o: AcomodacaoMenu.c \
  AcomodacaoControl.h Principal.h
 
 AcomodacaoControl.h:

@@ -1,4 +1,4 @@
-build/Debug/Cygwin-Windows/OperadorMenu.o: OperadorMenu.c \
+build/Debug/MinGW_QT-Windows/OperadorMenu.o: OperadorMenu.c \
  OperadorSistemaControl.h Principal.h
 
 OperadorSistemaControl.h:
