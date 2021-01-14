@@ -1,5 +1,5 @@
 build/Debug/Cygwin-Windows/Principal.o: Principal.c Login.h Principal.h \
- Menus.h HospedeMenu.h AcomodacaoMenu.h CatAcomodMenu.h \
+ Menus.h HospedeMenu.h AcomodacaoMenu.h CategoriaMenu.h \
  ProdutoConsumoMenu.h FornecedorMenu.h OperadorsistemaMenu.h
 
 Login.h:
@@ -12,7 +12,7 @@ HospedeMenu.h:
 
 AcomodacaoMenu.h:
 
-CatAcomodMenu.h:
+CategoriaMenu.h:
 
 ProdutoConsumoMenu.h:
 

@@ -13,6 +13,6 @@ typedef struct hospede {
     char email[100];
     char sexo; //M- masculino F-Feminino
     char esCivil[10];
-    Data *dataNascimento;
-    Endereco *endereco;
+    //Data *dataNascimento;
+    //Endereco *endereco;
 } Hospede;
