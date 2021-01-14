@@ -61,7 +61,7 @@ Categoria* listarCategoriaTXT() {
     printf("entrou listar\n");
     int numLinha = 0, i = 0;
     FILE *arquivo;
-    //numLinha = numLinhas(arquivo);
+    numLinha = numLinhas(arquivo);
     arquivo = fopen("arquivos\\CategoriaTXT.txt", "r");
     if (arquivo == NULL) {
         printf("Erro ao acessar arquivo\n");
@@ -96,6 +96,7 @@ void mostrar(Categoria *cat, int numLinha) {
         printf("Valor Diaria: %f \n", cat[i].valorDiario);
     }
     free(cat);
+//free(numLinha);
 }
 
 int numLinhas() {

@@ -22,13 +22,6 @@
  * 
  */
 
-typedef struct categoria {
-    int codigo;
-    char descricao[100];
-    float valorDiario;
-    int quantidadePessoas;
-    char facilidade[];
-} Categoria;
 
 int main() {
 //teste commit
@@ -43,11 +36,9 @@ int main() {
     //printf("%d \n %d \n %f \n",c2.codCatAcomod, c2.qtePessoas, c2.valorDiaria);
     
     //menuLogin();
-    //menuPrincipal();
+    menuPrincipal();
     //cadastrarHospedes();
-    cadastrarCategoriaControle(3,"TESTE",99.5,99,"FACILIDADES");
-    Categoria *catPointer = listarCategoriaControle();
-    printf("%d\n",catPointer[2].codigo);
+
     return (EXIT_SUCCESS);
 }
 
