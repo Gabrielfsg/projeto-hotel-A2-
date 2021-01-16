@@ -14,7 +14,18 @@
 #ifndef HOSPEDE_H
 #define HOSPEDE_H
 
-typedef struct hospede Hospede;
+//typedef struct hospede Hospede;
+typedef struct hospede {
+    int codigo;
+    char nome[100];
+    char cpf[14];
+    char telefone[14];
+    char email[100];
+    char sexo; //M- masculino F-Feminino
+    char esCivil[10];
+    //Data *dataNascimento;
+    //Endereco *endereco;
+} Hospede;
 
 
 #endif /* HOSPEDE_H */

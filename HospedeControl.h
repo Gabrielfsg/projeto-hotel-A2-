@@ -13,10 +13,13 @@
 
 #ifndef HOSPEDECONTROL_H
 #define HOSPEDECONTROL_H
-
+#include "Hospede.h"
 void listarHospedes();
 void cadastrarHospedes();
 void atualizarHospedes();
 void deletarHospedes();
+Hospede* getAllHospedes();
+int validarCod(int cod);
+int getNumHospedes();
 #endif /* HOSPEDECONTROL_H */
 

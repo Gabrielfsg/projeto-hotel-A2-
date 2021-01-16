@@ -6,24 +6,34 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Hospede.c"
+#include "Hospede.h"
+#include "HospedeControl.h"
 
 void cadastrarHospedes() {
     printf("***** CADASTRAR HÓSPEDE *****\n");
     //pega os dados
-
+    int cod;
     Hospede h;
-
+    
     printf("Digite o cod do hóspede \n");
-    scanf("%d%*c", &h.codigo);
+    scanf("%d%*c", &cod);
     //valida para ver se já existe
 
+    if(validarCod(cod)==0){
+        return;
+    }else{
+        h.codigo = cod;
+    }
+    
     printf("Digite o nome do hóspede \n");
     scanf("%[^\n]s%*c", &h.nome); // [^\n] Para poder aceitar espaços, pois iremos ler o nome completo
     setbuf(stdin, NULL); // limpa o buffer
     printf("Digite o cpf do hóspede (apenas números) \n");
     fgets(h.cpf, 13, stdin); // tamanho 13 porque tem o \0 e o fgets adciona uma quebra de linha no final(?)
     //Usamos FGETS pois SCANF não consegue ler todos os caracteres de um cpf (11 caracteres)
+    
+    strtok(h.cpf, "\n"); // Esse comando serve para retirar o \n que o fgets coloca no final do cpf
+    
     setbuf(stdin, NULL); // limpa o buffer
 
     printf("Digite o telefone do hóspede \n");
@@ -79,7 +89,36 @@ void listarHospedes() {
     if (scanHospedes == NULL) {
         printf(" ERRO DE LEITURA ");
     } else {
-        while (!feof(scanHospedes)) {
+        char text[20];
+        Hospede h;
+        int numHospede = getNumHospedes();
+        
+        for(int i =0;i<numHospede;i++){
+            printf("*****************\n");
+            //fscanf(scanHospedes, "%s %d\r\n%s %[^\n]s\r\n%s", text, &h.codigo,t2,h.nome,t3);
+            //printf("%s %d\n%s %s\n%s", text, h.codigo,t2,h.nome,t3);
+            fscanf(scanHospedes, "%s %d", text, &h.codigo);
+            printf("%s %d\n", text, h.codigo);
+            fscanf(scanHospedes, "%s %[^\n]s", text, h.nome);
+            printf("%s %s\n", text, h.nome);
+            fscanf(scanHospedes, "%s %s", text, h.cpf);
+            printf("%s %s\n", text, h.cpf);
+            fscanf(scanHospedes, "%s %s", text, h.telefone);
+            printf("%s %s\n", text, h.telefone);
+            fscanf(scanHospedes, "%s %s", text, h.email);
+            printf("%s %s\n", text, h.email);
+            fscanf(scanHospedes, "%s %c", text, &h.sexo);
+            printf("%s %c\n", text, h.sexo);
+
+
+            fscanf(scanHospedes, "%s %s", text, h.esCivil);
+            printf("%s %s\n", text, h.esCivil);
+
+
+            printf("*****************\n");
+        }
+        
+        /*while (!feof(scanHospedes)) {
             Hospede h;
             int cod;
             //unsigned long int teste;
@@ -107,7 +146,7 @@ void listarHospedes() {
 
             printf("*****************\n");
 
-        }
+        }*/
 
         printf("\n FIM DA LISTA DE HÓSPEDES \n");
         fclose(scanHospedes);
@@ -138,7 +177,7 @@ Hospede* getAllHospedes() {
     }
 
     //pega a lista de hóspedes do arquivo
-    printf("\n LISTA DE TODOS OS HÓSPEDES \n");
+    //printf("\n LISTA DE TODOS OS HÓSPEDES \n");
     FILE *scanHospedes;
 
     scanHospedes = fopen(".\\persist\\hospedes.txt", "r");
@@ -149,7 +188,7 @@ Hospede* getAllHospedes() {
             Hospede h;
             char text[20];
 
-            printf("*****************\n");
+            //printf("*****************\n");
             //FSCANF PARA PEGAR OS VALORES DO ARQUIVO. "TEXT[20]" É APENAS PARA ARMAZENAR A STRING QUE VEM ANTES DO VALOR.
             fscanf(scanHospedes, "%s %d", text, &h.codigo);
             //printf("%s %d\n", text, h.cod);
@@ -177,13 +216,13 @@ Hospede* getAllHospedes() {
             arrayHospedes = realloc(arrayHospedes, (sizeof (Hospede) + sizeof (arrayHospedes)));
 
             //arrayHospedes = malloc(count*sizeof(Hospede));          
-            printf("*****************\n");
+            //printf("*****************\n");
 
         }
 
-        printf("\n FIM DA LISTA DE HÓSPEDES \n");
+        //printf("\n FIM DA LISTA DE HÓSPEDES \n");
         fclose(scanHospedes);
-
+        //free(arrayHospedes);
 
         /*printf("\n TESTE PARA VER TODOS OS ITENS DO ARRAY \n");
         for (int i = 0; i < size; i++) {
@@ -201,6 +240,8 @@ Hospede* getAllHospedes() {
         return arrayHospedes;
     }
 }
+
+
 
 //METODO DO MODELO
 
@@ -220,4 +261,46 @@ void deletarHospedes() {
 
     printf("Digite o cod do hóspede \n");
     //scanf("%d%*c",&);
+}
+
+int validarCod(int cod) {
+    int codExistente = 0;
+    Hospede* arrHospedes = getAllHospedes();
+    int numHospedes = getNumHospedes();
+
+    for (int i = 0; i < numHospedes; i++) {
+        if (cod == arrHospedes[i].codigo) {
+            codExistente =1;
+        }
+    }
+    
+    if(codExistente == 1){
+        printf("CÓDIGO JÁ EXISTE\n");
+        return 0;
+    }else{
+        return 1;
+    }
+}
+
+int getNumHospedes() {
+    FILE *arq;
+    int numLinhas = 0, numHospedes = 0;
+    char c;
+    arq = fopen(".\\persist\\hospedes.txt", "r");
+    if (arq == NULL) {
+        printf("Erro ao acessar arquivo\n");
+    }
+    while ((c = fgetc(arq)) != EOF) {
+
+        if (c == '\n') {
+            numLinhas++;
+        }
+    }
+    numHospedes = numLinhas / 7; //9;
+   
+    printf("\nO NÚMERO DE LINHAS DO ARQ É: %d\n",numLinhas);
+    printf("\nO NÚMERO DE HOSPEDES CADASTRADOS É: %d\n",numHospedes);
+    fclose(arq);
+    free(arq);
+    return numHospedes;
 }

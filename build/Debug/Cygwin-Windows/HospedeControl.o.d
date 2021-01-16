@@ -1,8 +1,6 @@
-build/Debug/Cygwin-Windows/HospedeControl.o: HospedeControl.c Hospede.c \
- Data.h Endereco.h
+build/Debug/Cygwin-Windows/HospedeControl.o: HospedeControl.c Hospede.h \
+ HospedeControl.h
 
-Hospede.c:
+Hospede.h:
 
-Data.h:
-
-Endereco.h:
+HospedeControl.h:

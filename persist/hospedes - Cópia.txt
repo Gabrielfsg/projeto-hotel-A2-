@@ -1,17 +1,17 @@
 Cod: 1
 Nome: Tales Pereira Grechi
 CPF: 10750383674
-Telefone: 999480662
+Telefone: 99480662
 Email: talespgrechi@gmail.com
 Sexo: M
-EstadoCivil: Solteiro
+Es.Civil: Solteiro
 Cod: 2
-Nome: Tales Pereira
+Nome: Tales Pereira 
 CPF: 10750383674
-Telefone: 999480662
+Telefone: 33216655
 Email: talespgrechi@bol.com.br
 Sexo: M
-EstadoCivil: Casado
+Es.Civil: Casado
 Cod: 3
 Nome: Joao
 CPF: 12345678910

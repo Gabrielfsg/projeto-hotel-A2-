@@ -3,8 +3,8 @@ Daniel
 2
 Antonio
 300.000000
-3
-TESTE
-2
-FACILIDADE
-350.200012
+8
+testando
+5
+testandomaisumavez
+10.000000

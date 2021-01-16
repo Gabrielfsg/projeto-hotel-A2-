@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include "HospedeControl.h"
 #include "Principal.h"
+//#include "Hospede.h"
 
 void menuCRUDHospedes() {
     int sair = 0;
