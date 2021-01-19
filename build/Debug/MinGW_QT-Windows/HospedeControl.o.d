@@ -1,8 +1,8 @@
-build/Debug/MinGW_QT-Windows/HospedeControl.o: HospedeControl.c Hospede.c \
- Data.h Endereco.h
+build/Debug/MinGW_QT-Windows/HospedeControl.o: HospedeControl.c Hospede.h \
+ HospedeControl.h Categoria.h
 
-Hospede.c:
+Hospede.h:
 
-Data.h:
+HospedeControl.h:
 
-Endereco.h:
+Categoria.h:

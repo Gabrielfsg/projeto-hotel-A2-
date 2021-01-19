@@ -86,7 +86,8 @@ void listarHospedes() {
     int numHospedes = getNumHospedes();
     printf("\n LISTA DE TODOS OS HÓSPEDES \n");
     Hospede* arrayHospedes = getAllHospedes();
-    for (int i = 0; i < numHospedes; i++) {
+    int i;
+    for (i = 0; i < numHospedes; i++) {
         //lista os hóspedes
         printf("***************\n");
         printf("COD: %d\n", arrayHospedes[i].codigo);
@@ -169,9 +170,9 @@ void deletarHospedesControl() {
         printf("TELEFONE: %s\n", h.telefone);
         printf("+++++++++++++++++++++ \n");
         printf("DESEJA DELETAR O HÓSPEDE ACIMA? (S/N)\n");
-        
-        scanf("%c%*c",&confirmacao);
-        if(confirmacao == 'S' || confirmacao == 's'){
+
+        scanf("%c%*c", &confirmacao);
+        if (confirmacao == 'S' || confirmacao == 's') {
             //deleta
             //mandar o obj ou só o cod para um método "sobreescrever"
             sobrescreverHospedesTXT(h.codigo);
@@ -179,14 +180,14 @@ void deletarHospedesControl() {
             //depois ele escreve todos os hóspedes no aruqivo de novo
             //mas existe um if para ver se o hospede do array tem o mesmo código do cara que ele deletou
             // se tiver, não escreve no arquivo
-            
-        }else{
+
+        } else {
             printf("OPERAÇÃO CANCELADA\n");
             return;
         }
         //setbuf(stdout, NULL);
         //fflush(stdout);
-        
+
     } else {
         printf("CÓDIGO NÃO EXISTE\n");
     }
@@ -198,8 +199,8 @@ int validarCod(int cod) { //1-> NÃO EXISTE 0 -> JÁ EXISTE
     int codExistente = 1;
     Hospede* arrHospedes = getAllHospedesControl();
     int numHospedes = getNumHospedes();
-
-    for (int i = 0; i < numHospedes; i++) {
+    int i;
+    for (i = 0; i < numHospedes; i++) {
         if (cod == arrHospedes[i].codigo) {
             codExistente = 0;
         }
@@ -229,7 +230,7 @@ int getNumHospedes() {
     }
     //numHospedes = numLinhas / 7; //9;
 
-    printf("\nO NÚMERO DE LINHAS DO ARQ É: %d\n",numLinhas);
+    printf("\nO NÚMERO DE LINHAS DO ARQ É: %d\n", numLinhas);
     //printf("\nO NÚMERO DE HOSPEDES CADASTRADOS É: %d\n",numHospedes);
     fclose(arq);
     free(arq);

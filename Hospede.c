@@ -85,9 +85,10 @@ Hospede* getAllHospedes() {
 
 Hospede getHospedeByCod(int cod, int numHospedes) {
     //printf("ENTROU GETHOSPEDEBYCOD");
+    int i;
     setbuf(stdout, NULL);
     Hospede* arrHospedes = getAllHospedes();
-    for (int i = 0; i < numHospedes; i++) {
+    for ( i = 0; i < numHospedes; i++) {
         if (arrHospedes[i].codigo == cod) {
             //printf("\nACHOU O COD == AO QUE DIGITOU: %d == %s\n",cod,arrHospedes[i].nome);
             //printf("&&&&&&&&&&&&&&&&&\n");
@@ -107,19 +108,20 @@ Hospede getHospedeByCod(int cod, int numHospedes) {
 
 
 void sobrescreverHospedesTXT(int cod) {
+    int i = 0;
     printf("O COD QUE VAI SER DELETADO É: %d\n", cod);
-    
+
     //esse método pega todo o array de hóspedes
     Hospede* arrayHospedes = getAllHospedes();
     int numHospedes = getNumHospedes();
-    
+
     //depois ele escreve todos os hóspedes no aruqivo de novo
     FILE* arq = fopen(".\\persist\\hospedes.txt", "w"); //W, PARA SOBRESCREVER TUDO, MENOS O QUE FOI DELETADO
     if (arq == NULL) {
         printf("ERRO DE ABERTURA\n");
     } else {
-        
-        for (int i = 0; i < numHospedes; i++) {
+
+        for (i = 0; i < numHospedes; i++) {
             //mas existe um if para ver se o hospede do array tem o mesmo código do cara que ele deletou
             if (arrayHospedes[i].codigo == cod) {
                 //printf("ESSE NÃO SERÁ ESCRITO: %d\n",arrayHospedes[i].cod);
@@ -137,10 +139,10 @@ void sobrescreverHospedesTXT(int cod) {
             }
         }
         printf("ACABOU DE SOBRESCREVER\n");
-        
+
         Hospede* ar = getAllHospedes();
         printf("\n DEPOIS DE SOBRESCREVER \n");
-        for (int i = 0; i < (numHospedes-1); i++) {
+        for ( i = 0; i < (numHospedes - 1); i++) {
             printf("+++++++++++\n");
             printf("POS: %d -> %d\n", i, ar[i].codigo);
             printf("POS: %d -> %s\n", i, ar[i].nome);

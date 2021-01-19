@@ -1,4 +1,4 @@
-build/Debug/MinGW_QT-Windows/HospedeMenu.o: HospedeMenu.c \
+build/Debug/GNU_Cygwin-Windows/HospedeMenu.o: HospedeMenu.c \
  HospedeControl.h Hospede.h Principal.h
 
 HospedeControl.h:

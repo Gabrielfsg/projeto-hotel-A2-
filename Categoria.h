@@ -14,14 +14,28 @@
 #ifndef CATEGORIA_H
 #define CATEGORIA_H
 
-typedef struct categoria Categoria;
-Categoria* newCategoria(int codig, char descricao[], float valorDiario, int qtd, char facilidade[]);
-void cadastrarCategoriaTXT(int codig, char descricao[], float valorDiario, int qtd, char facilidade[]);
+//typedef struct categoria Categoria;
+
+typedef struct categoria {
+    int codigo;
+    char descricao[100];
+    float valorDiario;
+    int quantidadePessoas;
+    char facilidade[100];
+} Categoria;
+int cadastrarCategoriaTXT(Categoria cat);
+int salvarCategoriaTXT(Categoria *cat, int num);
 Categoria* listarCategoriaTXT();
-Categoria* newCate(int num) ;
-void add(Categoria *cat,int posicao, int codig, char descricao[], float valorDiario, int qtd, char facilidade[]);
+Categoria* newCate(int num);
 void mostrar(Categoria *cat, int numLinha);
 int numLinhas();
+
+
+
+int cadastrarCategoriaBIN(Categoria cat, int quantidade);
+Categoria* listarCategoriaBIN(int *numLinha) ;
+int contCategoria();
+int removerCategoriaBIN();
 
 #endif /* CATEGORIA_H */
 
