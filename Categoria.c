@@ -18,18 +18,22 @@
 
 int cadastrarCategoriaTXT(Categoria cat) {
     FILE *cad;
+    // abre o arquivo 
     cad = fopen("arquivos\\CategoriaTXT.txt", "a");
     if (cad == NULL) {
+        // se ele não existir cria um
         cad = fopen("arquivos\\CategoriaTXT.txt", "w");
-        return 0;
     } else {
+        // salva cada campo em uma linha
         fprintf(cad, "%d\n%s\n%d\n%s\n%f\n", cat.codigo, cat.descricao, cat.quantidadePessoas, cat.facilidade, cat.valorDiario); // f
+        //fecha o arquivo
         fclose(cad);
+        //libera memoria
         free(cad);
     }
     return 1;
 }
-
+//metodo salva, sobrescrevendo o array de tamanho num
 int salvarCategoriaTXT(Categoria *cat, int num) {
     FILE *cad;
     // w pra substituir o arquivo
@@ -68,12 +72,17 @@ Categoria* listarCategoriaTXT() {
     i = 0;
     //printf("linhas %d \n", numLinha);
     while (fscanf(arquivo, "%d", &cat[i].codigo) == 1) {
+        //retira o \n do inicio  da string
         fgetc(arquivo);
+        //pega a string descrição
         fscanf(arquivo, "%100[a-z A-Z\n]s", cat[i].descricao);
+        //retira o \n do fim da descrição
         strtok(cat[i].descricao, "\n");
         fscanf(arquivo, "%d", &cat[i].quantidadePessoas);
+        //retira o \n do inicio da facilidade
         fgetc(arquivo);
         fscanf(arquivo, "%100[a-z A-Z\n]s", cat[i].facilidade);
+        //retira o \n do fim da facilidade
         strtok(cat[i].facilidade, "\n");
         fscanf(arquivo, "%f", &cat[i].valorDiario);
         i++;
@@ -84,23 +93,6 @@ Categoria* listarCategoriaTXT() {
     free(arquivo);
     return cat;
 }
-
-void mostrar(Categoria *cat, int numLinha) {
-    int i;
-    for (i = 0; i < numLinha; i++) {
-        printf("cod : %d\n", cat[i].codigo);
-        printf("descicao :");
-        printf("%s", cat[i].descricao);
-        printf("facilidade :");
-        printf("%s", cat[i].facilidade);
-        printf("QUANTIDADE DE PESSOAS : %d\n", cat[i].quantidadePessoas);
-        printf("Valor Diaria: %f \n", cat[i].valorDiario);
-    }
-    //libera memoria
-    free(cat);
-    //free(numLinha);
-}
-
 int numLinhas() {
     FILE *arquivo;
     int numLinha = 0, c;
@@ -166,15 +158,22 @@ Categoria* listarCategoriaBIN(int *numLinha) {
         printf("Erro ao acessar arquivo\n");
     }
     *numLinha = 0;
-    //instancia vetor com tamanho de numLinha
+   
     Categoria c;
+     //instancia vetor com tamanho 1 
     Categoria *cat = (Categoria*) calloc(1, sizeof (Categoria));
+    //pega a primeira linha se existir
     fread(&c, sizeof (Categoria), 1, arquivo);
     do {
+        //soma a +1 no tamanho do vetor o qual comessa com 0
         *numLinha = (*numLinha)+ 1;
+        // realoca o vetor com o tamanho numLinha, a cada interação ele realoca um a mais
         cat = realloc(cat, *numLinha * sizeof (Categoria));
+        //adicionar o struct o vetor,(numLinha -1) pois o vetor comessa sempre por 0
         cat[(*numLinha) - 1] = c;
+        //pega o proximo indice, se existir
         fread(&c, sizeof (Categoria), 1, arquivo);
+        //verifica se chegou no fim do arquivo
     } while (!feof(arquivo));
     //fecha arquivo
     fclose(arquivo);
@@ -191,7 +190,7 @@ int editarCategoriaBIN(Categoria cat, int posi) {
         printf("Erro ao acessar arquivo\n");
         return 0;
     }
-    //Posiciona na (posi) posição do struct
+    //Posiciona o cursor na posição do struct
     fseek(arquivo, (posi * sizeof (Categoria)), SEEK_SET);
     //Substitui o struct de posição posi
     fwrite(&cat, sizeof (Categoria), 1, arquivo);
@@ -202,12 +201,14 @@ int editarCategoriaBIN(Categoria cat, int posi) {
     free(arquivo);
     return 1;
 }
+
 int validarCategoriaBIN(int cod) {
     int num;
     Categoria *cat = listarCategoriaBIN(&num);
     int i;
     for (i = 0; i < num; i++) {
         if (cod == cat[i].codigo) {
+            // retorna o indice se achar
             return i;
         }
     }

@@ -7,8 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include "Categoria.h"
-#include "CategoriaControl.h"
+#include "Categoria.h"
+#include "CategoriaSUB.h"
 //#include "CategoriaSUB.h"
 
 void cadastrarCategoriaSUB() {
@@ -29,7 +29,7 @@ void cadastrarCategoriaSUB() {
     printf("Digite a Capacidade de Pessoas \n");
     scanf("%d%*c", &c.quantidadePessoas);
     //Salva no arquivo se não possuir codigo igual
-    int r = /*cadastrarCategoriaControle(c);*/ cadastrarCategoriaBIN(c, 1);
+    int r = cadastrarCategoriaControleBIN(c,1); /*cadastrarCategoriaControle(c);*/
     if (r == 1) {
         printf("\nCadastro Realizado com Sucesso!\n");
     } else {
@@ -41,9 +41,9 @@ void cadastrarCategoriaSUB() {
 void listarCategoria() {
     //pega a lista de ACOMODAÇÃO do arquivo
     // Categoria *cat = listarCategoriaTXT();
-    int num;
+    int num; //numLinhas();
     Categoria *cat = /*listarCategoriaControle();*/listarCategoriaBIN(&num);
-    printf("%d",num);
+    printf("%d", num);
     //lista ACOMODAÇÃO
     int i;
     for (i = 0; i < num; i++) {
@@ -64,7 +64,7 @@ void listarCategoria() {
 void atualizarCategoria() {
     printf("***** ALTERAR DADOS DA CATEGORIA DA ACOMODAÇÃO  *****\n");
     int num;
-    Categoria *cat = listarCategoriaControleBIN(&num); //listarCategoriaControle();
+    Categoria *cat = listarCategoriaBIN(&num); //listarCategoriaControle();
     Categoria c;
     //int num = sizeof (cat) / sizeof (Categoria);
     //lista ACOMODAÇÃO
@@ -94,7 +94,8 @@ void atualizarCategoria() {
     scanf("%f%*c", &c.valorDiario);
     printf("Digite a Capacidade de Pessoas \n");
     scanf("%d%*c", &c.quantidadePessoas);
-    int r = editarCategoriaControleBIN(c); //editarCategoriaTXT(cat, c, num);
+    int r = editarCategoriaControleBIN(c); 
+    editarCategoriaTXT(cat, c, num);
     if (r == 1) {
         printf("\nEdição Realizado com Sucesso!\n");
     } else {
@@ -107,10 +108,109 @@ void deletarCategoria() {
     printf("***** DELETAR CATEGORIA DA ACOMODAÇÃO  *****\n");
     printf("Digite o cod da acomodação \n");
     scanf("%d%*c", &cod);
-    int r = removerCategoriaControleBIN(cod); //excluirCategoria(cod);
+    int r = removerCategoriaControleBIN(cod);
+    //excluirCategoria(cod);
     if (r == 1) {
         printf("\nExclusão realizada com sucesso!\n");
     } else {
         printf("\nNão foi possivel encontrar categoria de codigo %d \n", cod);
     }
+}
+
+//metodos de controle
+
+int cadastrarCategoriaControle(Categoria cat) {
+    if (validar(cat.codigo) == 0) {
+        return cadastrarCategoriaTXT(cat);
+    } else {
+        return 0;
+    }
+}
+
+int numLinhasCategoria() {
+    return numLinhas();
+}
+
+int editarCategoriaTXT(Categoria *cat, Categoria c, int num) {
+    int i;
+    for (i = 0; i < num; i++) {
+        if ((int) (cat[i].codigo) == (int) (c.codigo)) {
+            printf("entrou");
+            strcpy(cat[i].descricao, c.descricao);
+            strcpy(cat[i].facilidade, c.facilidade);
+            cat[i].quantidadePessoas = c.quantidadePessoas;
+            cat[i].valorDiario = c.valorDiario;
+        }
+    }
+
+    return salvarCategoriaTXT(cat, num);
+}
+
+int excluirCategoria(int cod) {
+    int num = numLinhas();
+    Categoria *cat = listarCategoriaTXT();
+    int i;
+    for (i = 0; i < num; i++) {
+        if (cat[i].codigo == cod) {
+            int j;
+            for (j = i; j < num - 1; j++) {
+                cat[i].codigo = cat[i + 1].codigo;
+                strcpy(cat[i].descricao, cat[i + 1].descricao);
+                strcpy(cat[i].facilidade, cat[i + 1].facilidade);
+                cat[i].quantidadePessoas = cat[i + 1].quantidadePessoas;
+                cat[i].valorDiario = cat[i + 1].valorDiario;
+                cat = realloc(cat, (num - 1) * sizeof (Categoria));
+            }
+            break;
+        }
+    }
+    //salva no arquivo txt com uma categoria a menos
+    // retorna s, se editou com sucesso e f se não achou o codigo;
+    return salvarCategoriaTXT(cat, num - 1);
+
+}
+
+/*arquivo binario*/
+int cadastrarCategoriaControleBIN(Categoria cat, int qtd) {
+    if (validarCategoriaBIN(cat.codigo) == 0) {
+        return cadastrarCategoriaBIN(cat, qtd);
+    } else {
+        return 0;
+    }
+    return 1;
+}
+
+int editarCategoriaControleBIN(Categoria cat) {
+    editarCategoriaBIN(cat, validarCategoriaBIN(cat.codigo));
+}
+
+// remove a categoria do vetor, realoca ele e reecreve o arquivo
+
+int removerCategoriaControleBIN(int cod) {
+    int num;
+    Categoria *cat = listarCategoriaBIN(&num);
+    int i;
+    for (i = 0; i < num; i++) {
+        if (cat[i].codigo == cod) {
+            int j;
+            //realoca o vetor
+            for (j = i; j < num - 1; j++) {
+                cat[i].codigo = cat[i + 1].codigo;
+                strcpy(cat[i].descricao, cat[i + 1].descricao);
+                strcpy(cat[i].facilidade, cat[i + 1].facilidade);
+                cat[i].quantidadePessoas = cat[i + 1].quantidadePessoas;
+                cat[i].valorDiario = cat[i + 1].valorDiario;
+                cat = realloc(cat, (num - 1) * sizeof (Categoria));
+            }
+            break;
+        }
+    }
+    //apaga arquivo
+    int r = removerCategoriaBIN();
+    if (r == 1) {
+        //se deu certo reescreve arquivo
+        salvarCategoriaTXT(cat, num - 1);
+    }
+
+
 }

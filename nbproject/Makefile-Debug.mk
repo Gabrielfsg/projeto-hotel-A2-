@@ -41,7 +41,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/Caixa.o \
 	${OBJECTDIR}/CatAcomod.o \
 	${OBJECTDIR}/Categoria.o \
-	${OBJECTDIR}/CategoriaControle.o \
 	${OBJECTDIR}/CategoriaMenu.o \
 	${OBJECTDIR}/CategoriaSUB.o \
 	${OBJECTDIR}/CheckIn.o \
@@ -131,11 +130,6 @@ ${OBJECTDIR}/Categoria.o: Categoria.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Categoria.o Categoria.c
-
-${OBJECTDIR}/CategoriaControle.o: CategoriaControle.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CategoriaControle.o CategoriaControle.c
 
 ${OBJECTDIR}/CategoriaMenu.o: CategoriaMenu.c 
 	${MKDIR} -p ${OBJECTDIR}
