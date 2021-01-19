@@ -18,7 +18,8 @@ void listarHospedes();
 void cadastrarHospedes();
 void atualizarHospedes();
 void deletarHospedes();
-Hospede* getAllHospedes();
+Hospede* getAllHospedesControl();
+Hospede getHospedeByCodControl();
 int validarCod(int cod);
 int getNumHospedes();
 #endif /* HOSPEDECONTROL_H */

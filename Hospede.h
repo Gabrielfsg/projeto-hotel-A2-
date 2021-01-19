@@ -27,6 +27,12 @@ typedef struct hospede {
     //Endereco *endereco;
 } Hospede;
 
+void cadastrarHospedesTXT(Hospede h);
+void cadastrarHospedesBIN(Hospede h);
+Hospede* getAllHospedes(int numHospedes);
+Hospede getHospedeByCod(int cod, int numHospedes);
+void atualizarHospedes();
+void sobrescreverHospedesTXT();
 
 #endif /* HOSPEDE_H */
 

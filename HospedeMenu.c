@@ -17,9 +17,10 @@ void menuCRUDHospedes() {
         printf("Opções: \n");
         printf("1.Cadastrar Hospede. \n");
         printf("2.Alterar Dados do Hospede. \n");
-        printf("3.Visualizar Hospede. \n");
-        printf("4.Excluir Hospede. \n");
-        printf("5.Voltar. \n");
+        printf("3.Visualizar Todos os Hospedes. \n");
+        printf("4.Visualizar Hospede por código. \n");
+        printf("5.Excluir Hospede. \n");
+        printf("6.Voltar. \n");
         printf("Digite a opção desejada: \n");
         scanf("%d%*c", &opc);
         switch (opc) {
@@ -32,10 +33,20 @@ void menuCRUDHospedes() {
             case 3:
                 listarHospedes();
                 break;
-            case 4:
-                deletarHospedes();
+            case 4:;                
+                setbuf(stdout, NULL);
+                setbuf(stdin, NULL);
+                Hospede hos = getHospedeByCodControl();
+                setbuf(stdout, NULL);
+                fflush(stdout);  
                 break;
             case 5:
+                setbuf(stdout, NULL);
+                setbuf(stdin, NULL);
+                deletarHospedesControl();
+                
+                break;
+            case 6:
                 sair = 1;
                 subCadastros();
                 break;
