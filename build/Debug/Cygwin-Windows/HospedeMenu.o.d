@@ -1,8 +1,10 @@
-build/Debug/Cygwin-Windows/HospedeMenu.o: HospedeMenu.c HospedeControl.h \
- Hospede.h Principal.h
+build/Debug/Cygwin-Windows/HospedeMenu.o: HospedeMenu.c Principal.h \
+ Hospede.h HospedeMenu.h HospedeControl.h
 
-HospedeControl.h:
+Principal.h:
 
 Hospede.h:
 
-Principal.h:
+HospedeMenu.h:
+
+HospedeControl.h:

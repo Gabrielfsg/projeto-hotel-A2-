@@ -56,7 +56,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/FornecedorMenu.o \
 	${OBJECTDIR}/Hora.o \
 	${OBJECTDIR}/Hospede.o \
-	${OBJECTDIR}/HospedeControl.o \
 	${OBJECTDIR}/HospedeMenu.o \
 	${OBJECTDIR}/Hotel.o \
 	${OBJECTDIR}/HotelMenu.o \
@@ -206,11 +205,6 @@ ${OBJECTDIR}/Hospede.o: Hospede.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Hospede.o Hospede.c
-
-${OBJECTDIR}/HospedeControl.o: HospedeControl.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HospedeControl.o HospedeControl.c
 
 ${OBJECTDIR}/HospedeMenu.o: HospedeMenu.c
 	${MKDIR} -p ${OBJECTDIR}

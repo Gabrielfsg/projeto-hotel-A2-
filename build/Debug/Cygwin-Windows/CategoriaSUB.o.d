@@ -1,6 +1,8 @@
-build/Debug/Cygwin-Windows/CategoriaSUB.o: CategoriaSUB.c \
- CategoriaControl.h Categoria.h
+build/Debug/Cygwin-Windows/CategoriaSUB.o: CategoriaSUB.c Categoria.h \
+ CategoriaControl.h CategoriaSUB.h
+
+Categoria.h:
 
 CategoriaControl.h:
 
-Categoria.h:
+CategoriaSUB.h:
