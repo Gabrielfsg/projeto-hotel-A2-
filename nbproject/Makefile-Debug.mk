@@ -41,7 +41,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/Caixa.o \
 	${OBJECTDIR}/CatAcomod.o \
 	${OBJECTDIR}/Categoria.o \
-	${OBJECTDIR}/CategoriaControle.o \
 	${OBJECTDIR}/CategoriaMenu.o \
 	${OBJECTDIR}/CategoriaSUB.o \
 	${OBJECTDIR}/CheckIn.o \
@@ -56,7 +55,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/FornecedorMenu.o \
 	${OBJECTDIR}/Hora.o \
 	${OBJECTDIR}/Hospede.o \
-	${OBJECTDIR}/HospedeControl.o \
 	${OBJECTDIR}/HospedeMenu.o \
 	${OBJECTDIR}/Hotel.o \
 	${OBJECTDIR}/HotelMenu.o \
@@ -132,11 +130,6 @@ ${OBJECTDIR}/Categoria.o: Categoria.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Categoria.o Categoria.c
 
-${OBJECTDIR}/CategoriaControle.o: CategoriaControle.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CategoriaControle.o CategoriaControle.c
-
 ${OBJECTDIR}/CategoriaMenu.o: CategoriaMenu.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -206,11 +199,6 @@ ${OBJECTDIR}/Hospede.o: Hospede.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Hospede.o Hospede.c
-
-${OBJECTDIR}/HospedeControl.o: HospedeControl.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HospedeControl.o HospedeControl.c
 
 ${OBJECTDIR}/HospedeMenu.o: HospedeMenu.c
 	${MKDIR} -p ${OBJECTDIR}

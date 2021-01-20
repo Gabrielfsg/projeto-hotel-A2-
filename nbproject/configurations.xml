@@ -10,7 +10,6 @@
         <itemPath>AcomodacaoControl.h</itemPath>
         <itemPath>CategoriaControl.h</itemPath>
         <itemPath>FornecedorControl.h</itemPath>
-        <itemPath>HospedeControl.h</itemPath>
         <itemPath>OperadorSistemaControl.h</itemPath>
         <itemPath>ProdutoConsumoControl.h</itemPath>
       </logicalFolder>
@@ -55,7 +54,6 @@
         <itemPath>AcomodacaoControl.c</itemPath>
         <itemPath>CategoriaControle.c</itemPath>
         <itemPath>FornecedorControl.c</itemPath>
-        <itemPath>HospedeControl.c</itemPath>
         <itemPath>OperadorSistemaControl.c</itemPath>
         <itemPath>ProdutosConsumoControl.c</itemPath>
         <itemPath>ReservaControl.c</itemPath>
@@ -148,6 +146,17 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Arquivos de Teste"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Arquivos Importantes"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -180,10 +189,6 @@
       <item path="Categoria.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Categoria.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="CategoriaControl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="CategoriaControle.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="CategoriaMenu.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -240,10 +245,6 @@
       <item path="Hospede.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Hospede.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HospedeControl.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="HospedeControl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HospedeMenu.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -355,10 +356,6 @@
       </item>
       <item path="Categoria.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="CategoriaControl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="CategoriaControle.c" ex="false" tool="0" flavor2="0">
-      </item>
       <item path="CategoriaMenu.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="CategoriaMenu.h" ex="false" tool="3" flavor2="0">
@@ -414,10 +411,6 @@
       <item path="Hospede.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Hospede.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HospedeControl.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="HospedeControl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HospedeMenu.c" ex="false" tool="0" flavor2="0">
       </item>

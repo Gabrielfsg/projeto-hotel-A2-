@@ -16,7 +16,7 @@
 #include "CatAcomod.h"
 #include "Principal.h"
 #include "Login.h"
-#include "CategoriaControl.h"
+//#include "CategoriaControl.h"
 //#include "Categoria.h"
 /*
  * 
