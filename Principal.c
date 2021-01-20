@@ -14,6 +14,7 @@
 #include "Login.h"
 #include "Principal.h"
 #include "Menus.h"
+#include "SalvametoBD.h"
 
 void subArquivo();
 void subCadastros();
@@ -142,19 +143,19 @@ void subListagem() {
                 //listarHospedes();
                 break;
             case 2:
-               
+
                 break;
             case 3:
-                
+
                 break;
             case 4:
-                
+
                 break;
             case 5:
-                
+
                 break;
             case 6:
-                
+
                 break;
             case 7:
                 //exit(0);
@@ -162,7 +163,7 @@ void subListagem() {
                 break;
             default:
                 printf("Valor Invalido!\n");
-                
+
                 break;
         }
     }
@@ -249,7 +250,7 @@ void subReservas() {
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-                
+
                 break;
             case 2:
 
@@ -371,7 +372,7 @@ void subRelatorios() {
 }
 
 void subConfiguracoes() {
-    int opc = 0;
+    int opc = 0, r;
     while (opc >= 0) {
         printf("*******Configurações********\n");
         printf("1.Op de BD.\n");
@@ -382,7 +383,31 @@ void subConfiguracoes() {
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-                //menuLogin();
+                printf("1.Salvar em Arquivos TXT (1).\n");
+                printf("2.Salvar em Arquivos BIN (2).\n");
+                printf("\nDigite a opção!:");
+                scanf("%d%*c", &opc);
+                switch (opc) {
+                    case 1:
+                        r = alterar(1);
+                        if (r = 0) {
+                            printf("\nErro :\n");
+                        } else {
+                            printf("\nBD alterado com SUCESSO!!\n");
+                        }
+                        break;
+                    case 2:
+                        r = alterar(2);
+                        if (r = 0) {
+                            printf("\nErro :\n");
+                        } else {
+                            printf("\nBD alterado com SUCESSO!!\n");
+                        }
+                        break;
+                    default:
+                        printf("\nOPÇÃO INVÁLIDA!!\n");
+                        break;
+                }
                 break;
             case 2:
 

@@ -18,22 +18,27 @@
 
 int cadastrarCategoriaTXT(Categoria cat) {
     FILE *cad;
-    // abre o arquivo 
+    // abre o arquivo e posiciona o cursor no final
     cad = fopen("arquivos\\CategoriaTXT.txt", "a");
     if (cad == NULL) {
         // se ele não existir cria um
         cad = fopen("arquivos\\CategoriaTXT.txt", "w");
-    } else {
-        // salva cada campo em uma linha
-        fprintf(cad, "%d\n%s\n%d\n%s\n%f\n", cat.codigo, cat.descricao, cat.quantidadePessoas, cat.facilidade, cat.valorDiario); // f
-        //fecha o arquivo
-        fclose(cad);
-        //libera memoria
-        free(cad);
+        if (cad == NULL) {
+            printf("\nErro: aao cessar arquivo\n");
+            return 0;
+        }
     }
+    // salva cada campo em uma linha
+    fprintf(cad, "%d\n%s\n%d\n%s\n%f\n", cat.codigo, cat.descricao, cat.quantidadePessoas, cat.facilidade, cat.valorDiario); // f
+    //fecha o arquivo
+    fclose(cad);
+    //libera memoria
+    free(cad);
+
     return 1;
 }
 //metodo salva, sobrescrevendo o array de tamanho num
+
 int salvarCategoriaTXT(Categoria *cat, int num) {
     FILE *cad;
     // w pra substituir o arquivo
@@ -62,11 +67,15 @@ Categoria* listarCategoriaTXT() {
     int numLinha = 0, i = 0;
     FILE *arquivo;
     numLinha = numLinhasCategoria(arquivo);
-    //area arquivo para leitura apenas "r"
+    //abrea arquivo para leitura apenas "r"
     arquivo = fopen("arquivos\\CategoriaTXT.txt", "r");
     if (arquivo == NULL) {
-        printf("Erro ao acessar arquivo categoria\n");
-        exit(1);
+        //cria arquivo para leitura/escrita se não houver "w+"
+        arquivo = fopen("arquivos\\CategoriaTXT.txt", "w+");
+        if (arquivo == NULL) {
+            printf("\nErro ao acessar arquivo categoria\n");
+            return NULL;
+        }
     }
     //instancia vetor com tamanho de numLinha
     Categoria *cat = (Categoria*) calloc(numLinha, sizeof (Categoria));
@@ -94,13 +103,18 @@ Categoria* listarCategoriaTXT() {
     free(arquivo);
     return cat;
 }
+
 int numLinhasCategoria() {
     FILE *arquivo;
     int numLinha = 0, c;
     //abre arquivo para leitura "r"
     arquivo = fopen("arquivos\\CategoriaTXT.txt", "r");
     if (arquivo == NULL) {
-        printf("Erro ao acessar arquivo\n");
+        arquivo = fopen("arquivos\\CategoriaTXT.txt", "w+");
+        if (arquivo == NULL) {
+            printf("Erro ao acessar arquivo\n");
+            return 0;
+        }
     }
     //roda ate que ache o final do arquivo "EOF"
     while ((c = fgetc(arquivo)) != EOF) {
@@ -151,31 +165,40 @@ int cadastrarCategoriaBIN(Categoria cat, int quantidade) {
     return 1;
 }
 
-Categoria* listarCategoriaBIN(int *numLinha) {
+Categoria * listarCategoriaBIN(int *numLinha) {
     FILE *arquivo;
     //area arquivo para leitura apenas "rb"
     arquivo = fopen("arquivos\\CategoriaBIN.bin", "rb");
     if (arquivo == NULL) {
-        printf("Erro ao acessar arquivo\n");
+        //cria arquivo para leitura\escrita se não houver "w+b"
+        arquivo = fopen("arquivos\\CategoriaBIN.bin", "w+b");
+        if (arquivo == NULL) {
+            printf("\nERRO ao acessar arquivo\n");
+            return NULL;
+        }
     }
     *numLinha = 0;
-   
+
     Categoria c;
-     //instancia vetor com tamanho 1 
+    //instancia vetor com tamanho 1 
     Categoria *cat = (Categoria*) calloc(1, sizeof (Categoria));
     //pega a primeira linha se existir
-    fread(&c, sizeof (Categoria), 1, arquivo);
-    do {
-        //soma a +1 no tamanho do vetor o qual comessa com 0
-        *numLinha = (*numLinha)+ 1;
-        // realoca o vetor com o tamanho numLinha, a cada interação ele realoca um a mais
-        cat = realloc(cat, *numLinha * sizeof (Categoria));
-        //adicionar o struct o vetor,(numLinha -1) pois o vetor comessa sempre por 0
-        cat[(*numLinha) - 1] = c;
-        //pega o proximo indice, se existir
-        fread(&c, sizeof (Categoria), 1, arquivo);
-        //verifica se chegou no fim do arquivo
-    } while (!feof(arquivo));
+    int r = fread(&c, sizeof (Categoria), 1, arquivo);
+    if (r > 0) {
+        do {
+            //soma a +1 no tamanho do vetor o qual comessa com 0
+            *numLinha = (*numLinha) + 1;
+            // realoca o vetor com o tamanho numLinha, a cada interação ele realoca um a mais
+            cat = realloc(cat, *numLinha * sizeof (Categoria));
+            //adicionar o struct o vetor,(numLinha -1) pois o vetor comessa sempre por 0
+            cat[(*numLinha) - 1] = c;
+            //pega o proximo indice, se existir
+            fread(&c, sizeof (Categoria), 1, arquivo);
+            //verifica se chegou no fim do arquivo
+        } while (!feof(arquivo));
+    }else{
+        return NULL;
+    }
     //fecha arquivo
     fclose(arquivo);
     //libera memoria

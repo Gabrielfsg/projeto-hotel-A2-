@@ -26,7 +26,7 @@ int salvarAcomodacaoTXT(Acomodacao *aco, int num);
 Acomodacao* listarAcomodacaoTXT();
 int numLinhasAcomodacao();
 int validarAcomodacao(int cod);
-int cadastrarAcomodacaoBIN(Acomodacao aco, int quantidade);
+int cadastrarAcomodacaoBIN(Acomodacao *aco, int quantidade);
 Acomodacao* listarAcomodacaoBIN(int *numLinha);
 int editarAcomodacaoBIN(Acomodacao aco, int posi);
 int validarAcomodacaoBIN(int cod);

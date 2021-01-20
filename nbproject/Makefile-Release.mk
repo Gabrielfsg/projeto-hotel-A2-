@@ -67,6 +67,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/ProdutosConsumoControl.o \
 	${OBJECTDIR}/Reserva.o \
 	${OBJECTDIR}/Retirada.o \
+	${OBJECTDIR}/SalvamentoBD.o \
 	${OBJECTDIR}/Venda.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/menuAcomodacoes.o \
@@ -257,6 +258,11 @@ ${OBJECTDIR}/Retirada.o: Retirada.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Retirada.o Retirada.c
+
+${OBJECTDIR}/SalvamentoBD.o: SalvamentoBD.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SalvamentoBD.o SalvamentoBD.c
 
 ${OBJECTDIR}/Venda.o: Venda.c 
 	${MKDIR} -p ${OBJECTDIR}

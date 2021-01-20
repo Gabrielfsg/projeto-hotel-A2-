@@ -16,6 +16,11 @@
 #include "CatAcomod.h"
 #include "Principal.h"
 #include "Login.h"
+//#include "Categoria.h"
+/*
+ * 
+ */
+
 
 int main() {
 //teste commit
