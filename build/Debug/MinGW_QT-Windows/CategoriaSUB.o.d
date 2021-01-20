@@ -1,7 +1,5 @@
-build/Debug/MinGW_QT-Windows/CategoriaSUB.o: CategoriaSUB.c \
- CategoriaControl.h Categoria.h CategoriaSUB.h
-
-CategoriaControl.h:
+build/Debug/MinGW_QT-Windows/CategoriaSUB.o: CategoriaSUB.c Categoria.h \
+ CategoriaSUB.h
 
 Categoria.h:
 

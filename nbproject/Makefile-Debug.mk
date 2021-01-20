@@ -36,8 +36,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Acomodacao.o \
-	${OBJECTDIR}/AcomodacaoControl.o \
 	${OBJECTDIR}/AcomodacaoMenu.o \
+	${OBJECTDIR}/AcomodacaoSUB.o \
 	${OBJECTDIR}/Caixa.o \
 	${OBJECTDIR}/CatAcomod.o \
 	${OBJECTDIR}/Categoria.o \
@@ -106,15 +106,15 @@ ${OBJECTDIR}/Acomodacao.o: Acomodacao.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Acomodacao.o Acomodacao.c
 
-${OBJECTDIR}/AcomodacaoControl.o: AcomodacaoControl.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AcomodacaoControl.o AcomodacaoControl.c
-
 ${OBJECTDIR}/AcomodacaoMenu.o: AcomodacaoMenu.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AcomodacaoMenu.o AcomodacaoMenu.c
+
+${OBJECTDIR}/AcomodacaoSUB.o: AcomodacaoSUB.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AcomodacaoSUB.o AcomodacaoSUB.c
 
 ${OBJECTDIR}/Caixa.o: Caixa.c 
 	${MKDIR} -p ${OBJECTDIR}
