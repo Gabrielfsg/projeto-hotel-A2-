@@ -29,6 +29,7 @@ typedef struct hospede {
 
 void cadastrarHospedesTXT(Hospede h);
 void cadastrarHospedesBIN(Hospede h);
+void atualizarHospedeTXT(Hospede novoHosp);
 Hospede* getAllHospedes(int numHospedes);
 Hospede getHospedeByCod(int cod, int numHospedes);
 void atualizarHospedes();

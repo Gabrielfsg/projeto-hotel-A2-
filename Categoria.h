@@ -24,21 +24,18 @@ typedef struct categoria {
     char facilidade[100];
 } Categoria;
 int cadastrarCategoriaTXT(Categoria cat);
-
 int salvarCategoriaTXT(Categoria *cat, int num);
-
 Categoria* listarCategoriaTXT();
 Categoria* newCate(int num);
-int numLinhasCategoria();
-int validarCategoria(int cod);
+void mostrar(Categoria *cat, int numLinha);
+int numLinhas();
+
 
 
 int cadastrarCategoriaBIN(Categoria cat, int quantidade);
-Categoria* listarCategoriaBIN(int *numLinha);
+Categoria* listarCategoriaBIN(int *numLinha) ;
 int contCategoria();
 int removerCategoriaBIN();
-int validarCategoriaBIN(int cod);
-int editarCategoriaBIN(Categoria cat, int posi);
 
 #endif /* CATEGORIA_H */
 

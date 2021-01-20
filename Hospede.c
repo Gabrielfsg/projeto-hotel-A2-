@@ -10,7 +10,6 @@
 #include"Data.h"
 #include"Endereco.h"
 #include"Hospede.h"
-#include "HospedeControl.h"
 
 void cadastrarHospedesTXT(Hospede h) {
     FILE* listaHospedes;
@@ -106,6 +105,37 @@ Hospede getHospedeByCod(int cod, int numHospedes) {
     //scanf("%d%*c",&);
 }*/
 
+
+void atualizarHospedeTXT(Hospede novoHosp) {
+    FILE* hosp = fopen(".\\persist\\hospedes_temp.txt", "w");
+    if (hosp == NULL) {
+        printf("ERRO AO ABRIR ARQUIVO");
+    } else {
+        int numHospedes = getNumHospedes();
+        Hospede* arrHosp = getAllHospedes(numHospedes);
+
+        for (int i = 0; i < numHospedes; i++) {
+            if (arrHosp[i].codigo != novoHosp.codigo) {
+                printf("%d != %d\n",arrHosp[i].codigo,novoHosp.codigo);
+                strtok(arrHosp[i].nome, "\r");
+                fprintf(hosp, "Cod: %d\r\nNome: %s\r\nCPF: %s\r\nTelefone: %s\r\nEmail: %s\r\nSexo: %c\r\nEstadoCivil: %s\r\n", arrHosp[i].codigo, arrHosp[i].nome, arrHosp[i].cpf, arrHosp[i].telefone, arrHosp[i].email, arrHosp[i].sexo, arrHosp[i].esCivil);
+                fflush(hosp);
+
+            } else {
+                printf("ESSE É O QUE VAI ALTERAR: COD = %d\n",novoHosp.codigo);
+                strtok(novoHosp.nome, "\r");
+                fprintf(hosp, "Cod: %d\r\nNome: %s\r\nCPF: %s\r\nTelefone: %s\r\nEmail: %s\r\nSexo: %c\r\nEstadoCivil: %s\r\n", novoHosp.codigo, novoHosp.nome, novoHosp.cpf, novoHosp.telefone, novoHosp.email, novoHosp.sexo, novoHosp.esCivil);
+                fflush(hosp);
+            }
+        }
+
+        fclose(hosp);
+        free(arrHosp);
+        remove(".\\persist\\hospedes.txt");
+        rename(".\\persist\\hospedes_temp.txt", ".\\persist\\hospedes.txt");
+    }
+     
+}
 
 void deletarHospede(int cod) {
 
