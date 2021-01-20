@@ -107,14 +107,6 @@ Hospede getHospedeByCod(int cod, int numHospedes) {
 
 
 void atualizarHospedeTXT(Hospede novoHosp) {
-    printf("ENTROU ATUALIZAR\n");
-    printf("COD: %d\n",novoHosp.codigo);
-    printf("NOME: %s\n",novoHosp.nome);
-    printf("CPF: %s\n",novoHosp.cpf);
-    printf("EMAIL: %s\n",novoHosp.email);
-    printf("TELEFONE: %s\n",novoHosp.telefone);
-    printf("ESCIVIL: %s\n",novoHosp.esCivil);
-    printf("SEXO: %c\n",novoHosp.sexo);
     FILE* hosp = fopen(".\\persist\\hospedes_temp.txt", "w");
     if (hosp == NULL) {
         printf("ERRO AO ABRIR ARQUIVO");
