@@ -15,9 +15,16 @@
 #define CATEGORIACONTROL_H
 #include "Categoria.h"
 Categoria* listarCategoriaControle();
-void cadastrarCategoriaControle(int codig, char descricao[], float valorDiario, int qtd, char facilidade[]);
+int cadastrarCategoriaControle(Categoria cat);
 void mostrarCategoriaControle();
-/*void atualizarCategoria();
-void deletarCategoria();*/
+int numLinhas();
+int salvaCategoriaTXT(Categoria *cat, int num);
+int editarCategoriaTXT(Categoria *cat, Categoria c, int num);
+
+
+int cadastrarCategoriaControleBIN(Categoria cat, int qtd);
+Categoria* listarCategoriaControleBIN(int *num);
+int editarCategoriaControleBIN(Categoria cat);
+int removerCategoriaControleBIN(int cod);
 #endif /* CATEGORIACONTROL_H */
 

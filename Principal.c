@@ -139,7 +139,7 @@ void subListagem() {
         switch (opc) {
             case 1:
                 //lista os hóspedes
-                listarHospedes();
+                //listarHospedes();
                 break;
             case 2:
                
