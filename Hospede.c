@@ -19,18 +19,21 @@ void cadastrarHospedesTXT(Hospede h) {
         printf("ERRO DE ABERTURA\n");
     } else {
         fprintf(listaHospedes, "Cod: %d\r\nNome: %s\r\nCPF: %s\r\nTelefone: %s\r\nEmail: %s\r\nSexo: %c\r\nEstadoCivil: %s\r\n", h.codigo, h.nome, h.cpf, h.telefone, h.email, h.sexo, h.esCivil);
+
+        fflush(listaHospedes);
         printf("\nHOSPEDE CADASTRADO COM SUCESSO\n");
 
         fclose(listaHospedes);
     }
 }
 
-Hospede* getAllHospedes() {
-    int index = 0; //PARA ARMAZENAR O TAMANHO DO VETOR
+Hospede* getAllHospedes(int numHospedes) {
+    int index = 1; //PARA ARMAZENAR O TAMANHO DO VETOR
 
-    Hospede *arrayHospedes = (Hospede *) malloc(sizeof (Hospede)); //PONTEIRO DE HÓSPEDE VIRA UM VETOR AO CHAMAR MALLOC
+    Hospede *arrayHospedes = (Hospede *) malloc(sizeof (Hospede) * numHospedes); //PONTEIRO DE HÓSPEDE VIRA UM VETOR AO CHAMAR MALLOC
     if (arrayHospedes == NULL) {
         printf("ERRO DE ALOCAÇÃO");
+        exit(1);
     }
 
     //pega a lista de hóspedes do arquivo
@@ -40,7 +43,9 @@ Hospede* getAllHospedes() {
     if (scanHospedes == NULL) {
         printf(" ERRO DE LEITURA ");
     } else {
-        while (!feof(scanHospedes)) { //enquanto não for o final do arquivo
+        //rewind(scanHospedes);
+        //while (!feof(scanHospedes)) { //enquanto não for o final do arquivo
+        for (int i = 0; i < numHospedes; i++) {
             Hospede h;
             char text[20];
 
@@ -55,20 +60,19 @@ Hospede* getAllHospedes() {
             //DATA NASC
             fscanf(scanHospedes, "%s %s", text, h.esCivil);
 
-
             //COLOCA O HOSPEDE NO ARRAY
-            arrayHospedes[index] = h;
+            arrayHospedes[index - 1] = h;
             index++;
-
             //REALLOCA O VETOR DE HÓSPEDE, ADICIONANDO MAIS UM "ESPAÇO" PARA HOSPEDE
-            arrayHospedes = realloc(arrayHospedes, (sizeof (Hospede) + sizeof (arrayHospedes)));
+            //arrayHospedes = realloc(arrayHospedes, (sizeof (Hospede) + sizeof (arrayHospedes)));
+            //arrayHospedes = realloc(arrayHospedes, (sizeof (Hospede)*(index+1)));
 
             //teste arrayHospedes = malloc(count*sizeof(Hospede));          
         }
         fclose(scanHospedes);
 
         /*printf("\n TESTE PARA VER TODOS OS ITENS DO ARRAY \n");
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < index - 1; i++) {
             printf("+++++++++++\n");
             printf("POS: %d -> %d\n", i, arrayHospedes[i].codigo);
             printf("POS: %d -> %s\n", i, arrayHospedes[i].nome);
@@ -85,15 +89,11 @@ Hospede* getAllHospedes() {
 
 Hospede getHospedeByCod(int cod, int numHospedes) {
     //printf("ENTROU GETHOSPEDEBYCOD");
-    int i;
-    setbuf(stdout, NULL);
-    Hospede* arrHospedes = getAllHospedes();
-    for ( i = 0; i < numHospedes; i++) {
+
+    Hospede* arrHospedes = getAllHospedes(3);
+    for (int i = 0; i < numHospedes; i++) {
         if (arrHospedes[i].codigo == cod) {
             //printf("\nACHOU O COD == AO QUE DIGITOU: %d == %s\n",cod,arrHospedes[i].nome);
-            //printf("&&&&&&&&&&&&&&&&&\n");
-            //printf("GETHOSPEDE BY COD  COD: %d NOME: %s\n",arrHospedes[i].codigo,arrHospedes[i].nome);
-            //printf("&&&&&&&&&&&&&&&&&\n");
             return arrHospedes[i];
         }
     }
@@ -107,54 +107,28 @@ Hospede getHospedeByCod(int cod, int numHospedes) {
 }*/
 
 
-void sobrescreverHospedesTXT(int cod) {
-    int i = 0;
-    printf("O COD QUE VAI SER DELETADO É: %d\n", cod);
+void deletarHospede(int cod) {
 
-    //esse método pega todo o array de hóspedes
-    Hospede* arrayHospedes = getAllHospedes();
-    int numHospedes = getNumHospedes();
-
-    //depois ele escreve todos os hóspedes no aruqivo de novo
-    FILE* arq = fopen(".\\persist\\hospedes.txt", "w"); //W, PARA SOBRESCREVER TUDO, MENOS O QUE FOI DELETADO
-    if (arq == NULL) {
-        printf("ERRO DE ABERTURA\n");
+    FILE* hosp = fopen(".\\persist\\hospedes_temp.txt", "w");
+    if (hosp == NULL) {
+        printf("ERRO");
     } else {
+        int numHospedes = getNumHospedes();
+        Hospede* arrHosp = getAllHospedes(numHospedes);
 
-        for (i = 0; i < numHospedes; i++) {
-            //mas existe um if para ver se o hospede do array tem o mesmo código do cara que ele deletou
-            if (arrayHospedes[i].codigo == cod) {
-                //printf("ESSE NÃO SERÁ ESCRITO: %d\n",arrayHospedes[i].cod);
-            } else {
-                Hospede h = arrayHospedes[i];
-                fprintf(arq, "Cod: %d\r\nNome: %s\r\nCPF: %s\r\nTelefone: %s\r\nEmail: %s\r\nSexo: %c\r\nEstadoCivil: %s\r\n", h.codigo, h.nome, h.cpf, h.telefone, h.email, h.sexo, h.esCivil);
-                //fprintf(arq, "Cod: %d\r\nNome: %s\r\nCPF: %s\r\nTelefone: %s\r\nEmail: %s\r\nSexo: %c\r\nEstadoCivil: %s\r\n", arrayHospedes[i].codigo, arrayHospedes[i].nome, arrayHospedes[i].cpf, arrayHospedes[i].telefone, arrayHospedes[i].email, arrayHospedes[i].sexo, arrayHospedes[i].esCivil);
-                /*fprintf(arq,"Cod: %d\r\n",arrayHospedes[i].codigo);
-                fprintf(arq,"Nome: %s",arrayHospedes[i].nome);
-                fprintf(arq,"CPF: %s\r\n",arrayHospedes[i].cpf);
-                fprintf(arq,"Telefone: %s\r\n",arrayHospedes[i].telefone);
-                fprintf(arq,"Email: %s\r\n",arrayHospedes[i].email);
-                fprintf(arq,"Sexo: %c\r\n",arrayHospedes[i].sexo);
-                fprintf(arq,"EstadoCivil: %s\r\n",arrayHospedes[i].esCivil);*/
+        for (int i = 0; i < numHospedes; i++) {
+            if (arrHosp[i].codigo != cod) {
+
+                strtok(arrHosp[i].nome, "\r");
+                fprintf(hosp, "Cod: %d\r\nNome: %s\r\nCPF: %s\r\nTelefone: %s\r\nEmail: %s\r\nSexo: %c\r\nEstadoCivil: %s\r\n", arrHosp[i].codigo, arrHosp[i].nome, arrHosp[i].cpf, arrHosp[i].telefone, arrHosp[i].email, arrHosp[i].sexo, arrHosp[i].esCivil);
+                fflush(hosp);
+
             }
         }
-        printf("ACABOU DE SOBRESCREVER\n");
 
-        Hospede* ar = getAllHospedes();
-        printf("\n DEPOIS DE SOBRESCREVER \n");
-        for ( i = 0; i < (numHospedes - 1); i++) {
-            printf("+++++++++++\n");
-            printf("POS: %d -> %d\n", i, ar[i].codigo);
-            printf("POS: %d -> %s\n", i, ar[i].nome);
-            printf("POS: %d -> %s\n", i, ar[i].cpf);
-            printf("POS: %d -> %s\n", i, ar[i].telefone);
-            printf("POS: %d -> %s\n", i, ar[i].email);
-            printf("POS: %d -> %c\n", i, ar[i].sexo);
-            printf("POS: %d -> %s\n", i, ar[i].esCivil);
-            printf("+++++++++++\n");
-        }
-        fclose(arq);
-        free(arrayHospedes);
+        fclose(hosp);
+        free(arrHosp);
+        remove(".\\persist\\hospedes.txt");
+        rename(".\\persist\\hospedes_temp.txt", ".\\persist\\hospedes.txt");
     }
-
 }

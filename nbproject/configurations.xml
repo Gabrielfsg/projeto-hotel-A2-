@@ -8,7 +8,6 @@
       </logicalFolder>
       <logicalFolder name="f2" displayName="Controle" projectFiles="true">
         <itemPath>FornecedorControl.h</itemPath>
-        <itemPath>HospedeControl.h</itemPath>
         <itemPath>OperadorSistemaControl.h</itemPath>
         <itemPath>ProdutoConsumoControl.h</itemPath>
       </logicalFolder>
@@ -52,7 +51,6 @@
                    projectFiles="true">
       <logicalFolder name="f2" displayName="Controle" projectFiles="true">
         <itemPath>FornecedorControl.c</itemPath>
-        <itemPath>HospedeControl.c</itemPath>
         <itemPath>OperadorSistemaControl.c</itemPath>
         <itemPath>ProdutosConsumoControl.c</itemPath>
         <itemPath>ReservaControl.c</itemPath>
@@ -134,6 +132,17 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Arquivos de Recurso"
                    projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Arquivos de Teste"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Arquivos Importantes"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Arquivos de Teste"
@@ -234,10 +243,6 @@
       <item path="Hospede.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Hospede.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HospedeControl.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="HospedeControl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HospedeMenu.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -404,10 +409,6 @@
       <item path="Hospede.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Hospede.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HospedeControl.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="HospedeControl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HospedeMenu.c" ex="false" tool="0" flavor2="0">
       </item>

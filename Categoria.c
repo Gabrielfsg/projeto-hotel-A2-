@@ -61,11 +61,12 @@ int salvarCategoriaTXT(Categoria *cat, int num) {
 Categoria* listarCategoriaTXT() {
     int numLinha = 0, i = 0;
     FILE *arquivo;
-    numLinha = numLinhas(arquivo);
+    numLinha = numLinhasCategoria(arquivo);
     //area arquivo para leitura apenas "r"
     arquivo = fopen("arquivos\\CategoriaTXT.txt", "r");
     if (arquivo == NULL) {
-        printf("Erro ao acessar arquivo\n");
+        printf("Erro ao acessar arquivo categoria\n");
+        exit(1);
     }
     //instancia vetor com tamanho de numLinha
     Categoria *cat = (Categoria*) calloc(numLinha, sizeof (Categoria));
@@ -93,7 +94,7 @@ Categoria* listarCategoriaTXT() {
     free(arquivo);
     return cat;
 }
-int numLinhas() {
+int numLinhasCategoria() {
     FILE *arquivo;
     int numLinha = 0, c;
     //abre arquivo para leitura "r"
@@ -116,7 +117,7 @@ int numLinhas() {
     return numLinha / 5;
 }
 
-int validar(int cod) {
+int validarCategoria(int cod) {
     Categoria *cat = listarCategoriaTXT();
     int lin = sizeof (*cat) / sizeof (Categoria);
     int i;

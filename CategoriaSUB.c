@@ -29,7 +29,7 @@ void cadastrarCategoriaSUB() {
     printf("Digite a Capacidade de Pessoas \n");
     scanf("%d%*c", &c.quantidadePessoas);
     //Salva no arquivo se não possuir codigo igual
-    int r = cadastrarCategoriaControleBIN(c,1); /*cadastrarCategoriaControle(c);*/
+    int r = cadastrarCategoriaControleBIN(c, 1); /*cadastrarCategoriaControle(c);*/
     if (r == 1) {
         printf("\nCadastro Realizado com Sucesso!\n");
     } else {
@@ -94,8 +94,8 @@ void atualizarCategoria() {
     scanf("%f%*c", &c.valorDiario);
     printf("Digite a Capacidade de Pessoas \n");
     scanf("%d%*c", &c.quantidadePessoas);
-    int r = editarCategoriaControleBIN(c); 
-    editarCategoriaTXT(cat, c, num);
+    int r = editarCategoriaControleBIN(c);
+    //editarCategoriaTXT(cat, c, num);
     if (r == 1) {
         printf("\nEdição Realizado com Sucesso!\n");
     } else {
@@ -120,15 +120,12 @@ void deletarCategoria() {
 //metodos de controle
 
 int cadastrarCategoriaControle(Categoria cat) {
-    if (validar(cat.codigo) == 0) {
+    int v = validarCategoria(cat.codigo);
+    if (v == 0) {
         return cadastrarCategoriaTXT(cat);
     } else {
         return 0;
     }
-}
-
-int numLinhasCategoria() {
-    return numLinhas();
 }
 
 int editarCategoriaTXT(Categoria *cat, Categoria c, int num) {
@@ -147,7 +144,7 @@ int editarCategoriaTXT(Categoria *cat, Categoria c, int num) {
 }
 
 int excluirCategoria(int cod) {
-    int num = numLinhas();
+    int num = numLinhasCategoria();
     Categoria *cat = listarCategoriaTXT();
     int i;
     for (i = 0; i < num; i++) {
@@ -172,7 +169,8 @@ int excluirCategoria(int cod) {
 
 /*arquivo binario*/
 int cadastrarCategoriaControleBIN(Categoria cat, int qtd) {
-    if (validarCategoriaBIN(cat.codigo) == 0) {
+    int v = validarCategoriaBIN(cat.codigo);
+    if (v == 0) {
         return cadastrarCategoriaBIN(cat, qtd);
     } else {
         return 0;
@@ -181,7 +179,9 @@ int cadastrarCategoriaControleBIN(Categoria cat, int qtd) {
 }
 
 int editarCategoriaControleBIN(Categoria cat) {
-    editarCategoriaBIN(cat, validarCategoriaBIN(cat.codigo));
+    int v = validarCategoriaBIN(cat.codigo);
+    int r = editarCategoriaBIN(cat, v);
+    return r;
 }
 
 // remove a categoria do vetor, realoca ele e reecreve o arquivo
@@ -209,8 +209,8 @@ int removerCategoriaControleBIN(int cod) {
     int r = removerCategoriaBIN();
     if (r == 1) {
         //se deu certo reescreve arquivo
-        salvarCategoriaTXT(cat, num - 1);
+        return salvarCategoriaTXT(cat, num - 1);
+    } else {
+        return 0;
     }
-
-
 }
