@@ -62,6 +62,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/OperadorMenu.o \
 	${OBJECTDIR}/OperadorSistema.o \
 	${OBJECTDIR}/OperadorSistemaControl.o \
+	${OBJECTDIR}/OperadorSub.o \
 	${OBJECTDIR}/Principal.o \
 	${OBJECTDIR}/Produto.o \
 	${OBJECTDIR}/ProdutoConsumoMenu.o \
@@ -235,6 +236,11 @@ ${OBJECTDIR}/OperadorSistemaControl.o: OperadorSistemaControl.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OperadorSistemaControl.o OperadorSistemaControl.c
+
+${OBJECTDIR}/OperadorSub.o: OperadorSub.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OperadorSub.o OperadorSub.c
 
 ${OBJECTDIR}/Principal.o: Principal.c 
 	${MKDIR} -p ${OBJECTDIR}
