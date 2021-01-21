@@ -3,7 +3,6 @@
 #include "OperadorSistema.h"
 #include <string.h>
 
-
 void cadastrarOperador() {
     OperadorSistema op;
     printf("***** CADASTRAR OPERADOR *****\n");
@@ -21,43 +20,49 @@ void cadastrarOperador() {
     scanf("%s%*c", &op.senha);
 
     //salva no arquivo
+    cadastrarOpSBIN(&op, 1);
 
-    FILE *listOperador;
-
-    listOperador = fopen(".\\persist\\operador.bin", "ab");
-    if (listOperador == NULL) {
-        printf("Erro Arquivo \n");
-    } else {
-        fprintf(listOperador, "Código do operador: %d \n", op.codigo);
-        fprintf(listOperador, "Nome do Operador: %s \n", op.nome);
-        fprintf(listOperador, "Usuário do Operador: %s \n", op.usuario);
-        fprintf(listOperador, "Senha do Operador: %s \n", op.senha);
-
-        fclose(listOperador);
-        printf("Cadastro Efetuado com Sucesso \n");
-    }
 
 }
 
 void listarOperador() {
-    int opc;
-    OperadorSistema op;
-
-    char texto[100];
-    FILE *listOperador;
-    listOperador = fopen(".\\persist\\operador.bin", "rb");
-    if (listOperador == NULL) {
-        printf("Erro Arquivo \n");
-    } else {
-        while (fgets(texto, 100, listOperador) != NULL) {
-            printf("%s", texto);
-        }
-
-        fclose(listOperador);
+    int n;
+    OperadorSistema *op;
+    op = listarOpBIN(&n);
+    int i;
+    for (i = 0; i < n; i++) {
+        printf("\n*******%d************", i);
+        printf("\nCodigo: %d", op[i].codigo);
+        printf("\nNome: %s", op[i].nome);
+        printf("\nUsuario: %s", op[i].usuario);
+        printf("\nSenha: %s", op[i].senha);
     }
 }
 
 void atualizarOperador() {
+    int n, aux;
+    OperadorSistema p;
+    OperadorSistema *op = listarOpBIN(&n);
+    printf("***** ALTERAR DADOS DA ACOMODAÇÃO *****\n");
+    printf("Digite o cod da acomodação \n");
+    scanf("%d%*c", &p.codigo);
+    int i;
+    for (i = 0; i < n;) {
+        if (p.codigo == op[i].codigo) {
+            printf("Digite o Nome do Operador \n");
+            scanf("%s%*c", &p.nome);
+            printf("Digite o Usuário do Operador \n");
+            scanf("%s%*c", &p.usuario);
+            printf("Digite a Senha do Operador \n");
+            scanf("%s%*c", &p.senha);
+            aux = 1;
+            break;
+        }
+        i++;
+    }
+    if (aux == 1) {
+        int r = editarOpSBIN(p, i);
+    }
 
 
 
@@ -95,6 +100,34 @@ void deletarOperador() {
         menuCRUDOperador();
     }
 
+}
+
+int removerOpSControleBIN(int cod) {
+    int num;
+    OperadorSistema *opera = listarOpBIN(&num);
+
+    int i;
+    for (i = 0; i < num; i++) {
+        if (opera[i].codigo == cod) {
+            int j;
+            for (j = i; j < num - 1; j++) {
+                opera[i].codigo = opera[i + 1].codigo;
+                strcpy(opera[i].nome, opera[i + 1].nome);
+                strcpy(opera[i].usuario, opera[i + 1].usuario);
+                strcpy(opera[i].senha, opera[i + 1].senha);
+                opera = realloc(opera, (num - 1) * sizeof (OperadorSistema));
+            }
+            break;
+        }
+    }
+    //apaga arquivo
+    int r = removerOperadorBIN();
+    if (r == 1) {
+        //se deu certo reescreve arquivo
+        return cadastrarOpSBIN(opera, (num - 1));
+    } else {
+        return 0;
+    }
 }
 
 int contarLinhas() {
