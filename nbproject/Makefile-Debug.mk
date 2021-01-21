@@ -51,8 +51,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/Data.o \
 	${OBJECTDIR}/Endereco.o \
 	${OBJECTDIR}/Fornecedor.o \
-	${OBJECTDIR}/FornecedorControl.o \
 	${OBJECTDIR}/FornecedorMenu.o \
+	${OBJECTDIR}/FornecedorSUB.o \
 	${OBJECTDIR}/Hora.o \
 	${OBJECTDIR}/Hospede.o \
 	${OBJECTDIR}/HospedeMenu.o \
@@ -182,15 +182,15 @@ ${OBJECTDIR}/Fornecedor.o: Fornecedor.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fornecedor.o Fornecedor.c
 
-${OBJECTDIR}/FornecedorControl.o: FornecedorControl.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FornecedorControl.o FornecedorControl.c
-
 ${OBJECTDIR}/FornecedorMenu.o: FornecedorMenu.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FornecedorMenu.o FornecedorMenu.c
+
+${OBJECTDIR}/FornecedorSUB.o: FornecedorSUB.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FornecedorSUB.o FornecedorSUB.c
 
 ${OBJECTDIR}/Hora.o: Hora.c 
 	${MKDIR} -p ${OBJECTDIR}

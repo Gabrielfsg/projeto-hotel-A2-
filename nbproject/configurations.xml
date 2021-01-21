@@ -7,7 +7,6 @@
       <logicalFolder name="f1" displayName="Arquivos" projectFiles="true">
       </logicalFolder>
       <logicalFolder name="f2" displayName="Controle" projectFiles="true">
-        <itemPath>FornecedorControl.h</itemPath>
         <itemPath>HospedeControl.h</itemPath>
         <itemPath>OperadorSistemaControl.h</itemPath>
         <itemPath>ProdutoConsumoControl.h</itemPath>
@@ -18,6 +17,7 @@
         <itemPath>CategoriaMenu.h</itemPath>
         <itemPath>CategoriaSUB.h</itemPath>
         <itemPath>FornecedorMenu.h</itemPath>
+        <itemPath>FornecedorSUB.h</itemPath>
         <itemPath>HospedeMenu.h</itemPath>
         <itemPath>OperadorsistemaMenu.h</itemPath>
         <itemPath>ProdutoConsumoMenu.h</itemPath>
@@ -48,6 +48,8 @@
         <itemPath>Retirada.h</itemPath>
         <itemPath>Venda.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f4" displayName="sync" projectFiles="true">
+      </logicalFolder>
       <itemPath>Login.h</itemPath>
       <itemPath>Menus.h</itemPath>
       <itemPath>Principal.h</itemPath>
@@ -56,7 +58,6 @@
                    displayName="Arquivos de Código-Fonte"
                    projectFiles="true">
       <logicalFolder name="f2" displayName="Controle" projectFiles="true">
-        <itemPath>FornecedorControl.c</itemPath>
         <itemPath>OperadorSistemaControl.c</itemPath>
         <itemPath>ProdutosConsumoControl.c</itemPath>
         <itemPath>ReservaControl.c</itemPath>
@@ -75,6 +76,7 @@
           </logicalFolder>
           <logicalFolder name="f6" displayName="Fornecedor" projectFiles="true">
             <itemPath>FornecedorMenu.c</itemPath>
+            <itemPath>FornecedorSUB.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f1" displayName="Hospede" projectFiles="true">
             <itemPath>HospedeMenu.c</itemPath>
@@ -227,13 +229,13 @@
       </item>
       <item path="Fornecedor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="FornecedorControl.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="FornecedorControl.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="FornecedorMenu.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="FornecedorMenu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FornecedorSUB.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="FornecedorSUB.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Hora.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -399,13 +401,13 @@
       </item>
       <item path="Fornecedor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="FornecedorControl.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="FornecedorControl.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="FornecedorMenu.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="FornecedorMenu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FornecedorSUB.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="FornecedorSUB.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Hora.c" ex="false" tool="0" flavor2="0">
       </item>

@@ -13,11 +13,15 @@
 
 #ifndef FORNECEDORCONTROL_H
 #define FORNECEDORCONTROL_H
-
+#include "Fornecedor.h"
 void listarFornecedor();
 void cadastrarFornecedor();
 void atualizarFornecedor();
 void deletarFornecedor();
-
+int cadastrarFornecedorControle(Fornecedor cat);
+int cadastrarFornecedorControleBIN(Fornecedor *cat, int qtd);
+int editarFornecedorControleBIN(Fornecedor cat) ;
+int removerFornecedorControleBIN(int cod);
+int printCategoria(Fornecedor * a);
 #endif /* FORNECEDORCONTROL_H */
 

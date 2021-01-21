@@ -7,19 +7,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/CategoriaControl.h</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Acomodacao.h</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/SalvamentoBD.c</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/FornecedorSUB.h</file>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Acomodacao.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/CategoriaSUB.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/OperadorSistema.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/OperadorSub.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/OperadorSistemaControl.h</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/OperadorSistema.h</file>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/AcomodacaoSUB.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/nbproject/private/private.xml</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/OperadorSistemaControl.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Principal.c</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Hospede.c</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/FornecedorMenu.c</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Fornecedor.c</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/FornecedorSUB.c</file>
         </group>
     </open-files>
 </project-private>

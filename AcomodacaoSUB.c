@@ -129,10 +129,15 @@ void atualizarAcomodacao() {
                 setbuf(stdin, NULL);
                 //cadastra acomodação com status de disponiilidade live
                 strcpy(aco.status, "livre");
-                //listar categorias
+                //listar categorioas
                 int r = printCategoria(&aco);
                 if (r == 1) {
-                    r = editarAcomodacaoTXT(a, aco, num, i);
+                    if (bd == 1) {
+                       r = editarAcomodacaoTXT(a, aco, num, i);
+                    } else if (bd == 2) {
+                       r = editarAcomodacaoControleBIN(a);
+                    }
+                    
                     if (r == 1) {
                         printf("\nAcomodação Editada com SUCESSO!\n");
                     } else {
@@ -151,7 +156,7 @@ void atualizarAcomodacao() {
 void deletarAcomodacao() {
     int cod, r;
     int bd = listar();
-    if (bd > 1) {
+    if (bd > 0) {
         printf("***** DELETAR ACOMODAÇÃO *****\n");
         printf("Digite o cod da acomodação \n");
         scanf("%d%*c", &cod);

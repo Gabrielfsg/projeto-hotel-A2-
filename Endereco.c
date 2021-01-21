@@ -4,12 +4,3 @@
  * and open the template in the editor.
  */
 
-typedef struct endereco {
-    int codigo;
-    char logradouro[100];
-    char bairro[100];
-    char cidade[100];
-    char cep[9];
-    char uf[2];
-    int numero;
-} Endereco;

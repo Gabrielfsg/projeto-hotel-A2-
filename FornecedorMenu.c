@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "FornecedorControl.h"
+#include "FornecedorSUB.h"
 #include "Principal.h"
 
 void menuCRUDFornecedor() {
@@ -15,10 +15,10 @@ void menuCRUDFornecedor() {
     while (sair == 0) {
         printf("******* GESTÃO DE DADOS - HÓSPEDES **********\n");
         printf("Opções: \n");
-        printf("1.Cadastrar Hospede. \n");
-        printf("2.Alterar Dados do Hospede. \n");
-        printf("3.Visualizar Hospede. \n");
-        printf("4.Excluir Hospede. \n");
+        printf("1.Cadastrar Fornecedor. \n");
+        printf("2.Alterar Dados do Fornecedor. \n");
+        printf("3.Visualizar Fornecedor. \n");
+        printf("4.Excluir Fornecedor. \n");
         printf("5.Voltar. \n");
         printf("Digite a opção desejada: \n");
         scanf("%d%*c", &opc);
