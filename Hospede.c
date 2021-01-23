@@ -10,6 +10,7 @@
 #include"Data.h"
 #include"Endereco.h"
 #include"Hospede.h"
+#include "HospedeControl.h"
 
 void cadastrarHospedesTXT(Hospede h) {
     FILE* listaHospedes;
@@ -88,8 +89,8 @@ Hospede* getAllHospedes(int numHospedes) {
 
 Hospede getHospedeByCod(int cod, int numHospedes) {
     //printf("ENTROU GETHOSPEDEBYCOD");
-
-    Hospede* arrHospedes = getAllHospedes(3);
+    
+    Hospede* arrHospedes = getAllHospedes(numHospedes);
     for (int i = 0; i < numHospedes; i++) {
         if (arrHospedes[i].codigo == cod) {
             //printf("\nACHOU O COD == AO QUE DIGITOU: %d == %s\n",cod,arrHospedes[i].nome);
@@ -98,12 +99,7 @@ Hospede getHospedeByCod(int cod, int numHospedes) {
     }
 }
 
-/*void atualizarHospedes() {
-    printf("***** ALTERAR DADOS DO HÓSPEDE *****\n");
 
-    printf("Digite o cod do hóspede \n");
-    //scanf("%d%*c",&);
-}*/
 
 
 void atualizarHospedeTXT(Hospede novoHosp) {
