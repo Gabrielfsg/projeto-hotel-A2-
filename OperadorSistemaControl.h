@@ -10,14 +10,15 @@
  *
  * Created on 10 de Janeiro de 2021, 18:59
  */
-
+#include "OperadorSistema.h"
 #ifndef OPERADORSISTEMACONTROL_H
 #define OPERADORSISTEMACONTROL_H
 
-void listarOperador();
+/*void listarOperador();
 void cadastrarHospedes();
 void atualizarHospedes();
-void deletarHospedes();
-
+void deletarHospedes();*/
+int salvarOperadorControleTXT(OperadorSistema* opera, int num) ;
+int removerOperadorControleBIN(int cod);
 #endif /* OPERADORSISTEMACONTROL_H */
 

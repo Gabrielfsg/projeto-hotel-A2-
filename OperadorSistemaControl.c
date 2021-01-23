@@ -5,47 +5,37 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "OperadorSistema.h"
 
-void cadastrarOperador() {
-    printf("***** CADASTRAR OPERADOR *****\n");
-    //pega os dados
-    printf("Digite o Cod do Operador \n");
-    //scanf("%d%*c",&);
 
-    //valida para ver se já existe
-
-    printf("Digite o Nome do Operador \n");
-    //scanf("%d%*c",&);
-    printf("Digite o Usuário do Operador \n");
-    //scanf("%d%*c",&);
-    printf("Digite a Senha do Operador \n");
-    //scanf("%d%*c",&);
-
-    //salva no arquivo
-
+int salvarOperadorControleTXT(OperadorSistema* opera, int num) {
+    return salvarOperadorTXT(opera, num);
 }
 
-void listarOperador() {
-    //pega a lista de hóspedes do arquivo
+int removerOperadorControleBIN(int cod) {
+    int num;
+    OperadorSistema *opera = listarOpBIN(&num);
 
-    //lista os Operadores
-    printf("COD: 123\n");
-    printf("NOME: 123\n");
-    printf("USUARIO: 123\n");
-    printf("SENHA: 123\n");
-
-}
-
-void atualizarOperador() {
-    printf("***** ALTERAR DADOS DO OPERADOR *****\n");
-
-    printf("Digite o Cod do Operador \n");
-    //scanf("%d%*c",&);
-}
-
-void deletarOperador() {
-    printf("***** DELETAR OPERADOR *****\n");
-
-    printf("Digite o Cod do Operador \n");
-    //scanf("%d%*c",&);
+    int i;
+    for (i = 0; i < num; i++) {
+        if (opera[i].codigo == cod) {
+            int j;
+            for (j = i; j < num - 1; j++) {
+                opera[i].codigo = opera[i + 1].codigo;
+                strcpy(opera[i].nome, opera[i + 1].nome);
+                strcpy(opera[i].usuario, opera[i + 1].usuario);
+                strcpy(opera[i].senha, opera[i + 1].senha);
+                opera = realloc(opera,(num-1)*sizeof(OperadorSistema));
+            }
+            break;
+        }
+    }
+    //apaga arquivo
+    int v = removerOperadorBIN();
+    if (v == 1) {
+        //se deu certo reescreve arquivo
+        salvarOperadorTXT(opera, num - 1);
+    }
 }

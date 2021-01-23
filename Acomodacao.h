@@ -13,7 +13,26 @@
 
 #ifndef ACOMODACAO_H
 #define ACOMODACAO_H
-typedef struct acomodacao Acomodacao;
+#include "Categoria.h"
+typedef struct acomodacao {
+    int codigo;
+    char descricao[100];
+    Categoria categoria;
+    char status[50];
+} Acomodacao;
+
+int cadastrarAcomodacaoTXT(Acomodacao aco);
+int salvarAcomodacaoTXT(Acomodacao *aco, int num);
+Acomodacao* listarAcomodacaoTXT();
+int numLinhasAcomodacao();
+int validarAcomodacao(int cod);
+int cadastrarAcomodacaoBIN(Acomodacao *aco, int quantidade);
+Acomodacao* listarAcomodacaoBIN(int *numLinha);
+int editarAcomodacaoBIN(Acomodacao aco, int posi);
+int validarAcomodacaoBIN(int cod);
+int removerAcomodacaoBIN();
+
+
 
 #endif /* ACOMODACAO_H */
 

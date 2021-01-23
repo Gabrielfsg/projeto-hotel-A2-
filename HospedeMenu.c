@@ -10,6 +10,7 @@
 #include "Hospede.h"
 #include "HospedeMenu.h"
 #include "HospedeControl.h"
+#include "FornecedorSUB.h"
 
 void menuCRUDHospedes() {
     int sair = 0;
@@ -101,13 +102,18 @@ void cadastrarHospedesControl() {
     //printf("Digite o endereço do hóspede \n");
     //scanf("%s%*c",&h.end);
 
-    cadastrarHospedesTXT(h);
+    //VALIDAÇÃO EXTENÇÃO DO ARQUIVO
+    //cadastrarHospedesTXT(h);
+    cadastrarHospedesBIN(h);
 }
 
 void listarHospedesControl() {
-    int numHospedes = getNumHospedes();
+    //int numHospedes = getNumHospedes();
+    int numHospedes =0;
     printf("LISTA DE TODOS OS HÓSPEDES \n");
-    Hospede* arrayHospedes = getAllHospedes(numHospedes);
+    //VALIDAÇÃO EXTENSÃO DO ARQUIVO
+    //Hospede* arrayHospedes = getAllHospedesTXT(numHospedes);
+    Hospede* arrayHospedes = getAllHospedesBIN(&numHospedes);
 
     for (int i = 0; i < numHospedes; i++) {
         //lista os hóspedes
@@ -125,18 +131,24 @@ void listarHospedesControl() {
     }
     printf("\n FIM DA LISTA DE HÓSPEDES \n");
 
+    //printf("NUMHOSPEDES: %d\n",numHospedes);
     free(arrayHospedes);
 }
 
 Hospede* getAllHospedesControl() {
     int numHospedes = getNumHospedes();
-    //Hospede* arrayHospedes = getAllHospedes(numHospedes);
-    return getAllHospedes(numHospedes);
+    
+    //VALIDAR EXTENSÃO
+    //Hospede* arrayHospedes = getAllHospedesTXT(numHospedes);
+    return getAllHospedesBIN(numHospedes);
 }
 
 Hospede getHospedeByCodControl() {
+    //TXT
     Hospede hos;
     int cod;
+    //VALIDAR EXTENSÃO
+    
     int numHospedes = getNumHospedes();
 
     printf("Digite o código do Hóspede que deseja procurar:\n");
@@ -146,7 +158,7 @@ Hospede getHospedeByCodControl() {
 
     if (validacao == 0) {
         printf("INFORMAÇÕES DO HÓSPEDE: \n");
-        hos = getHospedeByCod(cod, numHospedes);
+        hos = getHospedeByCodTXT(cod, numHospedes);
         printf("***************\n");
         printf("COD: %d\n", hos.codigo);
         printf("NOME: %s\n", hos.nome);
@@ -160,6 +172,26 @@ Hospede getHospedeByCodControl() {
     } else {
         printf("CÓDIGO NÃO EXISTE\n");
     }
+    //BIN
+    /*int cod;
+    Hospede h;
+    printf("Digite o código do Hóspede que deseja procurar:\n");
+    scanf("%d%*c", &cod);
+    
+    h = getHospedeByCodBIN(cod);
+    
+    printf("***************\n");
+    printf("COD: %d\n", h.codigo);
+    //printf("ENDER: 123\n");
+    printf("NOME: %s\n", h.nome);
+    printf("CPF: %s\n", h.cpf);
+    printf("FONE: %s\n", h.telefone);
+    printf("EMAIL: %s\n", h.email);
+    printf("SEXO: %c\n", h.sexo);
+    printf("ESTADO CIVIL: %s\n", h.esCivil);
+    //printf("DATA NASC: 123\n");
+    printf("***************\n");
+     */
 }
 
 void atualizarHospedesControl() {
@@ -168,9 +200,9 @@ void atualizarHospedesControl() {
     Hospede novoHosp;
     printf("Digite o cod do hóspede \n");
     scanf("%d%*c", &cod);
-    if (validarCod(cod) == 0) {
+    //if (validarCod(cod) == 0) {
         novoHosp.codigo = cod;
-        
+
         //pega os novos dados
         printf("Atualize o nome do hóspede \n");
         //scanf("%[^\n]s%*c", &h.nome); 
@@ -214,17 +246,19 @@ void atualizarHospedesControl() {
         printf("ESCIVIL: %s\n", novoHosp.esCivil);
         printf("SEXO: %c\n", novoHosp.sexo);
 
-        atualizarHospedeTXT(novoHosp);
-        printf("TERMINOU");
+        //VERFICAÇÃO EXTENSÃO DO ARQUIVO
+        //atualizarHospedeTXT(novoHosp);
+        atualizarHospedeBIN(novoHosp);
+        printf("ALTERAÇÃO CONCLUÍDA\n");
 
-    } else {
-        printf("CÓDIGO NÃO EXISTE");
-    }
+    //} else {
+    //    printf("CÓDIGO NÃO EXISTE");
+    //}
 }
 
 void deletarHospedesControl() {
     printf("***** DELETAR HÓSPEDE *****\n");
-    int cod;
+    /*int cod;
     char confirmacao;
 
     printf("Digite o cod do hóspede \n");
@@ -232,7 +266,7 @@ void deletarHospedesControl() {
     int validacao = validarCod(cod);
     if (validacao == 0) {
         int numHospedes = getNumHospedes();
-        Hospede hos = getHospedeByCod(cod, numHospedes);
+        Hospede hos = getHospedeByCodTXT(cod, numHospedes);
 
         printf("***************\n");
         printf("COD: %d\n", hos.codigo);
@@ -270,9 +304,18 @@ void deletarHospedesControl() {
         printf("+++++++++++++++++++++ \n");*/
 
 
-    } else {
-        printf("CÓDIGO NÃO EXISTE\n");
-    }
+    //} else {
+    //  printf("CÓDIGO NÃO EXISTE\n");
+    //}
+    //VERIFICAR EXT DO ARQUIVO
+    
+    ////////BIN
+    int cod;
+
+    printf("Digite o cod do hóspede \n");
+    scanf("%d%*c", &cod);
+    Hospede h = getHospedeByCodBIN(cod);
+    deletarHospedeBIN(cod);
 
 }
 
