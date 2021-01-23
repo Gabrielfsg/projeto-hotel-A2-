@@ -36,12 +36,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Acomodacao.o \
-	${OBJECTDIR}/AcomodacaoControl.o \
 	${OBJECTDIR}/AcomodacaoMenu.o \
+	${OBJECTDIR}/AcomodacaoSUB.o \
 	${OBJECTDIR}/Caixa.o \
 	${OBJECTDIR}/CatAcomod.o \
 	${OBJECTDIR}/Categoria.o \
-	${OBJECTDIR}/CategoriaControle.o \
 	${OBJECTDIR}/CategoriaMenu.o \
 	${OBJECTDIR}/CategoriaSUB.o \
 	${OBJECTDIR}/CheckIn.o \
@@ -52,8 +51,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/Data.o \
 	${OBJECTDIR}/Endereco.o \
 	${OBJECTDIR}/Fornecedor.o \
-	${OBJECTDIR}/FornecedorControl.o \
 	${OBJECTDIR}/FornecedorMenu.o \
+	${OBJECTDIR}/FornecedorSUB.o \
 	${OBJECTDIR}/Hora.o \
 	${OBJECTDIR}/Hospede.o \
 	${OBJECTDIR}/HospedeMenu.o \
@@ -63,6 +62,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/OperadorMenu.o \
 	${OBJECTDIR}/OperadorSistema.o \
 	${OBJECTDIR}/OperadorSistemaControl.o \
+	${OBJECTDIR}/OperadorSub.o \
 	${OBJECTDIR}/Principal.o \
 	${OBJECTDIR}/Produto.o \
 	${OBJECTDIR}/ProdutoConsumoMenu.o \
@@ -70,6 +70,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Reserva.o \
 	${OBJECTDIR}/ReservaControl.o \
 	${OBJECTDIR}/Retirada.o \
+	${OBJECTDIR}/SalvamentoBD.o \
 	${OBJECTDIR}/Venda.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/menuAcomodacoes.o \
@@ -106,15 +107,15 @@ ${OBJECTDIR}/Acomodacao.o: Acomodacao.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Acomodacao.o Acomodacao.c
 
-${OBJECTDIR}/AcomodacaoControl.o: AcomodacaoControl.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AcomodacaoControl.o AcomodacaoControl.c
-
 ${OBJECTDIR}/AcomodacaoMenu.o: AcomodacaoMenu.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AcomodacaoMenu.o AcomodacaoMenu.c
+
+${OBJECTDIR}/AcomodacaoSUB.o: AcomodacaoSUB.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AcomodacaoSUB.o AcomodacaoSUB.c
 
 ${OBJECTDIR}/Caixa.o: Caixa.c
 	${MKDIR} -p ${OBJECTDIR}
@@ -130,11 +131,6 @@ ${OBJECTDIR}/Categoria.o: Categoria.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Categoria.o Categoria.c
-
-${OBJECTDIR}/CategoriaControle.o: CategoriaControle.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CategoriaControle.o CategoriaControle.c
 
 ${OBJECTDIR}/CategoriaMenu.o: CategoriaMenu.c
 	${MKDIR} -p ${OBJECTDIR}
@@ -186,15 +182,15 @@ ${OBJECTDIR}/Fornecedor.o: Fornecedor.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fornecedor.o Fornecedor.c
 
-${OBJECTDIR}/FornecedorControl.o: FornecedorControl.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FornecedorControl.o FornecedorControl.c
-
 ${OBJECTDIR}/FornecedorMenu.o: FornecedorMenu.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FornecedorMenu.o FornecedorMenu.c
+
+${OBJECTDIR}/FornecedorSUB.o: FornecedorSUB.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FornecedorSUB.o FornecedorSUB.c
 
 ${OBJECTDIR}/Hora.o: Hora.c
 	${MKDIR} -p ${OBJECTDIR}
@@ -241,6 +237,11 @@ ${OBJECTDIR}/OperadorSistemaControl.o: OperadorSistemaControl.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OperadorSistemaControl.o OperadorSistemaControl.c
 
+${OBJECTDIR}/OperadorSub.o: OperadorSub.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OperadorSub.o OperadorSub.c
+
 ${OBJECTDIR}/Principal.o: Principal.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -275,6 +276,11 @@ ${OBJECTDIR}/Retirada.o: Retirada.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Retirada.o Retirada.c
+
+${OBJECTDIR}/SalvamentoBD.o: SalvamentoBD.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SalvamentoBD.o SalvamentoBD.c
 
 ${OBJECTDIR}/Venda.o: Venda.c
 	${MKDIR} -p ${OBJECTDIR}

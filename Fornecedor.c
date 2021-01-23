@@ -182,7 +182,7 @@ int cadastrarFornecedorBIN(Fornecedor *aco, int quantidade) {
         }
     }
     //strlen()-> informa o tamanho de uma string 
-    /*grava toda struct de fornecedor no arquivo*/
+    /*grava toda struct de acomodacao no arquivo*/
     fwrite(aco, sizeof (Fornecedor), quantidade, arq);
     fflush(arq);
     /*fecha o arquivo*/
