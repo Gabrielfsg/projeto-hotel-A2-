@@ -35,7 +35,8 @@ Hospede* getAllHospedesTXT(int numHospedes);
 Hospede* getAllHospedesBIN(int* numHospedes);
 Hospede getHospedeByCodTXT(int cod, int numHospedes);
 Hospede getHospedeByCodBIN(int cod);
-void atualizarHospedeTXT();
-void deletarHospede(int cod);
+//void atualizarHospedeTXT();
+void deletarHospedeTXT(int cod);
+void deletarHospedeBIN(int cod);
 #endif /* HOSPEDE_H */
 

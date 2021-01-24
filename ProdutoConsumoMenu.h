@@ -13,8 +13,17 @@
 
 #ifndef PRODUTOSCONSUMOMENU_H
 #define PRODUTOSCONSUMOMENU_H
+#include "Produto.h"
 
 void menuCRUDProdConsumo();
+void cadastrarProdConsumoControl();
+void listarProdConsumoControl();
+Produto* getAllProdConsumoControl();
+Produto getProdConsumoByCodControl();
+void atualizarProdConsumoControl();
+void deletarProdConsumoControl();
+int validarCodProdConsumo(int cod, int ext);
+int getNumProdConsumo();
 
 #endif /* PRODUTOSMENU_H */
 
