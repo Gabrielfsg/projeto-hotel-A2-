@@ -32,6 +32,26 @@ int cadastrarOpBin(OperadorSistema op, int quantidade) {
     return 1;
 }
 
+int cadastrarOpTXT(OperadorSistema op){
+    FILE *arq;
+    //abrea arquivo para escrita e posiciona cursor no final "ab"
+    arq = fopen(".\\persist\\operadorTXT.txt", "a");
+    if (arq == NULL) {
+        //cria arquivo para escrita se não houver "wb"
+        arq = fopen(".\\persist\\operadorTXT.txt", "w");
+        if (arq == NULL) {
+            printf("\nERRO ao acessar arquivo\n");
+            return 0;
+        }
+    }
+    
+    fprintf(arq, "%d\n%s\n%s\n%s\n%f\n", op.codigo, op.nome, op.usuario, op.senha);
+    
+    fclose(arq);
+    
+    free(arq);
+}
+
 int salvarOperadorTXT(OperadorSistema *opera, int num) {
     // w pra substituir o arquivo
     FILE *cade = fopen(".\\persist\\operadorTXT.txt", "wb");

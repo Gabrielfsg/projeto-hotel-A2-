@@ -31,6 +31,31 @@ int cadastrarHotelBin(Hotel h, int quantidade) {
     return 1;
 }
 
+
+int cadastrarHotelTXT(Hotel h){
+    FILE *arq;
+    //abrea arquivo para escrita e posiciona cursor no final "ab"
+    arq = fopen(".\\persist\\hotelTXT.txt", "a");
+    if (arq == NULL) {
+        //cria arquivo para escrita se não houver "wb"
+        arq = fopen(".\\persist\\hotelTXT.txt", "w");
+        if (arq == NULL) {
+            printf("\nERRO ao acessar arquivo\n");
+            return 0;
+        }
+    }
+    
+    fprintf(arq, "%d\n%s\n%s\n%s\n%s\n%s\n%d\n%f\n%s\n%s\n%s\n%s\n%d\n%s\n%d\n%s\n%s\n%s\n"
+                    , h.codigo,h.cnpj,h.email,h.inscricaoEstadual,h.nomeFantazia
+                    ,h.nomeResponsavel,h.telefone,h.margemLucro,h.checkIn
+                    ,h.checkOut,h.teleRes,h.razaoSocial,h.numero
+                    ,h.bairro,h.cep,h.logradouro,h.uf,h.cidade);
+    
+    fclose(arq);
+    
+    free(arq);
+}
+
 Hotel * listarHotelBIN(int *numLinha) {
     FILE *arquivo;
     //abrea arquivo para leitura apenas "rb"
