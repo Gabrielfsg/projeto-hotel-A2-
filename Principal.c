@@ -174,21 +174,17 @@ void subArquivo() {
     while (opc >= 0) {
         printf("*******Cadastros Hotel (ADM)********\n");
         printf("1.Trocar de Usuario.\n");
-        printf("2.Editar  Empresa.\n");
-        printf("3.Mostrar Dados  Empresa.\n");
-        printf("4.Voltar.\n");
+        printf("2.Dados  Empresa.\n");
+        printf("3.Voltar.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
                 menuLogin();
                 break;
             case 2:
-                //metodo editar empresa
+                menuCrudHotel();
                 break;
             case 3:
-                //metodo mostrar dados empresa
-                break;
-            case 4:
                 exit(0);
                 break;
             default:

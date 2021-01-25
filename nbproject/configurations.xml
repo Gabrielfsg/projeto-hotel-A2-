@@ -58,7 +58,6 @@
                    displayName="Arquivos de Código-Fonte"
                    projectFiles="true">
       <logicalFolder name="f2" displayName="Controle" projectFiles="true">
-        <itemPath>OperadorSistemaControl.c</itemPath>
         <itemPath>ProdutosConsumoControl.c</itemPath>
         <itemPath>ReservaControl.c</itemPath>
       </logicalFolder>
@@ -83,6 +82,7 @@
           </logicalFolder>
           <logicalFolder name="f3" displayName="Hotel" projectFiles="true">
             <itemPath>HotelMenu.c</itemPath>
+            <itemPath>HotelSub.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f7" displayName="Operador" projectFiles="true">
             <itemPath>OperadorMenu.c</itemPath>
@@ -95,10 +95,6 @@
         <logicalFolder name="f4"
                        displayName="Cadastros Hotel (ADM)"
                        projectFiles="true">
-          <itemPath>CatAcomod.c</itemPath>
-          <itemPath>menuAcomodacoes.c</itemPath>
-          <itemPath>menuCategoria.c</itemPath>
-          <itemPath>menuHospedes.c</itemPath>
         </logicalFolder>
         <logicalFolder name="f5" displayName="Caixa" projectFiles="true">
         </logicalFolder>
@@ -183,8 +179,6 @@
       </item>
       <item path="Caixa.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="CatAcomod.c" ex="false" tool="0" flavor2="0">
-      </item>
       <item path="Categoria.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Categoria.h" ex="false" tool="3" flavor2="0">
@@ -257,6 +251,8 @@
       </item>
       <item path="HotelMenu.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="HotelSub.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="Login.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Login.h" ex="false" tool="3" flavor2="0">
@@ -268,8 +264,6 @@
       <item path="OperadorSistema.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="OperadorSistema.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="OperadorSistemaControl.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="OperadorSistemaControl.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -313,12 +307,6 @@
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="menuAcomodacoes.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="menuCategoria.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="menuHospedes.c" ex="false" tool="0" flavor2="0">
-      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -354,8 +342,6 @@
       <item path="Caixa.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Caixa.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="CatAcomod.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Categoria.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -429,6 +415,8 @@
       </item>
       <item path="HotelMenu.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="HotelSub.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="Login.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Login.h" ex="false" tool="3" flavor2="0">
@@ -440,8 +428,6 @@
       <item path="OperadorSistema.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="OperadorSistema.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="OperadorSistemaControl.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="OperadorSistemaControl.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -480,12 +466,6 @@
       <item path="Venda.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="menuAcomodacoes.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="menuCategoria.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="menuHospedes.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
   </confs>

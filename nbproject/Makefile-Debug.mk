@@ -39,7 +39,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/AcomodacaoMenu.o \
 	${OBJECTDIR}/AcomodacaoSUB.o \
 	${OBJECTDIR}/Caixa.o \
-	${OBJECTDIR}/CatAcomod.o \
 	${OBJECTDIR}/Categoria.o \
 	${OBJECTDIR}/CategoriaMenu.o \
 	${OBJECTDIR}/CategoriaSUB.o \
@@ -58,10 +57,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/HospedeMenu.o \
 	${OBJECTDIR}/Hotel.o \
 	${OBJECTDIR}/HotelMenu.o \
+	${OBJECTDIR}/HotelSub.o \
 	${OBJECTDIR}/Login.o \
 	${OBJECTDIR}/OperadorMenu.o \
 	${OBJECTDIR}/OperadorSistema.o \
-	${OBJECTDIR}/OperadorSistemaControl.o \
 	${OBJECTDIR}/OperadorSub.o \
 	${OBJECTDIR}/Principal.o \
 	${OBJECTDIR}/Produto.o \
@@ -72,10 +71,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Retirada.o \
 	${OBJECTDIR}/SalvamentoBD.o \
 	${OBJECTDIR}/Venda.o \
-	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/menuAcomodacoes.o \
-	${OBJECTDIR}/menuCategoria.o \
-	${OBJECTDIR}/menuHospedes.o
+	${OBJECTDIR}/main.o
 
 
 # C Compiler Flags
@@ -121,11 +117,6 @@ ${OBJECTDIR}/Caixa.o: Caixa.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Caixa.o Caixa.c
-
-${OBJECTDIR}/CatAcomod.o: CatAcomod.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CatAcomod.o CatAcomod.c
 
 ${OBJECTDIR}/Categoria.o: Categoria.c
 	${MKDIR} -p ${OBJECTDIR}
@@ -217,6 +208,11 @@ ${OBJECTDIR}/HotelMenu.o: HotelMenu.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HotelMenu.o HotelMenu.c
 
+${OBJECTDIR}/HotelSub.o: HotelSub.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HotelSub.o HotelSub.c
+
 ${OBJECTDIR}/Login.o: Login.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -231,11 +227,6 @@ ${OBJECTDIR}/OperadorSistema.o: OperadorSistema.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OperadorSistema.o OperadorSistema.c
-
-${OBJECTDIR}/OperadorSistemaControl.o: OperadorSistemaControl.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OperadorSistemaControl.o OperadorSistemaControl.c
 
 ${OBJECTDIR}/OperadorSub.o: OperadorSub.c
 	${MKDIR} -p ${OBJECTDIR}
@@ -291,21 +282,6 @@ ${OBJECTDIR}/main.o: main.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.c
-
-${OBJECTDIR}/menuAcomodacoes.o: menuAcomodacoes.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/menuAcomodacoes.o menuAcomodacoes.c
-
-${OBJECTDIR}/menuCategoria.o: menuCategoria.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/menuCategoria.o menuCategoria.c
-
-${OBJECTDIR}/menuHospedes.o: menuHospedes.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/menuHospedes.o menuHospedes.c
 
 # Subprojects
 .build-subprojects:

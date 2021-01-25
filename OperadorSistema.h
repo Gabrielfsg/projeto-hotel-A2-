@@ -25,6 +25,6 @@ int salvarOperadorTXT(OperadorSistema *opera, int num);
 OperadorSistema* listarOpBIN(int *numLinha);
 int removerOperadorBIN();
 int editarOpSBIN(OperadorSistema aco, int posi);
-int cadastrarOpSBIN(OperadorSistema *aco, int quantidade);
+int cadastrarOpBIN(OperadorSistema op, int quantidade);
 #endif /* OPERADORSISTEMA_H */
 
