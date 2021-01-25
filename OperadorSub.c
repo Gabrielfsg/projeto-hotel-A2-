@@ -6,65 +6,90 @@
 
 void cadastrarOperador() {
     OperadorSistema op;
-    int achei = 0;
-
+    int n, i;
+    OperadorSistema *opera = listarOpBIN(&n);
+    int aux = 0, cod = 0;
+    int valid, li;
     printf("***** CADASTRAR OPERADOR *****\n");
     printf("Digite o Cod do Operador \n");
     scanf("%d%*c", &op.codigo);
-    printf("Digite o Nome do Operador \n");
-    fgets(op.nome, 100, stdin);
-    strtok(op.nome, "\n");
-    setbuf(stdin, NULL);
-    printf("Digite o Usuário do Operador \n");
-    fgets(op.usuario, 100, stdin);
-    strtok(op.usuario, "\n");
-    setbuf(stdin, NULL);
-    printf("Digite a Senha do Operador \n");
-    fgets(op.usuario, 100, stdin);
-    strtok(op.usuario, "\n");
-    setbuf(stdin, NULL);
+    valid = validarOpBIN(op.codigo);
+    if (valid == 1) {
+        printf("Operador já cadastrado! \n");
+    } else {
+        printf("Digite o Nome do Operador \n");
+        fgets(op.nome, 100, stdin);
+        strtok(op.nome, "\n");
+        setbuf(stdin, NULL);
+        printf("Digite o Usuário do Operador \n");
+        fgets(op.usuario, 100, stdin);
+        strtok(op.usuario, "\n");
+        setbuf(stdin, NULL);
+        printf("Digite a Senha do Operador \n");
+        fgets(op.senha, 100, stdin);
+        strtok(op.senha, "\n");
+        setbuf(stdin, NULL);
 
-    //salva no arquivo
-    cadastrarOpBin(&op, 1);
+        //salva no arquivo
+        cadastrarOpBin(&op, 1);
+        // cadastrarOpTXT(op);
+        printf("Cadastro Efetuado com sucesso! \n");
+        aux = 0;
+        cod = 0;
+    }
 }
 
 void listarOperador() {
-    int n;
+    int n, aux;
     OperadorSistema *opera;
-    opera = listarOpBIN(&n);
+    opera = listarOpTXT();
+    //opera = listarOpBIN(&n);
     int i;
     for (i = 0; i < n; i++) {
         printf("\n*******%d************", i);
         printf("\nCodigo: %d", opera[i].codigo);
         printf("\nNome: %s", opera[i].nome);
         printf("\nUsuario: %s", opera[i].usuario);
-        printf("\nSenha: %s", opera[i].senha);
+        printf("\nSenha: %s \n", opera[i].senha);
     }
 }
 
 void atualizarOperador() {
     int n, aux;
     OperadorSistema op;
-    OperadorSistema *opera = listarOpBIN(&n);
-    printf("***** ALTERAR DADOS DA ACOMODAÇÃO *****\n");
+    OperadorSistema *opera;
+    //opera = listarOpBIN(&n);
+    opera = listarOpTXT();
+    n = contarLinhasTXT();
+    printf("***** ALTERAR DADOS DO OPERADOR *****\n");
     printf("Digite o cod da acomodação \n");
     scanf("%d%*c", &op.codigo);
     int i;
     for (i = 0; i < n;) {
         if (op.codigo == opera[i].codigo) {
             printf("Digite o Nome do Operador \n");
-            scanf("%s%*c", &op.nome);
+            fgets(op.nome, 100, stdin);
+            strtok(op.nome, "\n");
+            setbuf(stdin, NULL);
             printf("Digite o Usuário do Operador \n");
-            scanf("%s%*c", &op.usuario);
+            fgets(op.usuario, 100, stdin);
+            strtok(op.usuario, "\n");
+            setbuf(stdin, NULL);
             printf("Digite a Senha do Operador \n");
-            scanf("%s%*c", &op.senha);
+            fgets(op.senha, 100, stdin);
+            strtok(op.senha, "\n");
+            setbuf(stdin, NULL);
             aux = 1;
             break;
         }
         i++;
     }
     if (aux == 1) {
-        int r = editarOpSBIN(op, i);
+        //int r = editarOpSBIN(op, i);
+        int t = editarOperadorTXT(opera, op, n);
+        printf("Atualização Efetuada com sucesso! \n");
+    } else {
+        printf("Operador não cadastrado. \n");
     }
 
 
@@ -83,7 +108,7 @@ void deletarOperador() {
     if (opc == 1) {
         printf("Entre com o código do operador: ");
         scanf("%d", &cod);
-        int r = removerOperadorControleBIN(cod); 
+        int r = removerOperadorControleBIN(cod);
         if (r == 1) {
             printf("\nExclusão realizada com sucesso!\n");
         } else {
@@ -184,7 +209,10 @@ int removerOperadorControleBIN(int cod) {
     int v = removerOperadorBIN();
     if (v == 1) {
         //se deu certo reescreve arquivo
-        salvarOperadorTXT(opera, num - 1);
+        //cadastrarOpBin(opera, num - 1);
+        salvarOperadorTXT();
+    } else {
+        return 0;
     }
 }
 

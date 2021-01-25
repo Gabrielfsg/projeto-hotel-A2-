@@ -5,8 +5,13 @@
 
 void cadastrarHotel() {
     Hotel h;
-
+    int aux,x;
     printf("***** CADASTRAR HOTEL *****\n");
+    x = contarLinhasH();
+    if(x>2){
+        printf("Já existe um hotel cadastrado! \n");
+        menuCrudHotel();
+    }else{
     printf("Digite o Cod do Hotel \n");
     scanf("%d%*c", &h.codigo);
     printf("Digite o CNPJ do Hotel \n");
@@ -75,8 +80,8 @@ void cadastrarHotel() {
     setbuf(stdin, NULL);
 
     cadastrarHotelBin(&h, 1);
-
-
+    //cadastrarHotelTXT(h);
+    }
 }
 
 void verHotel() {
@@ -242,8 +247,33 @@ int removerHotelControleBIN(int cod) {
     int r = removerHotelBIN();
     if (r == 1) {
         //se deu certo reescreve arquivo
-        return salvarHotelTXT(hot, (num - 1));
+        return cadastrarHotelBin(hot, (num - 1));
     } else {
         return 0;
     }
+}
+
+int contarLinhasH() {
+
+    FILE *arq;
+
+    char c, letra = '\n';
+
+    int vezes,numl = 0;
+
+    arq = fopen(".\\persist\\hotel.bin", "rb");
+
+    //Lendo o arquivo 1 por 1
+    while (fread(&c, sizeof (char), 1, arq)) {
+        if (c == letra) {
+            vezes++;
+        }
+    }
+
+    //printf("\nLinhas: %i\n", vezes);
+    fclose(arq);
+    free(arq);
+    numl = vezes;
+    return numl;
+
 }

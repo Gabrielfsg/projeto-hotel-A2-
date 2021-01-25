@@ -8,7 +8,6 @@
 #include <string.h>
 #include "OperadorSistema.h"
 
-
 int cadastrarOpBin(OperadorSistema op, int quantidade) {
     FILE *arq;
     //abrea arquivo para escrita e posiciona cursor no final "ab"
@@ -32,7 +31,7 @@ int cadastrarOpBin(OperadorSistema op, int quantidade) {
     return 1;
 }
 
-int cadastrarOpTXT(OperadorSistema op){
+int cadastrarOpTXT(OperadorSistema op) {
     FILE *arq;
     //abrea arquivo para escrita e posiciona cursor no final "ab"
     arq = fopen(".\\persist\\operadorTXT.txt", "a");
@@ -44,17 +43,17 @@ int cadastrarOpTXT(OperadorSistema op){
             return 0;
         }
     }
-    
+
     fprintf(arq, "%d\n%s\n%s\n%s\n%f\n", op.codigo, op.nome, op.usuario, op.senha);
-    
+
     fclose(arq);
-    
+
     free(arq);
 }
 
 int salvarOperadorTXT(OperadorSistema *opera, int num) {
     // w pra substituir o arquivo
-    FILE *cade = fopen(".\\persist\\operadorTXT.txt", "wb");
+    FILE *cade = fopen(".\\persist\\operadorTXT.txt", "w");
     if (cade == NULL) {
         printf("\nErro ao abrir arquivo!!");
         return 0;
@@ -74,6 +73,7 @@ int salvarOperadorTXT(OperadorSistema *opera, int num) {
     free(opera);
     return 1;
 }
+
 OperadorSistema * listarOpBIN(int *numLinha) {
     FILE *arquivo;
     //abrea arquivo para leitura apenas "rb"
@@ -115,6 +115,41 @@ OperadorSistema * listarOpBIN(int *numLinha) {
     return opera;
 }
 
+OperadorSistema* listarOpTXT() {
+    int numOL = 0, i = 0;
+    FILE* arq;
+    numOL = contarLinhasTXT();
+    arq = fopen(".\\persist\\operadorTXT.txt", "r");
+    if (arq == NULL) {
+        printf("Erro ao abrir arquivo\n");
+        return 0;
+    }
+
+    OperadorSistema *opera = (OperadorSistema*) calloc(numOL, sizeof (OperadorSistema));
+    while (fscanf(arq, "%d", &opera[i].codigo) == 1) {
+        fgetc(arq);
+        //pega a string descrição
+        fscanf(arq, "%100[a-z A-Z\n]s", opera[i].nome);
+        //retira o \n do fim da descrição
+        strtok(opera[i].nome, "\n");
+        //retira o \n do inicio da facilidade
+        fgetc(arq);
+        fscanf(arq, "%100[a-z A-Z\n]s", opera[i].usuario);
+        //retira o \n do fim da facilidade
+        strtok(opera[i].usuario, "\n");
+        fgetc(arq);
+        fscanf(arq, "%100[a-z A-Z\n]s", opera[i].senha);
+        //retira o \n do fim da facilidade
+        strtok(opera[i].senha, "\n");
+        i++;
+    }
+    //fecha arquivo
+    fclose(arq);
+    //libera memoria
+    free(arq);
+    return opera;
+}
+
 int editarOpSBIN(OperadorSistema op, int posi) {
     FILE *arquivo;
     //abre arquivo para leitura e escrita, ele deve existir "r+b"
@@ -135,6 +170,22 @@ int editarOpSBIN(OperadorSistema op, int posi) {
     return 1;
 }
 
+int editarOperadorTXT(OperadorSistema *opera, OperadorSistema op, int num) {
+    int i;
+    for (i = 0; i < num; i++) {
+        if ((int) (opera[i].codigo) == (int) (op.codigo)) {
+            printf("entrou");
+            strcpy(opera[i].nome, op.nome);
+            strcpy(opera[i].usuario, op.usuario);
+            strcpy(opera[i].senha, op.senha);
+
+
+        }
+    }
+
+    return salvarOperadorTXT(opera, num);
+}
+
 int removerOperadorBIN() {
     int status = remove(".\\persist\\operador.bin");
     if (status != 0) {
@@ -147,13 +198,36 @@ int removerOperadorBIN() {
 int validarOpBIN(int cod) {
     int num;
     OperadorSistema *opera = listarOpBIN(&num);
-    int i;
+    int i, aux = 0;
     for (i = 0; i < num; i++) {
         if (cod == opera[i].codigo) {
-            return i;
+            return aux = 1;
             break;
+        } else {
+            return aux = 0;
         }
     }
     free(opera);
     return 0;
+}
+
+int contarLinhasTXT() {
+
+    FILE *listOperador;
+    int numOL = 0, c;
+
+    listOperador = fopen(".\\persist\\operadorTXT.txt", "r");
+
+    //Lendo o arquivo 1 por 1
+    while ((c = fgetc(listOperador)) != EOF) {
+        if (c == '\n') {
+            //soma a quantidade de linhas do TXT, mas não a quantidade de categorias
+            numOL++;
+        }
+    }
+    fclose(listOperador);
+    free(listOperador);
+
+    return numOL / 4;
+
 }

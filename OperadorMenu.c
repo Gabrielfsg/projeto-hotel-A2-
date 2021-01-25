@@ -23,7 +23,7 @@ void menuCRUDOperador() {
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-                cadastrarOperador();
+               cadastrarOperador();
                 break;
             case 2:
                 atualizarOperador();
