@@ -14,7 +14,25 @@
 #ifndef PRODUTO_H
 #define PRODUTO_H
 
-typedef struct produto Produto;
+typedef struct produto{
+    int codigo;
+    char descricao[100];
+    int estoque;
+    int estoqueMinimo;
+    float precoCusto;
+    float precoVenda;
+}Produto;
+
+int cadastrarProdutoTXT(Produto p);
+int cadastrarProdutoBIN(Produto p);
+void atualizarProdutoTXT(Produto novoProd);
+void atualizarProdutoBIN(Produto novoProd);
+Produto* getAllProdutoTXT(int numProdutos);
+Produto* getAllProdutoBIN(int* numProdutos);
+Produto getProdutoByCodTXT(int cod, int numProdutos);
+Produto getProdutoByCodBIN(int cod);
+void deletarProdutoTXT(int cod);
+void deletarProdutoBIN(int cod);
 
 #endif /* PRODUTO_H */
 

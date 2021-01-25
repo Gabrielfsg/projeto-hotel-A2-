@@ -64,7 +64,7 @@ void cadastrarHospedesControl() {
     printf("Digite o cod do hóspede \n");
     scanf("%d%*c", &cod);
     //valida para ver se já existe
-    if (validarCod(cod) == 0) {
+    if (validarCodHospede(cod) == 0) {
         return;
     } else {
         h.codigo = cod;
@@ -153,7 +153,7 @@ Hospede getHospedeByCodControl() {
 
     printf("Digite o código do Hóspede que deseja procurar:\n");
     scanf("%d%*c", &cod);
-    int validacao = validarCod(cod);
+    int validacao = validarCodHospede(cod);
     setbuf(stdin, NULL);
 
     if (validacao == 0) {
@@ -200,7 +200,7 @@ void atualizarHospedesControl() {
     Hospede novoHosp;
     printf("Digite o cod do hóspede \n");
     scanf("%d%*c", &cod);
-    //if (validarCod(cod) == 0) {
+    //if (validarCodHospede(cod) == 0) {
         novoHosp.codigo = cod;
 
         //pega os novos dados
@@ -263,7 +263,7 @@ void deletarHospedesControl() {
 
     printf("Digite o cod do hóspede \n");
     scanf("%d%*c", &cod);
-    int validacao = validarCod(cod);
+    int validacao = validarCodHospede(cod);
     if (validacao == 0) {
         int numHospedes = getNumHospedes();
         Hospede hos = getHospedeByCodTXT(cod, numHospedes);
@@ -319,7 +319,7 @@ void deletarHospedesControl() {
 
 }
 
-int validarCod(int cod) { //1-> NÃO EXISTE 0 -> JÁ EXISTE
+int validarCodHospede(int cod) { //1-> NÃO EXISTE 0 -> JÁ EXISTE
     //printf("ENTROU VALIDAÇÃO\n");
     int codExistente = 1;
     Hospede* arrHospedes = getAllHospedesControl();

@@ -6,7 +6,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "ProdutoConsumoControl.h"
+#include <strings.h>
+#include "Produto.h"
+#include "ProdutoConsumoMenu.h"
 #include "Principal.h"
 
 void menuCRUDProdConsumo() {
@@ -18,24 +20,28 @@ void menuCRUDProdConsumo() {
         printf("1.Cadastrar Produto. \n");
         printf("2.Alterar Dados do Produto. \n");
         printf("3.Visualizar Produtos. \n");
-        printf("4.Excluir Produto. \n");
-        printf("5.Voltar. \n");
+        printf("4.Visualizar Produtos por Codigo. \n");
+        printf("5.Excluir Produto. \n");
+        printf("6.Voltar. \n");
         printf("Digite a opção desejada: \n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-                cadastrarProdutosConsumo();
+                cadastrarProdConsumoControl();
                 break;
             case 2:
-                atualizarProdutosConsumo();
+                atualizarProdConsumoControl();
                 break;
             case 3:
-                listarProdutosConsumo();
+                listarProdConsumoControl();
                 break;
             case 4:
-                deletarProdutosConsumo();
+                getProdConsumoByCodControl();
                 break;
             case 5:
+                deletarProdConsumoControl();
+                break;
+            case 6:
                 sair = 1;
                 subCadastros();
                 break;
@@ -45,5 +51,255 @@ void menuCRUDProdConsumo() {
                 break;
         }
 
+    }
+}
+
+void cadastrarProdConsumoControl() {
+    printf("***** CADASTRAR PRODUTO *****\n");
+    Produto p;
+    int cod;
+    int ext = 0;
+    //PEGA OS DADOS
+    printf("Digite o cod do Produto \n");
+    scanf("%d%*c", &cod);
+    //valida para ver se já existe
+    if (validarCodProdConsumo(cod, ext) == 0) {
+        return;
+    } else {
+        p.codigo = cod;
+    }
+
+
+    printf("Digite a descrição do Produto \n");
+    //scanf("%[^\n]s%*c", &p.descricao); 
+    fgets(p.descricao, 101, stdin);
+    strtok(p.descricao, "\n"); // Esse comando serve para retirar o \n que o fgets coloca no final da string lida
+
+    printf("Digite o estoque do Produto\n");
+    scanf("%d%*c", &p.estoque);
+
+    printf("Digite o estoque mínimo do Produto \n");
+    scanf("%d%*c", &p.estoqueMinimo);
+
+    setbuf(stdin, NULL);
+    printf("Digite o preço de custo do Produto \n");
+    scanf("%f%*c", &p.precoCusto);
+
+    printf("Digite o preço de venda do Produto\n");
+    scanf("%f%*c", &p.precoVenda);
+
+    //TESTE
+    /*printf("#############\n");
+    printf("COD: %d\n",p.codigo);
+    printf("DESC: %s\n",p.descricao);
+    printf("ES: %d\n",p.estoque);
+    printf("ESM: %d\n",p.estoqueMinimo);
+    printf("PC: %.2f\n",p.precoCusto);
+    printf("PV: %.2f\n",p.precoVenda);
+    printf("#############\n");
+     */
+    //VERIFICAR EXTENSÃO DO ARQUIVO
+
+    if (ext == 0) {
+        //BIN
+        int retorno = cadastrarProdutoBIN(p);
+        if (retorno == 1) {
+            printf("\nPRODUTO CADASTRADO COM SUCESSO\n");
+        } else {
+            printf("\nERRO AO CADASTRAR PRODUTO\n");
+        }
+
+    } else {
+        //TXT
+        int retorno = cadastrarProdutoTXT(p);
+        if (retorno > 0) {
+            printf("\nPRODUTO CADASTRADO COM SUCESSO\n");
+        } else {
+            printf("\nERRO AO CADASTRAR PRODUTO\n");
+        }
+    }
+}
+
+void atualizarProdConsumoControl() {
+    printf("***** ALTERAR DADOS DO PRODUTO *****\n");
+}
+
+void listarProdConsumoControl() {
+    //VERIFICAR EXTENSÃO DO ARQUIVO
+    int ext = 0;
+    int numProdutos;
+    Produto* arrayProdutos;
+    if (ext == 0) {
+        //BIN
+        numProdutos = 0;
+        arrayProdutos = getAllProdutoBIN(&numProdutos);
+        //printf("NUM PROD = %d\n", numProdutos);
+    } else {
+        //TXT
+        numProdutos = getNumProdConsumo();
+        arrayProdutos = getAllProdutoTXT(numProdutos);
+
+    }
+    printf("***** LISTA DE TODOS OS PRODUTOS*****\n");
+    for (int i = 0; i < numProdutos; i++) {
+        //lista os produtos
+
+        printf("***************\n");
+        printf("COD: %d\n", arrayProdutos[i].codigo);
+        printf("DESC: %s\n", arrayProdutos[i].descricao);
+        printf("ESTOQUE: %d\n", arrayProdutos[i].estoque);
+        printf("ESTOQUE MINIMO: %d\n", arrayProdutos[i].estoqueMinimo);
+        printf("PREÇO DE CUSTO: %.2f\n", arrayProdutos[i].precoCusto);
+        printf("PREÇO DE VENDA: %.2f\n", arrayProdutos[i].precoVenda);
+        printf("***************\n");
+    }
+    printf("\n FIM DA LISTA DE PRODUTOS \n");
+}
+
+Produto getProdConsumoByCodControl() {
+
+    Produto prod;
+    int cod;
+    int numProdutos = 0;
+    printf("Digite o código do Produto que deseja procurar:\n");
+    scanf("%d%*c", &cod);
+    int ext = 0;
+    if (ext == 0) {
+        //BIN
+        //int validacao = validarCodHospede(cod);
+        // if (validacao == 0) {
+        prod = getProdutoByCodBIN(cod);
+        //} else {
+        //    printf("CÓDIGO NÃO EXISTE\n");
+        // }     
+    } else {
+        //TXT
+        numProdutos = getNumProdConsumo();
+        //int validacao = validarCodHospede(cod);
+        // if (validacao == 0) {
+        prod = getProdutoByCodTXT(cod, numProdutos);
+        //} else {
+        //    printf("CÓDIGO NÃO EXISTE\n");
+        // }        
+    }
+    printf("INFORMAÇÕES DO PRODUTO: \n");
+    printf("***************\n");
+    printf("COD: %d\n", prod.codigo);
+    printf("DESC: %s\n", prod.descricao);
+    printf("ESTOQUE: %d\n", prod.estoque);
+    printf("ESTOQUE MIN: %d\n", prod.estoqueMinimo);
+    printf("PREÇO CUSTO: %f\n", prod.precoCusto);
+    printf("PREÇO VENDA: %f\n", prod.precoVenda);
+    printf("***************\n");
+
+
+    return prod;
+
+
+
+
+}
+
+void deletarProdConsumoControl() {
+    printf("***** DELETAR PRODUTO *****\n");
+
+    char confirmacao;
+    Produto p;
+    int cod;
+    printf("Digite o cod do Produto \n");
+    scanf("%d%*c", &cod);
+    //VALIDAÇÃO DO COD 
+    int ext = 0;
+    if (ext == 0) {
+        ////////BIN
+        p = getProdutoByCodBIN(cod);
+
+    } else {
+        ////////TXT
+        int numProdutos = getNumProdConsumo();
+        p = getProdutoByCodTXT(cod, numProdutos);
+    }
+
+    printf("INFORMAÇÕES DO PRODUTO: \n");
+    printf("***************\n");
+    printf("COD: %d\n", p.codigo);
+    printf("DESC: %s\n", p.descricao);
+    printf("ESTOQUE: %d\n", p.estoque);
+    printf("ESTOQUE MIN: %d\n", p.estoqueMinimo);
+    printf("PREÇO CUSTO: %f\n", p.precoCusto);
+    printf("PREÇO VENDA: %f\n", p.precoVenda);
+    printf("***************\n");
+
+    printf("DESEJA REALMENTE DELETAR O PRODUTO? (S / N)\n");
+    scanf("%c%*c", &confirmacao);
+
+    if (confirmacao == 'S' || confirmacao == 's') {
+
+        if (ext == 0) {
+            ////////BIN
+            deletarProdutoBIN(cod);
+
+        } else {
+            ////////TXT
+            deletarProdutoTXT(cod);
+        }
+
+    } else {
+        printf("OPERAÇÃO CANCELADA\n");
+    }
+    printf("PRODUTO DELETADO\n");
+}
+
+int getNumProdConsumo() {
+    FILE *arq;
+    int numLinhas = 0, numProdutos = 0;
+    char c;
+    arq = fopen(".\\arquivos\\produtos.txt", "r");
+    if (arq == NULL) {
+        printf("Erro ao acessar arquivo\n");
+    }
+    while ((c = fgetc(arq)) != EOF) {
+
+        if (c == '\n') {
+            numLinhas++;
+        }
+    }
+    numProdutos = numLinhas / 6;
+
+    //printf("O NÚMERO DE LINHAS DO ARQ É: %d\n", numLinhas);
+    //printf("O NÚMERO DE PRODS CADASTRADOS É: %d\n", numProdutos);
+    fclose(arq);
+    free(arq);
+    return numProdutos;
+
+}
+
+int validarCodProdConsumo(int cod, int ext) { //1-> NÃO EXISTE 0 -> JÁ EXISTE
+    //printf("ENTROU VALIDAÇÃO\n");
+    int codExistente = 1;
+    Produto* arrayProdutos;
+    int numProdutos = 0;
+    if (ext == 0) {
+        //BIN
+        arrayProdutos = getAllProdutoBIN(&numProdutos);
+    } else {
+        //TXT
+        numProdutos = getNumProdConsumo();
+        arrayProdutos = getAllProdutoTXT(numProdutos);
+    }
+
+    int i;
+    for (i = 0; i < numProdutos; i++) {
+        if (cod == arrayProdutos[i].codigo) {
+            codExistente = 0;
+        }
+    }
+    free(arrayProdutos);
+    if (codExistente == 0) {
+        printf("CÓDIGO EXISTENTE\n");
+        return 0;
+    } else {
+        //printf("CÓDIGO NÃO EXISTE\n");
+        return 1;
     }
 }

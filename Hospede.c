@@ -10,7 +10,7 @@
 #include"Data.h"
 #include"Endereco.h"
 #include"Hospede.h"
-#include "HospedeControl.h"
+//#include "HospedeControl.h"
 
 void cadastrarHospedesTXT(Hospede h) {
     FILE* arHospedes;
@@ -43,7 +43,7 @@ void cadastrarHospedesBIN(Hospede h) {
         if (count == 1) {
             printf("\nHOSPEDE CADASTRADO COM SUCESSO\n");
         } else {
-            printf("\nHOSPEDE CADASTRADO COM SUCESSO\n");
+            printf("\nERRO AO CADASTRAR HOSPEDE\n");
         }
         fclose(arqHospedes);
     }
@@ -179,11 +179,11 @@ Hospede getHospedeByCodBIN(int cod) {
     Hospede h;
     int numHospedes = 0;
     Hospede* arrayHospedes = getAllHospedesBIN(&numHospedes);
-    printf("NUM HOSPEDES = %d\n", numHospedes);
+    //printf("NUM HOSPEDES = %d\n", numHospedes);
     for (int i = 0; i < numHospedes; i++) {
         if (arrayHospedes[i].codigo == cod) {
-            printf("HÓSPEDE ENCONTRADO!!!!!!!!!!!\n");
-            printf("COD %d == %d\n", arrayHospedes[i].codigo, cod);
+            //printf("HÓSPEDE ENCONTRADO!!!!!!!!!!!\n");
+            //printf("COD %d == %d\n", arrayHospedes[i].codigo, cod);
             h = arrayHospedes[i];
             return h;
         }
@@ -251,7 +251,7 @@ void atualizarHospedeBIN(Hospede novoHosp) {
 
 }
 
-void deletarHospede(int cod) {
+void deletarHospedeTXT(int cod) {
 
     FILE* hosp = fopen(".\\persist\\hospedes_temp.txt", "w");
     if (hosp == NULL) {
@@ -285,16 +285,16 @@ void deletarHospedeBIN(int cod) {
     } else {
         int numHospedes=0;
         Hospede* arrHosp = getAllHospedesBIN(&numHospedes);
-        printf("DEBUG: NUM HOSPEDES = %d\n",numHospedes);
+        
         for (int i = 0; i < numHospedes; i++) {
             if (arrHosp[i].codigo != cod) {
                 Hospede h = arrHosp[i];
-                printf("NÃO VAI DELETAR: COD %d == %d\n",arrHosp[i].codigo,h.codigo);
+                //printf("NÃO VAI DELETAR: COD %d == %d\n",arrHosp[i].codigo,h.codigo);
                 fwrite(&h, sizeof (Hospede), 1, hosp);
 
             }else{
                 Hospede h2 = arrHosp[i];
-                printf("É ESSE AQUI QUE VAI DELETAR: COD %d == %d\n",arrHosp[i].codigo,h2.codigo);
+                //printf("É ESSE AQUI QUE VAI DELETAR: COD %d == %d\n",arrHosp[i].codigo,h2.codigo);
             }
             
         }
