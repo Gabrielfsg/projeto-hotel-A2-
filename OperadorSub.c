@@ -6,7 +6,7 @@
 
 void cadastrarOperador() {
     OperadorSistema op;
-    int n, i;
+    int n, i, r;
     OperadorSistema *opera = listarOpBIN(&n);
     int aux = 0, cod = 0;
     int valid, li;
@@ -31,8 +31,8 @@ void cadastrarOperador() {
         setbuf(stdin, NULL);
 
         //salva no arquivo
-        cadastrarOpBin(&op, 1);
-        // cadastrarOpTXT(op);
+        //cadastrarOpBin(&op, 1);
+        r = controleCadTXT(op);
         printf("Cadastro Efetuado com sucesso! \n");
         aux = 0;
         cod = 0;
@@ -43,13 +43,14 @@ void listarOperador() {
     int n, aux;
     OperadorSistema *opera;
     opera = listarOpTXT();
+    n = contarLinhasTXT();
     //opera = listarOpBIN(&n);
     int i;
     for (i = 0; i < n; i++) {
         printf("\n*******%d************", i);
-        printf("\nCodigo: %d", opera[i].codigo);
-        printf("\nNome: %s", opera[i].nome);
-        printf("\nUsuario: %s", opera[i].usuario);
+        printf("\nCodigo: %d \n", opera[i].codigo);
+        printf("\nNome: %s\n", opera[i].nome);
+        printf("\nUsuario: %s\n", opera[i].usuario);
         printf("\nSenha: %s \n", opera[i].senha);
     }
 }
@@ -159,6 +160,38 @@ int removerOpSControleBIN(int cod) {
     }
 }
 
+int controleCadTXT(OperadorSistema opera) {
+    return cadastrarOpTXT(opera);
+}
+
+int contarLinhasTXT() {
+
+    FILE *listOperador;
+    int numOL = 0, c, numF;
+
+    listOperador = fopen(".\\persist\\operadorTXT.txt", "r");
+    if (listOperador == NULL) {
+        listOperador = fopen(".\\persist\\operadorTXT.txt", "w+");
+        if (listOperador == NULL) {
+            printf("Erro ao acessar arquivo\n");
+            return 0;
+        }
+    }
+    //Lendo o arquivo 1 por 1
+    while ((c = fgetc(listOperador)) != EOF) {
+        if (c == '\n') {
+            //soma a quantidade de linhas do TXT, mas não a quantidade de categorias
+            numOL++;
+        }
+    }
+    numF = numOL / 4;
+    fclose(listOperador);
+    free(listOperador);
+
+    return numF;
+
+}
+
 int contarLinhas() {
 
     FILE *listOperador;
@@ -208,7 +241,7 @@ int removerOperadorControleTXT(int cod) {
     }
     //apaga arquivo
     //int v = removerOperadorBIN();
-   
-      return  salvarOperadorTXT(opera, num -1);
+
+    return salvarOperadorTXT(opera, num - 1);
 }
 

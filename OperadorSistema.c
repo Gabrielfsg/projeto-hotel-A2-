@@ -31,7 +31,7 @@ int cadastrarOpBin(OperadorSistema op, int quantidade) {
     return 1;
 }
 
-int cadastrarOpTXT(OperadorSistema op) {
+int cadastrarOpTXT(OperadorSistema opera) {
     FILE *arq;
     //abrea arquivo para escrita e posiciona cursor no final "ab"
     arq = fopen(".\\persist\\operadorTXT.txt", "a");
@@ -44,7 +44,7 @@ int cadastrarOpTXT(OperadorSistema op) {
         }
     }
 
-    fprintf(arq, "%d\n%s\n%s\n%s\n%f\n", op.codigo, op.nome, op.usuario, op.senha);
+    fprintf(arq, "%d\n%s\n%s\n%s\n%f\n", opera.codigo, opera.nome, opera.usuario, opera.senha);
 
     fclose(arq);
 
@@ -118,7 +118,7 @@ OperadorSistema * listarOpBIN(int *numLinha) {
 OperadorSistema* listarOpTXT() {
     int numOL = 0, i = 0;
     FILE* arq;
-    numOL = contarLinhasTXT();
+    numOL = contarLinhasTXT(arq);
     arq = fopen(".\\persist\\operadorTXT.txt", "r");
     if (arq == NULL) {
         arq = fopen(".\\persist\\operadorTXT.txt", "w+");
@@ -222,23 +222,3 @@ int validarOpBIN(int cod) {
     return 0;
 }
 
-int contarLinhasTXT() {
-
-    FILE *listOperador;
-    int numOL = 0, c;
-
-    listOperador = fopen(".\\persist\\operadorTXT.txt", "r");
-
-    //Lendo o arquivo 1 por 1
-    while ((c = fgetc(listOperador)) != EOF) {
-        if (c == '\n') {
-            //soma a quantidade de linhas do TXT, mas não a quantidade de categorias
-            numOL++;
-        }
-    }
-    fclose(listOperador);
-    free(listOperador);
-
-    return numOL / 4;
-
-}
