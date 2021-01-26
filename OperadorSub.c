@@ -48,11 +48,13 @@ void listarOperador() {
     int i;
     for (i = 0; i < n; i++) {
         printf("\n*******%d************", i);
-        printf("\nCodigo: %d \n", opera[i].codigo);
-        printf("\nNome: %s\n", opera[i].nome);
-        printf("\nUsuario: %s\n", opera[i].usuario);
-        printf("\nSenha: %s \n", opera[i].senha);
+        printf("\nCodigo: %d", opera[i].codigo);
+        printf("\nNome: %s", opera[i].nome);
+        printf("\nUsuario: %s", opera[i].usuario);
+        printf("\nSenha: %s", opera[i].senha);
+        printf("\n");
     }
+    free(opera);
 }
 
 void atualizarOperador() {
@@ -169,9 +171,9 @@ int contarLinhasTXT() {
     FILE *listOperador;
     int numOL = 0, c, numF;
 
-    listOperador = fopen(".\\persist\\operadorTXT.txt", "r");
+    listOperador = fopen(".\\persist\\operadorTXT", "r");
     if (listOperador == NULL) {
-        listOperador = fopen(".\\persist\\operadorTXT.txt", "w+");
+        listOperador = fopen(".\\persist\\operadorTXT", "w+");
         if (listOperador == NULL) {
             printf("Erro ao acessar arquivo\n");
             return 0;
@@ -184,7 +186,7 @@ int contarLinhasTXT() {
             numOL++;
         }
     }
-    numF = numOL / 4;
+    numF = numOL/4;
     fclose(listOperador);
     free(listOperador);
 

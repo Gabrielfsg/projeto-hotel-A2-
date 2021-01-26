@@ -34,10 +34,10 @@ int cadastrarOpBin(OperadorSistema op, int quantidade) {
 int cadastrarOpTXT(OperadorSistema opera) {
     FILE *arq;
     //abrea arquivo para escrita e posiciona cursor no final "ab"
-    arq = fopen(".\\persist\\operadorTXT.txt", "a");
+    arq = fopen(".\\persist\\operadorTXT", "a");
     if (arq == NULL) {
         //cria arquivo para escrita se não houver "wb"
-        arq = fopen(".\\persist\\operadorTXT.txt", "w");
+        arq = fopen(".\\persist\\operadorTXT", "w");
         if (arq == NULL) {
             printf("\nERRO ao acessar arquivo\n");
             return 0;
@@ -53,7 +53,7 @@ int cadastrarOpTXT(OperadorSistema opera) {
 
 int salvarOperadorTXT(OperadorSistema *opera, int num) {
     // w pra substituir o arquivo
-    FILE *cade = fopen(".\\persist\\operadorTXT.txt", "w");
+    FILE *cade = fopen(".\\persist\\operadorTXT", "w");
     if (cade == NULL) {
         printf("\nErro ao abrir arquivo!!");
         return 0;
@@ -115,13 +115,13 @@ OperadorSistema * listarOpBIN(int *numLinha) {
     return opera;
 }
 
-OperadorSistema* listarOpTXT() {
+OperadorSistema * listarOpTXT() {
     int numOL = 0, i = 0;
     FILE* arq;
     numOL = contarLinhasTXT(arq);
-    arq = fopen(".\\persist\\operadorTXT.txt", "r");
+    arq = fopen(".\\persist\\operadorTXT", "r");
     if (arq == NULL) {
-        arq = fopen(".\\persist\\operadorTXT.txt", "w+");
+        arq = fopen(".\\persist\\operadorTXT", "w+");
         if (arq == NULL) {
             printf("\nERRO ao acessar arquivo\n");
             return 0;
@@ -180,8 +180,6 @@ int editarOperadorTXT(OperadorSistema *opera, OperadorSistema op, int num) {
             strcpy(opera[i].nome, op.nome);
             strcpy(opera[i].usuario, op.usuario);
             strcpy(opera[i].senha, op.senha);
-
-
         }
     }
 
@@ -198,7 +196,7 @@ int removerOperadorBIN() {
 }
 
 int removerOperadorTXT() {
-    int status = remove(".\\persist\\operadorTXT.txt");
+    int status = remove(".\\persist\\operadorTXT");
     if (status != 0) {
         printf("\nErro na remoção do arquivo.\n");
         return 0;
