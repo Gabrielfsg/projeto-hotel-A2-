@@ -108,7 +108,8 @@ void deletarOperador() {
     if (opc == 1) {
         printf("Entre com o código do operador: ");
         scanf("%d", &cod);
-        int r = removerOperadorControleBIN(cod);
+        //int r = removerOperadorControleBIN(cod);
+        int r = removerOperadorControleTXT(cod);
         if (r == 1) {
             printf("\nExclusão realizada com sucesso!\n");
         } else {
@@ -187,10 +188,10 @@ int salvarOperadorControleTXT(OperadorSistema* opera, int num) {
     return salvarOperadorTXT(opera, num);
 }
 
-int removerOperadorControleBIN(int cod) {
-    int num;
-    OperadorSistema *opera = listarOpBIN(&num);
-
+int removerOperadorControleTXT(int cod) {
+    int num = contarLinhasTXT();
+    //OperadorSistema *opera = listarOpBIN(&num);
+    OperadorSistema *opera = listarOpTXT();
     int i;
     for (i = 0; i < num; i++) {
         if (opera[i].codigo == cod) {
@@ -206,13 +207,8 @@ int removerOperadorControleBIN(int cod) {
         }
     }
     //apaga arquivo
-    int v = removerOperadorBIN();
-    if (v == 1) {
-        //se deu certo reescreve arquivo
-        //cadastrarOpBin(opera, num - 1);
-        salvarOperadorTXT();
-    } else {
-        return 0;
-    }
+    //int v = removerOperadorBIN();
+   
+      return  salvarOperadorTXT(opera, num -1);
 }
 

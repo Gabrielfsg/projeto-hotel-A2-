@@ -121,8 +121,11 @@ OperadorSistema* listarOpTXT() {
     numOL = contarLinhasTXT();
     arq = fopen(".\\persist\\operadorTXT.txt", "r");
     if (arq == NULL) {
-        printf("Erro ao abrir arquivo\n");
-        return 0;
+        arq = fopen(".\\persist\\operadorTXT.txt", "w+");
+        if (arq == NULL) {
+            printf("\nERRO ao acessar arquivo\n");
+            return 0;
+        }
     }
 
     OperadorSistema *opera = (OperadorSistema*) calloc(numOL, sizeof (OperadorSistema));
@@ -174,7 +177,6 @@ int editarOperadorTXT(OperadorSistema *opera, OperadorSistema op, int num) {
     int i;
     for (i = 0; i < num; i++) {
         if ((int) (opera[i].codigo) == (int) (op.codigo)) {
-            printf("entrou");
             strcpy(opera[i].nome, op.nome);
             strcpy(opera[i].usuario, op.usuario);
             strcpy(opera[i].senha, op.senha);
@@ -188,6 +190,15 @@ int editarOperadorTXT(OperadorSistema *opera, OperadorSistema op, int num) {
 
 int removerOperadorBIN() {
     int status = remove(".\\persist\\operador.bin");
+    if (status != 0) {
+        printf("\nErro na remoção do arquivo.\n");
+        return 0;
+    }
+    return 1;
+}
+
+int removerOperadorTXT() {
+    int status = remove(".\\persist\\operadorTXT.txt");
     if (status != 0) {
         printf("\nErro na remoção do arquivo.\n");
         return 0;
