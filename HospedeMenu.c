@@ -5,12 +5,12 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-//#include "HospedeControl.h"
 #include "Principal.h"
 #include "Hospede.h"
 #include "HospedeMenu.h"
-#include "HospedeControl.h"
-#include "FornecedorSUB.h"
+//#include "HospedeControl.h"
+//#include "FornecedorSUB.h"
+#include "SalvametoBD.h"
 
 void menuCRUDHospedes() {
     int sair = 0;
@@ -59,12 +59,12 @@ void cadastrarHospedesControl() {
     printf("***** CADASTRAR HÓSPEDE *****\n");
     int cod;
     Hospede h;
-
+    int ext = listar();
     //pega os dados
     printf("Digite o cod do hóspede \n");
     scanf("%d%*c", &cod);
     //valida para ver se já existe
-    if (validarCodHospede(cod) == 0) {
+    if (validarCodHospede(cod, ext) == 0) {
         return;
     } else {
         h.codigo = cod;
@@ -79,15 +79,15 @@ void cadastrarHospedesControl() {
     fgets(h.cpf, 13, stdin); // tamanho 13 porque tem o \0 e o fgets adciona uma quebra de linha no final(?)
     strtok(h.cpf, "\n");
 
-    //setbuf(stdin, NULL); // limpa o buffer
+    setbuf(stdin, NULL); // limpa o buffer
 
     printf("Digite o telefone do hóspede \n");
-    fgets(h.telefone, 15, stdin);
+    fgets(h.telefone, 16, stdin);
     strtok(h.telefone, "\n");
 
     printf("Digite o email do hóspede \n");
     //scanf("%s%*c", &h.email);
-    fgets(h.email, 101, stdin);
+    fgets(h.email, 102, stdin);
     strtok(h.email, "\n");
     printf("Digite o sexo do hóspede (M - masculino , F - Feminino) \n");
     scanf("%s%*c", &h.sexo);
@@ -96,111 +96,184 @@ void cadastrarHospedesControl() {
     //scanf("%s%*c", &h.esCivil);
     fgets(h.esCivil, 11, stdin);
     strtok(h.esCivil, "\n");
-    //printf("Digite a data de nasc do hóspede \n");
-    //scanf("%d%*c",&);
 
-    //printf("Digite o endereço do hóspede \n");
-    //scanf("%s%*c",&h.end);
+    printf("DATA DE NASCIMENTO DO HÓSPEDE\n");
+    printf("Digite o Dia do nascimento do hóspede \n");
+    scanf("%d%*c", &h.dataNascimento.dia);
 
+    printf("Digite o Mês do nascimento do hóspede \n");
+    scanf("%d%*c", &h.dataNascimento.mes);
+
+    printf("Digite o Ano do nascimento do hóspede \n");
+    scanf("%d%*c", &h.dataNascimento.ano);
+
+    //printf("DATA = %d  -  %d  -  %d\n", h.dataNascimento.dia, h.dataNascimento.mes, h.dataNascimento.ano);
+
+    printf("ENDEREÇO DO HÓSPEDE\n");
+    printf("Digite o Código do endereço \n");
+    scanf("%d%*c", &h.endereco.codigo);
+
+    setbuf(stdin, NULL); // limpa o buffer
+
+    printf("Digite o CEP do endereço (Apenas números) \n");
+    fgets(h.endereco.cep, 10, stdin);
+    strtok(h.endereco.cep, "\n");
+
+    setbuf(stdin, NULL); // limpa o buffer
+
+    printf("Digite a UF do endereço \n");
+    //scanf("%s%*c",&h.endereco.uf);
+    fgets(h.endereco.uf, 4, stdin);
+    strtok(h.endereco.uf, "\n");
+
+    setbuf(stdin, NULL); // limpa o buffer
+
+    printf("Digite a Cidade do endereço \n");
+    fgets(h.endereco.cidade, 102, stdin);
+    strtok(h.endereco.cidade, "\n");
+
+
+
+    printf("Digite o Bairo do endereço \n");
+    fgets(h.endereco.bairro, 102, stdin);
+    strtok(h.endereco.bairro, "\n");
+
+
+
+    printf("Digite o Logradouro do endereço \n");
+    fgets(h.endereco.logradouro, 102, stdin);
+    strtok(h.endereco.logradouro, "\n");
+
+
+
+    printf("Digite o Número do endereço \n");
+    scanf("%d%*c", &h.endereco.numero);
+
+
+    //printf("//////////////// \n");
+    //printf("ENDER = %s \n", h.endereco.uf);
+    //printf("ENDER = %s  -  %s  -  %s  -  %d  -  %s  -  %d  -  %s\n", h.endereco.bairro, h.endereco.cep, h.endereco.cidade, h.endereco.codigo, h.endereco.logradouro, h.endereco.numero, h.endereco.uf);
+    //printf("//////////////// \n");
+    
     //VALIDAÇÃO EXTENÇÃO DO ARQUIVO
-    //cadastrarHospedesTXT(h);
-    cadastrarHospedesBIN(h);
+    if (ext == 2) {
+        //BIN
+        cadastrarHospedesBIN(h);
+    }
+    if (ext == 1) {
+        //TXT
+        cadastrarHospedesTXT(h);
+
+    }
 }
 
 void listarHospedesControl() {
-    //int numHospedes = getNumHospedes();
-    int numHospedes =0;
+    int numHospedes = 0;
+    Hospede* arrayHospedes;
     printf("LISTA DE TODOS OS HÓSPEDES \n");
     //VALIDAÇÃO EXTENSÃO DO ARQUIVO
-    //Hospede* arrayHospedes = getAllHospedesTXT(numHospedes);
-    Hospede* arrayHospedes = getAllHospedesBIN(&numHospedes);
+    int ext = listar();
+    if (ext == 2) {
+        //BIN
+        arrayHospedes = getAllHospedesBIN(&numHospedes);
+    }
+    if (ext == 1) {
+        //TXT
+        numHospedes = getNumHospedes();
+        arrayHospedes = getAllHospedesTXT(numHospedes);
+
+    }
+
+
 
     for (int i = 0; i < numHospedes; i++) {
         //lista os hóspedes
         printf("***************\n");
         printf("COD: %d\n", arrayHospedes[i].codigo);
-        //printf("ENDER: 123\n");
         printf("NOME: %s\n", arrayHospedes[i].nome);
         printf("CPF: %s\n", arrayHospedes[i].cpf);
         printf("FONE: %s\n", arrayHospedes[i].telefone);
         printf("EMAIL: %s\n", arrayHospedes[i].email);
         printf("SEXO: %c\n", arrayHospedes[i].sexo);
         printf("ESTADO CIVIL: %s\n", arrayHospedes[i].esCivil);
-        //printf("DATA NASC: 123\n");
+        //DATA
+        printf("DATA NASC: %d / %d / %d \n", arrayHospedes[i].dataNascimento.dia, arrayHospedes[i].dataNascimento.mes, arrayHospedes[i].dataNascimento.ano);
+        //ENDEREÇO
+        printf("COD ENDER: %d\n", arrayHospedes[i].endereco.codigo);
+        printf("BAIRRO: %s\n", arrayHospedes[i].endereco.bairro);
+        printf("CEP: %s\n", arrayHospedes[i].endereco.cep);
+        printf("CIDADE: %s\n", arrayHospedes[i].endereco.cidade);
+        printf("LOGRADOURO: %s\n", arrayHospedes[i].endereco.logradouro);
+        printf("NUMERO: %d\n", arrayHospedes[i].endereco.numero);
+        printf("UF: %s\n", arrayHospedes[i].endereco.uf);
         printf("***************\n");
     }
     printf("\n FIM DA LISTA DE HÓSPEDES \n");
 
-    //printf("NUMHOSPEDES: %d\n",numHospedes);
+    //printf("NUMHOSPEDES: %d\n", numHospedes);
     free(arrayHospedes);
 }
 
-Hospede* getAllHospedesControl() {
-    int numHospedes = getNumHospedes();
-    
-    //VALIDAR EXTENSÃO
-    //Hospede* arrayHospedes = getAllHospedesTXT(numHospedes);
-    return getAllHospedesBIN(numHospedes);
-}
-
 Hospede getHospedeByCodControl() {
-    //TXT
     Hospede hos;
     int cod;
-    //VALIDAR EXTENSÃO
-    
-    int numHospedes = getNumHospedes();
-
+    int ext = listar();
     printf("Digite o código do Hóspede que deseja procurar:\n");
     scanf("%d%*c", &cod);
-    int validacao = validarCodHospede(cod);
-    setbuf(stdin, NULL);
 
-    if (validacao == 0) {
-        printf("INFORMAÇÕES DO HÓSPEDE: \n");
-        hos = getHospedeByCodTXT(cod, numHospedes);
-        printf("***************\n");
-        printf("COD: %d\n", hos.codigo);
-        printf("NOME: %s\n", hos.nome);
-        printf("CPF: %s\n", hos.cpf);
-        printf("EMAIL: %s\n", hos.email);
-        printf("SEXO: %c\n", hos.sexo);
-        printf("ESCIVIL: %s\n", hos.esCivil);
-        printf("TELEFONE: %s\n", hos.telefone);
-        printf("***************\n");
-        return hos;
+    if (validarCodHospede(cod, ext) == 1) {
+        printf("COD INEXISTENTE\n");
+        return;
     } else {
-        printf("CÓDIGO NÃO EXISTE\n");
+
+        //VALIDAR EXTENSÃO
+        if (ext == 2) {
+            //BIN
+            hos = getHospedeByCodBIN(cod);
+        }
+        if (ext == 1) {
+            //TXT
+            int numHospede = getNumHospedes();
+            hos = getHospedeByCodTXT(cod, numHospede);
+
+        }
     }
-    //BIN
-    /*int cod;
-    Hospede h;
-    printf("Digite o código do Hóspede que deseja procurar:\n");
-    scanf("%d%*c", &cod);
-    
-    h = getHospedeByCodBIN(cod);
-    
+
+    printf("INFORMAÇÕES DO HÓSPEDE: \n");
     printf("***************\n");
-    printf("COD: %d\n", h.codigo);
-    //printf("ENDER: 123\n");
-    printf("NOME: %s\n", h.nome);
-    printf("CPF: %s\n", h.cpf);
-    printf("FONE: %s\n", h.telefone);
-    printf("EMAIL: %s\n", h.email);
-    printf("SEXO: %c\n", h.sexo);
-    printf("ESTADO CIVIL: %s\n", h.esCivil);
-    //printf("DATA NASC: 123\n");
+    printf("COD: %d\n", hos.codigo);
+    printf("NOME: %s\n", hos.nome);
+    printf("CPF: %s\n", hos.cpf);
+    printf("EMAIL: %s\n", hos.email);
+    printf("SEXO: %c\n", hos.sexo);
+    printf("ESCIVIL: %s\n", hos.esCivil);
+    printf("TELEFONE: %s\n", hos.telefone);
+    //DATA
+    printf("DATA NASC: %d / %d / %d \n", hos.dataNascimento.dia, hos.dataNascimento.mes, hos.dataNascimento.ano);
+    //ENDEREÇO
+    printf("COD ENDER: %d\n", hos.endereco.codigo);
+    printf("BAIRRO: %s\n", hos.endereco.bairro);
+    printf("CEP: %s\n", hos.endereco.cep);
+    printf("CIDADE: %s\n", hos.endereco.cidade);
+    printf("LOGRADOURO: %s\n", hos.endereco.logradouro);
+    printf("NUMERO: %d\n", hos.endereco.numero);
+    printf("UF: %s\n", hos.endereco.uf);
+
     printf("***************\n");
-     */
+    return hos;
+
 }
 
 void atualizarHospedesControl() {
     printf("***** ALTERAR DADOS DO HÓSPEDE *****\n");
+
     int cod;
+    int ext = listar();
     Hospede novoHosp;
     printf("Digite o cod do hóspede \n");
     scanf("%d%*c", &cod);
-    //if (validarCodHospede(cod) == 0) {
+    if (validarCodHospede(cod, ext) == 0) {
+        //COD EXISTE
         novoHosp.codigo = cod;
 
         //pega os novos dados
@@ -213,121 +286,205 @@ void atualizarHospedesControl() {
         fgets(novoHosp.cpf, 13, stdin); // tamanho 13 porque tem o \0 e o fgets adciona uma quebra de linha no final(?)
         strtok(novoHosp.cpf, "\n");
 
-        //setbuf(stdin, NULL); // limpa o buffer
+        setbuf(stdin, NULL); // limpa o buffer
 
         printf("Atualize o telefone do hóspede \n");
-        fgets(novoHosp.telefone, 15, stdin);
+        fgets(novoHosp.telefone, 16, stdin);
         strtok(novoHosp.telefone, "\n");
 
         printf("Atualize o email do hóspede \n");
         //scanf("%s%*c", &h.email);
-        fgets(novoHosp.email, 101, stdin);
+        fgets(novoHosp.email, 102, stdin);
         strtok(novoHosp.email, "\n");
-        printf("Atualize o sexo do hóspede (M - masculino , F - Feminino) \n");
+        printf("DAtualize o sexo do hóspede (M - masculino , F - Feminino) \n");
         scanf("%s%*c", &novoHosp.sexo);
 
         printf("Atualize o estado civil do hóspede \n");
         //scanf("%s%*c", &h.esCivil);
         fgets(novoHosp.esCivil, 11, stdin);
         strtok(novoHosp.esCivil, "\n");
-        //printf("Atualize a data de nasc do hóspede \n");
-        //scanf("%d%*c",&);
 
-        //printf("Atualize o endereço do hóspede \n");
-        //scanf("%s%*c",&h.end);
+        printf("DATA DE NASCIMENTO DO HÓSPEDE\n");
+        printf("Atualize o Dia do nascimento do hóspede \n");
+        scanf("%d%*c", &novoHosp.dataNascimento.dia);
+
+        printf("Atualize o Mês do nascimento do hóspede \n");
+        scanf("%d%*c", &novoHosp.dataNascimento.mes);
+
+        printf("Atualize o Ano do nascimento do hóspede \n");
+        scanf("%d%*c", &novoHosp.dataNascimento.ano);
+
+        //printf("DATA = %d  -  %d  -  %d\n", h.dataNascimento.dia, h.dataNascimento.mes, h.dataNascimento.ano);
+
+        printf("ENDEREÇO DO HÓSPEDE\n");
+        printf("Atualize o Código do endereço \n");
+        scanf("%d%*c", &novoHosp.endereco.codigo);
+
+        setbuf(stdin, NULL); // limpa o buffer
+
+        printf("Atualize o CEP do endereço (Apenas números) \n");
+        fgets(novoHosp.endereco.cep, 10, stdin);
+        strtok(novoHosp.endereco.cep, "\n");
+
+        setbuf(stdin, NULL); // limpa o buffer
+
+        printf("Atualize a UF do endereço \n");
+        //scanf("%s%*c",&h.endereco.uf);
+        fgets(novoHosp.endereco.uf, 4, stdin);
+        strtok(novoHosp.endereco.uf, "\n");
+
+        setbuf(stdin, NULL); // limpa o buffer
+
+        printf("Atualize a Cidade do endereço \n");
+        fgets(novoHosp.endereco.cidade, 102, stdin);
+        strtok(novoHosp.endereco.cidade, "\n");
 
 
-        printf("TESTE\n");
+
+        printf("Atualize o Bairo do endereço \n");
+        fgets(novoHosp.endereco.bairro, 102, stdin);
+        strtok(novoHosp.endereco.bairro, "\n");
+
+
+
+        printf("Atualize o Logradouro do endereço \n");
+        fgets(novoHosp.endereco.logradouro, 102, stdin);
+        strtok(novoHosp.endereco.logradouro, "\n");
+
+
+
+        printf("Atualize o Número do endereço \n");
+        scanf("%d%*c", &novoHosp.endereco.numero);
+
+
+        printf("NOVOS DADOS\n");
+        printf("***************\n");
         printf("COD: %d\n", novoHosp.codigo);
         printf("NOME: %s\n", novoHosp.nome);
         printf("CPF: %s\n", novoHosp.cpf);
+        printf("FONE: %s\n", novoHosp.telefone);
         printf("EMAIL: %s\n", novoHosp.email);
-        printf("TELEFONE: %s\n", novoHosp.telefone);
-        printf("ESCIVIL: %s\n", novoHosp.esCivil);
         printf("SEXO: %c\n", novoHosp.sexo);
-
+        printf("ESTADO CIVIL: %s\n", novoHosp.esCivil);
+        //DATA
+        printf("DATA NASC: %d / %d / %d \n", novoHosp.dataNascimento.dia, novoHosp.dataNascimento.mes, novoHosp.dataNascimento.ano);
+        //ENDEREÇO
+        printf("COD ENDER: %d\n", novoHosp.endereco.codigo);
+        printf("BAIRRO: %s\n", novoHosp.endereco.bairro);
+        printf("CEP: %s\n", novoHosp.endereco.cep);
+        printf("CIDADE: %s\n", novoHosp.endereco.cidade);
+        printf("LOGRADOURO: %s\n", novoHosp.endereco.logradouro);
+        printf("NUMERO: %d\n", novoHosp.endereco.numero);
+        printf("UF: %s\n", novoHosp.endereco.uf);
+        printf("***************\n");
         //VERFICAÇÃO EXTENSÃO DO ARQUIVO
-        //atualizarHospedeTXT(novoHosp);
-        atualizarHospedeBIN(novoHosp);
+        if (ext == 2) {
+            //BIN
+            atualizarHospedeBIN(novoHosp);
+        }
+        if (ext == 1) {
+            //TXT
+            atualizarHospedeTXT(novoHosp);
+        }
+        //
+
         printf("ALTERAÇÃO CONCLUÍDA\n");
 
-    //} else {
-    //    printf("CÓDIGO NÃO EXISTE");
-    //}
+    } else {
+        printf("CÓDIGO NÃO EXISTE\n");
+    }
 }
 
 void deletarHospedesControl() {
     printf("***** DELETAR HÓSPEDE *****\n");
-    /*int cod;
-    char confirmacao;
 
+    Hospede h;
+    char confirmacao;
+    int cod;
+    int ext = listar();
     printf("Digite o cod do hóspede \n");
     scanf("%d%*c", &cod);
-    int validacao = validarCodHospede(cod);
-    if (validacao == 0) {
-        int numHospedes = getNumHospedes();
-        Hospede hos = getHospedeByCodTXT(cod, numHospedes);
+    if (validarCodHospede(cod, ext) == 1) {
+        //NÃO EXISTE
+        printf("COD INEXISTENTE\n");
+        return;
+    } else {
 
-        printf("***************\n");
-        printf("COD: %d\n", hos.codigo);
-        printf("NOME: %s\n", hos.nome);
-        printf("CPF: %s\n", hos.cpf);
-        printf("EMAIL: %s\n", hos.email);
-        printf("SEXO: %c\n", hos.sexo);
-        printf("ESCIVIL: %s\n", hos.esCivil);
-        printf("TELEFONE: %s\n", hos.telefone);
-        printf("***************\n");
-
-        printf("DESEJA RELEMTE DELETAR O HÓSPEDE? (S/N)\n");
-        scanf("%c%*c", &confirmacao);
-        if (confirmacao == 'S' || confirmacao == 's') {
-            deletarHospede(cod);
-        } else {
-            printf("OPERAÇÃO CANCELADA\n");
-            return;
+        if (ext == 2) {
+            h = getHospedeByCodBIN(cod);
+        }
+        if (ext == 1) {
+            int numHospedes = getNumHospedes();
+            h = getHospedeByCodTXT(cod, numHospedes);
         }
 
-        printf("HOSPEDE DELETADO COM SUCESSO\n");
-        //exit(1);
 
-
-        //setbuf(stdout, NULL);
-        //setlinebuf(stdout);
-        /*printf("+++++++++++++++++++++ \n");
+        printf("INFORMAÇÕES DO HÓSPEDE: \n");
+        printf("***************\n");
         printf("COD: %d\n", h.codigo);
         printf("NOME: %s\n", h.nome);
         printf("CPF: %s\n", h.cpf);
+        printf("FONE: %s\n", h.telefone);
         printf("EMAIL: %s\n", h.email);
         printf("SEXO: %c\n", h.sexo);
-        printf("ESCIVIL: %s\n", h.esCivil);
-        printf("TELEFONE: %s\n", h.telefone);
-        printf("+++++++++++++++++++++ \n");*/
+        printf("ESTADO CIVIL: %s\n", h.esCivil);
+        //DATA
+        printf("DATA NASC: %d / %d / %d \n", h.dataNascimento.dia, h.dataNascimento.mes, h.dataNascimento.ano);
+        //ENDEREÇO
+        printf("COD ENDER: %d\n", h.endereco.codigo);
+        printf("BAIRRO: %s\n", h.endereco.bairro);
+        printf("CEP: %s\n", h.endereco.cep);
+        printf("CIDADE: %s\n", h.endereco.cidade);
+        printf("LOGRADOURO: %s\n", h.endereco.logradouro);
+        printf("NUMERO: %d\n", h.endereco.numero);
+        printf("UF: %s\n", h.endereco.uf);
+        printf("***************\n");
 
+        printf("DESEJA REALMENTE DELETAR O PRODUTO? (S / N)\n");
+        scanf("%c%*c", &confirmacao);
 
-    //} else {
-    //  printf("CÓDIGO NÃO EXISTE\n");
-    //}
-    //VERIFICAR EXT DO ARQUIVO
-    
-    ////////BIN
-    int cod;
-
-    printf("Digite o cod do hóspede \n");
-    scanf("%d%*c", &cod);
-    Hospede h = getHospedeByCodBIN(cod);
-    deletarHospedeBIN(cod);
+        if (confirmacao == 'S' || confirmacao == 's') {
+            if (ext == 2) {
+                //BIN
+                deletarHospedeBIN(cod);
+            }
+            if (ext == 1) {
+                //TXT
+                deletarHospedeTXT(cod);
+            }
+        } else {
+            printf("OPERAÇÃO CANCELADA \n");
+            return;
+        }
+        printf("HÓSPEDE DELETADO\n");
+    }
 
 }
 
-int validarCodHospede(int cod) { //1-> NÃO EXISTE 0 -> JÁ EXISTE
+int validarCodHospede(int cod, int ext) {
+    //RETORNA 1 SE O COD NÃO EXISTE
+    //RETORNA 0 SE O COD JÁ EXISTE
     //printf("ENTROU VALIDAÇÃO\n");
     int codExistente = 1;
-    Hospede* arrHospedes = getAllHospedesControl();
-    int numHospedes = getNumHospedes();
+    Hospede* arrHospedes;
+    int numHospedes = 0;
+
+    if (ext == 2) {
+        //BIN
+        arrHospedes = getAllHospedesBIN(&numHospedes);
+    }
+    if (ext == 1) {
+        //TXT
+        numHospedes = getNumHospedes();
+
+        arrHospedes = getAllHospedesTXT(numHospedes);
+    }
+
     int i;
     for (i = 0; i < numHospedes; i++) {
         if (cod == arrHospedes[i].codigo) {
             codExistente = 0;
+            //printf("ACHOU UM COD IGUAL: %d = %d\n",cod,arrHospedes[i].codigo);
         }
     }
     free(arrHospedes);
@@ -343,7 +500,7 @@ int getNumHospedes() {
     FILE *arq;
     int numLinhas = 0, numHospedes = 0;
     char c;
-    arq = fopen(".\\persist\\hospedes.txt", "r");
+    arq = fopen(".\\arquivos\\hospedes.txt", "r");
     if (arq == NULL) {
         printf("Erro ao acessar arquivo\n");
     }
@@ -353,7 +510,7 @@ int getNumHospedes() {
             numLinhas++;
         }
     }
-    numHospedes = numLinhas / 7; //9;
+    numHospedes = numLinhas / 17;
 
     //printf("O NÚMERO DE LINHAS DO ARQ É: %d\n", numLinhas);
     //printf("O NÚMERO DE HOSPEDES CADASTRADOS É: %d\n", numHospedes);

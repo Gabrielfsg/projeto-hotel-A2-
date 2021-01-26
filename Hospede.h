@@ -13,6 +13,8 @@
 
 #ifndef HOSPEDE_H
 #define HOSPEDE_H
+#include "Endereco.h"
+#include "Data.h"
 
 //typedef struct hospede Hospede;
 typedef struct hospede {
@@ -23,8 +25,8 @@ typedef struct hospede {
     char email[100];
     char sexo; //M- masculino F-Feminino
     char esCivil[10];
-    //Data *dataNascimento;
-    //Endereco *endereco;
+    Data dataNascimento;
+    Endereco endereco;
 } Hospede;
 
 void cadastrarHospedesTXT(Hospede h);

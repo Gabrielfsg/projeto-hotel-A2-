@@ -14,11 +14,13 @@
 
 void cadastrarHospedesTXT(Hospede h) {
     FILE* arHospedes;
-    arHospedes = fopen(".\\persist\\hospedes.txt", "a");
+    arHospedes = fopen(".\\arquivos\\hospedes.txt", "a");
     if (arHospedes == NULL) {
         printf("ERRO DE ABERTURA\n");
     } else {
         fprintf(arHospedes, "Cod: %d\r\nNome: %s\r\nCPF: %s\r\nTelefone: %s\r\nEmail: %s\r\nSexo: %c\r\nEstadoCivil: %s\r\n", h.codigo, h.nome, h.cpf, h.telefone, h.email, h.sexo, h.esCivil);
+        fprintf(arHospedes, "DiaNasc: %d\r\nMesNasc: %d\r\nAnoNasc: %d\r\n", h.dataNascimento.dia, h.dataNascimento.mes, h.dataNascimento.ano);
+        fprintf(arHospedes, "CodEnder: %d\r\nBairro: %s\r\nCEP: %s\r\nCidade: %s\r\nLogradouro: %s\r\nNumero: %d\r\nUF: %s\r\n", h.endereco.codigo, h.endereco.bairro, h.endereco.cep, h.endereco.cidade, h.endereco.logradouro, h.endereco.numero, h.endereco.uf);
 
         fflush(arHospedes);
         printf("\nHOSPEDE CADASTRADO COM SUCESSO\n");
@@ -29,7 +31,7 @@ void cadastrarHospedesTXT(Hospede h) {
 
 void cadastrarHospedesBIN(Hospede h) {
     FILE* arqHospedes;
-    arqHospedes = fopen(".\\persist\\hospedes.bin", "ab");
+    arqHospedes = fopen(".\\arquivos\\hospedes.bin", "ab");
     if (arqHospedes == NULL) {
         printf("ERRO DE ABERTURA\n");
     } else {
@@ -61,9 +63,9 @@ Hospede* getAllHospedesTXT(int numHospedes) {
     //pega a lista de hóspedes do arquivo
     FILE *scanHospedes;
 
-    scanHospedes = fopen(".\\persist\\hospedes.txt", "r");
+    scanHospedes = fopen(".\\arquivos\\hospedes.txt", "r");
     if (scanHospedes == NULL) {
-        printf(" ERRO DE LEITURA ");
+        printf("ERRO DE LEITURA\n");
     } else {
         //rewind(scanHospedes);
         //while (!feof(scanHospedes)) { //enquanto não for o final do arquivo
@@ -78,18 +80,24 @@ Hospede* getAllHospedesTXT(int numHospedes) {
             fscanf(scanHospedes, "%s %s", text, h.telefone);
             fscanf(scanHospedes, "%s %s", text, h.email);
             fscanf(scanHospedes, "%s %c", text, &h.sexo);
-            //ENDEREÇO
-            //DATA NASC
             fscanf(scanHospedes, "%s %s", text, h.esCivil);
 
+            //DATA NASC
+            fscanf(scanHospedes, "%s %d", text, &h.dataNascimento.dia);
+            fscanf(scanHospedes, "%s %d", text, &h.dataNascimento.mes);
+            fscanf(scanHospedes, "%s %d", text, &h.dataNascimento.ano);
+
+            //ENDEREÇO
+            fscanf(scanHospedes, "%s %d", text, &h.endereco.codigo);
+            fscanf(scanHospedes, "%s %[^\n]s", text, h.endereco.bairro);
+            fscanf(scanHospedes, "%s %s", text, h.endereco.cep);
+            fscanf(scanHospedes, "%s %[^\n]s", text, h.endereco.cidade);
+            fscanf(scanHospedes, "%s %[^\n]s", text, h.endereco.logradouro);
+            fscanf(scanHospedes, "%s %d", text, &h.endereco.numero);
+            fscanf(scanHospedes, "%s %s", text, h.endereco.uf);
             //COLOCA O HOSPEDE NO ARRAY
             arrayHospedes[index - 1] = h;
             index++;
-            //REALLOCA O VETOR DE HÓSPEDE, ADICIONANDO MAIS UM "ESPAÇO" PARA HOSPEDE
-            //arrayHospedes = realloc(arrayHospedes, (sizeof (Hospede) + sizeof (arrayHospedes)));
-            //arrayHospedes = realloc(arrayHospedes, (sizeof (Hospede)*(index+1)));
-
-            //teste arrayHospedes = malloc(count*sizeof(Hospede));          
         }
         fclose(scanHospedes);
 
@@ -103,6 +111,18 @@ Hospede* getAllHospedesTXT(int numHospedes) {
             printf("POS: %d -> %s\n", i, arrayHospedes[i].email);
             printf("POS: %d -> %c\n", i, arrayHospedes[i].sexo);
             printf("POS: %d -> %s\n", i, arrayHospedes[i].esCivil);
+            //DATA
+            printf("POS: %d -> %d\n", i, arrayHospedes[i].dataNascimento.dia);
+            printf("POS: %d -> %d\n", i, arrayHospedes[i].dataNascimento.mes);
+            printf("POS: %d -> %d\n", i, arrayHospedes[i].dataNascimento.ano);
+            //ENDER
+            printf("POS: %d -> %d\n", i, arrayHospedes[i].endereco.codigo);
+            printf("POS: %d -> %s\n", i, arrayHospedes[i].endereco.bairro);
+            printf("POS: %d -> %s\n", i, arrayHospedes[i].endereco.cep);
+            printf("POS: %d -> %s\n", i, arrayHospedes[i].endereco.cidade);
+            printf("POS: %d -> %s\n", i, arrayHospedes[i].endereco.logradouro);
+            printf("POS: %d -> %d\n", i, arrayHospedes[i].endereco.numero);
+            printf("POS: %d -> %s\n", i, arrayHospedes[i].endereco.uf);
             printf("+++++++++++\n");
         }*/
         return arrayHospedes;
@@ -110,9 +130,6 @@ Hospede* getAllHospedesTXT(int numHospedes) {
 }
 
 Hospede* getAllHospedesBIN(int* numHospedes) {
-    //printf("NUMHOSPEDES 1: %d\n",*numHospedes);
-    //(*numHospedes)++;
-    //printf("NUMHOSPEDES 1: %d\n",*numHospedes);
     int totalLido = 0;
     int index = 0;
     Hospede *arrayHospedes = (Hospede *) malloc(sizeof (Hospede) * 1); //PONTEIRO DE HÓSPEDE VIRA UM VETOR AO CHAMAR MALLOC
@@ -123,7 +140,7 @@ Hospede* getAllHospedesBIN(int* numHospedes) {
 
     FILE *fileHospedes;
 
-    fileHospedes = fopen(".\\persist\\hospedes.bin", "rb");
+    fileHospedes = fopen(".\\arquivos\\hospedes.bin", "rb");
     if (fileHospedes == NULL) {
         printf("ERRO DE LEITURA ");
     } else {
@@ -191,7 +208,7 @@ Hospede getHospedeByCodBIN(int cod) {
 }
 
 void atualizarHospedeTXT(Hospede novoHosp) {
-    FILE* hosp = fopen(".\\persist\\hospedes_temp.txt", "w");
+    FILE* hosp = fopen(".\\arquivos\\hospedes_temp.txt", "w");
     if (hosp == NULL) {
         printf("ERRO AO ABRIR ARQUIVO");
     } else {
@@ -200,44 +217,53 @@ void atualizarHospedeTXT(Hospede novoHosp) {
 
         for (int i = 0; i < numHospedes; i++) {
             if (arrHosp[i].codigo != novoHosp.codigo) {
-                printf("%d != %d\n", arrHosp[i].codigo, novoHosp.codigo);
+                //printf("%d != %d\n", arrHosp[i].codigo, novoHosp.codigo);
                 strtok(arrHosp[i].nome, "\r");
+                strtok(arrHosp[i].endereco.bairro, "\r");
+                strtok(arrHosp[i].endereco.cidade, "\r");
+                strtok(arrHosp[i].endereco.logradouro, "\r");
                 fprintf(hosp, "Cod: %d\r\nNome: %s\r\nCPF: %s\r\nTelefone: %s\r\nEmail: %s\r\nSexo: %c\r\nEstadoCivil: %s\r\n", arrHosp[i].codigo, arrHosp[i].nome, arrHosp[i].cpf, arrHosp[i].telefone, arrHosp[i].email, arrHosp[i].sexo, arrHosp[i].esCivil);
+                fprintf(hosp, "DiaNasc: %d\r\nMesNasc: %d\r\nAnoNasc: %d\r\n", arrHosp[i].dataNascimento.dia, arrHosp[i].dataNascimento.mes, arrHosp[i].dataNascimento.ano);
+                fprintf(hosp, "CodEnder: %d\r\nBairro: %s\r\nCEP: %s\r\nCidade: %s\r\nLogradouro: %s\r\nNumero: %d\r\nUF: %s\r\n", arrHosp[i].endereco.codigo, arrHosp[i].endereco.bairro, arrHosp[i].endereco.cep, arrHosp[i].endereco.cidade, arrHosp[i].endereco.logradouro, arrHosp[i].endereco.numero, arrHosp[i].endereco.uf);
                 fflush(hosp);
 
             } else {
-                printf("ESSE É O QUE VAI ALTERAR: COD = %d\n", novoHosp.codigo);
+                //printf("ESSE É O QUE VAI ALTERAR: COD = %d\n", novoHosp.codigo);
                 strtok(novoHosp.nome, "\r");
+                strtok(novoHosp.endereco.bairro, "\r");
+                strtok(novoHosp.endereco.cidade, "\r");
+                strtok(novoHosp.endereco.logradouro, "\r");
                 fprintf(hosp, "Cod: %d\r\nNome: %s\r\nCPF: %s\r\nTelefone: %s\r\nEmail: %s\r\nSexo: %c\r\nEstadoCivil: %s\r\n", novoHosp.codigo, novoHosp.nome, novoHosp.cpf, novoHosp.telefone, novoHosp.email, novoHosp.sexo, novoHosp.esCivil);
+                fprintf(hosp, "DiaNasc: %d\r\nMesNasc: %d\r\nAnoNasc: %d\r\n", novoHosp.dataNascimento.dia, novoHosp.dataNascimento.mes, novoHosp.dataNascimento.ano);
+                fprintf(hosp, "CodEnder: %d\r\nBairro: %s\r\nCEP: %s\r\nCidade: %s\r\nLogradouro: %s\r\nNumero: %d\r\nUF: %s\r\n", novoHosp.endereco.codigo, novoHosp.endereco.bairro, novoHosp.endereco.cep, novoHosp.endereco.cidade, novoHosp.endereco.logradouro, novoHosp.endereco.numero, novoHosp.endereco.uf);
                 fflush(hosp);
             }
         }
 
         fclose(hosp);
         free(arrHosp);
-        remove(".\\persist\\hospedes.txt");
-        rename(".\\persist\\hospedes_temp.txt", ".\\persist\\hospedes.txt");
+        remove(".\\arquivos\\hospedes.txt");
+        rename(".\\arquivos\\hospedes_temp.txt", ".\\arquivos\\hospedes.txt");
     }
 
 }
 
-
 void atualizarHospedeBIN(Hospede novoHosp) {
-    FILE* hosp = fopen(".\\persist\\hospedes_temp.bin", "wb");
+    FILE* hosp = fopen(".\\arquivos\\hospedes_temp.bin", "wb");
     if (hosp == NULL) {
         printf("ERRO AO ABRIR ARQUIVO");
     } else {
-        int numHospedes=0;
+        int numHospedes = 0;
         Hospede* arrHosp = getAllHospedesBIN(&numHospedes);
 
         for (int i = 0; i < numHospedes; i++) {
             if (arrHosp[i].codigo != novoHosp.codigo) {
-                printf("ESSE É O QUE NAO VAI ALTERAR %d != %d\n", arrHosp[i].codigo, novoHosp.codigo);
+                //printf("ESSE É O QUE NAO VAI ALTERAR %d != %d\n", arrHosp[i].codigo, novoHosp.codigo);
                 fwrite(&arrHosp[i], sizeof (Hospede), 1, hosp);
                 fflush(hosp);
 
             } else {
-                printf("ESSE É O QUE VAI ALTERAR: COD = %d\n", novoHosp.codigo);
+                //printf("ESSE É O QUE VAI ALTERAR: COD = %d\n", novoHosp.codigo);
                 fwrite(&novoHosp, sizeof (Hospede), 1, hosp);
                 fflush(hosp);
             }
@@ -245,15 +271,15 @@ void atualizarHospedeBIN(Hospede novoHosp) {
 
         fclose(hosp);
         free(arrHosp);
-        remove(".\\persist\\hospedes.bin");
-        rename(".\\persist\\hospedes_temp.bin", ".\\persist\\hospedes.bin");
+        remove(".\\arquivos\\hospedes.bin");
+        rename(".\\arquivos\\hospedes_temp.bin", ".\\arquivos\\hospedes.bin");
     }
 
 }
 
 void deletarHospedeTXT(int cod) {
 
-    FILE* hosp = fopen(".\\persist\\hospedes_temp.txt", "w");
+    FILE* hosp = fopen(".\\arquivos\\hospedes_temp.txt", "w");
     if (hosp == NULL) {
         printf("ERRO");
     } else {
@@ -264,7 +290,12 @@ void deletarHospedeTXT(int cod) {
             if (arrHosp[i].codigo != cod) {
 
                 strtok(arrHosp[i].nome, "\r");
+                strtok(arrHosp[i].endereco.bairro, "\r");
+                strtok(arrHosp[i].endereco.cidade, "\r");
+                strtok(arrHosp[i].endereco.logradouro, "\r");
                 fprintf(hosp, "Cod: %d\r\nNome: %s\r\nCPF: %s\r\nTelefone: %s\r\nEmail: %s\r\nSexo: %c\r\nEstadoCivil: %s\r\n", arrHosp[i].codigo, arrHosp[i].nome, arrHosp[i].cpf, arrHosp[i].telefone, arrHosp[i].email, arrHosp[i].sexo, arrHosp[i].esCivil);
+                fprintf(hosp, "DiaNasc: %d\r\nMesNasc: %d\r\nAnoNasc: %d\r\n", arrHosp[i].dataNascimento.dia, arrHosp[i].dataNascimento.mes, arrHosp[i].dataNascimento.ano);
+                fprintf(hosp, "CodEnder: %d\r\nBairro: %s\r\nCEP: %s\r\nCidade: %s\r\nLogradouro: %s\r\nNumero: %d\r\nUF: %s\r\n", arrHosp[i].endereco.codigo, arrHosp[i].endereco.bairro, arrHosp[i].endereco.cep, arrHosp[i].endereco.cidade, arrHosp[i].endereco.logradouro, arrHosp[i].endereco.numero, arrHosp[i].endereco.uf);
                 fflush(hosp);
 
             }
@@ -272,36 +303,36 @@ void deletarHospedeTXT(int cod) {
 
         fclose(hosp);
         free(arrHosp);
-        remove(".\\persist\\hospedes.txt");
-        rename(".\\persist\\hospedes_temp.txt", ".\\persist\\hospedes.txt");
+        remove(".\\arquivos\\hospedes.txt");
+        rename(".\\arquivos\\hospedes_temp.txt", ".\\arquivos\\hospedes.txt");
     }
 }
 
 void deletarHospedeBIN(int cod) {
 
-    FILE* hosp = fopen(".\\persist\\hospedes_temp.bin", "wb");
+    FILE* hosp = fopen(".\\arquivos\\hospedes_temp.bin", "wb");
     if (hosp == NULL) {
         printf("ERRO");
     } else {
-        int numHospedes=0;
+        int numHospedes = 0;
         Hospede* arrHosp = getAllHospedesBIN(&numHospedes);
-        
+
         for (int i = 0; i < numHospedes; i++) {
             if (arrHosp[i].codigo != cod) {
                 Hospede h = arrHosp[i];
                 //printf("NÃO VAI DELETAR: COD %d == %d\n",arrHosp[i].codigo,h.codigo);
                 fwrite(&h, sizeof (Hospede), 1, hosp);
 
-            }else{
+            } else {
                 Hospede h2 = arrHosp[i];
                 //printf("É ESSE AQUI QUE VAI DELETAR: COD %d == %d\n",arrHosp[i].codigo,h2.codigo);
             }
-            
+
         }
 
         fclose(hosp);
         free(arrHosp);
-        remove(".\\persist\\hospedes.bin");
-        rename(".\\persist\\hospedes_temp.bin", ".\\persist\\hospedes.bin");
+        remove(".\\arquivos\\hospedes.bin");
+        rename(".\\arquivos\\hospedes_temp.bin", ".\\arquivos\\hospedes.bin");
     }
 }

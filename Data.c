@@ -4,8 +4,3 @@
  * and open the template in the editor.
  */
 
-typedef struct data {
-    int dia;
-    int mes;
-    int ano;
-} Data;

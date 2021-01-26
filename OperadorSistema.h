@@ -21,10 +21,13 @@ typedef struct operadorSistema {
     char senha[100];
     //int permicao;
 } OperadorSistema;
-int salvarOperadorTXT(OperadorSistema *opera, int num);
-OperadorSistema* listarOpBIN(int *numLinha);
+
+int salvarOperadorTXT(OperadorSistema* opera, int num);
+int cadastrarOpTXT(OperadorSistema opera);
 int removerOperadorBIN();
 int editarOpSBIN(OperadorSistema aco, int posi);
-int cadastrarOpSBIN(OperadorSistema *aco, int quantidade);
+int cadastrarOpBIN(OperadorSistema op, int quantidade);
+OperadorSistema* listarOpBIN(int *numLinha);
+OperadorSistema* listarOpTXT();
 #endif /* OPERADORSISTEMA_H */
 

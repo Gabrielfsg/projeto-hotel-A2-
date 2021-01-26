@@ -14,7 +14,11 @@
 #ifndef DATA_H
 #define DATA_H
 
-typedef struct data Data;
+typedef struct data {
+    int dia;
+    int mes;
+    int ano;
+} Data;
 
 Data* newData(int dia, int mes, int ano);
 

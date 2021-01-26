@@ -8,22 +8,7 @@
 #include <string.h>
 #include "OperadorSistema.h"
 
-/*FILE *listOperador;
-
-    listOperador = fopen(".\\persist\\operador.bin", "ab");
-    if (listOperador == NULL) {
-        printf("Erro Arquivo \n");
-    } else {
-        fprintf(listOperador, "Código do operador: %d \n", op.codigo);
-        fprintf(listOperador, "Nome do Operador: %s \n", op.nome);
-        fprintf(listOperador, "Usuário do Operador: %s \n", op.usuario);
-        fprintf(listOperador, "Senha do Operador: %s \n", op.senha);
-
-        fclose(listOperador);
-        printf("Cadastro Efetuado com Sucesso \n");
-    }*/
-
-int cadastrarOpSBIN(OperadorSistema *aco, int quantidade) {
+int cadastrarOpBin(OperadorSistema op, int quantidade) {
     FILE *arq;
     //abrea arquivo para escrita e posiciona cursor no final "ab"
     arq = fopen(".\\persist\\operador.bin", "ab");
@@ -37,7 +22,7 @@ int cadastrarOpSBIN(OperadorSistema *aco, int quantidade) {
     }
     //strlen()-> informa o tamanho de uma string 
     /*grava toda struct de acomodacao no arquivo*/
-    fwrite(aco, sizeof (OperadorSistema), quantidade, arq);
+    fwrite(&op, sizeof (OperadorSistema), quantidade, arq);
     fflush(arq);
     /*fecha o arquivo*/
     fclose(arq);
@@ -46,9 +31,33 @@ int cadastrarOpSBIN(OperadorSistema *aco, int quantidade) {
     return 1;
 }
 
+int cadastrarOpTXT(OperadorSistema opera) {
+    printf("ENTROU AQUI");
+    FILE *arq;
+    //abrea arquivo para escrita e posiciona cursor no final "ab"
+    arq = fopen(".\\persist\\operadorTXT", "a");
+    if (arq == NULL) {
+        printf("DEU ERRO");
+        //cria arquivo para escrita se não houver "wb"
+        arq = fopen(".\\persist\\operadorTXT", "w");
+        if (arq == NULL) {
+            printf("\nERRO ao acessar arquivo\n");
+            return 0;
+        }
+    }
+    int retorno;
+    retorno = fprintf(arq, "%d\n%s\n%s\n%s\n%f\n", opera.codigo, opera.nome, opera.usuario, opera.senha);
+    fflush(arq);
+    fclose(arq);
+
+    free(arq);
+
+    printf("BYTES === %d\n", retorno);
+}
+
 int salvarOperadorTXT(OperadorSistema *opera, int num) {
     // w pra substituir o arquivo
-    FILE *cade = fopen(".\\persist\\operador.txt", "wb");
+    FILE *cade = fopen(".\\persist\\operadorTXT", "w");
     if (cade == NULL) {
         printf("\nErro ao abrir arquivo!!");
         return 0;
@@ -68,6 +77,7 @@ int salvarOperadorTXT(OperadorSistema *opera, int num) {
     free(opera);
     return 1;
 }
+
 OperadorSistema * listarOpBIN(int *numLinha) {
     FILE *arquivo;
     //abrea arquivo para leitura apenas "rb"
@@ -82,21 +92,21 @@ OperadorSistema * listarOpBIN(int *numLinha) {
     }
     *numLinha = 0;
 
-    OperadorSistema c;
+    OperadorSistema op;
     //instancia vetor com tamanho 1 
-    OperadorSistema *aco = (OperadorSistema*) calloc(1, sizeof (OperadorSistema));
+    OperadorSistema *opera = (OperadorSistema*) calloc(1, sizeof (OperadorSistema));
     //pega a primeira linha se existir
-    int r = fread(&c, sizeof (OperadorSistema), 1, arquivo);
+    int r = fread(&op, sizeof (OperadorSistema), 1, arquivo);
     if (r > 0) {
         do {
             //soma a +1 no tamanho do vetor o qual comessa com 0
             *numLinha = (*numLinha) + 1;
             // realoca o vetor com o tamanho numLinha, a arqa interação ele realoca um a mais
-            aco = realloc(aco, *numLinha * sizeof (OperadorSistema));
+            opera = realloc(opera, *numLinha * sizeof (OperadorSistema));
             //adicionar o struct o vetor,(numLinha -1) pois o vetor comessa sempre por 0
-            aco[(*numLinha) - 1] = c;
+            opera[(*numLinha) - 1] = op;
             //pega o proximo indice, se existir
-            fread(&c, sizeof (OperadorSistema), 1, arquivo);
+            fread(&op, sizeof (OperadorSistema), 1, arquivo);
             //verifica se chegou no fim do arquivo
         } while (!feof(arquivo));
     } else {
@@ -106,10 +116,57 @@ OperadorSistema * listarOpBIN(int *numLinha) {
     fclose(arquivo);
     //libera memoria
     free(arquivo);
-    return aco;
+    return opera;
 }
 
-int editarOpSBIN(OperadorSistema aco, int posi) {
+OperadorSistema * listarOpTXT() {
+    int numOL = 0, i = 0;
+    FILE* arq;
+    numOL = contarLinhasTXT(arq);
+    arq = fopen(".\\persist\\operadorTXT", "r");
+    if (arq == NULL) {
+        arq = fopen(".\\persist\\operadorTXT", "w+");
+        if (arq == NULL) {
+            printf("\nERRO ao acessar arquivo\n");
+            return 0;
+        }
+    }
+    printf("AAAAAAAA\n");
+    OperadorSistema *opera = (OperadorSistema*) calloc(numOL, sizeof (OperadorSistema));
+    printf("BBBBBBBBBBBB\n");
+    //while (fscanf(arq, "%d", &opera[i].codigo) == 1) {
+    for (int i = 0; i < numOL; i++) {
+        //fgetc(arq);
+         float teste;
+        //pega a string descrição
+        printf("CCCCCCCCCCC\n");
+        fscanf(arq, "%d", opera[i].codigo);
+        fscanf(arq, "%[^\n]s", opera[i].nome);
+        //retira o \n do fim da descrição
+        strtok(opera[i].nome, "\n");
+        //retira o \n do inicio da facilidade
+        //fgetc(arq);
+        fscanf(arq, "%[^\n]s", opera[i].usuario);
+        //retira o \n do fim da facilidade
+        strtok(opera[i].usuario, "\n");
+        //fgetc(arq);
+        fscanf(arq, "%[^\n]s", opera[i].senha);
+        //retira o \n do fim da facilidade
+        strtok(opera[i].senha, "\n");
+        fscanf(arq, "%f", teste);
+    }
+    printf("DDDDDDDDDDD\n");
+    for (int i = 0; i < numOL; i++) {
+        printf("COD = %d\n",opera[i].codigo);
+    }
+    //fecha arquivo
+    fclose(arq);
+    //libera memoria
+    free(arq);
+    return opera;
+}
+
+int editarOpSBIN(OperadorSistema op, int posi) {
     FILE *arquivo;
     //abre arquivo para leitura e escrita, ele deve existir "r+b"
     arquivo = fopen(".\\persist\\operador.bin", "r+b");
@@ -120,13 +177,26 @@ int editarOpSBIN(OperadorSistema aco, int posi) {
     //Posiciona o cursor na posição do struct
     fseek(arquivo, (posi * sizeof (OperadorSistema)), SEEK_SET);
     //Substitui o struct de posição posi
-    fwrite(&aco, sizeof (OperadorSistema), 1, arquivo);
+    fwrite(&op, sizeof (OperadorSistema), 1, arquivo);
     //fecha arquivo 
     fclose(arquivo);
     //fclose(&aco);
     //libera memoria
     free(arquivo);
     return 1;
+}
+
+int editarOperadorTXT(OperadorSistema *opera, OperadorSistema op, int num) {
+    int i;
+    for (i = 0; i < num; i++) {
+        if ((int) (opera[i].codigo) == (int) (op.codigo)) {
+            strcpy(opera[i].nome, op.nome);
+            strcpy(opera[i].usuario, op.usuario);
+            strcpy(opera[i].senha, op.senha);
+        }
+    }
+
+    return salvarOperadorTXT(opera, num);
 }
 
 int removerOperadorBIN() {
@@ -137,3 +207,29 @@ int removerOperadorBIN() {
     }
     return 1;
 }
+
+int removerOperadorTXT() {
+    int status = remove(".\\persist\\operadorTXT");
+    if (status != 0) {
+        printf("\nErro na remoção do arquivo.\n");
+        return 0;
+    }
+    return 1;
+}
+
+int validarOpBIN(int cod) {
+    int num;
+    OperadorSistema *opera = listarOpBIN(&num);
+    int i, aux = 0;
+    for (i = 0; i < num; i++) {
+        if (cod == opera[i].codigo) {
+            return aux = 1;
+            break;
+        } else {
+            return aux = 0;
+        }
+    }
+    free(opera);
+    return 0;
+}
+

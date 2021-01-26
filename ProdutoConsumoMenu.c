@@ -10,6 +10,7 @@
 #include "Produto.h"
 #include "ProdutoConsumoMenu.h"
 #include "Principal.h"
+#include "SalvametoBD.h"
 
 void menuCRUDProdConsumo() {
     int sair = 0;
@@ -58,7 +59,7 @@ void cadastrarProdConsumoControl() {
     printf("***** CADASTRAR PRODUTO *****\n");
     Produto p;
     int cod;
-    int ext = 0;
+    int ext = listar();
     //PEGA OS DADOS
     printf("Digite o cod do Produto \n");
     scanf("%d%*c", &cod);
@@ -67,74 +68,111 @@ void cadastrarProdConsumoControl() {
         return;
     } else {
         p.codigo = cod;
-    }
 
 
-    printf("Digite a descrição do Produto \n");
-    //scanf("%[^\n]s%*c", &p.descricao); 
-    fgets(p.descricao, 101, stdin);
-    strtok(p.descricao, "\n"); // Esse comando serve para retirar o \n que o fgets coloca no final da string lida
 
-    printf("Digite o estoque do Produto\n");
-    scanf("%d%*c", &p.estoque);
+        printf("Digite a descrição do Produto \n");
+        //scanf("%[^\n]s%*c", &p.descricao); 
+        fgets(p.descricao, 101, stdin);
+        strtok(p.descricao, "\n"); // Esse comando serve para retirar o \n que o fgets coloca no final da string lida
 
-    printf("Digite o estoque mínimo do Produto \n");
-    scanf("%d%*c", &p.estoqueMinimo);
+        printf("Digite o estoque do Produto\n");
+        scanf("%d%*c", &p.estoque);
 
-    setbuf(stdin, NULL);
-    printf("Digite o preço de custo do Produto \n");
-    scanf("%f%*c", &p.precoCusto);
+        printf("Digite o estoque mínimo do Produto \n");
+        scanf("%d%*c", &p.estoqueMinimo);
 
-    printf("Digite o preço de venda do Produto\n");
-    scanf("%f%*c", &p.precoVenda);
+        setbuf(stdin, NULL);
+        printf("Digite o preço de custo do Produto \n");
+        scanf("%f%*c", &p.precoCusto);
 
-    //TESTE
-    /*printf("#############\n");
-    printf("COD: %d\n",p.codigo);
-    printf("DESC: %s\n",p.descricao);
-    printf("ES: %d\n",p.estoque);
-    printf("ESM: %d\n",p.estoqueMinimo);
-    printf("PC: %.2f\n",p.precoCusto);
-    printf("PV: %.2f\n",p.precoVenda);
-    printf("#############\n");
-     */
-    //VERIFICAR EXTENSÃO DO ARQUIVO
+        printf("Digite o preço de venda do Produto\n");
+        scanf("%f%*c", &p.precoVenda);
 
-    if (ext == 0) {
-        //BIN
-        int retorno = cadastrarProdutoBIN(p);
-        if (retorno == 1) {
-            printf("\nPRODUTO CADASTRADO COM SUCESSO\n");
-        } else {
-            printf("\nERRO AO CADASTRAR PRODUTO\n");
+        //TESTE
+        /*printf("#############\n");
+        printf("COD: %d\n",p.codigo);
+        printf("DESC: %s\n",p.descricao);
+        printf("ES: %d\n",p.estoque);
+        printf("ESM: %d\n",p.estoqueMinimo);
+        printf("PC: %.2f\n",p.precoCusto);
+        printf("PV: %.2f\n",p.precoVenda);
+        printf("#############\n");
+         */
+        //VERIFICAR EXTENSÃO DO ARQUIVO
+
+        if (ext == 2) {
+            //BIN
+            int retorno = cadastrarProdutoBIN(p);
+            if (retorno == 1) {
+                printf("\nPRODUTO CADASTRADO COM SUCESSO\n");
+            } else {
+                printf("\nERRO AO CADASTRAR PRODUTO\n");
+            }
+
         }
-
-    } else {
-        //TXT
-        int retorno = cadastrarProdutoTXT(p);
-        if (retorno > 0) {
-            printf("\nPRODUTO CADASTRADO COM SUCESSO\n");
-        } else {
-            printf("\nERRO AO CADASTRAR PRODUTO\n");
+        if (ext == 1) {
+            //TXT
+            int retorno = cadastrarProdutoTXT(p);
+            if (retorno > 0) {
+                printf("\nPRODUTO CADASTRADO COM SUCESSO\n");
+            } else {
+                printf("\nERRO AO CADASTRAR PRODUTO\n");
+            }
         }
     }
 }
 
 void atualizarProdConsumoControl() {
     printf("***** ALTERAR DADOS DO PRODUTO *****\n");
+    int cod;
+    Produto novoProduto;
+    int ext = listar();
+    printf("Digite o cod do Produto \n");
+    scanf("%d%*c", &cod);
+
+    if (validarCodProdConsumo(cod, ext) == 1) {
+        //COD NAO EXISTE
+        return;
+    } else {
+        novoProduto.codigo = cod;
+        
+        printf("Digite a descrição do produto\n");
+        fgets(novoProduto.descricao, 101, stdin);
+        strtok(novoProduto.descricao, "\n");
+        
+        printf("Digite o estoque do Produto \n");
+        scanf("%d%*c", &novoProduto.estoque);
+        printf("Digite o estoque minimo do Produto \n");
+        scanf("%d%*c", &novoProduto.estoqueMinimo);
+        printf("Digite o preco de custo do Produto \n");
+        scanf("%f%*c", &novoProduto.precoCusto);
+        printf("Digite o preco de venda do Produto \n");
+        scanf("%f%*c", &novoProduto.precoVenda);
+
+        if (ext == 2) {
+            //BIN
+            atualizarProdutoBIN(novoProduto);
+        }
+        if (ext == 1) {
+            //TXT
+            atualizarProdutoTXT(novoProduto);
+        }
+    }
 }
 
 void listarProdConsumoControl() {
     //VERIFICAR EXTENSÃO DO ARQUIVO
-    int ext = 0;
+    int ext = listar();
     int numProdutos;
     Produto* arrayProdutos;
-    if (ext == 0) {
+    if (ext == 2) {
         //BIN
         numProdutos = 0;
         arrayProdutos = getAllProdutoBIN(&numProdutos);
         //printf("NUM PROD = %d\n", numProdutos);
-    } else {
+    }
+    if (ext == 1) {
         //TXT
         numProdutos = getNumProdConsumo();
         arrayProdutos = getAllProdutoTXT(numProdutos);
@@ -163,41 +201,35 @@ Produto getProdConsumoByCodControl() {
     int numProdutos = 0;
     printf("Digite o código do Produto que deseja procurar:\n");
     scanf("%d%*c", &cod);
-    int ext = 0;
-    if (ext == 0) {
-        //BIN
-        //int validacao = validarCodHospede(cod);
-        // if (validacao == 0) {
-        prod = getProdutoByCodBIN(cod);
-        //} else {
-        //    printf("CÓDIGO NÃO EXISTE\n");
-        // }     
+    int ext = listar();
+    //VALIDAÇÃO DO COD
+    if (validarCodProdConsumo(cod, ext) == 1) {
+        //COD NAO EXISTE
+        return;
     } else {
-        //TXT
-        numProdutos = getNumProdConsumo();
-        //int validacao = validarCodHospede(cod);
-        // if (validacao == 0) {
-        prod = getProdutoByCodTXT(cod, numProdutos);
-        //} else {
-        //    printf("CÓDIGO NÃO EXISTE\n");
-        // }        
+
+        if (ext == 2) {
+            //BIN
+            prod = getProdutoByCodBIN(cod);
+        }
+        if (ext == 1) {
+            //TXT
+            numProdutos = getNumProdConsumo();
+            prod = getProdutoByCodTXT(cod, numProdutos);
+        }
+        
+        printf("INFORMAÇÕES DO PRODUTO: \n");
+        printf("***************\n");
+        printf("COD: %d\n", prod.codigo);
+        printf("DESC: %s\n", prod.descricao);
+        printf("ESTOQUE: %d\n", prod.estoque);
+        printf("ESTOQUE MIN: %d\n", prod.estoqueMinimo);
+        printf("PREÇO CUSTO: %f\n", prod.precoCusto);
+        printf("PREÇO VENDA: %f\n", prod.precoVenda);
+        printf("***************\n");
+
+        return prod;
     }
-    printf("INFORMAÇÕES DO PRODUTO: \n");
-    printf("***************\n");
-    printf("COD: %d\n", prod.codigo);
-    printf("DESC: %s\n", prod.descricao);
-    printf("ESTOQUE: %d\n", prod.estoque);
-    printf("ESTOQUE MIN: %d\n", prod.estoqueMinimo);
-    printf("PREÇO CUSTO: %f\n", prod.precoCusto);
-    printf("PREÇO VENDA: %f\n", prod.precoVenda);
-    printf("***************\n");
-
-
-    return prod;
-
-
-
-
 }
 
 void deletarProdConsumoControl() {
@@ -208,14 +240,20 @@ void deletarProdConsumoControl() {
     int cod;
     printf("Digite o cod do Produto \n");
     scanf("%d%*c", &cod);
+    int ext = listar();
     //VALIDAÇÃO DO COD 
-    int ext = 0;
-    if (ext == 0) {
-        ////////BIN
+    if (validarCodProdConsumo(cod, ext) == 1) {
+        //COD NAO EXISTE
+        return;
+    }
+
+    if (ext == 2) {
+        //BIN
         p = getProdutoByCodBIN(cod);
 
-    } else {
-        ////////TXT
+    }
+    if (ext == 1) {
+        //TXT
         int numProdutos = getNumProdConsumo();
         p = getProdutoByCodTXT(cod, numProdutos);
     }
@@ -235,22 +273,25 @@ void deletarProdConsumoControl() {
 
     if (confirmacao == 'S' || confirmacao == 's') {
 
-        if (ext == 0) {
+        if (ext == 2) {
             ////////BIN
             deletarProdutoBIN(cod);
 
-        } else {
+        }
+        if (ext == 1) {
             ////////TXT
             deletarProdutoTXT(cod);
         }
 
     } else {
         printf("OPERAÇÃO CANCELADA\n");
+        return;
     }
     printf("PRODUTO DELETADO\n");
 }
 
 int getNumProdConsumo() {
+    //APENAS PARA TXT
     FILE *arq;
     int numLinhas = 0, numProdutos = 0;
     char c;
@@ -274,15 +315,18 @@ int getNumProdConsumo() {
 
 }
 
-int validarCodProdConsumo(int cod, int ext) { //1-> NÃO EXISTE 0 -> JÁ EXISTE
+int validarCodProdConsumo(int cod, int ext) {
+    //RETORNA 1 SE O COD NÃO EXISTE
+    //RETORNA 0 SE O COD JÁ EXISTE
     //printf("ENTROU VALIDAÇÃO\n");
     int codExistente = 1;
     Produto* arrayProdutos;
     int numProdutos = 0;
-    if (ext == 0) {
+    if (ext == 2) {
         //BIN
         arrayProdutos = getAllProdutoBIN(&numProdutos);
-    } else {
+    }
+    if (ext == 1) {
         //TXT
         numProdutos = getNumProdConsumo();
         arrayProdutos = getAllProdutoTXT(numProdutos);
@@ -299,7 +343,7 @@ int validarCodProdConsumo(int cod, int ext) { //1-> NÃO EXISTE 0 -> JÁ EXISTE
         printf("CÓDIGO EXISTENTE\n");
         return 0;
     } else {
-        //printf("CÓDIGO NÃO EXISTE\n");
+        printf("CÓDIGO NÃO EXISTE\n");
         return 1;
     }
 }

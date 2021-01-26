@@ -45,10 +45,64 @@ int cadastrarProdutoBIN(Produto p) {
 }
 
 void atualizarProdutoTXT(Produto novoProd) {
+    printf("ENTROU AQUI\n");
+    printf("NOVO = %s\n",novoProd.descricao);
+    FILE* arqProduto = fopen(".\\arquivos\\produtos_temp.txt", "w");
+    if (arqProduto == NULL) {
+        printf("ERRO AO ABRIR ARQUIVO");
+    } else {
+        int numProdutos = getNumProdConsumo();
+        Produto* arrProduto = getAllProdutoTXT(numProdutos);
+
+        for (int i = 0; i < numProdutos; i++) {
+            if (arrProduto[i].codigo != novoProd.codigo) {
+                //printf("%d != %d\n", arrProduto[i].codigo, novoProd.codigo);
+                strtok(novoProd.descricao, "\r");
+                fprintf(arqProduto, "Cod: %d\r\nDESC: %s\nESTOQUE: %d\r\nESTOQUE_MIN: %d\r\nPRCUSTO: %f\r\nPRVENDA: %f\r\n", arrProduto[i].codigo, arrProduto[i].descricao, arrProduto[i].estoque, arrProduto[i].estoqueMinimo, arrProduto[i].precoCusto, arrProduto[i].precoVenda);
+                fflush(arqProduto);
+
+            } else {
+                //printf("ESSE É O QUE VAI ALTERAR: COD = %d\n", novoProd.codigo);
+                //strtok(novoProd.descricao, "\r");
+                fprintf(arqProduto, "Cod: %d\r\nDESC: %s\r\nESTOQUE: %d\r\nESTOQUE_MIN: %d\r\nPRCUSTO: %f\r\nPRVENDA: %f\r\n", novoProd.codigo, novoProd.descricao, novoProd.estoque, novoProd.estoqueMinimo, novoProd.precoCusto, novoProd.precoVenda);
+                fflush(arqProduto);
+            }
+        }
+
+        fclose(arqProduto);
+        free(arrProduto);
+        remove(".\\arquivos\\produtos.txt");
+        rename(".\\arquivos\\produtos_temp.txt", ".\\arquivos\\produtos.txt");
+    }
 
 }
 
 void atualizarProdutoBIN(Produto novoProd) {
+    FILE* arqProduto = fopen(".\\arquivos\\produtos_temp.bin", "wb");
+    if (arqProduto == NULL) {
+        printf("ERRO AO ABRIR ARQUIVO");
+    } else {
+        int numProdutos = 0;
+        Produto* arrProdutos = getAllProdutoBIN(&numProdutos);
+
+        for (int i = 0; i < numProdutos; i++) {
+            if (arrProdutos[i].codigo != novoProd.codigo) {
+                //printf("ESSE É O QUE NAO VAI ALTERAR %d != %d\n", arrProdutos[i].codigo, novoProd.codigo);
+                fwrite(&arrProdutos[i], sizeof (Produto), 1, arqProduto);
+                fflush(arqProduto);
+
+            } else {
+                //printf("ESSE É O QUE VAI ALTERAR: COD = %d\n", novoProd.codigo);
+                fwrite(&novoProd, sizeof (Produto), 1, arqProduto);
+                fflush(arqProduto);
+            }
+        }
+
+        fclose(arqProduto);
+        free(arrProdutos);
+        remove(".\\persist\\hospedes.bin");
+        rename(".\\persist\\hospedes_temp.bin", ".\\persist\\hospedes.bin");
+    }
 
 }
 
@@ -181,7 +235,7 @@ void deletarProdutoTXT(int cod) {
                 strtok(arrayProdutos[i].descricao, "\r");
                 fprintf(arqProduto, "Cod: %d\r\nDESC: %s\r\nESTOQUE: %d\r\nESTOQUE_MIN: %d\r\nPRCUSTO: %f\r\nPRVENDA: %f\r\n", arrayProdutos[i].codigo, arrayProdutos[i].descricao, arrayProdutos[i].estoque, arrayProdutos[i].estoqueMinimo, arrayProdutos[i].precoCusto, arrayProdutos[i].precoVenda);
                 fflush(arqProduto);
-                
+
             }
         }
 
