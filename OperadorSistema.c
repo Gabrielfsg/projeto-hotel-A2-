@@ -32,12 +32,10 @@ int cadastrarOpBin(OperadorSistema op, int quantidade) {
 }
 
 int cadastrarOpTXT(OperadorSistema opera) {
-    printf("ENTROU AQUI");
     FILE *arq;
     //abrea arquivo para escrita e posiciona cursor no final "ab"
     arq = fopen(".\\persist\\operadorTXT", "a");
     if (arq == NULL) {
-        printf("DEU ERRO");
         //cria arquivo para escrita se não houver "wb"
         arq = fopen(".\\persist\\operadorTXT", "w");
         if (arq == NULL) {
@@ -45,14 +43,12 @@ int cadastrarOpTXT(OperadorSistema opera) {
             return 0;
         }
     }
-    int retorno;
-    retorno = fprintf(arq, "%d\n%s\n%s\n%s\n%f\n", opera.codigo, opera.nome, opera.usuario, opera.senha);
-    fflush(arq);
+
+    fprintf(arq, "%d\n%s\n%s\n%s\n%f\n", opera.codigo, opera.nome, opera.usuario, opera.senha);
+
     fclose(arq);
 
     free(arq);
-
-    printf("BYTES === %d\n", retorno);
 }
 
 int salvarOperadorTXT(OperadorSistema *opera, int num) {
@@ -131,33 +127,24 @@ OperadorSistema * listarOpTXT() {
             return 0;
         }
     }
-    printf("AAAAAAAA\n");
+
     OperadorSistema *opera = (OperadorSistema*) calloc(numOL, sizeof (OperadorSistema));
-    printf("BBBBBBBBBBBB\n");
-    //while (fscanf(arq, "%d", &opera[i].codigo) == 1) {
-    for (int i = 0; i < numOL; i++) {
-        //fgetc(arq);
-         float teste;
+    while (fscanf(arq, "%d", &opera[i].codigo) == 1) {
+        fgetc(arq);
         //pega a string descrição
-        printf("CCCCCCCCCCC\n");
-        fscanf(arq, "%d", opera[i].codigo);
-        fscanf(arq, "%[^\n]s", opera[i].nome);
+        fscanf(arq, "%100[a-z A-Z\n]s", opera[i].nome);
         //retira o \n do fim da descrição
         strtok(opera[i].nome, "\n");
         //retira o \n do inicio da facilidade
-        //fgetc(arq);
-        fscanf(arq, "%[^\n]s", opera[i].usuario);
+        fgetc(arq);
+        fscanf(arq, "%100[a-z A-Z\n]s", opera[i].usuario);
         //retira o \n do fim da facilidade
         strtok(opera[i].usuario, "\n");
-        //fgetc(arq);
-        fscanf(arq, "%[^\n]s", opera[i].senha);
+        fgetc(arq);
+        fscanf(arq, "%100[a-z A-Z\n]s", opera[i].senha);
         //retira o \n do fim da facilidade
         strtok(opera[i].senha, "\n");
-        fscanf(arq, "%f", teste);
-    }
-    printf("DDDDDDDDDDD\n");
-    for (int i = 0; i < numOL; i++) {
-        printf("COD = %d\n",opera[i].codigo);
+        i++;
     }
     //fecha arquivo
     fclose(arq);

@@ -40,7 +40,6 @@ void cadastrarOperador() {
 }
 
 void listarOperador() {
-    printf("ENTROU LISTAR OP\n");
     int n, aux;
     OperadorSistema *opera;
     opera = listarOpTXT();
