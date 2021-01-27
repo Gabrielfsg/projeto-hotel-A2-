@@ -48,7 +48,7 @@ int cadastrarOpTXT(OperadorSistema opera) {
         }
     }
 
-    fprintf(arq, "%d\n%s\n%s\n%s\n%", opera.codigo, opera.nome, opera.usuario, opera.senha);
+    fprintf(arq, "%d\n%s\n%s\n%s\n", opera.codigo, opera.nome, opera.usuario, opera.senha);
 
     fclose(arq);
 

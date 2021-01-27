@@ -41,11 +41,6 @@ void cadastrarOperador() {
         strtok(op.senha, "\n");
         setbuf(stdin, NULL);
 
-        printf("TESTE ***************\n");
-        printf("COD = %d\n", op.codigo);
-        printf("SENHA = %s\n", op.senha);
-        printf("NOME = %s\n", op.nome);
-
         if (bd == 1) {
             r = controleCadTXT(op);
         } else if (bd == 2) {
