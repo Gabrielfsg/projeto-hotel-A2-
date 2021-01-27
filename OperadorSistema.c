@@ -32,6 +32,10 @@ int cadastrarOpBin(OperadorSistema op, int quantidade) {
 }
 
 int cadastrarOpTXT(OperadorSistema opera) {
+    printf("ENTROU CADASTRAR\n");
+    printf("COD = %d\n",opera.codigo);
+    printf("SENHA = %s\n",opera.senha);
+    
     FILE *arq;
     //abrea arquivo para escrita e posiciona cursor no final "ab"
     arq = fopen(".\\persist\\operadorTXT", "a");
@@ -44,11 +48,12 @@ int cadastrarOpTXT(OperadorSistema opera) {
         }
     }
 
-    fprintf(arq, "%d\n%s\n%s\n%s\n%f\n", opera.codigo, opera.nome, opera.usuario, opera.senha);
+    fprintf(arq, "%d\n%s\n%s\n%s\n%", opera.codigo, opera.nome, opera.usuario, opera.senha);
 
     fclose(arq);
 
     free(arq);
+    return 1;
 }
 
 int salvarOperadorTXT(OperadorSistema *opera, int num) {
@@ -127,24 +132,19 @@ OperadorSistema * listarOpTXT() {
             return 0;
         }
     }
-
+    char t[100];
     OperadorSistema *opera = (OperadorSistema*) calloc(numOL, sizeof (OperadorSistema));
-    while (fscanf(arq, "%d", &opera[i].codigo) == 1) {
-        fgetc(arq);
-        //pega a string descrição
-        fscanf(arq, "%100[a-z A-Z\n]s", opera[i].nome);
-        //retira o \n do fim da descrição
-        strtok(opera[i].nome, "\n");
-        //retira o \n do inicio da facilidade
-        fgetc(arq);
-        fscanf(arq, "%100[a-z A-Z\n]s", opera[i].usuario);
-        //retira o \n do fim da facilidade
-        strtok(opera[i].usuario, "\n");
-        fgetc(arq);
-        fscanf(arq, "%100[a-z A-Z\n]s", opera[i].senha);
-        //retira o \n do fim da facilidade
-        strtok(opera[i].senha, "\n");
-        i++;
+    for (i = 0; i < numOL; i++) {
+        fgets(t, 100, arq);
+        opera[i].codigo = atoi(t);
+        fgets(opera[i].nome, 100, arq);
+        strtok(opera[i].nome, "\r\n");
+        //printf("%s", aco[i].nomeFantazia);
+        fgets(opera[i].usuario, 100, arq);
+        strtok(opera[i].usuario, "\r\n");
+        // printf("%s", aco[i].razaoSocial);
+        fgets(opera[i].senha, 100, arq);
+        strtok(opera[i].senha, "\r\n");
     }
     //fecha arquivo
     fclose(arq);
@@ -210,13 +210,25 @@ int validarOpBIN(int cod) {
     int i, aux = 0;
     for (i = 0; i < num; i++) {
         if (cod == opera[i].codigo) {
-            return aux = 1;
-            break;
-        } else {
-            return aux = 0;
+            return 1;
         }
+       
     }
-    free(opera);
-    return 0;
+     free(opera);
+        return 0;
 }
 
+int validarOpTXT(int cod) {
+    OperadorSistema *opera = listarOpTXT();
+    if (opera != NULL) {
+        int num = contarLinhasTXT();
+        int i, aux = 0;
+        for (i = 0; i < num; i++) {
+            if (cod == opera[i].codigo) {
+                return 1;
+            }
+        }
+        free(opera);
+        return 0;
+    }
+}

@@ -2,21 +2,32 @@
 #include <stdlib.h>
 #include "OperadorSistema.h"
 #include "OperadorsistemaMenu.h"
+#include "SalvametoBD.h"
 #include <string.h>
 
 void cadastrarOperador() {
+    int bd = listar();
     OperadorSistema op;
     int n, i, r;
-    OperadorSistema *opera = listarOpBIN(&n);
     int aux = 0, cod = 0;
-    int valid, li;
-    printf("***** CADASTRAR OPERADOR *****\n");
-    printf("Digite o Cod do Operador \n");
-    scanf("%d%*c", &op.codigo);
-    valid = validarOpBIN(op.codigo);
-    if (valid == 1) {
-        printf("Operador já cadastrado! \n");
-    } else {
+    int valid, valid2, li;
+    if (bd > 0) {
+        printf("***** CADASTRAR OPERADOR *****\n");
+        printf("Digite o Cod do Operador \n");
+        scanf("%d%*c", &op.codigo);
+        if (bd == 1) {
+            valid = validarOpTXT(op.codigo);
+            if (valid == 1) {
+                printf("Operador já cadastrado! \n");
+                menuCRUDOperador();
+            }
+        } else if (bd == 2) {
+            valid2 = validarOpBIN(op.codigo);
+            if (valid2 == 1) {
+                printf("Operador já cadastrado! \n");
+                menuCRUDOperador();
+            }
+        }
         printf("Digite o Nome do Operador \n");
         fgets(op.nome, 100, stdin);
         strtok(op.nome, "\n");
@@ -30,72 +41,115 @@ void cadastrarOperador() {
         strtok(op.senha, "\n");
         setbuf(stdin, NULL);
 
+        printf("TESTE ***************\n");
+        printf("COD = %d\n", op.codigo);
+        printf("SENHA = %s\n", op.senha);
+        printf("NOME = %s\n", op.nome);
+
+        if (bd == 1) {
+            r = controleCadTXT(op);
+        } else if (bd == 2) {
+            r = cadastrarOpBin(&op, 1);
+        }
         //salva no arquivo
         //cadastrarOpBin(&op, 1);
-        r = controleCadTXT(op);
-        printf("Cadastro Efetuado com sucesso! \n");
-        aux = 0;
-        cod = 0;
+        if (r == 1) {
+            printf("Cadastro Efetuado com sucesso! \n");
+        } else if (r == 0) {
+            printf("Operador já cadastrado! \n");
+        }
+
+    } else {
+        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
 }
 
 void listarOperador() {
     int n, aux;
+    int bd = listar();
     OperadorSistema *opera;
-    opera = listarOpTXT();
-    n = contarLinhasTXT();
-    //opera = listarOpBIN(&n);
-    int i;
-    for (i = 0; i < n; i++) {
-        printf("\n*******%d************", i);
-        printf("\nCodigo: %d", opera[i].codigo);
-        printf("\nNome: %s", opera[i].nome);
-        printf("\nUsuario: %s", opera[i].usuario);
-        printf("\nSenha: %s", opera[i].senha);
-        printf("\n");
+    if (bd == 1) {
+        opera = listarOpTXT();
+        n = contarLinhasTXT();
+    } else if (bd == 2) {
+        opera = listarOpBIN(&n);
+    } else {
+        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
-    free(opera);
+    if (bd > 0) {
+        int i;
+        if (n > 0) {
+            for (i = 0; i < n; i++) {
+                printf("\n*******%d************", i);
+                printf("\nCodigo: %d", opera[i].codigo);
+                printf("\nNome: %s", opera[i].nome);
+                printf("\nUsuario: %s", opera[i].usuario);
+                printf("\nSenha: %s", opera[i].senha);
+                printf("\n");
+            }
+        } else {
+            printf("Não à operadores cadastrados. \n");
+        }
+        free(opera);
+    }
 }
 
 void atualizarOperador() {
     int n, aux;
+    int t;
+    int bd = listar();
     OperadorSistema op;
     OperadorSistema *opera;
-    //opera = listarOpBIN(&n);
-    opera = listarOpTXT();
-    n = contarLinhasTXT();
-    printf("***** ALTERAR DADOS DO OPERADOR *****\n");
-    printf("Digite o cod da acomodação \n");
-    scanf("%d%*c", &op.codigo);
-    int i;
-    for (i = 0; i < n;) {
-        if (op.codigo == opera[i].codigo) {
-            printf("Digite o Nome do Operador \n");
-            fgets(op.nome, 100, stdin);
-            strtok(op.nome, "\n");
-            setbuf(stdin, NULL);
-            printf("Digite o Usuário do Operador \n");
-            fgets(op.usuario, 100, stdin);
-            strtok(op.usuario, "\n");
-            setbuf(stdin, NULL);
-            printf("Digite a Senha do Operador \n");
-            fgets(op.senha, 100, stdin);
-            strtok(op.senha, "\n");
-            setbuf(stdin, NULL);
-            aux = 1;
-            break;
-        }
-        i++;
-    }
-    if (aux == 1) {
-        //int r = editarOpSBIN(op, i);
-        int t = editarOperadorTXT(opera, op, n);
-        printf("Atualização Efetuada com sucesso! \n");
+    if (bd == 1) {
+        opera = listarOpTXT();
+        n = contarLinhasTXT();
+    } else if (bd == 2) {
+        opera = listarOpBIN(&n);
     } else {
-        printf("Operador não cadastrado. \n");
+        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
+    if (bd > 0) {
+        if (n > 0) {
 
-
+            printf("***** ALTERAR DADOS DO OPERADOR *****\n");
+            printf("Digite o cod do operador \n");
+            scanf("%d%*c", &op.codigo);
+            int i;
+            for (i = 0; i < n;) {
+                if (op.codigo == opera[i].codigo) {
+                    printf("Digite o Nome do Operador \n");
+                    fgets(op.nome, 100, stdin);
+                    strtok(op.nome, "\n");
+                    setbuf(stdin, NULL);
+                    printf("Digite o Usuário do Operador \n");
+                    fgets(op.usuario, 100, stdin);
+                    strtok(op.usuario, "\n");
+                    setbuf(stdin, NULL);
+                    printf("Digite a Senha do Operador \n");
+                    fgets(op.senha, 100, stdin);
+                    strtok(op.senha, "\n");
+                    setbuf(stdin, NULL);
+                    aux = 1;
+                    break;
+                } else {
+                    aux == 0;
+                }
+                i++;
+            }
+            if (aux == 1) {
+                if (bd == 1) {
+                    t = editarOperadorTXT(opera, op, n);
+                } else if (bd == 2) {
+                    t = editarOpSBIN(op, i);
+                }
+                printf("Atualização Efetuada com sucesso! \n");
+            } else {
+                printf("Operador não cadastrado. \n");
+            }
+        } else {
+            printf("\n  Nenhum operador cadastrado  \n");
+        }
+    }
 
 }
 
@@ -103,35 +157,32 @@ void deletarOperador() {
     printf("***** DELETAR OPERADOR *****\n");
     int opc;
     int cod;
+    int bd = listar();
+    int r;
     printf("DELETAR: \n");
     printf("1.DELETAR 1.\n");
-    printf("2.DELETAR Todos\n");
-    printf("3.Voltar\n");
+    printf("2.Voltar\n");
     scanf("%d", &opc);
-    if (opc == 1) {
-        printf("Entre com o código do operador: ");
-        scanf("%d", &cod);
-        //int r = removerOperadorControleBIN(cod);
-        int r = removerOperadorControleTXT(cod);
-        if (r == 1) {
-            printf("\nExclusão realizada com sucesso!\n");
-        } else {
-            printf("\nNão foi possivel encontrar categoria de codigo %d \n", cod);
+    if (bd > 0) {
+        if (opc == 1) {
+            printf("Entre com o código do operador: ");
+            scanf("%d*c", &cod);
+            if (bd == 1) {
+                r = removerOperadorControleTXT(cod);
+            } else {
+                r = removerOpSControleBIN(cod);
+            }
+            if (r == 1) {
+                printf("\nExclusão realizada com sucesso!\n");
+            } else {
+                printf("\nNão foi possivel encontrar operador de codigo %d \n", cod);
+            }
+        } else if (opc == 2) {
+            menuCRUDOperador();
         }
-    } else if (opc == 2) {
-        FILE *listOperador = fopen(".\\persist\\operador.bin", "wb");
-        if (listOperador == NULL) {
-            printf("Arquivo inexistente!");
-            return;
-        }
-        listOperador = fopen(".\\persist\\operador.bin", "wb");
-        printf("Dados Apagados com sucesso \n");
-
-        fclose(listOperador);
-    } else if (opc == 3) {
-        menuCRUDOperador();
+    } else {
+        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
-
 }
 
 int removerOpSControleBIN(int cod) {
@@ -150,6 +201,8 @@ int removerOpSControleBIN(int cod) {
                 opera = realloc(opera, (num - 1) * sizeof (OperadorSistema));
             }
             break;
+        } else {
+            return 0;
         }
     }
     //apaga arquivo
@@ -164,6 +217,7 @@ int removerOpSControleBIN(int cod) {
 
 int controleCadTXT(OperadorSistema opera) {
     return cadastrarOpTXT(opera);
+
 }
 
 int contarLinhasTXT() {
@@ -186,7 +240,7 @@ int contarLinhasTXT() {
             numOL++;
         }
     }
-    numF = numOL/4;
+    numF = numOL / 4;
     fclose(listOperador);
     free(listOperador);
 
@@ -225,7 +279,6 @@ int salvarOperadorControleTXT(OperadorSistema* opera, int num) {
 
 int removerOperadorControleTXT(int cod) {
     int num = contarLinhasTXT();
-    //OperadorSistema *opera = listarOpBIN(&num);
     OperadorSistema *opera = listarOpTXT();
     int i;
     for (i = 0; i < num; i++) {
@@ -239,11 +292,14 @@ int removerOperadorControleTXT(int cod) {
                 opera = realloc(opera, (num - 1) * sizeof (OperadorSistema));
             }
             break;
+        } else {
+            return 0;
         }
     }
-    //apaga arquivo
-    //int v = removerOperadorBIN();
 
     return salvarOperadorTXT(opera, num - 1);
+
 }
+
+
 
