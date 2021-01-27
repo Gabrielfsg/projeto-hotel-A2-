@@ -23,7 +23,7 @@ typedef struct hotel {
     int telefone;
     char email[100];
     char nomeResponsavel[100];
-    char teleRes[14];
+    char teleRes[100];
     char checkIn[100];
     char checkOut[100];
     float margemLucro;
@@ -31,12 +31,13 @@ typedef struct hotel {
     char bairro[100];
     char cidade[100];
     int cep;
-    char uf[2];
+    char uf[100];
     int numero;
 } Hotel;
 
 Hotel* listarHotelBIN(int *numLinha);
 //int cadastrarHotelBin(Hotel h, int quantidade);
-
+Hotel * listarHTXT();
+int editarHotelTXT(Hotel *hot, Hotel h, int num);
 #endif /* HOTEL_H */
 
