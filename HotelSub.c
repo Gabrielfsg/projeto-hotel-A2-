@@ -7,7 +7,7 @@
 void cadastrarHotel() {
     Hotel h;
     int bd = listar();
-    int aux, x;
+    int aux, x,x2;
     if (bd > 0) {
         printf("***** CADASTRAR HOTEL *****\n");
         if (bd == 1) {
@@ -17,8 +17,8 @@ void cadastrarHotel() {
                 menuCrudHotel();
             }
         } else if (bd == 2) {
-            x = contarLinhasH();
-            if (x > 0) {
+            x2 = contarLinhasH();
+            if (x2 > 10) {
                 printf("Já existe um hotel cadastrado! \n");
                 menuCrudHotel();
             }
