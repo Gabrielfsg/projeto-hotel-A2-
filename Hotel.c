@@ -31,28 +31,27 @@ int cadastrarHotelBin(Hotel h, int quantidade) {
     return 1;
 }
 
-
-int cadastrarHotelTXT(Hotel h){
+int cadastrarHotelTXT(Hotel h) {
     FILE *arq;
     //abrea arquivo para escrita e posiciona cursor no final "ab"
-    arq = fopen(".\\persist\\hotelTXT.txt", "a");
+    arq = fopen(".\\persist\\hotelTXT", "a");
     if (arq == NULL) {
         //cria arquivo para escrita se não houver "wb"
-        arq = fopen(".\\persist\\hotelTXT.txt", "w");
+        arq = fopen(".\\persist\\hotelTXT", "w");
         if (arq == NULL) {
             printf("\nERRO ao acessar arquivo\n");
             return 0;
         }
     }
-    
+
     fprintf(arq, "%d\n%s\n%s\n%s\n%s\n%s\n%d\n%f\n%s\n%s\n%s\n%s\n%d\n%s\n%d\n%s\n%s\n%s\n"
-                    , h.codigo,h.cnpj,h.email,h.inscricaoEstadual,h.nomeFantazia
-                    ,h.nomeResponsavel,h.telefone,h.margemLucro,h.checkIn
-                    ,h.checkOut,h.teleRes,h.razaoSocial,h.numero
-                    ,h.bairro,h.cep,h.logradouro,h.uf,h.cidade);
-    
+            , h.codigo, h.cnpj, h.email, h.inscricaoEstadual, h.nomeFantazia
+            , h.nomeResponsavel, h.telefone, h.margemLucro, h.checkIn
+            , h.checkOut, h.teleRes, h.razaoSocial, h.numero
+            , h.bairro, h.cep, h.logradouro, h.uf, h.cidade);
+
     fclose(arq);
-    
+
     free(arq);
 }
 
@@ -99,7 +98,7 @@ Hotel * listarHotelBIN(int *numLinha) {
 
 int salvarHotelTXT(Hotel *hot, int num) {
     // w pra substituir o arquivo
-    FILE *cade = fopen(".\\persist\\hotelTXT.txt", "wb");
+    FILE *cade = fopen(".\\persist\\hotelTXT", "wb");
     if (cade == NULL) {
         printf("\nErro ao abrir arquivo!!");
         return 0;
@@ -108,10 +107,10 @@ int salvarHotelTXT(Hotel *hot, int num) {
         // grava todos os dados do vetor no arquivo
         for (i = 0; i < num; i++) {
             fprintf(cade, "%d\n%s\n%s\n%s\n%s\n%s\n%d\n%f\n%s\n%s\n%s\n%s\n%d\n%s\n%d\n%s\n%s\n%s\n"
-                    , hot[i].codigo,hot[i].cnpj,hot[i].email,hot[i].inscricaoEstadual,hot[i].nomeFantazia
-                    ,hot[i].nomeResponsavel,hot[i].telefone,hot[i].margemLucro,hot[i].checkIn
-                    ,hot[i].checkOut,hot[i].teleRes,hot[i].razaoSocial,hot[i].numero
-                    ,hot[i].bairro,hot[i].cep,hot[i].logradouro,hot[i].uf,hot[i].cidade); // f
+                    , hot[i].codigo, hot[i].cnpj, hot[i].email, hot[i].inscricaoEstadual, hot[i].nomeFantazia
+                    , hot[i].nomeResponsavel, hot[i].telefone, hot[i].margemLucro, hot[i].checkIn
+                    , hot[i].checkOut, hot[i].teleRes, hot[i].razaoSocial, hot[i].numero
+                    , hot[i].bairro, hot[i].cep, hot[i].logradouro, hot[i].uf, hot[i].cidade); // f
         }
     }
     // força salvar arquivo
@@ -124,6 +123,71 @@ int salvarHotelTXT(Hotel *hot, int num) {
     return 1;
 }
 
+Hotel * listarHTXT() {
+    int numOL = 0, i = 0;
+    FILE* arq;
+    numOL = contarLinhasHotelTXT(arq);
+    arq = fopen(".\\persist\\hotelTXT", "r");
+    if (arq == NULL) {
+        arq = fopen(".\\persist\\hotelTXT", "w+");
+        if (arq == NULL) {
+            printf("\nERRO ao acessar arquivo\n");
+            return 0;
+        }
+    }
+    char t[100];
+    Hotel *hot = (Hotel*) calloc(numOL, sizeof (Hotel));
+    for (i = 0; i < numOL; i++) {
+        fgets(t, 100, arq);
+        hot[i].codigo = atoi(t);
+        fgets(hot[i].cnpj, 100, arq);
+        strtok(hot[i].cnpj, "\r\n");
+
+        fgets(hot[i].email, 100, arq);
+        strtok(hot[i].email, "\r\n");
+
+        fgets(hot[i].inscricaoEstadual, 100, arq);
+        strtok(hot[i].inscricaoEstadual, "\r\n");
+
+        fgets(hot[i].nomeFantazia, 100, arq);
+        strtok(hot[i].nomeFantazia, "\r\n");
+
+        fgets(hot[i].nomeResponsavel, 100, arq);
+        strtok(hot[i].nomeResponsavel, "\r\n");
+        hot[i].telefone = atoi(t);
+        hot[i].margemLucro = atoi(t);
+        fgets(hot[i].checkIn, 100, arq);
+        strtok(hot[i].checkIn, "\r\n");
+        // printf("%s", aco[i].razaoSocial);
+        fgets(hot[i].checkOut, 100, arq);
+        strtok(hot[i].checkOut, "\r\n");
+
+        fgets(hot[i].teleRes, 100, arq);
+        strtok(hot[i].teleRes, "\r\n");
+
+        fgets(hot[i].razaoSocial, 100, arq);
+        strtok(hot[i].razaoSocial, "\r\n");
+        hot[i].numero = atoi(t);
+        fgets(t, 5, arq);
+        fgets(hot[i].bairro, 100, arq);
+        strtok(hot[i].bairro, "\r\n");
+        hot[i].cep = atoi(t);
+        fgets(hot[i].logradouro, 100, arq);
+        strtok(hot[i].logradouro, "\r\n");
+
+        fgets(hot[i].uf, 100, arq);
+        strtok(hot[i].uf, "\r\n");
+
+        fgets(hot[i].cidade, 100, arq);
+        strtok(hot[i].cidade, "\r\n");
+        fgetc(arq);
+    }
+    //fecha arquivo
+    fclose(arq);
+    //libera memoria
+    free(arq);
+    return hot;
+}
 
 int editarHotelBin(Hotel h, int posi) {
     FILE *arquivo;
@@ -145,7 +209,32 @@ int editarHotelBin(Hotel h, int posi) {
     return 1;
 }
 
+int editarHotelTXT(Hotel *hot, Hotel h, int num) {
+    int i;
+    for (i = 0; i < num; i++) {
+        if ((int) (hot[i].codigo) == (int) (h.codigo)) {
+            strcpy(hot[i].cnpj, h.cnpj);
+            strcpy(hot[i].email, h.email);
+            strcpy(hot[i].inscricaoEstadual, h.inscricaoEstadual);
+            strcpy(hot[i].nomeFantazia, h.nomeFantazia);
+            strcpy(hot[i].nomeResponsavel, h.nomeResponsavel);
+            hot[i].telefone = h.telefone;
+            hot[i].margemLucro = h.margemLucro;
+            strcpy(hot[i].checkIn, h.checkIn);
+            strcpy(hot[i].checkOut, h.checkOut);
+            strcpy(hot[i].teleRes, h.teleRes);
+            strcpy(hot[i].razaoSocial, h.razaoSocial);
+            hot[i].numero = h.numero;
+            strcpy(hot[i].bairro, h.bairro);
+            hot[i].cep = h.cep;
+            strcpy(hot[i].logradouro, h.logradouro);
+            strcpy(hot[i].uf, h.uf);
+            strcpy(hot[i].cidade, h.cidade);
+        }
+    }
 
+    return salvarHotelTXT(hot, num);
+}
 
 int removerHotelBIN() {
     int status = remove(".\\persist\\hotel.bin");

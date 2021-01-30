@@ -241,12 +241,13 @@ void subReservas() {
         printf("1.Cadastrar Reserva.\n");
         printf("2.Alterar Reservas.\n");
         printf("3.Visualizar Reservas Disponiveis.\n");
-        printf("4.Cancelar Reserva.\n");
-        printf("5.Voltar.\n");
+        printf("4.Visualizar Reservas Não Disponiveis.\n");
+        printf("5.Cancelar Reserva.\n");
+        printf("6.Voltar.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
-
+                cadReserva();
                 break;
             case 2:
 
@@ -255,8 +256,12 @@ void subReservas() {
                 subVisualizarReservas();
                 break;
             case 4:
+                
                 break;
             case 5:
+                
+                break;
+            case 6:
                 menuPrincipal();
                 break;
             default:
@@ -287,7 +292,7 @@ void subVisualizarReservas() {
                 //Visualizar Reservas Disponiveis
                 break;
             case 3:
-                //Cancelar Reserva
+
                 break;
             case 4:
                 //Cancelar Reserva
@@ -296,7 +301,7 @@ void subVisualizarReservas() {
                 //Cancelar Reserva
                 break;
             case 6:
-                exit(0);
+                menuPrincipal();
                 break;
             default:
                 printf("Valor Invalido!\n");

@@ -148,9 +148,9 @@ int validarCategoria(int cod) {
 
 int cadastrarCategoriaBIN(Categoria cat, int quantidade) {
     FILE *cad;
-    cad = fopen("arquivos\\CategoriaBIN.bin", "ab");
+    cad = fopen("arquivos\\ReservaQBIN.bin", "ab");
     if (cad == NULL) {
-        cad = fopen("arquivos\\CategoriaBIN.bin", "wb");
+        cad = fopen("arquivos\\ReservaQBIN.bin", "wb");
         return 0;
     } else {
         //strlen()-> informa o tamanho de uma string 
