@@ -28,7 +28,7 @@ void menuCrudHotel() {
                 deletarHotel();
                 break;
             case 5:
-                exit(0);
+                menuPrincipal();
                 break;
             default:
                 printf("Valor Invalido!\n");

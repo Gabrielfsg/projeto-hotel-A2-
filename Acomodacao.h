@@ -33,6 +33,5 @@ int validarAcomodacaoBIN(int cod);
 int removerAcomodacaoBIN();
 
 
-
 #endif /* ACOMODACAO_H */
 

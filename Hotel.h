@@ -16,23 +16,23 @@
 
 typedef struct hotel {
     int codigo;
-    char nomeFantazia[100];
-    char razaoSocial[100];
-    char inscricaoEstadual[100];
     char cnpj[100];
-    int telefone;
     char email[100];
+    char inscricaoEstadual[100];
+    char nomeFantazia[100];
     char nomeResponsavel[100];
-    char teleRes[100];
+    int telefone;
+    float margemLucro;
     char checkIn[100];
     char checkOut[100];
-    float margemLucro;
-    char logradouro[100];
-    char bairro[100];
-    char cidade[100];
-    int cep;
-    char uf[100];
+    char teleRes[100];
+    char razaoSocial[100];
     int numero;
+    char bairro[100];
+    int cep;
+    char logradouro[100];
+    char uf[100];
+    char cidade[100];
 } Hotel;
 
 Hotel* listarHotelBIN(int *numLinha);

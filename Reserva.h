@@ -14,7 +14,18 @@
 #ifndef RESERVA_H
 #define RESERVA_H
 
-typedef struct reserva Reserva;
+#include "Data.h"
+#include "Acomodacao.h"
+#include "Hospede.h"
+
+typedef struct reserva {
+    int codigo;
+    Data *DataIn;
+    Data *DataFin;
+    Acomodacao *acomodacao;
+    Hospede *hospede;
+} Reserva;
+
 
 #endif /* RESERVA_H */
 

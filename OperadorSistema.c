@@ -21,7 +21,7 @@ int cadastrarOpBin(OperadorSistema op, int quantidade) {
         }
     }
     //strlen()-> informa o tamanho de uma string 
-    /*grava toda struct de acomodacao no arquivo*/
+    /*grava toda struct de operador no arquivo*/
     fwrite(&op, sizeof (OperadorSistema), quantidade, arq);
     fflush(arq);
     /*fecha o arquivo*/

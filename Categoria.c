@@ -19,10 +19,10 @@
 int cadastrarCategoriaTXT(Categoria cat) {
     FILE *cad;
     // abre o arquivo e posiciona o cursor no final
-    cad = fopen("arquivos\\CategoriaTXT.txt", "a");
+    cad = fopen("arquivos\\CategoriaTXT", "a");
     if (cad == NULL) {
         // se ele não existir cria um
-        cad = fopen("arquivos\\CategoriaTXT.txt", "w");
+        cad = fopen("arquivos\\CategoriaTXT", "w");
         if (cad == NULL) {
             printf("\nErro: aao cessar arquivo\n");
             return 0;
@@ -68,10 +68,10 @@ Categoria* listarCategoriaTXT() {
     FILE *arquivo;
     numLinha = numLinhasCategoria(arquivo);
     //abrea arquivo para leitura apenas "r"
-    arquivo = fopen("arquivos\\CategoriaTXT.txt", "r");
+    arquivo = fopen("arquivos\\CategoriaTXT", "r");
     if (arquivo == NULL) {
         //cria arquivo para leitura/escrita se não houver "w+"
-        arquivo = fopen("arquivos\\CategoriaTXT.txt", "w+");
+        arquivo = fopen("arquivos\\CategoriaTXT", "w+");
         if (arquivo == NULL) {
             printf("\nErro ao acessar arquivo categoria\n");
             return NULL;
@@ -108,9 +108,9 @@ int numLinhasCategoria() {
     FILE *arquivo;
     int numLinha = 0, c;
     //abre arquivo para leitura "r"
-    arquivo = fopen("arquivos\\CategoriaTXT.txt", "r");
+    arquivo = fopen("arquivos\\CategoriaTXT", "r");
     if (arquivo == NULL) {
-        arquivo = fopen("arquivos\\CategoriaTXT.txt", "w+");
+        arquivo = fopen("arquivos\\CategoriaTXT", "w+");
         if (arquivo == NULL) {
             printf("Erro ao acessar arquivo\n");
             return 0;
@@ -148,9 +148,9 @@ int validarCategoria(int cod) {
 
 int cadastrarCategoriaBIN(Categoria cat, int quantidade) {
     FILE *cad;
-    cad = fopen("arquivos\\CategoriaBIN.bin", "ab");
+    cad = fopen("arquivos\\ReservaQBIN.bin", "ab");
     if (cad == NULL) {
-        cad = fopen("arquivos\\CategoriaBIN.bin", "wb");
+        cad = fopen("arquivos\\ReservaQBIN.bin", "wb");
         return 0;
     } else {
         //strlen()-> informa o tamanho de uma string 

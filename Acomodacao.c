@@ -11,10 +11,10 @@
 int cadastrarAcomodacaoTXT(Acomodacao aco) {
     FILE *arq;
     // abre o arquivo com o cursor no final
-    arq = fopen("arquivos\\AcomodacaoTXT.txt", "a");
+    arq = fopen("arquivos\\AcomodacaoTXT", "a");
     if (arq == NULL) {
         // se ele não existir cria um
-        arq = fopen("arquivos\\AcomodacaoTXT.txt", "w");
+        arq = fopen("arquivos\\AcomodacaoTXT", "w");
         if (arq == NULL) {
             printf("\nErro ao acessar arquivo\n");
             return 0;
@@ -59,9 +59,9 @@ Acomodacao * listarAcomodacaoTXT() {
     FILE *arquivo;
     numLinha = numLinhasAcomodacao(arquivo);
     //area arquivo para leitura apenas "r"
-    arquivo = fopen("arquivos\\AcomodacaoTXT.txt", "r");
+    arquivo = fopen("arquivos\\AcomodacaoTXT", "r");
     if (arquivo == NULL) {
-        arquivo = fopen("arquivos\\AcomodacaoTXT.txt", "w+");
+        arquivo = fopen("arquivos\\AcomodacaoTXT", "w+");
         if (arquivo == NULL) {
             printf("Erro ao acessar arquivo\n");
             return NULL;
@@ -98,9 +98,9 @@ int numLinhasAcomodacao() {
     FILE *arquivo;
     int numLinha = 0, c;
     //abre arquivo para leitura "r"
-    arquivo = fopen("arquivos\\AcomodacaoTXT.txt", "r");
+    arquivo = fopen("arquivos\\AcomodacaoTXT", "r");
     if (arquivo == NULL) {
-        arquivo = fopen("arquivos\\CategoriaTXT.txt", "w+");
+        arquivo = fopen("arquivos\\CategoriaTXT", "w+");
         if (arquivo == NULL) {
             printf("\nErro ao acessar arquivo\n");
             return 0;
@@ -203,6 +203,47 @@ Acomodacao * listarAcomodacaoBIN(int *numLinha) {
     return aco;
 }
 
+Acomodacao * listarResBIN(int *numLinha) {
+    FILE *arquivo;
+    //abrea arquivo para leitura apenas "rb"
+    arquivo = fopen("arquivos\\ReservaBIN.bin", "rb");
+    if (arquivo == NULL) {
+        //cria arquivo para leitura\escrita se não houver "w+b"
+        arquivo = fopen("arquivos\\ReservaBIN.bin", "w+b");
+        if (arquivo == NULL) {
+            printf("\nERRO ao acessar arquivo\n");
+            return NULL;
+        }
+    }
+    *numLinha = 0;
+
+    Acomodacao c;
+    //instancia vetor com tamanho 1 
+    Acomodacao *aco = (Acomodacao*) calloc(1, sizeof (Acomodacao));
+    //pega a primeira linha se existir
+    int r = fread(&c, sizeof (Acomodacao), 1, arquivo);
+    if (r > 0) {
+        do {
+            //soma a +1 no tamanho do vetor o qual comessa com 0
+            *numLinha = (*numLinha) + 1;
+            // realoca o vetor com o tamanho numLinha, a arqa interação ele realoca um a mais
+            aco = realloc(aco, *numLinha * sizeof (Acomodacao));
+            //adicionar o struct o vetor,(numLinha -1) pois o vetor comessa sempre por 0
+            aco[(*numLinha) - 1] = c;
+            //pega o proximo indice, se existir
+            fread(&c, sizeof (Acomodacao), 1, arquivo);
+            //verifica se chegou no fim do arquivo
+        } while (!feof(arquivo));
+    } else {
+        return NULL;
+    }
+    //fecha arquivo
+    fclose(arquivo);
+    //libera memoria
+    free(arquivo);
+    return aco;
+}
+
 int editarAcomodacaoBIN(Acomodacao aco, int posi) {
     FILE *arquivo;
     //abre arquivo para leitura e escrita, ele deve existir "r+b"
@@ -245,3 +286,5 @@ int removerAcomodacaoBIN() {
     }
     return 1;
 }
+
+
