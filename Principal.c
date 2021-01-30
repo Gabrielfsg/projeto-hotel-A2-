@@ -256,7 +256,7 @@ void subReservas() {
                 subVisualizarReservas();
                 break;
             case 4:
-                verReservasOcupadas();
+                
                 break;
             case 5:
                 

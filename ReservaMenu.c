@@ -24,10 +24,10 @@ void cadReserva() {
 
         switch (opc) {
             case 1:
-                
+                reservar();
                 break;
             case 2:
-                
+                reservaPCategoria();
                 break;
             case 3:
                 reservaPQuantidade();

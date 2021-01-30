@@ -11,10 +11,10 @@
 int cadastrarAcomodacaoTXT(Acomodacao aco) {
     FILE *arq;
     // abre o arquivo com o cursor no final
-    arq = fopen("arquivos\\AcomodacaoTXT", "a");
+    arq = fopen("arquivos\\AcomodacaoTXT.txt", "a");
     if (arq == NULL) {
         // se ele não existir cria um
-        arq = fopen("arquivos\\AcomodacaoTXT", "w");
+        arq = fopen("arquivos\\AcomodacaoTXT.txt", "w");
         if (arq == NULL) {
             printf("\nErro ao acessar arquivo\n");
             return 0;
@@ -59,9 +59,9 @@ Acomodacao * listarAcomodacaoTXT() {
     FILE *arquivo;
     numLinha = numLinhasAcomodacao(arquivo);
     //area arquivo para leitura apenas "r"
-    arquivo = fopen("arquivos\\AcomodacaoTXT", "r");
+    arquivo = fopen("arquivos\\AcomodacaoTXT.txt", "r");
     if (arquivo == NULL) {
-        arquivo = fopen("arquivos\\AcomodacaoTXT", "w+");
+        arquivo = fopen("arquivos\\AcomodacaoTXT.txt", "w+");
         if (arquivo == NULL) {
             printf("Erro ao acessar arquivo\n");
             return NULL;
@@ -98,9 +98,9 @@ int numLinhasAcomodacao() {
     FILE *arquivo;
     int numLinha = 0, c;
     //abre arquivo para leitura "r"
-    arquivo = fopen("arquivos\\AcomodacaoTXT", "r");
+    arquivo = fopen("arquivos\\AcomodacaoTXT.txt", "r");
     if (arquivo == NULL) {
-        arquivo = fopen("arquivos\\CategoriaTXT", "w+");
+        arquivo = fopen("arquivos\\CategoriaTXT.txt", "w+");
         if (arquivo == NULL) {
             printf("\nErro ao acessar arquivo\n");
             return 0;
