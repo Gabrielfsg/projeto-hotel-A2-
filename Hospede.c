@@ -10,7 +10,7 @@
 #include"Data.h"
 #include"Endereco.h"
 #include"Hospede.h"
-//#include "HospedeControl.h"
+
 
 void cadastrarHospedesTXT(Hospede h) {
     FILE* arHospedes;
@@ -23,7 +23,6 @@ void cadastrarHospedesTXT(Hospede h) {
         fprintf(arHospedes, "CodEnder: %d\r\nBairro: %s\r\nCEP: %s\r\nCidade: %s\r\nLogradouro: %s\r\nNumero: %d\r\nUF: %s\r\n", h.endereco.codigo, h.endereco.bairro, h.endereco.cep, h.endereco.cidade, h.endereco.logradouro, h.endereco.numero, h.endereco.uf);
 
         fflush(arHospedes);
-        printf("\nHOSPEDE CADASTRADO COM SUCESSO\n");
 
         fclose(arHospedes);
     }
@@ -67,8 +66,6 @@ Hospede* getAllHospedesTXT(int numHospedes) {
     if (scanHospedes == NULL) {
         printf("ERRO DE LEITURA\n");
     } else {
-        //rewind(scanHospedes);
-        //while (!feof(scanHospedes)) { //enquanto não for o final do arquivo
         for (int i = 0; i < numHospedes; i++) {
             Hospede h;
             char text[20];
@@ -95,6 +92,7 @@ Hospede* getAllHospedesTXT(int numHospedes) {
             fscanf(scanHospedes, "%s %[^\n]s", text, h.endereco.logradouro);
             fscanf(scanHospedes, "%s %d", text, &h.endereco.numero);
             fscanf(scanHospedes, "%s %s", text, h.endereco.uf);
+            
             //COLOCA O HOSPEDE NO ARRAY
             arrayHospedes[index - 1] = h;
             index++;
@@ -130,7 +128,7 @@ Hospede* getAllHospedesTXT(int numHospedes) {
 }
 
 Hospede* getAllHospedesBIN(int* numHospedes) {
-    int totalLido = 0;
+    //int totalLido = 0;
     int index = 0;
     Hospede *arrayHospedes = (Hospede *) malloc(sizeof (Hospede) * 1); //PONTEIRO DE HÓSPEDE VIRA UM VETOR AO CHAMAR MALLOC
     if (arrayHospedes == NULL) {
@@ -147,6 +145,7 @@ Hospede* getAllHospedesBIN(int* numHospedes) {
         //rewind(scanHospedes);
         while (!feof(fileHospedes)) { //enquanto não for o final do arquivo
             Hospede h;
+            //TENTA LER UM HÓSPEDE
             int conseguiuLer = fread(&h, sizeof (Hospede), 1, fileHospedes);
             if (conseguiuLer == 1) {
                 //printf("LEU UM HOSPEDE\n");
@@ -335,4 +334,32 @@ void deletarHospedeBIN(int cod) {
         remove(".\\arquivos\\hospedes.bin");
         rename(".\\arquivos\\hospedes_temp.bin", ".\\arquivos\\hospedes.bin");
     }
+}
+
+
+int getNumHospedes() {
+    //UTILIZADO APENAS POR FUNÇÕES TXT
+    //CALCULA O NÚMERO DE HÓSPEDES A PARTIR DA QTE DE LINHAS DO ARQUIVO.
+    
+    FILE *arq;
+    int numLinhas = 0, numHospedes = 0;
+    char c;
+    arq = fopen(".\\arquivos\\hospedes.txt", "r");
+    if (arq == NULL) {
+        printf("Erro ao acessar arquivo\n");
+    }
+    while ((c = fgetc(arq)) != EOF) {
+
+        if (c == '\n') {
+            numLinhas++;
+        }
+    }
+    numHospedes = numLinhas / 17; // um hóspede gasta 17 linhas no arquivo
+
+    //printf("O NÚMERO DE LINHAS DO ARQ É: %d\n", numLinhas);
+    //printf("O NÚMERO DE HOSPEDES CADASTRADOS É: %d\n", numHospedes);
+    fclose(arq);
+    free(arq);
+    return numHospedes;
+
 }

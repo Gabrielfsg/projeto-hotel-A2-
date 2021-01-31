@@ -8,8 +8,6 @@
 #include "Principal.h"
 #include "Hospede.h"
 #include "HospedeMenu.h"
-//#include "HospedeControl.h"
-//#include "FornecedorSUB.h"
 #include "SalvametoBD.h"
 
 void menuCRUDHospedes() {
@@ -59,11 +57,12 @@ void cadastrarHospedesControl() {
     printf("***** CADASTRAR HÓSPEDE *****\n");
     int cod;
     Hospede h;
+    //pega a extensão do arquivo
     int ext = listar();
     //pega os dados
     printf("Digite o cod do hóspede \n");
     scanf("%d%*c", &cod);
-    //valida para ver se já existe
+    //valida para ver se o código já existe
     if (validarCodHospede(cod, ext) == 0) {
         return;
     } else {
@@ -107,7 +106,6 @@ void cadastrarHospedesControl() {
     printf("Digite o Ano do nascimento do hóspede \n");
     scanf("%d%*c", &h.dataNascimento.ano);
 
-    //printf("DATA = %d  -  %d  -  %d\n", h.dataNascimento.dia, h.dataNascimento.mes, h.dataNascimento.ano);
 
     printf("ENDEREÇO DO HÓSPEDE\n");
     printf("Digite o Código do endereço \n");
@@ -133,11 +131,9 @@ void cadastrarHospedesControl() {
     strtok(h.endereco.cidade, "\n");
 
 
-
     printf("Digite o Bairo do endereço \n");
     fgets(h.endereco.bairro, 102, stdin);
     strtok(h.endereco.bairro, "\n");
-
 
 
     printf("Digite o Logradouro do endereço \n");
@@ -145,17 +141,11 @@ void cadastrarHospedesControl() {
     strtok(h.endereco.logradouro, "\n");
 
 
-
     printf("Digite o Número do endereço \n");
     scanf("%d%*c", &h.endereco.numero);
 
-
-    //printf("//////////////// \n");
-    //printf("ENDER = %s \n", h.endereco.uf);
-    //printf("ENDER = %s  -  %s  -  %s  -  %d  -  %s  -  %d  -  %s\n", h.endereco.bairro, h.endereco.cep, h.endereco.cidade, h.endereco.codigo, h.endereco.logradouro, h.endereco.numero, h.endereco.uf);
-    //printf("//////////////// \n");
     
-    //VALIDAÇÃO EXTENÇÃO DO ARQUIVO
+    //CADASTRA DE ACORDO COM A EXTENSÃO DO ARQUIVO
     if (ext == 2) {
         //BIN
         cadastrarHospedesBIN(h);
@@ -163,15 +153,16 @@ void cadastrarHospedesControl() {
     if (ext == 1) {
         //TXT
         cadastrarHospedesTXT(h);
-
+        printf("\nHOSPEDE CADASTRADO COM SUCESSO\n");
     }
+    
 }
 
 void listarHospedesControl() {
-    int numHospedes = 0;
+    int numHospedes = 0; // será atualizado, para poder mostrar todos os hóspedes;
     Hospede* arrayHospedes;
     printf("LISTA DE TODOS OS HÓSPEDES \n");
-    //VALIDAÇÃO EXTENSÃO DO ARQUIVO
+    //pega a extensão do arquivo
     int ext = listar();
     if (ext == 2) {
         //BIN
@@ -183,8 +174,6 @@ void listarHospedesControl() {
         arrayHospedes = getAllHospedesTXT(numHospedes);
 
     }
-
-
 
     for (int i = 0; i < numHospedes; i++) {
         //lista os hóspedes
@@ -217,6 +206,7 @@ void listarHospedesControl() {
 Hospede getHospedeByCodControl() {
     Hospede hos;
     int cod;
+    //pega a extensão do arquivo
     int ext = listar();
     printf("Digite o código do Hóspede que deseja procurar:\n");
     scanf("%d%*c", &cod);
@@ -226,7 +216,6 @@ Hospede getHospedeByCodControl() {
         return;
     } else {
 
-        //VALIDAR EXTENSÃO
         if (ext == 2) {
             //BIN
             hos = getHospedeByCodBIN(cod);
@@ -268,6 +257,7 @@ void atualizarHospedesControl() {
     printf("***** ALTERAR DADOS DO HÓSPEDE *****\n");
 
     int cod;
+    //pega a extensão do arquivo
     int ext = listar();
     Hospede novoHosp;
     printf("Digite o cod do hóspede \n");
@@ -340,17 +330,14 @@ void atualizarHospedesControl() {
         strtok(novoHosp.endereco.cidade, "\n");
 
 
-
         printf("Atualize o Bairo do endereço \n");
         fgets(novoHosp.endereco.bairro, 102, stdin);
         strtok(novoHosp.endereco.bairro, "\n");
 
 
-
         printf("Atualize o Logradouro do endereço \n");
         fgets(novoHosp.endereco.logradouro, 102, stdin);
         strtok(novoHosp.endereco.logradouro, "\n");
-
 
 
         printf("Atualize o Número do endereço \n");
@@ -377,7 +364,7 @@ void atualizarHospedesControl() {
         printf("NUMERO: %d\n", novoHosp.endereco.numero);
         printf("UF: %s\n", novoHosp.endereco.uf);
         printf("***************\n");
-        //VERFICAÇÃO EXTENSÃO DO ARQUIVO
+        //ATUALIZA DE ACORDO COM A EXTENSÃO DO ARQUIVO
         if (ext == 2) {
             //BIN
             atualizarHospedeBIN(novoHosp);
@@ -401,11 +388,12 @@ void deletarHospedesControl() {
     Hospede h;
     char confirmacao;
     int cod;
+    //pega a extensão do arquivo
     int ext = listar();
     printf("Digite o cod do hóspede \n");
     scanf("%d%*c", &cod);
     if (validarCodHospede(cod, ext) == 1) {
-        //NÃO EXISTE
+        
         printf("COD INEXISTENTE\n");
         return;
     } else {
@@ -476,7 +464,6 @@ int validarCodHospede(int cod, int ext) {
     if (ext == 1) {
         //TXT
         numHospedes = getNumHospedes();
-
         arrHospedes = getAllHospedesTXT(numHospedes);
     }
 
@@ -484,7 +471,7 @@ int validarCodHospede(int cod, int ext) {
     for (i = 0; i < numHospedes; i++) {
         if (cod == arrHospedes[i].codigo) {
             codExistente = 0;
-            //printf("ACHOU UM COD IGUAL: %d = %d\n",cod,arrHospedes[i].codigo);
+            //printf("ACHOU COD : %d = %d\n",cod,arrHospedes[i].codigo);
         }
     }
     free(arrHospedes);
@@ -496,26 +483,4 @@ int validarCodHospede(int cod, int ext) {
     }
 }
 
-int getNumHospedes() {
-    FILE *arq;
-    int numLinhas = 0, numHospedes = 0;
-    char c;
-    arq = fopen(".\\arquivos\\hospedes.txt", "r");
-    if (arq == NULL) {
-        printf("Erro ao acessar arquivo\n");
-    }
-    while ((c = fgetc(arq)) != EOF) {
 
-        if (c == '\n') {
-            numLinhas++;
-        }
-    }
-    numHospedes = numLinhas / 17;
-
-    //printf("O NÚMERO DE LINHAS DO ARQ É: %d\n", numLinhas);
-    //printf("O NÚMERO DE HOSPEDES CADASTRADOS É: %d\n", numHospedes);
-    fclose(arq);
-    free(arq);
-    return numHospedes;
-
-}

@@ -40,5 +40,7 @@ Hospede getHospedeByCodBIN(int cod);
 //void atualizarHospedeTXT();
 void deletarHospedeTXT(int cod);
 void deletarHospedeBIN(int cod);
+
+int getNumHospedes();
 #endif /* HOSPEDE_H */
 

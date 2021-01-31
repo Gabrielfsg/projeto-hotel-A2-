@@ -23,7 +23,6 @@ Hospede getHospedeByCodControl();
 void atualizarHospedesControl();
 void deletarHospedesControl();
 int validarCodHospede(int cod, int ext);
-int getNumHospedes();
 
 #endif /* HOSPEDEMENU_H */
 
