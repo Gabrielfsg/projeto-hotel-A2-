@@ -20,12 +20,14 @@
 
 typedef struct reserva {
     int codigo;
-    Data *DataIn;
-    Data *DataFin;
-    Acomodacao *acomodacao;
-    Hospede *hospede;
+    Data DataIn;
+    Data DataFin;
+    Acomodacao acomodacao;
+    //Hospede *hospede;
+    int hospede[10];
 } Reserva;
 
+int cadastrarReservaBIN(Acomodacao *aco, int quantidade);
 
 #endif /* RESERVA_H */
 

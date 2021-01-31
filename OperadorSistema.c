@@ -32,6 +32,10 @@ int cadastrarOpBin(OperadorSistema op, int quantidade) {
 }
 
 int cadastrarOpTXT(OperadorSistema opera) {
+    printf("ENTROU CADASTRAR\n");
+    printf("COD = %d\n",opera.codigo);
+    printf("SENHA = %s\n",opera.senha);
+    
     FILE *arq;
     //abrea arquivo para escrita e posiciona cursor no final "ab"
     arq = fopen(".\\persist\\operadorTXT", "a");
@@ -228,4 +232,3 @@ int validarOpTXT(int cod) {
         return 0;
     }
 }
-

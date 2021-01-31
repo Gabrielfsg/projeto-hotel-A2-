@@ -16,5 +16,6 @@
 
 void menuCRUDOperador();
 
+int validarOpTXT(int cod);
 #endif /* OPERADORMENU_H */
 

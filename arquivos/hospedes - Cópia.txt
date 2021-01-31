@@ -1,0 +1,21 @@
+Cod: 1
+Nome: Tales Pereira Grechi
+CPF: 10750383674
+Telefone: 999480662
+Email: talespgrechi@gmail.com
+Sexo: M
+EstadoCivil: Solteiro
+Cod: 2
+Nome: Tales Pereira
+CPF: 10750383674
+Telefone: 999480662
+Email: talespgrechi@bol.com.br
+Sexo: M
+EstadoCivil: Casado
+Cod: 3
+Nome: Joao
+CPF: 12345678910
+Telefone: 33229988
+Email: joaoaoa@yahoo.com
+Sexo: M
+EstadoCivil: Casado

@@ -69,7 +69,7 @@ void cadastrarHospedesControl() {
     } else {
         h.codigo = cod;
     }
-
+    
     printf("Digite o nome do hóspede \n");
     //scanf("%[^\n]s%*c", &h.nome); 
     fgets(h.nome, 101, stdin);
