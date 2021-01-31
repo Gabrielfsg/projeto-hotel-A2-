@@ -140,7 +140,10 @@ Hospede* getAllHospedesBIN(int* numHospedes) {
 
     fileHospedes = fopen(".\\arquivos\\hospedes.bin", "rb");
     if (fileHospedes == NULL) {
-        printf("ERRO DE LEITURA ");
+        fileHospedes = fopen(".\\arquivos\\hospedes.bin", "wb");
+        if (fileHospedes == NULL) {
+            printf("ERRO DE LEITURA");
+        }
     } else {
         //rewind(scanHospedes);
         while (!feof(fileHospedes)) { //enquanto não for o final do arquivo
@@ -346,7 +349,11 @@ int getNumHospedes() {
     char c;
     arq = fopen(".\\arquivos\\hospedes.txt", "r");
     if (arq == NULL) {
-        printf("Erro ao acessar arquivo\n");
+        arq = fopen(".\\arquivos\\hospedes.txt", "w");
+        if (arq == NULL){
+            printf("ERRO AO ACESSAR ARQUIVO");
+        }
+        return 0;
     }
     while ((c = fgetc(arq)) != EOF) {
 

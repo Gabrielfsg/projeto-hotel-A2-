@@ -43,7 +43,7 @@ void cadastrarAcomodacao() {
     } else {
         printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
-    //salva no arquivo
+    
 
 }
 
@@ -292,7 +292,7 @@ int printCategoria(Acomodacao *a) {
             }
             printf("Digite o Cod categoria da acomodação \n");
             scanf("%d%*c", &a->categoria.codigo);
-            printf("%d", a->categoria.codigo);
+            //printf("%d", a->categoria.codigo);
             int aux = 0;
             for (i = 0; i < num; i++) {
                 if (a->categoria.codigo == c[i].codigo) {

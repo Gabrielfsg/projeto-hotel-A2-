@@ -136,11 +136,11 @@ void atualizarProdConsumoControl() {
         return;
     } else {
         novoProduto.codigo = cod;
-        
+
         printf("Digite a descrição do produto\n");
         fgets(novoProduto.descricao, 101, stdin);
         strtok(novoProduto.descricao, "\n");
-        
+
         printf("Digite o estoque do Produto \n");
         scanf("%d%*c", &novoProduto.estoque);
         printf("Digite o estoque minimo do Produto \n");
@@ -217,7 +217,7 @@ Produto getProdConsumoByCodControl() {
             numProdutos = getNumProdConsumo();
             prod = getProdutoByCodTXT(cod, numProdutos);
         }
-        
+
         printf("INFORMAÇÕES DO PRODUTO: \n");
         printf("***************\n");
         printf("COD: %d\n", prod.codigo);
@@ -297,7 +297,13 @@ int getNumProdConsumo() {
     char c;
     arq = fopen(".\\arquivos\\produtos.txt", "r");
     if (arq == NULL) {
-        printf("Erro ao acessar arquivo\n");
+        arq = fopen(".\\arquivos\\produtos.txt", "w");
+        if(arq == NULL){
+            printf("ERRO AO ACESSAR ARQUIVO");
+            exit(1);
+        }
+        
+        return 0;
     }
     while ((c = fgetc(arq)) != EOF) {
 
@@ -343,7 +349,7 @@ int validarCodProdConsumo(int cod, int ext) {
         printf("CÓDIGO EXISTENTE\n");
         return 0;
     } else {
-        printf("CÓDIGO NÃO EXISTE\n");
+        //printf("CÓDIGO NÃO EXISTE\n");
         return 1;
     }
 }

@@ -110,7 +110,7 @@ void listarFornecedor() {
                 printf("NUMERO: %d\n", a[i].endereco.numero);
             }
         } else {
-            printf("\n*********NENHUMA ACOMODAÇÃO CADASTRADA*********\n");
+            printf("\n*********NENHUM FORNECEDOR CADASTRADO*********\n");
         }
     }
 }
@@ -194,13 +194,13 @@ void atualizarFornecedor() {
                     r = editarFornecedorControleBIN(a);
                 }
                 if (r == 1) {
-                    printf("\nAcomodação Editada com SUCESSO!\n");
+                    printf("\nAFornecedo Editado com SUCESSO!\n");
                 } else {
-                    printf("\n ERRO ao Cadastrar Acomodação, tente outro codigo!\n");
+                    printf("\n ERRO ao Cadastrar Forncedor, tente outro codigo!\n");
                 }
 
             } else {
-                printf("\nAcomodação não encontrada!!\n");
+                printf("\nFornecedor não encontrado!!\n");
             }
         } else {
             printf("\n*********NENHUMA ACOMODAÇÃO CADASTRADA*********\n");

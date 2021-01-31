@@ -185,7 +185,7 @@ void subArquivo() {
                 menuCrudHotel();
                 break;
             case 3:
-                exit(0);
+                menuPrincipal();
                 break;
             default:
                 printf("Valor Invalido!\n");

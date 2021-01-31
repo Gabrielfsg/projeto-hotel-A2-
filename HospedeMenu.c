@@ -428,7 +428,7 @@ void deletarHospedesControl() {
         printf("UF: %s\n", h.endereco.uf);
         printf("***************\n");
 
-        printf("DESEJA REALMENTE DELETAR O PRODUTO? (S / N)\n");
+        printf("DESEJA REALMENTE DELETAR O HÓSPEDE? (S / N)\n");
         scanf("%c%*c", &confirmacao);
 
         if (confirmacao == 'S' || confirmacao == 's') {

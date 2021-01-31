@@ -94,7 +94,7 @@ Acomodacao * listarAcomodacaoTXT() {
 }
 
 int numLinhasAcomodacao() {
-    printf("num linhas");
+    //printf("num linhas");
     FILE *arquivo;
     int numLinha = 0, c;
     //abre arquivo para leitura "r"

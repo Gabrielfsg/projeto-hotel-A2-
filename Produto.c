@@ -14,15 +14,15 @@ int cadastrarProdutoTXT(Produto p) {
     FILE* arqProduto;
     arqProduto = fopen(".\\arquivos\\produtos.txt", "a");
     if (arqProduto == NULL) {
-        printf("ERRO DE ABERTURA\n");
-    } else {
-        int retorno;
-        retorno = fprintf(arqProduto, "Cod: %d\r\nDESC: %s\r\nESTOQUE: %d\r\nESTOQUE_MIN: %d\r\nPRCUSTO: %f\r\nPRVENDA: %f\r\n", p.codigo, p.descricao, p.estoque, p.estoqueMinimo, p.precoCusto, p.precoVenda);
-
-        fflush(arqProduto);
-        fclose(arqProduto);
-        return retorno;
+        arqProduto = fopen(".\\arquivos\\produtos.txt", "w");
     }
+    int retorno;
+    retorno = fprintf(arqProduto, "Cod: %d\r\nDESC: %s\r\nESTOQUE: %d\r\nESTOQUE_MIN: %d\r\nPRCUSTO: %f\r\nPRVENDA: %f\r\n", p.codigo, p.descricao, p.estoque, p.estoqueMinimo, p.precoCusto, p.precoVenda);
+
+    fflush(arqProduto);
+    fclose(arqProduto);
+    return retorno;
+
 }
 
 int cadastrarProdutoBIN(Produto p) {
@@ -45,8 +45,7 @@ int cadastrarProdutoBIN(Produto p) {
 }
 
 void atualizarProdutoTXT(Produto novoProd) {
-    printf("ENTROU AQUI\n");
-    printf("NOVO = %s\n",novoProd.descricao);
+    //printf("ENTROU ATUALIZAR PROD\n");
     FILE* arqProduto = fopen(".\\arquivos\\produtos_temp.txt", "w");
     if (arqProduto == NULL) {
         printf("ERRO AO ABRIR ARQUIVO");
@@ -172,7 +171,10 @@ Produto* getAllProdutoBIN(int* numProdutos) {
 
     arqProduto = fopen(".\\arquivos\\produtos.bin", "rb");
     if (arqProduto == NULL) {
-        printf("ERRO DE LEITURA ");
+        arqProduto = fopen(".\\arquivos\\produtos.bin", "wb");
+        if (arqProduto == NULL) {
+            printf("ERRO DE LEITURA ");
+        }
     } else {
 
         while (!feof(arqProduto)) { //enquanto não for o final do arquivo
