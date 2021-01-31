@@ -19,7 +19,7 @@ void cadReserva() {
         printf("3.Reservar por quantidade de pessoas. \n");
         printf("4.Reservar por tipo de facilidade. \n");
         printf("5.Reservar por combinação de critérios. \n");
-        printf("5.Voltar. \n");
+        printf("6.Voltar. \n");
         scanf("%d*c", &opc);
 
         switch (opc) {
@@ -36,6 +36,9 @@ void cadReserva() {
                 
                 break;
             case 5:
+                reservaCombCriterios();
+                break;
+            case 6:
                 subReservas();
                 break;
 

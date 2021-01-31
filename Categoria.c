@@ -148,9 +148,11 @@ int validarCategoria(int cod) {
 
 int cadastrarCategoriaBIN(Categoria cat, int quantidade) {
     FILE *cad;
-    cad = fopen("arquivos\\ReservaQBIN.bin", "ab");
+    //cad = fopen("arquivos\\ReservaQBIN.bin", "ab");
+    cad = fopen("arquivos\\CategoriaBIN.bin", "ab");
     if (cad == NULL) {
-        cad = fopen("arquivos\\ReservaQBIN.bin", "wb");
+        //cad = fopen("arquivos\\ReservaQBIN.bin", "wb");
+        cad = fopen("arquivos\\CategoriaBIN.bin", "wb");
         return 0;
     } else {
         //strlen()-> informa o tamanho de uma string 
@@ -203,6 +205,15 @@ Categoria * listarCategoriaBIN(int *numLinha) {
     fclose(arquivo);
     //libera memoria
     free(arquivo);
+    //printf("DEBUG NUMLINHA = %d\n",*numLinha);
+    /*for(int i =0;i<(*numLinha);i++){
+        printf("COD: %d\n",cat[i].codigo);
+        printf("DESC: %s\n",cat[i].descricao);
+        printf("FAC: %s\n",cat[i].facilidade);
+        printf("QTE: %d\n",cat[i].quantidadePessoas);
+        printf("VALOR: %.2f\n",cat[i].valorDiario);
+        
+    }*/
     return cat;
 }
 

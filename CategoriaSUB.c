@@ -57,7 +57,7 @@ void listarCategoria() {
         cat = listarCategoriaTXT();
         num = numLinhasCategoria();
     } else if (bd == 2) {
-        listarCategoriaBIN(&num);
+        cat = listarCategoriaBIN(&num);
     } else {
         printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
