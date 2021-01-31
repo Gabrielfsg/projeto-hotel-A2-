@@ -30,5 +30,7 @@ void printaDataEx(Data *data);
 
 void liberaMemoriaData(Data *data);
 
+int dataDisponivel(Data in1, Data fin1, Data in2, Data fin2);
+
 #endif /* DATA_H */
 
