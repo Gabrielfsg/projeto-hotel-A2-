@@ -1,1 +1,3 @@
-build/Debug/Cygwin-Windows/Data.o: Data.c
+build/Debug/Cygwin-Windows/Data.o: Data.c Data.h
+
+Data.h:
