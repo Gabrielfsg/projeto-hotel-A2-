@@ -76,6 +76,7 @@ Hospede* getAllHospedesTXT(int numHospedes) {
             //FSCANF PARA PEGAR OS VALORES DO ARQUIVO. "TEXT[20]" É APENAS PARA ARMAZENAR A STRING QUE VEM ANTES DO VALOR.
             fscanf(scanHospedes, "%s %d", text, &h.codigo);
             fscanf(scanHospedes, "%s %[^\n]s", text, h.nome);
+            strtok(h.nome, "\r\n");
             fscanf(scanHospedes, "%s %s", text, h.cpf);
             fscanf(scanHospedes, "%s %s", text, h.telefone);
             fscanf(scanHospedes, "%s %s", text, h.email);
@@ -90,9 +91,12 @@ Hospede* getAllHospedesTXT(int numHospedes) {
             //ENDEREÇO
             fscanf(scanHospedes, "%s %d", text, &h.endereco.codigo);
             fscanf(scanHospedes, "%s %[^\n]s", text, h.endereco.bairro);
+            strtok(h.endereco.bairro, "\r\n");
             fscanf(scanHospedes, "%s %s", text, h.endereco.cep);
             fscanf(scanHospedes, "%s %[^\n]s", text, h.endereco.cidade);
+            strtok(h.endereco.cidade, "\r\n");
             fscanf(scanHospedes, "%s %[^\n]s", text, h.endereco.logradouro);
+            strtok(h.endereco.logradouro, "\r\n");
             fscanf(scanHospedes, "%s %d", text, &h.endereco.numero);
             fscanf(scanHospedes, "%s %s", text, h.endereco.uf);
             //COLOCA O HOSPEDE NO ARRAY
