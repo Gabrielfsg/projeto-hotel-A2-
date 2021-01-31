@@ -8,7 +8,7 @@
 #include <string.h>
 #include "Hotel.h"
 
-int cadastrarHotelBin(Hotel h, int quantidade) {
+int cadastrarHotelBin(Hotel h, int quantidade) {//recebe a struct e a quantidade cadastrada
     FILE *arq;
     //abrea arquivo para escrita e posiciona cursor no final "ab"
     arq = fopen(".\\persist\\hotel.bin", "ab");
@@ -20,8 +20,8 @@ int cadastrarHotelBin(Hotel h, int quantidade) {
             return 0;
         }
     }
-    //strlen()-> informa o tamanho de uma string 
-    /*grava toda struct de acomodacao no arquivo*/
+   
+    /*grava toda struct 'hotel' no arquivo binário*/
     fwrite(&h, sizeof (Hotel), quantidade, arq);
     fflush(arq);
     /*fecha o arquivo*/
@@ -43,7 +43,7 @@ int cadastrarHotelTXT(Hotel h) {
             return 0;
         }
     }
-
+    //grava todos os dados no arquivo de texto
     fprintf(arq, "%d\n%s\n%s\n%s\n%s\n%s\n%d\n%f\n%s\n%s\n%s\n%s\n%d\n%s\n%d\n%s\n%s\n%s\n"
             , h.codigo, h.cnpj, h.email, h.inscricaoEstadual, h.nomeFantazia
             , h.nomeResponsavel, h.telefone, h.margemLucro, h.checkIn
@@ -126,19 +126,19 @@ int salvarHotelTXT(Hotel *hot, int num) {
 Hotel * listarHTXT() {
     int numOL = 0, i = 0;
     FILE* arq;
-    numOL = contarLinhasHotelTXT(arq);
+    numOL = contarLinhasHotelTXT(arq);// metodo para contar linhas arq txt
     arq = fopen(".\\persist\\hotelTXT", "r");
-    if (arq == NULL) {
+    if (arq == NULL) {//validações se o arquivo existe
         arq = fopen(".\\persist\\hotelTXT", "w+");
         if (arq == NULL) {
             printf("\nERRO ao acessar arquivo\n");
             return 0;
         }
     }
-    char t[100];
-    Hotel *hot = (Hotel*) calloc(numOL, sizeof (Hotel));
-    for (i = 0; i < numOL; i++) {
-        fgets(t, 100, arq);
+    char t[100];// vetor de string para armazenar dados
+    Hotel *hot = (Hotel*) calloc(numOL, sizeof (Hotel));//vetor do tamanho do numero de linhas
+    for (i = 0; i < numOL; i++) {//pega os dados armazenados
+        fgets(t, 100, arq);// retira o \n
         hot[i].codigo = atoi(t);
         fgets(hot[i].cnpj, 100, arq);
         strtok(hot[i].cnpj, "\r\n");
@@ -158,7 +158,7 @@ Hotel * listarHTXT() {
         hot[i].margemLucro = atoi(t);
         fgets(hot[i].checkIn, 100, arq);
         strtok(hot[i].checkIn, "\r\n");
-        // printf("%s", aco[i].razaoSocial);
+        
         fgets(hot[i].checkOut, 100, arq);
         strtok(hot[i].checkOut, "\r\n");
 
@@ -212,7 +212,7 @@ int editarHotelBin(Hotel h, int posi) {
 int editarHotelTXT(Hotel *hot, Hotel h, int num) {
     int i;
     for (i = 0; i < num; i++) {
-        if ((int) (hot[i].codigo) == (int) (h.codigo)) {
+        if ((int) (hot[i].codigo) == (int) (h.codigo)) {// faz a validação e sobrescreve os dados na struct
             strcpy(hot[i].cnpj, h.cnpj);
             strcpy(hot[i].email, h.email);
             strcpy(hot[i].inscricaoEstadual, h.inscricaoEstadual);
@@ -233,10 +233,10 @@ int editarHotelTXT(Hotel *hot, Hotel h, int num) {
         }
     }
 
-    return salvarHotelTXT(hot, num);
+    return salvarHotelTXT(hot, num);//chama esse metodo para fazer o salvamento no arquivo
 }
 
-int removerHotelBIN() {
+int removerHotelBIN() {// metodo que romove o arquivo das pastas
     int status = remove(".\\persist\\hotel.bin");
     if (status != 0) {
         printf("\nErro na remoção do arquivo.\n");

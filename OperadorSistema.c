@@ -171,7 +171,7 @@ int editarOpSBIN(OperadorSistema op, int posi) {
 
 int editarOperadorTXT(OperadorSistema *opera, OperadorSistema op, int num) {
     int i;
-    for (i = 0; i < num; i++) {
+    for (i = 0; i < num; i++) {//sobre escreve os dados
         if ((int) (opera[i].codigo) == (int) (op.codigo)) {
             strcpy(opera[i].nome, op.nome);
             strcpy(opera[i].usuario, op.usuario);
@@ -191,7 +191,7 @@ int removerOperadorBIN() {
     return 1;
 }
 
-int removerOperadorTXT() {
+int removerOperadorTXT() {// exclui o arquivo das pastas
     int status = remove(".\\persist\\operadorTXT");
     if (status != 0) {
         printf("\nErro na remoção do arquivo.\n");
@@ -200,13 +200,13 @@ int removerOperadorTXT() {
     return 1;
 }
 
-int validarOpBIN(int cod) {
+int validarOpBIN(int cod) {//pega código  por parâmetro
     int num;
-    OperadorSistema *opera = listarOpBIN(&num);
+    OperadorSistema *opera = listarOpBIN(&num);// lista os operadores bin
     int i, aux = 0;
     for (i = 0; i < num; i++) {
         if (cod == opera[i].codigo) {
-            return 1;
+            return 1;// faz a validação e retorna 1
         }
        
     }
@@ -215,13 +215,13 @@ int validarOpBIN(int cod) {
 }
 
 int validarOpTXT(int cod) {
-    OperadorSistema *opera = listarOpTXT();
+    OperadorSistema *opera = listarOpTXT();//lista os operadores
     if (opera != NULL) {
         int num = contarLinhasTXT();
         int i, aux = 0;
-        for (i = 0; i < num; i++) {
+        for (i = 0; i < num; i++) {//verifica se o cod digitado passado por parametro é o msm no vetor
             if (cod == opera[i].codigo) {
-                return 1;
+                return 1;//se sim retorna 1 que será usado na validação
             }
         }
         free(opera);

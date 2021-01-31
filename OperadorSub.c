@@ -15,13 +15,13 @@ void cadastrarOperador() {
         printf("***** CADASTRAR OPERADOR *****\n");
         printf("Digite o Cod do Operador \n");
         scanf("%d%*c", &op.codigo);
-        if (bd == 1) {
-            valid = validarOpTXT(op.codigo);
-            if (valid == 1) {
+        if (bd == 1) {// verifica se é arquivo txt 
+            valid = validarOpTXT(op.codigo);//passa o código digitado como parametro
+            if (valid == 1) {//se resultado retornado 1
                 printf("Operador já cadastrado! \n");
                 menuCRUDOperador();
             }
-        } else if (bd == 2) {
+        } else if (bd == 2) {// faz o mesmo com o arquivo bin
             valid2 = validarOpBIN(op.codigo);
             if (valid2 == 1) {
                 printf("Operador já cadastrado! \n");
@@ -63,7 +63,7 @@ void listarOperador() {
     int n, aux;
     int bd = listar();
     OperadorSistema *opera;
-    if (bd == 1) {
+    if (bd == 1) {//verifica o tipo de salvamento
         opera = listarOpTXT();
         n = contarLinhasTXT();
     } else if (bd == 2) {
@@ -74,7 +74,7 @@ void listarOperador() {
     if (bd > 0) {
         int i;
         if (n > 0) {
-            for (i = 0; i < n; i++) {
+            for (i = 0; i < n; i++) {// pela contagem de linhas eles mostra os dados
                 printf("\n*******%d************", i);
                 printf("\nCodigo: %d", opera[i].codigo);
                 printf("\nNome: %s", opera[i].nome);
@@ -95,6 +95,7 @@ void atualizarOperador() {
     int bd = listar();
     OperadorSistema op;
     OperadorSistema *opera;
+    // valida arquivos bin ou txt
     if (bd == 1) {
         opera = listarOpTXT();
         n = contarLinhasTXT();
@@ -104,8 +105,7 @@ void atualizarOperador() {
         printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
     if (bd > 0) {
-        if (n > 0) {
-
+        if (n > 0) {//valida pelo numero de linhas dos arquivos
             printf("***** ALTERAR DADOS DO OPERADOR *****\n");
             printf("Digite o cod do operador \n");
             scanf("%d%*c", &op.codigo);
@@ -132,7 +132,7 @@ void atualizarOperador() {
                 i++;
             }
             if (aux == 1) {
-                if (bd == 1) {
+                if (bd == 1) {// verifica a salvamento e chama o método de editar
                     t = editarOperadorTXT(opera, op, n);
                 } else if (bd == 2) {
                     t = editarOpSBIN(op, i);

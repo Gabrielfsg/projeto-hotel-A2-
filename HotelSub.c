@@ -10,13 +10,13 @@ void cadastrarHotel() {
     int aux, x,x2;
     if (bd > 0) {
         printf("***** CADASTRAR HOTEL *****\n");
-        if (bd == 1) {
-            x = contarLinhasHotelTXT();
+        if (bd == 1) {//verifica se esta usando txt
+            x = contarLinhasHotelTXT();// se ja tiver um hotel cadastrado n cadastra mais
             if (x > 0) {
                 printf("Já existe um hotel cadastrado! \n");
                 menuCrudHotel();
             }
-        } else if (bd == 2) {
+        } else if (bd == 2) {//verifica se ta usando bin
             x2 = contarLinhasH();
             if (x2 > 10) {
                 printf("Já existe um hotel cadastrado! \n");
@@ -24,6 +24,7 @@ void cadastrarHotel() {
             }
 
         }
+        //faz a coleta dos dados
         printf("Digite o Cod do Hotel \n");
         scanf("%d%*c", &h.codigo);
         printf("Digite o CNPJ do Hotel \n");
@@ -91,14 +92,14 @@ void cadastrarHotel() {
         strtok(h.cidade, "\n");
         setbuf(stdin, NULL);
 
-        if (bd == 1) {
+        if (bd == 1) {// verifica em qual arquivo deve cadastrar
             cadastrarHotelTXT(h);
         } else if (bd == 2) {
             cadastrarHotelBin(&h, 1);
         }
 
 
-        // 
+        // se n houver opção selecionada avisa para trocar no menu
     } else {
         printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
@@ -108,7 +109,7 @@ void verHotel() {
     int n;
     int bd = listar();
     Hotel *hot;
-    if (bd == 1) {
+    if (bd == 1) {//verifica o arquivo usado e chama os metodos de listagem
         n = contarLinhasHotelTXT();
         hot = listarHTXT();
     } else if (bd == 2) {
@@ -117,7 +118,7 @@ void verHotel() {
         printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
     if (bd > 0) {
-        if (n > 0) {
+        if (n > 0) {//se o numero de linhas do arquivo não for maior que 0 
             int i;
             for (i = 0; i < n; i++) {
                 printf("\n*******%d************", i);
@@ -139,7 +140,7 @@ void verHotel() {
                 printf("\nLogradouro: %s", hot[i].logradouro);
                 printf("\nUF: %s", hot[i].uf);
                 printf("\nCidade: %s \n", hot[i].cidade);
-            }
+            }//lista todos os dados do hotel
 
         } else {
             printf("Hotel não cadastrado \n");
@@ -153,7 +154,7 @@ void deletarHotel() {
     int n, m;
     printf("***** DELETAR HOTEL *****\n");
     if (bd > 0) {
-        if (bd == 1) {
+        if (bd == 1) {//verifica o tipo do arquivo e faz a xclusão
             n = contarLinhasHotelTXT();
             if (n > 0) {
                 removerHotelTXT();
@@ -170,14 +171,7 @@ void deletarHotel() {
         }
     }
 
-    // printf("Entre com o código do hotel: ");
-    // scanf("%d", &cod);
-    //int x = removerHotelControleBIN(cod);
-    //if (x == 1) {
-    //   printf("\nExclusão realizada com sucesso!\n");
-    //} else {
-    //    printf("\nNão foi possivel encontrar categoria de codigo %d \n", cod);
-    //}
+    
 }
 
 void alterarHotel() {
@@ -203,7 +197,7 @@ void alterarHotel() {
             scanf("%d%*c", &h.codigo);
             int i;
             for (i = 0; i < n;) {
-                if (h.codigo == hot[i].codigo) {
+                if (h.codigo == hot[i].codigo) {// ve se o cod existe e pega os novos dadoss
                     printf("Digite o CNPJ do Hotel \n");
                     fgets(h.cnpj, 100, stdin);
                     strtok(h.cnpj, "\n");
@@ -289,7 +283,7 @@ void alterarHotel() {
     }
 }
 
-int removerHotelControleBIN(int cod) {
+/*int removerHotelControleBIN(int cod) {
     int num;
     Hotel *hot = listarHotelBIN(&num);
     int i;
@@ -331,8 +325,8 @@ int removerHotelControleBIN(int cod) {
         return 0;
     }
 }
-
-int contarLinhasH() {
+*/
+int contarLinhasH() {//contador linhas arq binario
 
     FILE *arq;
 
@@ -357,7 +351,7 @@ int contarLinhasH() {
 
 }
 
-int contarLinhasHotelTXT() {
+int contarLinhasHotelTXT() {// contar linhas arq txt
 
     FILE *listOperador;
     int numOL = 0, c, numF;
@@ -373,11 +367,11 @@ int contarLinhasHotelTXT() {
     //Lendo o arquivo 1 por 1
     while ((c = fgetc(listOperador)) != EOF) {
         if (c == '\n') {
-            //soma a quantidade de linhas do TXT, mas não a quantidade de categorias
+            //soma a quantidade de linhas do TXT
             numOL++;
         }
     }
-    numF = numOL / 18;
+    numF = numOL / 18;//divide por 18 que é o número de dados do hotel
     fclose(listOperador);
     free(listOperador);
 
@@ -385,7 +379,7 @@ int contarLinhasHotelTXT() {
 
 }
 
-int removerHotelTXT() {
+int removerHotelTXT() {//remove todos os dados do hotel txt
 
     FILE *arq;
 
@@ -398,7 +392,7 @@ int removerHotelTXT() {
 
 }
 
-int removerHotelB() {
+int removerHotelB() {//remove todos os dados do hotel bin
 
     FILE *arq;
 
