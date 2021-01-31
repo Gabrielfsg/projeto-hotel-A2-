@@ -13,11 +13,12 @@
 
 #ifndef RESERVASUBC_H
 #define RESERVASUBC_H
-#include "Data.h"
-#include "Acomodacao.h"
-Acomodacao* listarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDisponiveis);
+Acomodacao* listarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDisponiveis) ;
 void reservar2();
 void mostrarReservas();
+void reservar3() ;
+void reservaPCategoria();
+void reservaPQuantidade();
 
 #endif /* RESERVASUBC_H */
 
