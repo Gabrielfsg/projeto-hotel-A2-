@@ -23,9 +23,6 @@ typedef struct reserva {
     Data DataIn;
     Data DataFin;
     Acomodacao acomodacao;
-    Hospede *hospede;
-   // int hospede[10];
-
     Hospede hospede;
     //int hospede[10];
 

@@ -288,8 +288,8 @@ Reserva * listarReservaBIN(int *numLinha) {
     fclose(arquivo);
     //libera memoria
     free(arquivo);
-<<<<<<< HEAD
-    return res;
+
+    return aco;
 }
 
 Reserva * listarResTXT() {
@@ -331,8 +331,6 @@ Reserva * listarResTXT() {
     //libera memoria
     free(arq);
     return res;
-=======
-    return aco;
 }
 
 int editarReservaBIN(Reserva aco, int posi) {
@@ -435,5 +433,4 @@ Reserva * listarResBIN(int *numLinha) {
             return res;
         }
     }
->>>>>>> origin/master
 }
