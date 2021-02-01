@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="97">
+<configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Arquivos de Cabeçalho"
@@ -7,9 +7,6 @@
       <logicalFolder name="f1" displayName="Arquivos" projectFiles="true">
       </logicalFolder>
       <logicalFolder name="f2" displayName="Controle" projectFiles="true">
-        <itemPath>HospedeControl.h</itemPath>
-        <itemPath>OperadorSistemaControl.h</itemPath>
-        <itemPath>ProdutoConsumoControl.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="GUI" projectFiles="true">
         <itemPath>AcomodacaoMenu.h</itemPath>
@@ -59,8 +56,6 @@
                    displayName="Arquivos de Código-Fonte"
                    projectFiles="true">
       <logicalFolder name="f2" displayName="Controle" projectFiles="true">
-        <itemPath>ProdutosConsumoControl.c</itemPath>
-        <itemPath>ReservaControl.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="GUI" projectFiles="true">
         <logicalFolder name="f3"
@@ -242,8 +237,6 @@
       </item>
       <item path="Hospede.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="HospedeControl.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="HospedeMenu.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="HospedeMenu.h" ex="false" tool="3" flavor2="0">
@@ -268,8 +261,6 @@
       </item>
       <item path="OperadorSistema.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="OperadorSistemaControl.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="OperadorSub.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="OperadorsistemaMenu.h" ex="false" tool="3" flavor2="0">
@@ -282,19 +273,13 @@
       </item>
       <item path="Produto.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="ProdutoConsumoControl.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="ProdutoConsumoMenu.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="ProdutoConsumoMenu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="ProdutosConsumoControl.c" ex="false" tool="0" flavor2="0">
-      </item>
       <item path="Reserva.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Reserva.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ReservaControl.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="ReservaMenu.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -412,8 +397,6 @@
       </item>
       <item path="Hospede.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="HospedeControl.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="HospedeMenu.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="HospedeMenu.h" ex="false" tool="3" flavor2="0">
@@ -438,8 +421,6 @@
       </item>
       <item path="OperadorSistema.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="OperadorSistemaControl.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="OperadorSub.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="OperadorsistemaMenu.h" ex="false" tool="3" flavor2="0">
@@ -452,11 +433,7 @@
       </item>
       <item path="Produto.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="ProdutoConsumoControl.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="ProdutoConsumoMenu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ProdutosConsumoControl.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Reserva.c" ex="false" tool="0" flavor2="0">
       </item>

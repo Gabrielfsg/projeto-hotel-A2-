@@ -1,8 +1,3 @@
-build/Debug/Cygwin-Windows/OperadorMenu.o: OperadorMenu.c \
- OperadorSistemaControl.h OperadorSistema.h Principal.h
-
-OperadorSistemaControl.h:
-
-OperadorSistema.h:
+build/Debug/Cygwin-Windows/OperadorMenu.o: OperadorMenu.c Principal.h
 
 Principal.h:

@@ -10,6 +10,7 @@
 
 #include "Principal.h"
 #include "ReservaSubC.h"
+#include "Reserva.h"
 
 void cadReserva() {
     int opc = 0;

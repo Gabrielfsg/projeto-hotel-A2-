@@ -19,7 +19,7 @@ int cadastrarReservaBIN(Reserva *aco, int quantidade) {
     } else {
         //strlen()-> informa o tamanho de uma string 
         /*grava toda struct de categoria no arquivo*/
-        fwrite(&aco, sizeof (Reserva), quantidade, cad);
+        fwrite(aco, sizeof (Reserva), quantidade, cad);
         fflush(cad);
         /*fecha o arquivo*/
         fclose(cad);

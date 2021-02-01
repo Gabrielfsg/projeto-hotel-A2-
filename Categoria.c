@@ -80,7 +80,7 @@ Categoria* listarCategoriaTXT() {
     //instancia vetor com tamanho de numLinha
     Categoria *cat = (Categoria*) calloc(numLinha, sizeof (Categoria));
     i = 0;
-    //printf("linhas %d \n", numLinha);
+    printf("linhas %d \n", numLinha);
     while (fscanf(arquivo, "%d", &cat[i].codigo) == 1) {
         //retira o \n do inicio  da string
         fgetc(arquivo);

@@ -5,7 +5,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include "OperadorSistemaControl.h"
+//#include "OperadorSistemaControl.h"
 #include "Principal.h"
 
 void menuCRUDOperador() {
