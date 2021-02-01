@@ -25,6 +25,7 @@ typedef struct reserva {
     Acomodacao acomodacao;
     Hospede hospede;
     //int hospede[10];
+
     int codH;
     int codA;
 } Reserva;
@@ -39,6 +40,6 @@ int validarReservaBIN(int cod);
 int removerReservaBIN();
 int salvarReservaTXT(Reserva aco, int num) ;
 Reserva * listarResBIN(int *numLinha);
-
+Reserva * listarResTXT();
 #endif /* RESERVA_H */
 

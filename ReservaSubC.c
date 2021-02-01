@@ -13,7 +13,11 @@
 #include "HospedeMenu.h"
 #include "Reserva.h"
 #include "Hotel.h"
+
+#include "SalvametoBD.h"
+
 #include "ReservaSubC.h"
+
 
 void reservaPQuantidade() {
     int bd = listar();
@@ -34,7 +38,7 @@ void reservaPQuantidade() {
     int codReserva;
     if (bd == 1) {
         n = contarLinhasResTXT();
-        res = listarResTXT();
+        res = listarResTXT();       
         aco = listarAcomodacaoTXT();
         cat = listarCategoriaTXT();
     } else if (bd == 2) {
@@ -50,7 +54,7 @@ void reservaPQuantidade() {
         int i, j;
         for (i = 0; i < num; i++) {
             if (cat[i].quantidadePessoas == quant) {
-                printf("\n****** %d *******\n", i);
+                printf("\n**************** %d *****************\n", i);
                 printf("COD: %d\n", aco[i].codigo);
                 printf("DESCRIÇÃO: %s\n", aco[i].descricao);
                 printf("STATUS: %s\n", aco[i].status);
@@ -163,10 +167,10 @@ void reservaPQuantidade() {
                             fprintf(cad, "%d\n%d\n%d\n%d\n%d\n%d\n%d\n%d\n%d\n", reserva.codigo, reserva.DataIn.dia,
                                     reserva.DataIn.mes, reserva.DataIn.ano, reserva.DataFin.dia,
                                     reserva.DataFin.mes, reserva.DataFin.ano, reserva.codH, reserva.codA);
-                            /* fecha o arquivo */
-                                    fclose(cad);
-                            /* libera mémoria */
-                                    free(cad);
+                            /*fecha o arquivo*/
+                            fclose(cad);
+                            /*libera mémoria*/
+                            free(cad);
                         }
                     } else if (bd == 2) {
                         FILE *cad;
@@ -207,114 +211,6 @@ void reservaPQuantidade() {
 
     }
 
-}
-
-void listarReserva() {
-    int bd = listar();
-    int n, aux;
-    Reserva *res;
-    if (bd == 1) {
-        n = contarLinhasResTXT();
-        res = listarResTXT();
-    } else if (bd == 2) {
-        res = listarResBIN(&n);
-    }
-    if (bd > 0) {
-        int i;
-        for (i = 0; i < n; i++) {
-            printf("COD: %d \n", res[i].codigo);
-            printf("DATA INI: %d /%d /%d\n", res[i].DataIn.dia, res[i].DataIn.mes, res[i].DataIn.ano);
-            printf("DATA FIM: %d /%d /%d\n", res[i].DataFin.dia, res[i].DataFin.mes, res[i].DataFin.ano);
-            printf("HOSPEDES: %d \n", res[i].codH);
-            printf("Acomodação: %d \n", res[i].codA);
-            printf("\n");
-        }
-
-        free(res);
-
-        /*
-            FILE *cad;
-            char texto[20];
-            cad = fopen("arquivos\\ReservaTXT", "r");
-            while (fgets(texto, 20, cad) != NULL) {
-                printf("%s", texto);
-            }
-            fclose(cad);
-         */
-    }
-}
-
-Reserva * listarResTXT() {
-    int numOL = 0, i = 0;
-    FILE* arq;
-    numOL = contarLinhasResTXT(arq);
-    arq = fopen("arquivos\\ReservaTXT", "r");
-    if (arq == NULL) {
-        arq = fopen("arquivos\\ReservaTXT", "w");
-        if (arq == NULL) {
-            printf("\nERRO ao acessar arquivo\n");
-            return 0;
-        }
-    }
-    char t[100];
-    Reserva res = (Reserva) calloc(numOL, sizeof (Reserva));
-    for (i = 0; i < numOL; i++) {
-        fgets(t, 100, arq);
-        res[i].codigo = atoi(t);
-        fgets(t, 100, arq);
-        res[i].DataIn.dia = atoi(t);
-        fgets(t, 100, arq);
-        res[i].DataIn.mes = atoi(t);
-        fgets(t, 100, arq);
-        res[i].DataIn.ano = atoi(t);
-        fgets(t, 100, arq);
-        res[i].DataFin.dia = atoi(t);
-        fgets(t, 100, arq);
-        res[i].DataFin.mes = atoi(t);
-        fgets(t, 100, arq);
-        res[i].DataFin.ano = atoi(t);
-        fgets(t, 100, arq);
-        res[i].codH = atoi(t);
-        fgets(t, 100, arq);
-        res[i].codA = atoi(t);
-    }
-    //fecha arquivo
-    fclose(arq);
-    //libera memoria
-    free(arq);
-    return res;
-
-    return res;
-}
-
-int contarLinhasResTXT() {// contar linhas arq txt
-
-    FILE *listOperador;
-    int numOL = 0, c, numF;
-
-    listOperador = fopen("arquivos\\ReservaTXT", "r");
-    if (listOperador == NULL) {
-        listOperador = fopen("arquivos\\ReservaTXT", "w+");
-        if (listOperador == NULL) {
-            printf("Erro ao acessar arquivo\n");
-            return 0;
-        }
-    }
-    //Lendo o arquivo 1 por 1
-    while ((c = fgetc(listOperador)) != EOF) {
-        if (c == '\n') {
-            //soma a quantidade de linhas do TXT
-            numOL++;
-        }
-    }
-    numF = numOL / 9; //divide por 18 que é o número de dados do hotel
-    fclose(listOperador);
-    free(listOperador);
-
-    return numF;
-
-
-    
 }
 
 void reservaPCategoria() {
@@ -685,21 +581,68 @@ void reservaCombCriterios() {
 //}
 
 void listarReserva() {
+    int bd = listar();
     int n, aux;
     Reserva *res;
-    res = listarResBIN(&n);
-    int i;
-    for (i = 0; i < n; i++) {
-        printf("COD: %d \n", res[i].codigo);
-        printf("DATA INI: %d /%d /%d\n", res[i].DataIn.dia, res[i].DataIn.mes, res[i].DataIn.ano);
-        printf("DATA FIM: %d /%d /%d\n", res[i].DataFin.dia, res[i].DataFin.mes, res[i].DataFin.ano);
-        printf("HOSPEDES: %d \n", res[i].codH);
-        printf("Acomodação: %d \n", res[i].codA);
-        printf("\n");
+    if (bd == 1) {
+        n = contarLinhasResTXT();
+        res = listarResTXT();
+    } else if (bd == 2) {
+        res = listarResBIN(&n);
     }
+    if (bd > 0) {
+        int i;
+        for (i = 0; i < n; i++) {
+            printf("COD: %d \n", res[i].codigo);
+            printf("DATA INI: %d /%d /%d\n", res[i].DataIn.dia, res[i].DataIn.mes, res[i].DataIn.ano);
+            printf("DATA FIM: %d /%d /%d\n", res[i].DataFin.dia, res[i].DataFin.mes, res[i].DataFin.ano);
+            printf("HOSPEDES: %d \n", res[i].codH);
+            printf("Acomodação: %d \n", res[i].codA);
+            printf("\n");
+        }
 
-    free(res);
+        free(res);
 
+        /*
+            FILE *cad;
+            char texto[20];
+            cad = fopen("arquivos\\ReservaTXT", "r");
+            while (fgets(texto, 20, cad) != NULL) {
+                printf("%s", texto);
+            }
+            fclose(cad);
+         */
+    }
+}
+
+int contarLinhasResTXT() {// contar linhas arq txt
+
+    FILE *listOperador;
+    int numOL = 0, c, numF;
+
+    listOperador = fopen("arquivos\\ReservaTXT", "r");
+    if (listOperador == NULL) {
+        listOperador = fopen("arquivos\\ReservaTXT", "w+");
+        if (listOperador == NULL) {
+            printf("Erro ao acessar arquivo\n");
+            return 0;
+        }
+    }
+    //Lendo o arquivo 1 por 1
+    while ((c = fgetc(listOperador)) != EOF) {
+        if (c == '\n') {
+            //soma a quantidade de linhas do TXT
+            numOL++;
+        }
+    }
+    numF = numOL / 9; //divide por 18 que é o número de dados do hotel
+    fclose(listOperador);
+    free(listOperador);
+
+    return numF;
+
+
+    
 }
 
 
@@ -938,4 +881,5 @@ Acomodacao* listarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDi
     }
     free(res);
     return aco2;
+
 }
