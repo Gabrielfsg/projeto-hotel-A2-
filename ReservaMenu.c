@@ -9,6 +9,7 @@
 #include <String.h>
 
 #include "Principal.h"
+#include "ReservaSubC.h"
 
 void cadReserva() {
     int opc = 0;
@@ -17,14 +18,16 @@ void cadReserva() {
         printf("1.Reservar por Data. \n");
         printf("2.Reservar por categoria da acomodação. \n");
         printf("3.Reservar por quantidade de pessoas. \n");
-        printf("4.Reservar por tipo de facilidade. \n");
+       // printf("4.Reservar por tipo de facilidade. \n");
+        // apenas teste
+        printf("4.Mostrar. \n");
         printf("5.Reservar por combinação de critérios. \n");
         printf("6.Voltar. \n");
         scanf("%d*c", &opc);
 
         switch (opc) {
             case 1:
-                reservar();
+                reservar2();
                 break;
             case 2:
                 reservaPCategoria();
@@ -33,7 +36,7 @@ void cadReserva() {
                 reservaPQuantidade();
                 break;
             case 4:
-                
+                mostrarReservas();
                 break;
             case 5:
                 reservaCombCriterios();
