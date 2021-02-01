@@ -18,7 +18,6 @@
 
 #include "ReservaSubC.h"
 
-
 void reservaPQuantidade() {
     int bd = listar();
     Data dataIn;
@@ -38,7 +37,7 @@ void reservaPQuantidade() {
     int codReserva;
     if (bd == 1) {
         n = contarLinhasResTXT();
-        res = listarResTXT();       
+        res = listarResTXT();
         aco = listarAcomodacaoTXT();
         cat = listarCategoriaTXT();
     } else if (bd == 2) {
@@ -642,7 +641,7 @@ int contarLinhasResTXT() {// contar linhas arq txt
     return numF;
 
 
-    
+
 }
 
 
@@ -682,8 +681,8 @@ void reservar2() {
             cat = listarCategoriaTXT();
             num2 = numLinhasCategoria();
         } else {
-            getAllHospedesBIN(&numH);
-            listarCategoriaBIN(&num2);
+            hos = getAllHospedesBIN(&numH);
+            cat = listarCategoriaBIN(&num2);
         }
         res.codigo = 1;
         res.DataIn = dataIn;
@@ -743,8 +742,16 @@ void reservar2() {
                     printf("\nCodigo não encontrado!!\n");
                 }
             }
-            int retorno = cadastrarReservaTXT(res);
-            if (retorno == 1) {
+            int retorno = 0;
+            if (bd == 2) {
+                int retorno = cadastrarReservaBIN(&res, 1);
+                printf("BIN");
+            }
+            if (bd == 1) {
+                int retorno = cadastrarReservaTXT(res);
+            }
+
+            if (retorno >= 1) {
                 printf("Reserva Cadastrada com Sucesso!!\n");
             } else {
                 printf("Erro ao cadastrar!\n");
@@ -809,8 +816,18 @@ void * mostrarReservaBIN(int *numLinha) {
 }
 
 void mostrarReservas() {
-    int numR = numLinhasReserva();
-    Reserva *res = listarReservaTXT();
+    int bd = listar();
+    int numR = 0;
+    Reserva *res;
+    if (bd == 1) {
+        numR = numLinhasReserva();
+        res = listarReservaTXT();
+    }
+    if (bd == 2) {
+        printf("DEBUG 1\n");
+        res = listarReservaBIN(&numR);
+        printf("DEBUG 2\n");
+    }
     int i;
     for (i = 0; i < numR; i++) {
         printf("COD : %d \n", res[i].codigo);
