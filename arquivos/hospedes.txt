@@ -15,3 +15,37 @@ Cidade: CIDADE 1
 Logradouro: LOGARD 1
 Numero: 12
 UF: UM
+Cod: 2
+Nome: HOSPEDE DOIS
+CPF: 65465465465
+Telefone: 654654
+Email: EMAILDOIS
+Sexo: m
+EstadoCivil: CASADO
+DiaNasc: 15
+MesNasc: 5
+AnoNasc: 2001
+CodEnder: 99
+Bairro: CENTRO
+CEP: 99999999
+Cidade: FORMIGA
+Logradouro: CASA
+Numero: 33
+UF: MG
+Cod: 3
+Nome: HOSPEDE TRES
+CPF: 98798798798
+Telefone: 987987
+Email: EMAILTRES
+Sexo: F
+EstadoCivil: SOLTEIRO
+DiaNasc: 9
+MesNasc: 9
+AnoNasc: 2005
+CodEnder: 88
+Bairro: CENTRO
+CEP: 88888888
+Cidade: FORMIGA
+Logradouro: OUTRA CASA
+Numero: 44
+UF: MG

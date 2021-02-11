@@ -76,7 +76,7 @@ int salvarReservaTXT(Reserva aco, int num) {
 }
 
 Reserva * listarReservaTXT() {
- int numLinha = 0, i = 0, c;
+    int numLinha = 0, i = 0, c;
     FILE *arquivo;
     numLinha = numLinhasReserva();
     //area arquivo para leitura apenas "r"
@@ -93,13 +93,13 @@ Reserva * listarReservaTXT() {
     i = 0;
     char t[100];
     //printf("linhas %d \n", numLinha);
- 
+
     for (i = 0; i < numLinha; i++) {
         fgets(t, 100, arquivo);
         aco[i].codigo = atoi(t);
         //printf("%d,",aco[i].codigo);
         fgets(t, 100, arquivo);
-        
+
         aco[i].DataIn.dia = atoi(t);
         fgets(t, 100, arquivo);
         aco[i].DataIn.mes = atoi(t);
@@ -112,16 +112,16 @@ Reserva * listarReservaTXT() {
         fgets(t, 100, arquivo);
         aco[i].DataFin.ano = atoi(t);
         fgets(t, 100, arquivo);
-        aco[i].acomodacao.codigo = atoi(t);        
+        aco[i].acomodacao.codigo = atoi(t);
         fgets(aco[i].acomodacao.descricao, 100, arquivo);
         strtok(aco[i].acomodacao.descricao, "\r\n");
-        
+
         fgets(t, 100, arquivo);
         aco[i].acomodacao.categoria.codigo = atoi(t);
         //printf("%s", aco[i].nomeFantazia);
         fgets(aco[i].acomodacao.status, 100, arquivo);
         strtok(aco[i].acomodacao.status, "\r\n");
-        
+
         // printf("%s", aco[i].razaoSocial);
         fgets(t, 100, arquivo);
         aco[i].hospede.codigo = atoi(t);
@@ -133,14 +133,14 @@ Reserva * listarReservaTXT() {
         // printf("%s", aco[i].cnpj);
         fgets(aco[i].hospede.telefone, 100, arquivo);
         strtok(aco[i].hospede.telefone, "\r\n");
-        
+
         //printf("%s", aco[i].telefone);
         fgets(aco[i].hospede.email, 100, arquivo);
         strtok(aco[i].hospede.email, "\r\n");
         aco[i].hospede.sexo = fgetc(arquivo);
         fgetc(arquivo);
-        fgetc(arquivo); 
-        
+        fgetc(arquivo);
+
         //fgets(aco[i].hospede.sexo, 2, arquivo);
         //strtok(aco[i].hospede.sexo, "\r\n");
         fgets(aco[i].hospede.esCivil, 100, arquivo);
@@ -204,24 +204,25 @@ int numLinhasReserva() {
     fclose(arquivo);
     //libera memoria
     free(arquivo);
-    // divide se por 13 pois acomodação tem 13 linhas
+    printf("DEBUG: O NUMERO DE LINHAS É: %d\n", numLinha);
     return (numLinha / 28);
 }
 
 int validarReserva(int cod) {
     Reserva *aco = listarReservaTXT();
+    int achou = 0;
     if (aco != NULL) {
         int lin = sizeof (*aco) / sizeof (Reserva);
         int i;
-        for (i = 0; i < lin; i++) {
+        for (i = 0; i <= lin; i++) {
             if (cod == aco[i].codigo) {
-                return 1;
+                achou = 1;
             }
         }
         free(aco);
-        return 0;
+
     }
-    return 1;
+    return achou;
 }
 
 /*Aruivos binarios*/
@@ -360,7 +361,8 @@ int validarReservaBIN(int cod) {
     for (i = 0; i < num; i++) {
         if (cod == aco[i].codigo) {
             // retorna o indice se achar
-            return i;
+            //return i;
+            return 1;
         }
     }
     free(aco);
@@ -374,6 +376,60 @@ int removerReservaBIN() {
         return 0;
     }
     return 1;
+}
+
+//Tales
+void deletarReservaBIN(int cod) {
+
+    FILE* arqReserva = fopen(".\\arquivos\\reserva_temp.bin", "wb");
+    if (arqReserva == NULL) {
+        printf("ERRO AO ABRIR ARQUIVO");
+    } else {
+        int numReservas = 0;
+        Reserva* arrayReservas = listarReservaBIN(&numReservas);
+
+        for (int i = 0; i < numReservas; i++) {
+            if (arrayReservas[i].codigo != cod) {
+                Reserva r = arrayReservas[i];
+                
+                fwrite(&r, sizeof (Reserva), 1, arqReserva);
+
+            } else {
+                Reserva r2 = arrayReservas[i];
+                printf("É ESSE AQUI QUE VAI DELETAR: COD %d == %d\n",arrayReservas[i].codigo,r2.codigo);
+            }
+
+        }
+
+        fclose(arqReserva);
+        free(arrayReservas);
+        remove(".\\arquivos\\ReservaBIN.bin");
+        rename(".\\arquivos\\reserva_temp.bin", ".\\arquivos\\ReservaBIN.bin");
+    }
+}
+
+int removerReservaTXT(int cod) {
+
+    FILE* arqReserva = fopen(".\\arquivos\\reserva_temp.txt", "w");
+    if (arqReserva == NULL) {
+        printf("ERRO AO ABRIR ARQUIVO");
+        return 0;
+    } else {
+        Reserva* arrayReservas = listarReservaTXT();
+        int numReserva = numLinhasReserva();
+
+        for (int i = 0; i < numReserva; i++) {
+            if (arrayReservas[i].codigo != cod) {
+                fprintf(arqReserva, "%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\n%s\n%d\n%s\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%c\r\n%s\r\n%d\r\n%d\r\n%d\r\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%d\r\n%s\r\n", arrayReservas[i].codigo, arrayReservas[i].DataIn.dia, arrayReservas[i].DataIn.mes, arrayReservas[i].DataIn.ano, arrayReservas[i].DataFin.dia, arrayReservas[i].DataFin.mes, arrayReservas[i].DataFin.ano, arrayReservas[i].acomodacao.codigo, arrayReservas[i].acomodacao.descricao, arrayReservas[i].acomodacao.categoria.codigo, arrayReservas[i].acomodacao.status, arrayReservas[i].hospede.codigo, arrayReservas[i].hospede.nome, arrayReservas[i].hospede.cpf, arrayReservas[i].hospede.telefone, arrayReservas[i].hospede.email, arrayReservas[i].hospede.sexo, arrayReservas[i].hospede.esCivil, arrayReservas[i].hospede.dataNascimento.dia, arrayReservas[i].hospede.dataNascimento.mes, arrayReservas[i].hospede.dataNascimento.ano, arrayReservas[i].hospede.endereco.codigo, arrayReservas[i].hospede.endereco.bairro, arrayReservas[i].hospede.endereco.cep, arrayReservas[i].hospede.endereco.cidade, arrayReservas[i].hospede.endereco.logradouro, arrayReservas[i].hospede.endereco.numero, arrayReservas[i].hospede.endereco.uf); // f
+                fflush(arqReserva);
+            }
+        }
+        fclose(arqReserva);
+        free(arrayReservas);
+        remove(".\\arquivos\\ReservaTXT.txt");
+        rename(".\\arquivos\\reserva_temp.txt", ".\\arquivos\\ReservaTXT.txt");
+        return 1;
+    }
 }
 
 Reserva * listarResBIN(int *numLinha) {

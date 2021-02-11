@@ -74,7 +74,7 @@ Acomodacao * listarAcomodacaoTXT() {
     while (fscanf(arquivo, "%d", &aco[i].codigo) == 1) {
         //retira o \n do inicio  da string
         fgetc(arquivo);
-        fgetc(arquivo);
+        //fgetc(arquivo);
         //pega a string descrição
         fscanf(arquivo, "%100[a-z A-Z\n]s", aco[i].descricao);
         //retira o \n do fim da descrição
@@ -82,7 +82,7 @@ Acomodacao * listarAcomodacaoTXT() {
         fscanf(arquivo, "%d", &aco[i].categoria.codigo);
         //retira o \n do inicio da status
         fgetc(arquivo);
-        fgetc(arquivo);
+        //fgetc(arquivo);
         fscanf(arquivo, "%100[a-z A-Z\n]s", aco[i].status);
         //retira o \n do fim da status
         strtok(aco[i].status, "\n");

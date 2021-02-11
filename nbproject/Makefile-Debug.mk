@@ -68,6 +68,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Reserva.o \
 	${OBJECTDIR}/ReservaMenu.o \
 	${OBJECTDIR}/ReservaSubC.o \
+	${OBJECTDIR}/ReservaSubCancel.o \
 	${OBJECTDIR}/Retirada.o \
 	${OBJECTDIR}/SalvamentoBD.o \
 	${OBJECTDIR}/Venda.o \
@@ -262,6 +263,11 @@ ${OBJECTDIR}/ReservaSubC.o: ReservaSubC.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ReservaSubC.o ReservaSubC.c
+
+${OBJECTDIR}/ReservaSubCancel.o: ReservaSubCancel.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ReservaSubCancel.o ReservaSubCancel.c
 
 ${OBJECTDIR}/Retirada.o: Retirada.c
 	${MKDIR} -p ${OBJECTDIR}

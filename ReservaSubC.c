@@ -343,6 +343,7 @@ void reservaCombCriterios() {
     int qteHospedes;
 
 
+    printf("NUM QUARTOS = %d\n",numLinhaAcomod);
     printf("*********** RESERVA ***********\n\n");
 
 
@@ -462,8 +463,35 @@ void reservaCombCriterios() {
     }
 
     int codReserva;
-    printf("Digite o código da Reserva: \n");
-    scanf("%d%*c", &codReserva);
+    int aux = 0;
+    while (aux == 0) {
+        printf("Digite o código da Reserva: \n");
+        scanf("%d%*c", &codReserva);
+        if (ext == 1) {
+            //TXT
+            int validacao = validarReserva(codReserva);
+            printf("VALID: %d\n", validacao);
+
+            if (validacao == 1) {
+                printf("COD DA RESERVA JÁ EXISTE\n");
+            }else{
+                printf("COD OK!!\n");
+                aux =1;
+            }
+        }
+        if (ext == 2) {
+            //BIN
+            int validacao = validarReservaBIN(codReserva);
+            printf("VALID: %d\n", validacao);
+
+            if (validacao == 1) {
+                printf("COD DA RESERVA JÁ EXISTE\n");
+            }else{
+                printf("COD OK!!\n");
+                aux =1;
+            }
+        }
+    }
 
     reserva.codigo = codReserva;
     reserva.DataFin = dataFim;
@@ -477,9 +505,9 @@ void reservaCombCriterios() {
 
     printf("COD: %d \n", reserva.codigo);
     printf("COD ACOMODACAO: %d \n", reserva.acomodacao.codigo);
-    printf("COD ACOMODACAO: %d \n", reserva.codA);
-    //printf("ACOMODACAO DESC: %s \n", reserva.acomodacao.descricao);
-    //printf("CAT COD: %d \n", reserva.acomodacao.categoria.codigo);
+    //printf("COD ACOMODACAO: %d \n", reserva.codA);
+    printf("ACOMODACAO DESC: %s \n", reserva.acomodacao.descricao);
+    printf("COD CATEGORIA: %d \n", reserva.acomodacao.categoria.codigo);
     printf("DATA INI: %d /%d /%d\n", reserva.DataIn.dia, reserva.DataIn.mes, reserva.DataIn.ano);
     printf("DATA FIM: %d /%d /%d\n", reserva.DataFin.dia, reserva.DataFin.mes, reserva.DataFin.ano);
     printf("HOSPEDE: %d\n", reserva.hospede.codigo);
@@ -824,12 +852,13 @@ void mostrarReservas() {
         res = listarReservaTXT();
     }
     if (bd == 2) {
-        printf("DEBUG 1\n");
+
         res = listarReservaBIN(&numR);
-        printf("DEBUG 2\n");
+
     }
     int i;
     for (i = 0; i < numR; i++) {
+        printf("################################\n\n");
         printf("COD : %d \n", res[i].codigo);
         printf("Data Inicio: %d/%d/%d \n", res[i].DataIn.dia, res[i].DataIn.mes, res[i].DataIn.ano);
         printf("Data Fim: %d/%d/%d \n", res[i].DataFin.dia, res[i].DataFin.mes, res[i].DataFin.ano);
@@ -856,6 +885,7 @@ void mostrarReservas() {
         printf("NUMERO: %d\n", res[i].hospede.endereco.numero);
         printf("UF: %s\n", res[i].hospede.endereco.uf);
 
+        printf("################################\n\n");
 
     }
 

@@ -6,3 +6,7 @@ livre
 DESC
 1
 livre
+3
+QUARTO TRES
+3
+livre

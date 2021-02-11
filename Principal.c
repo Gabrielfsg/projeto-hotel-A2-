@@ -259,7 +259,7 @@ void subReservas() {
                 listarReserva();
                 break;
             case 5:
-                
+                CancelarReserva();
                 break;
             case 6:
                 menuPrincipal();
