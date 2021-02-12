@@ -16,8 +16,13 @@
 #include "Data.h"
 #include "Acomodacao.h"
 #include "Reserva.h"
+//Lista todas as Acomodações que estão disponiveis nesse intervalo de data, e retorna tambem a quantidade 
+//de acomodações disponiveis, passada um apontador como paramentro no *quantidadeAcoDisponiveis
+
 Acomodacao* listarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDisponiveis) ;
-void reservar2();
+
+//Função para cadastrar reserva filtrando apenas por data
+void reservarPorData();
 void mostrarReservas();
 void reservar3() ;
 void reservaPCategoria();

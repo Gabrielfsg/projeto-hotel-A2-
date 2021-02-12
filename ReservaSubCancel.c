@@ -26,7 +26,7 @@ void CancelarReserva() {
     if (bd == 1) {
         //TXT        
         arrayReservas = listarReservaTXT();
-        numReservas = numLinhasReserva();
+        numReservas = numReserva();
     }
     if (bd == 2) {
         //BIN

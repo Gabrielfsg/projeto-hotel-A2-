@@ -36,15 +36,18 @@ void reservaPQuantidade() {
     Reserva reserva;
     int codReserva;
     if (bd == 1) {
-        n = contarLinhasResTXT();
+        num4 = numReserva();
         res = listarResTXT();
+        num = numLinhasAcomodacao();
         aco = listarAcomodacaoTXT();
+        num2 = numLinhasCategoria();
         cat = listarCategoriaTXT();
+        num3 = getNumHospedes();
     } else if (bd == 2) {
         aco = listarAcomodacaoBIN(&num);
         cat = listarCategoriaBIN(&num2);
         arrayHospedes = getAllHospedesBIN(&num3);
-        res = listarResBIN(&num4);
+        res = listarReservaBIN(&num4);
     }
     if (bd > 0) {
         printf("Entre com a quantidade de pessoas desejada: ");
@@ -254,7 +257,7 @@ void reservaPCategoria() {
     free(aco);
 }
 
-void reservar() {
+/*void reservar() {
     int bd = listar();
     int quant, num, cod, num2;
     int r;
@@ -306,7 +309,7 @@ void reservar() {
     free(aco);
     free(cat);
 }
-
+ */
 void reservaCombCriterios() {
     Data dataIn;
     Data dataFim;
@@ -343,7 +346,7 @@ void reservaCombCriterios() {
     int qteHospedes;
 
 
-    printf("NUM QUARTOS = %d\n",numLinhaAcomod);
+    printf("NUM QUARTOS = %d\n", numLinhaAcomod);
     printf("*********** RESERVA ***********\n\n");
 
 
@@ -474,9 +477,9 @@ void reservaCombCriterios() {
 
             if (validacao == 1) {
                 printf("COD DA RESERVA JÁ EXISTE\n");
-            }else{
+            } else {
                 printf("COD OK!!\n");
-                aux =1;
+                aux = 1;
             }
         }
         if (ext == 2) {
@@ -486,9 +489,9 @@ void reservaCombCriterios() {
 
             if (validacao == 1) {
                 printf("COD DA RESERVA JÁ EXISTE\n");
-            }else{
+            } else {
                 printf("COD OK!!\n");
-                aux =1;
+                aux = 1;
             }
         }
     }
@@ -612,10 +615,10 @@ void listarReserva() {
     int n, aux;
     Reserva *res;
     if (bd == 1) {
-        n = contarLinhasResTXT();
+        n = numReserva();
         res = listarResTXT();
     } else if (bd == 2) {
-        res = listarResBIN(&n);
+        res = listarReservaBIN(&n);
     }
     if (bd > 0) {
         int i;
@@ -675,9 +678,11 @@ int contarLinhasResTXT() {// contar linhas arq txt
 
 //Daniel
 
-void reservar2() {
+void reservarPorData() {
     Data dataIn, dataFim;
+    //lista o modo de salvamento de dados
     int bd = listar();
+    // se for maior que 0 existe uma opção definida
     if (bd > 0) {
         int quant, num = 0, cod, num2, numH;
         int r;
@@ -701,8 +706,9 @@ void reservar2() {
         scanf("%d%*c", &dataFim.mes);
         printf("Digita o ano da data do fim da reserva:\n");
         scanf("%d%*c", &dataFim.ano);
-
+        //lista as Acomodações disponiveis no intervalo da data digitada
         aco = listarAcomodacoesDisponiveis(dataIn, dataFim, &num);
+        //verifica onde sera uscado os dados
         if (bd == 1) {
             numH = getNumHospedes();
             hos = getAllHospedesTXT(numH);
@@ -715,6 +721,7 @@ void reservar2() {
         res.codigo = 1;
         res.DataIn = dataIn;
         res.DataFin = dataFim;
+        //mostra as acomodações disponiveis
         if (num > 0) {
             int i, j;
             for (i = 0; i < num; i++) {
@@ -734,7 +741,7 @@ void reservar2() {
                 }
 
             }
-
+            //pede para digitar o codi da acomodação listada, e sai do laço apenas quando o codigo for valido
             int aux2 = 0;
             while (aux2 == 0) {
                 printf("Entre com o codigo da acomodação desejada: ");
@@ -744,7 +751,9 @@ void reservar2() {
                         for (j = 0; j < num2; j++) {
                             if (aco[i].categoria.codigo == cat[j].codigo) {
                                 aux2 = 1;
+                                //coloca a categoria no vetor de acomodação
                                 aco[i].categoria = cat[j];
+                                //coloca a acomodação junto com a categoria em reserva com acomodação
                                 res.acomodacao = aco[i];
                             }
                         }
@@ -754,15 +763,17 @@ void reservar2() {
                     printf("\nCodigo não encontrado!!\n");
                 }
             }
+            //lista todos os hospedes cadastrados para o operador digitar o codigo, e sai apenas quando o codigo for valido 
             listarHospedesControl();
             aux2 = 0;
             while (aux2 == 0) {
                 printf("Entre com o codigo do hospede desejado: ");
                 scanf("%d*c", &cod);
-                for (i = 0; i < numH; i++) {
-                    printf("%d \n", hos[i].codigo);
+                for (i = 0; i < numH; i++) {                    
+                    //se achar
                     if (hos[i].codigo == cod) {
                         aux2 = 1;
+                        // pega todo o Hospede e inclui na reserva
                         res.hospede = hos[i];
                     }
                 }
@@ -770,6 +781,7 @@ void reservar2() {
                     printf("\nCodigo não encontrado!!\n");
                 }
             }
+            // salva a reserva no determinado tipo de salvamento de dados
             int retorno = 0;
             if (bd == 2) {
                 int retorno = cadastrarReservaBIN(&res, 1);
@@ -789,6 +801,7 @@ void reservar2() {
         } else {
             printf("Nenhuma Acomodação disponivel para esta data!!\n");
         }
+        //liera memoria
         free(aco);
         free(cat);
         free(hos);
@@ -848,7 +861,7 @@ void mostrarReservas() {
     int numR = 0;
     Reserva *res;
     if (bd == 1) {
-        numR = numLinhasReserva();
+        numR = numReserva();
         res = listarReservaTXT();
     }
     if (bd == 2) {
@@ -901,7 +914,7 @@ Acomodacao* listarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDi
         aco = listarAcomodacaoTXT();
         res = listarReservaTXT();
         numA = numLinhasAcomodacao();
-        numR = numLinhasReserva();
+        numR = numReserva();
     } else {
         aco = listarAcomodacaoBIN(&numA);
         res = listarReservaBIN(&numR);

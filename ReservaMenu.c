@@ -28,7 +28,7 @@ void cadReserva() {
 
         switch (opc) {
             case 1:
-                reservar2();
+                reservarPorData();
                 break;
             case 2:
                 reservaPCategoria();

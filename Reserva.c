@@ -78,7 +78,7 @@ int salvarReservaTXT(Reserva aco, int num) {
 Reserva * listarReservaTXT() {
     int numLinha = 0, i = 0, c;
     FILE *arquivo;
-    numLinha = numLinhasReserva();
+    numLinha = numReserva();
     //area arquivo para leitura apenas "r"
     arquivo = fopen("arquivos\\ReservaTXT.txt", "r");
     if (arquivo == NULL) {
@@ -181,7 +181,7 @@ Reserva * listarReservaTXT() {
     return aco;
 }
 
-int numLinhasReserva() {
+int numReserva() {
 
     FILE *arquivo;
     int numLinha = 0, c;
@@ -379,6 +379,7 @@ int removerReservaBIN() {
 }
 
 //Tales
+
 void deletarReservaBIN(int cod) {
 
     FILE* arqReserva = fopen(".\\arquivos\\reserva_temp.bin", "wb");
@@ -391,12 +392,12 @@ void deletarReservaBIN(int cod) {
         for (int i = 0; i < numReservas; i++) {
             if (arrayReservas[i].codigo != cod) {
                 Reserva r = arrayReservas[i];
-                
+
                 fwrite(&r, sizeof (Reserva), 1, arqReserva);
 
             } else {
                 Reserva r2 = arrayReservas[i];
-                printf("É ESSE AQUI QUE VAI DELETAR: COD %d == %d\n",arrayReservas[i].codigo,r2.codigo);
+                printf("É ESSE AQUI QUE VAI DELETAR: COD %d == %d\n", arrayReservas[i].codigo, r2.codigo);
             }
 
         }
@@ -416,9 +417,9 @@ int removerReservaTXT(int cod) {
         return 0;
     } else {
         Reserva* arrayReservas = listarReservaTXT();
-        int numReserva = numLinhasReserva();
+        int numRes = numReserva();
 
-        for (int i = 0; i < numReserva; i++) {
+        for (int i = 0; i < numRes; i++) {
             if (arrayReservas[i].codigo != cod) {
                 fprintf(arqReserva, "%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\n%s\n%d\n%s\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%c\r\n%s\r\n%d\r\n%d\r\n%d\r\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%d\r\n%s\r\n", arrayReservas[i].codigo, arrayReservas[i].DataIn.dia, arrayReservas[i].DataIn.mes, arrayReservas[i].DataIn.ano, arrayReservas[i].DataFin.dia, arrayReservas[i].DataFin.mes, arrayReservas[i].DataFin.ano, arrayReservas[i].acomodacao.codigo, arrayReservas[i].acomodacao.descricao, arrayReservas[i].acomodacao.categoria.codigo, arrayReservas[i].acomodacao.status, arrayReservas[i].hospede.codigo, arrayReservas[i].hospede.nome, arrayReservas[i].hospede.cpf, arrayReservas[i].hospede.telefone, arrayReservas[i].hospede.email, arrayReservas[i].hospede.sexo, arrayReservas[i].hospede.esCivil, arrayReservas[i].hospede.dataNascimento.dia, arrayReservas[i].hospede.dataNascimento.mes, arrayReservas[i].hospede.dataNascimento.ano, arrayReservas[i].hospede.endereco.codigo, arrayReservas[i].hospede.endereco.bairro, arrayReservas[i].hospede.endereco.cep, arrayReservas[i].hospede.endereco.cidade, arrayReservas[i].hospede.endereco.logradouro, arrayReservas[i].hospede.endereco.numero, arrayReservas[i].hospede.endereco.uf); // f
                 fflush(arqReserva);
@@ -429,64 +430,5 @@ int removerReservaTXT(int cod) {
         remove(".\\arquivos\\ReservaTXT.txt");
         rename(".\\arquivos\\reserva_temp.txt", ".\\arquivos\\ReservaTXT.txt");
         return 1;
-    }
-}
-
-Reserva * listarResBIN(int *numLinha) {
-    FILE *arquivo;
-    //abrea arquivo para leitura apenas "rb"
-    arquivo = fopen("arquivos\\ReservaBIN.bin", "rb");
-    if (arquivo == NULL) {
-        //cria arquivo para leitura\escrita se não houver "w+b"
-        arquivo = fopen("arquivos\\ReservaBIN.bin", "w+b");
-        if (arquivo == NULL) {
-            printf("\nERRO ao acessar arquivo\n");
-            return NULL;
-        }
-
-        int cadastrarReservaBIN(Reserva *aco, int quantidade) {
-            FILE *cad;
-            cad = fopen("arquivos\\ReservaBIN.bin", "ab");
-            if (cad == NULL) {
-                cad = fopen("arquivos\\ReservaBIN.bin", "wb");
-                return 0;
-            } else {
-                //strlen()-> informa o tamanho de uma string 
-                /*grava toda struct de categoria no arquivo*/
-                fwrite(&aco, sizeof (Reserva), quantidade, cad);
-                fflush(cad);
-                /*fecha o arquivo*/
-                fclose(cad);
-                /*libera mémoria*/
-                free(cad);
-            }
-            *numLinha = 0;
-
-            Reserva reserva;
-            //instancia vetor com tamanho 1 
-            Reserva *res = (Reserva*) calloc(1, sizeof (Reserva));
-            //pega a primeira linha se existir
-            int r = fread(&reserva, sizeof (Reserva), 1, arquivo);
-            if (r > 0) {
-                do {
-                    //soma a +1 no tamanho do vetor o qual comessa com 0
-                    *numLinha = (*numLinha) + 1;
-                    // realoca o vetor com o tamanho numLinha, a arqa interação ele realoca um a mais
-                    res = realloc(res, *numLinha * sizeof (Reserva));
-                    //adicionar o struct o vetor,(numLinha -1) pois o vetor comessa sempre por 0
-                    res[(*numLinha) - 1] = reserva;
-                    //pega o proximo indice, se existir
-                    fread(&reserva, sizeof (Reserva), 1, arquivo);
-                    //verifica se chegou no fim do arquivo
-                } while (!feof(arquivo));
-            } else {
-                return NULL;
-            }
-            //fecha arquivo
-            fclose(arquivo);
-            //libera memoria
-            free(arquivo);
-            return res;
-        }
     }
 }
