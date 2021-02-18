@@ -55,7 +55,7 @@ void CancelarReserva() {
         if (bd == 1) {
             //TXT
             validacao = validarReserva(cod);
-            
+            printf("VALID TXT == %d\n",validacao);
         }
         if (bd == 2) {
             //BIN
