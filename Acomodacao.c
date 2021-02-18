@@ -234,7 +234,7 @@ int validarAcomodacaoBIN(int cod) {
     for (i = 0; i < num; i++) {
         if (cod == aco[i].codigo) {
             // retorna o indice se achar
-            return i;
+            return 1;
         }
     }
     free(aco);
