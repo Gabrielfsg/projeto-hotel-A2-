@@ -1,14 +1,14 @@
-2
 1
+25
 1
 1
 5
+2
 1
 1
+DESC
 1
-ESC
-1
-ivre
+livre
 1
 UM
 1
@@ -26,17 +26,17 @@ CIDADE 1
 LOGARD 1
 12
 UM
+2
+27
+1
 1
 2
 2
-6
-6
-2
-6
 1
-ESC
+4
+QUARTO QUATRO
 1
-ivre
+livre
 1
 UM
 1

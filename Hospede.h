@@ -16,7 +16,6 @@
 #include "Endereco.h"
 #include "Data.h"
 
-//typedef struct hospede Hospede;
 typedef struct hospede {
     int codigo;
     char nome[100];
@@ -29,18 +28,16 @@ typedef struct hospede {
     Endereco endereco;
 } Hospede;
 
-void cadastrarHospedesTXT(Hospede h);
-void cadastrarHospedesBIN(Hospede h);
+int cadastrarHospedesTXT(Hospede h);
+int cadastrarHospedesBIN(Hospede h);
 void atualizarHospedeTXT(Hospede novoHosp);
 void atualizarHospedeBIN(Hospede novoHosp);
 Hospede* getAllHospedesTXT(int numHospedes);
 Hospede* getAllHospedesBIN(int* numHospedes);
-Hospede getHospedeByCodTXT(int cod, int numHospedes);
+Hospede getHospedeByCodTXT(int cod);
 Hospede getHospedeByCodBIN(int cod);
-//void atualizarHospedeTXT();
 void deletarHospedeTXT(int cod);
 void deletarHospedeBIN(int cod);
-
 int getNumHospedes();
 #endif /* HOSPEDE_H */
 

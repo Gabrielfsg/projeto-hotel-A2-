@@ -10,67 +10,125 @@
 #include"Data.h"
 #include"Endereco.h"
 #include"Hospede.h"
+#include"HospedeMenu.h"
 
-
-void cadastrarHospedesTXT(Hospede h) {
+/*
+ * FUNÇÃO: cadastrarHospedesTXT 
+ * 
+ * Cadastra um Hóspede, escrevendo seus dados na extensão TXT.
+ * 
+ * PARÂMETROS: 
+ * 
+ * h - Struct do Hóspede que será cadastrado
+ * 
+ * RETORNO: retorna o número de caracteres gravados, ou um número negativo em
+ * caso de erro
+ */
+int cadastrarHospedesTXT(Hospede h) {
     FILE* arHospedes;
+    //abre o arquivo de hospedes.txt
     arHospedes = fopen(".\\arquivos\\hospedes.txt", "a");
     if (arHospedes == NULL) {
-        printf("ERRO DE ABERTURA\n");
+        //se não existir, cria um novo.
+        arHospedes = fopen(".\\arquivos\\hospedes.txt", "w");
+        if (arHospedes == NULL) {
+            printf("ERRO DE ABERTURA\n");
+        }
     } else {
-        fprintf(arHospedes, "Cod: %d\r\nNome: %s\r\nCPF: %s\r\nTelefone: %s\r\nEmail: %s\r\nSexo: %c\r\nEstadoCivil: %s\r\n", h.codigo, h.nome, h.cpf, h.telefone, h.email, h.sexo, h.esCivil);
-        fprintf(arHospedes, "DiaNasc: %d\r\nMesNasc: %d\r\nAnoNasc: %d\r\n", h.dataNascimento.dia, h.dataNascimento.mes, h.dataNascimento.ano);
-        fprintf(arHospedes, "CodEnder: %d\r\nBairro: %s\r\nCEP: %s\r\nCidade: %s\r\nLogradouro: %s\r\nNumero: %d\r\nUF: %s\r\n", h.endereco.codigo, h.endereco.bairro, h.endereco.cep, h.endereco.cidade, h.endereco.logradouro, h.endereco.numero, h.endereco.uf);
+        //grava os dados do hóspede no arquivo
+        int retorno = 0;
+        retorno = fprintf(arHospedes, "Cod: %d\r\nNome: %s\r\nCPF: %s\r\nTelefone: %s\r\nEmail: %s\r\nSexo: %c\r\nEstadoCivil: %s\r\n", h.codigo, h.nome, h.cpf, h.telefone, h.email, h.sexo, h.esCivil);
+        retorno += fprintf(arHospedes, "DiaNasc: %d\r\nMesNasc: %d\r\nAnoNasc: %d\r\n", h.dataNascimento.dia, h.dataNascimento.mes, h.dataNascimento.ano);
+        retorno += fprintf(arHospedes, "CodEnder: %d\r\nBairro: %s\r\nCEP: %s\r\nCidade: %s\r\nLogradouro: %s\r\nNumero: %d\r\nUF: %s\r\n", h.endereco.codigo, h.endereco.bairro, h.endereco.cep, h.endereco.cidade, h.endereco.logradouro, h.endereco.numero, h.endereco.uf);
 
         fflush(arHospedes);
-
         fclose(arHospedes);
+        return retorno;
     }
 }
 
-void cadastrarHospedesBIN(Hospede h) {
+/*
+ * FUNÇÃO: cadastrarHospedesBIN 
+ * 
+ * Cadastra um Hóspede, escrevendo seus dados na extensçao BIN.
+ * 
+ * PARÂMETROS: 
+ * 
+ * h - Struct do Hóspede que será cadastrado
+ * 
+ * RETORNO: retorna o número de hospedes gravados
+ */
+int cadastrarHospedesBIN(Hospede h) {
     FILE* arqHospedes;
+    //abre o arquivo de hospedes.bin
     arqHospedes = fopen(".\\arquivos\\hospedes.bin", "ab");
     if (arqHospedes == NULL) {
-        printf("ERRO DE ABERTURA\n");
+        //se não existir, cria um novo.
+        arqHospedes = fopen(".\\arquivos\\hospedes.bin", "wb");
+        if (arqHospedes == NULL) {
+            printf("ERRO DE ABERTURA\n");
+        }
+
     } else {
-        int count = 0;
+        int count = 0; //variavel para validar se gravou ou não
+        //grava no arquivo binário
         count = fwrite(&h, sizeof (Hospede), 1, arqHospedes);
         fflush(arqHospedes);
-        /*fecha o arquivo*/
+        //fecha o arquivo
         fclose(arqHospedes);
-        /*libera mémoria*/
+        //libera mémoria
         free(arqHospedes);
-        if (count == 1) {
-            printf("\nHOSPEDE CADASTRADO COM SUCESSO\n");
-        } else {
-            printf("\nERRO AO CADASTRAR HOSPEDE\n");
-        }
         fclose(arqHospedes);
+        return count;
     }
 }
 
+/*
+ * FUNÇÃO: getAllHospedesTXT 
+ * 
+ * Pega todos os hóspedes cadastrados na extensão TXT.
+ * 
+ * PARÂMETROS: 
+ * 
+ * numHospedes - número total de Hóspedes do arquivo.
+ * 
+ * RETORNO: Retorna um Ponteiro (Array) de Hóspedes, contendo todos os hóspedes
+ * do aquivo.
+ * 
+ * OBS: Onde getAllHospedesTXT for chamado, será preciso também ter o tamanho do
+ * array (numHospedes) para percorrer em um for, por exemplo. Como esse valor 
+ * é retornado de outra função, chamá-la aqui uma segunda vez seria redundante. 
+ * Por isso, numHospedes é passado como parâmetro
+ */
 Hospede* getAllHospedesTXT(int numHospedes) {
-    int index = 1; //PARA ARMAZENAR O TAMANHO DO VETOR
+    int index = 1; //ÍNDICE DO ARRAY
 
-    Hospede *arrayHospedes = (Hospede *) malloc(sizeof (Hospede) * numHospedes); //PONTEIRO DE HÓSPEDE VIRA UM VETOR AO CHAMAR MALLOC
+    Hospede *arrayHospedes = (Hospede *) malloc(sizeof (Hospede) * numHospedes); //Ponteiro de Hóspedes vira um Array ao chamar malloc
     if (arrayHospedes == NULL) {
         printf("ERRO DE ALOCAÇÃO");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
-    //pega a lista de hóspedes do arquivo
     FILE *scanHospedes;
 
     scanHospedes = fopen(".\\arquivos\\hospedes.txt", "r");
     if (scanHospedes == NULL) {
-        printf("ERRO DE LEITURA\n");
+        printf("ERRO DE LEITURA, UM NOVO ARQUIVO SERÁ CRIADO\n");
+        scanHospedes = fopen(".\\arquivos\\hospedes.txt", "w");
+        if (scanHospedes == NULL) {
+            printf("ERRO DE LEITURA\n");
+            return;
+        }
+
+
     } else {
+        //pega os hóspedes do arquivo
         for (int i = 0; i < numHospedes; i++) {
             Hospede h;
             char text[20];
 
-            //FSCANF PARA PEGAR OS VALORES DO ARQUIVO. "TEXT[20]" É APENAS PARA ARMAZENAR A STRING QUE VEM ANTES DO VALOR.
+            //FSCANF para pegar os valores do aquivo. "text[20]" é apenas para armazenar a string que vem antes do valor.
+
             fscanf(scanHospedes, "%s %d", text, &h.codigo);
             fscanf(scanHospedes, "%s %[^\n]s", text, h.nome);
             strtok(h.nome, "\r\n");
@@ -96,7 +154,7 @@ Hospede* getAllHospedesTXT(int numHospedes) {
             strtok(h.endereco.logradouro, "\r\n");
             fscanf(scanHospedes, "%s %d", text, &h.endereco.numero);
             fscanf(scanHospedes, "%s %s", text, h.endereco.uf);
-            
+
             //COLOCA O HOSPEDE NO ARRAY
             arrayHospedes[index - 1] = h;
             index++;
@@ -131,13 +189,29 @@ Hospede* getAllHospedesTXT(int numHospedes) {
     }
 }
 
+/*
+ * FUNÇÃO: getAllHospedesBIN 
+ * 
+ * Pega todos os hóspedes cadastrados na extensão BIN.
+ * 
+ * PARÂMETROS: 
+ * 
+ * numHospedes - Ponteiro que contém o endereço de memória da variável
+ * que armazena o número total de hóspedes do arquivo
+ * 
+ * RETORNO: Retorna um Ponteiro (Array) de Hóspedes, contendo todos os hóspedes
+ * do aquivo.
+ * 
+ * OBS: Neste caso, *numHospedes deve ser iniciado em 0, pois este método irá
+ * incrementá-lo em 1 cada vez que ler um hóspede, retornando, no fim, o número
+ * total de hóspedes do arquivo.
+ */
 Hospede* getAllHospedesBIN(int* numHospedes) {
-    //int totalLido = 0;
-    int index = 0;
-    Hospede *arrayHospedes = (Hospede *) malloc(sizeof (Hospede) * 1); //PONTEIRO DE HÓSPEDE VIRA UM VETOR AO CHAMAR MALLOC
+    int index = 0; //ÍNDICE DO ARRAY
+    Hospede *arrayHospedes = (Hospede *) malloc(sizeof (Hospede) * 1); //Ponteiro de Hóspedes vira um Array ao chamar malloc
     if (arrayHospedes == NULL) {
         printf("ERRO DE ALOCAÇÃO");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     FILE *fileHospedes;
@@ -149,7 +223,7 @@ Hospede* getAllHospedesBIN(int* numHospedes) {
             printf("ERRO DE LEITURA");
         }
     } else {
-        //rewind(scanHospedes);
+
         while (!feof(fileHospedes)) { //enquanto não for o final do arquivo
             Hospede h;
             //TENTA LER UM HÓSPEDE
@@ -157,13 +231,14 @@ Hospede* getAllHospedesBIN(int* numHospedes) {
             if (conseguiuLer == 1) {
                 //printf("LEU UM HOSPEDE\n");
                 (*numHospedes)++;
+                arrayHospedes[index] = h;
+                index++;
+                arrayHospedes = realloc(arrayHospedes, (index + 1) * sizeof (Hospede));
+                //printf("INDEX = %d\n", index);
             } else {
-                //printf("ERRO HOSPEDE\n");
+                printf("ERRO AO LER HOSPEDE\n");
             }
-            arrayHospedes[index] = h;
-            index++;
-            arrayHospedes = realloc(arrayHospedes, (index + 1) * sizeof (Hospede));
-            //printf("INDEX = %d\n", index);
+
         }
 
         fclose(fileHospedes);
@@ -185,45 +260,110 @@ Hospede* getAllHospedesBIN(int* numHospedes) {
     }
 }
 
-Hospede getHospedeByCodTXT(int cod, int numHospedes) {
-    //printf("ENTROU GETHOSPEDEBYCOD");
-
-    Hospede* arrHospedes = getAllHospedesTXT(numHospedes);
-    for (int i = 0; i < numHospedes; i++) {
-        if (arrHospedes[i].codigo == cod) {
-            //printf("\nACHOU O COD == AO QUE DIGITOU: %d == %s\n",cod,arrHospedes[i].nome);
-            return arrHospedes[i];
+/*
+ * FUNÇÃO: getHospedeByCodTXT 
+ * 
+ * Pega um hóspede específico cadastrado na extensão TXT.
+ * 
+ * PARÂMETROS: 
+ * 
+ * cod - código do Hóspede que será retornado
+ * 
+ * RETORNO: Retorna o hóspede encontrado, ou termina a função, se não encontrado.
+ * 
+ * 
+ */
+Hospede getHospedeByCodTXT(int cod) {
+    //printf("ENTROU GET HOSPEDE BY COD TXT");
+    int numHospedes = getNumHospedes();
+    if (validarCodHospede(cod, 1) == 0) {
+        //se o cod existe
+        Hospede* arrHospedes = getAllHospedesTXT(numHospedes);
+        for (int i = 0; i < numHospedes; i++) {
+            if (arrHospedes[i].codigo == cod) {
+                //printf("\nACHOU O COD == AO QUE DIGITOU: %d == %s\n",cod,arrHospedes[i].nome);
+                return arrHospedes[i];
+            }
         }
+    } else {
+        //se não existe
+        printf("NÃO EXISTE HOSPEDE CADASTRADO COM ESSE CODIGO\n");
+        return;
     }
+
 }
 
+/*
+ * FUNÇÃO: getHospedeByCodBIN 
+ * 
+ * Pega um hóspedes específico cadastrados na extensão BIN.
+ * 
+ * PARÂMETROS: 
+ * 
+ * cod - código do Hóspede que será retornado
+ * 
+ * 
+ * RETORNO: Retorna o hóspede encontrado, ou termina a função, se não encontrado.
+ * 
+ * 
+ */
 Hospede getHospedeByCodBIN(int cod) {
-    //printf("ENTROU GETHOSPEDEBYCOD BIN");
+    //printf("ENTROU GET HOSPEDE BY COD BIN");
     Hospede h;
     int numHospedes = 0;
-    Hospede* arrayHospedes = getAllHospedesBIN(&numHospedes);
-    //printf("NUM HOSPEDES = %d\n", numHospedes);
-    for (int i = 0; i < numHospedes; i++) {
-        if (arrayHospedes[i].codigo == cod) {
-            //printf("HÓSPEDE ENCONTRADO!!!!!!!!!!!\n");
-            //printf("COD %d == %d\n", arrayHospedes[i].codigo, cod);
-            h = arrayHospedes[i];
-            return h;
+    if (validarCodHospede(cod, 2) == 0) {
+        //se o cod existe
+        Hospede* arrayHospedes = getAllHospedesBIN(&numHospedes);
+        //printf("NUM HOSPEDES = %d\n", numHospedes);
+        for (int i = 0; i < numHospedes; i++) {
+            if (arrayHospedes[i].codigo == cod) {
+                //printf("HÓSPEDE ENCONTRADO!!\n");
+                //printf("COD %d == %d\n", arrayHospedes[i].codigo, cod);
+                h = arrayHospedes[i];
+                return h;
+            }
         }
+    } else {
+        //se não existe
+        printf("NÃO EXISTE HOSPEDE CADASTRADO COM ESSE CODIGO\n");
+        return;
     }
+
+
 }
 
+/*
+ * FUNÇÃO: atualizarHospedeTXT 
+ * 
+ * Atualiza um Hóspede cadastrado no arquivo TXT.
+ * Este método copia todos os hóspedes cadastrados para um arquivo temporário,
+ * e quando encontrar o cod do hospede que será alterado, ele grava os dados 
+ * novos desse hóspede.
+ * 
+ * PARÂMETROS: 
+ * 
+ * novoHosp - Struct com os novos dados do Hóspede que será alterado.
+ * 
+ * RETORNO: void
+ * 
+ * OBS: No processo de atualização, o cod do Hóspede não é alterado.
+ * 
+ */
 void atualizarHospedeTXT(Hospede novoHosp) {
+    //abre para escrita um arquivo temporário
     FILE* hosp = fopen(".\\arquivos\\hospedes_temp.txt", "w");
     if (hosp == NULL) {
         printf("ERRO AO ABRIR ARQUIVO");
     } else {
+        //pega todos os hóspedes do TXT
         int numHospedes = getNumHospedes();
         Hospede* arrHosp = getAllHospedesTXT(numHospedes);
 
+        //para cada hóspede, verifica se o cod é igual ou não do cod do novo Hóspede.
         for (int i = 0; i < numHospedes; i++) {
             if (arrHosp[i].codigo != novoHosp.codigo) {
                 //printf("%d != %d\n", arrHosp[i].codigo, novoHosp.codigo);
+                //se é diferente, copia os mesmos dados
                 strtok(arrHosp[i].nome, "\r");
                 strtok(arrHosp[i].endereco.bairro, "\r");
                 strtok(arrHosp[i].endereco.cidade, "\r");
@@ -235,6 +375,7 @@ void atualizarHospedeTXT(Hospede novoHosp) {
 
             } else {
                 //printf("ESSE É O QUE VAI ALTERAR: COD = %d\n", novoHosp.codigo);
+                //se achou o que vai alterar, copia os novos dados.
                 strtok(novoHosp.nome, "\r");
                 strtok(novoHosp.endereco.bairro, "\r");
                 strtok(novoHosp.endereco.cidade, "\r");
@@ -248,28 +389,51 @@ void atualizarHospedeTXT(Hospede novoHosp) {
 
         fclose(hosp);
         free(arrHosp);
+        /*
+        remove o arquivo antigo e renomeia o arquivo temporário, que agora será 
+        o arquivo atualizado
+         */
         remove(".\\arquivos\\hospedes.txt");
         rename(".\\arquivos\\hospedes_temp.txt", ".\\arquivos\\hospedes.txt");
     }
 
 }
 
+/*
+ * FUNÇÃO: atualizarHospedeBIN 
+ * 
+ * Atualiza um Hóspede cadastrado no arquivo BIN.
+ * Este método copia todos os hóspedes cadastrados para um arquivo temporário,
+ * e quando encontrar o codigo do hospede que será alterado, ele grava os dados 
+ * novos desse hóspede.
+ * 
+ * PARÂMETROS: 
+ * 
+ * novoHosp - Struct com os novos dados do Hóspede que será alterado.
+ * 
+ * RETORNO: void
+ * 
+ * OBS: No processo de atualização, o cod do Hóspede não é alterado.
+ */
 void atualizarHospedeBIN(Hospede novoHosp) {
     FILE* hosp = fopen(".\\arquivos\\hospedes_temp.bin", "wb");
     if (hosp == NULL) {
         printf("ERRO AO ABRIR ARQUIVO");
     } else {
+        //pega todos os hóspedes do BIN
         int numHospedes = 0;
         Hospede* arrHosp = getAllHospedesBIN(&numHospedes);
-
+        //para cada hóspede, verifica se o cod é igual ou não do cod do novo Hóspede.
         for (int i = 0; i < numHospedes; i++) {
             if (arrHosp[i].codigo != novoHosp.codigo) {
                 //printf("ESSE É O QUE NAO VAI ALTERAR %d != %d\n", arrHosp[i].codigo, novoHosp.codigo);
+                //se é diferente, copia os mesmos dados
                 fwrite(&arrHosp[i], sizeof (Hospede), 1, hosp);
                 fflush(hosp);
 
             } else {
                 //printf("ESSE É O QUE VAI ALTERAR: COD = %d\n", novoHosp.codigo);
+                //se achou o que vai alterar, copia os novos dados.
                 fwrite(&novoHosp, sizeof (Hospede), 1, hosp);
                 fflush(hosp);
             }
@@ -277,22 +441,40 @@ void atualizarHospedeBIN(Hospede novoHosp) {
 
         fclose(hosp);
         free(arrHosp);
+        /*
+        remove o arquivo antigo e renomeia o arquivo temporário, que agora será 
+        o arquivo atualizado
+         */
         remove(".\\arquivos\\hospedes.bin");
         rename(".\\arquivos\\hospedes_temp.bin", ".\\arquivos\\hospedes.bin");
     }
 
 }
 
+/*
+ * FUNÇÃO: deletarHospedeTXT 
+ * 
+ * Deleta um Hóspede específico no arquivo TXT.
+ * Este método copia todos os hóspedes cadastrados para um arquivo temporário,
+ * exceto o hóspede que será deletado.
+ * PARÂMETROS: 
+ * 
+ * cod - código do hóspede que será deletado.
+ * 
+ * RETORNO: void
+ */
 void deletarHospedeTXT(int cod) {
 
     FILE* hosp = fopen(".\\arquivos\\hospedes_temp.txt", "w");
     if (hosp == NULL) {
         printf("ERRO");
     } else {
+        //pega todos os hóspedes
         int numHospedes = getNumHospedes();
         Hospede* arrHosp = getAllHospedesTXT(numHospedes);
 
         for (int i = 0; i < numHospedes; i++) {
+            //copia os dados dos hóspedes que não serão deletados
             if (arrHosp[i].codigo != cod) {
 
                 strtok(arrHosp[i].nome, "\r");
@@ -309,62 +491,97 @@ void deletarHospedeTXT(int cod) {
 
         fclose(hosp);
         free(arrHosp);
+        /*
+        remove o arquivo antigo e renomeia o arquivo temporário, que agora será 
+        o arquivo atualizado
+         */
         remove(".\\arquivos\\hospedes.txt");
         rename(".\\arquivos\\hospedes_temp.txt", ".\\arquivos\\hospedes.txt");
     }
 }
 
+/*
+ * FUNÇÃO: deletarHospedeBIN 
+ * 
+ * Deleta um Hóspede específico no arquivo BIN.
+ * Este método copia todos os hóspedes cadastrados para um arquivo temporário,
+ * exceto o hóspede que será deletado.
+ * PARÂMETROS: 
+ * 
+ * cod - código do hóspede que será deletado.
+ * 
+ * RETORNO: void
+ */
 void deletarHospedeBIN(int cod) {
 
     FILE* hosp = fopen(".\\arquivos\\hospedes_temp.bin", "wb");
     if (hosp == NULL) {
         printf("ERRO");
     } else {
+        //pega todos os hóspedes
         int numHospedes = 0;
         Hospede* arrHosp = getAllHospedesBIN(&numHospedes);
 
         for (int i = 0; i < numHospedes; i++) {
+            //copia os dados dos hóspedes que não serão deletados
             if (arrHosp[i].codigo != cod) {
                 Hospede h = arrHosp[i];
                 //printf("NÃO VAI DELETAR: COD %d == %d\n",arrHosp[i].codigo,h.codigo);
                 fwrite(&h, sizeof (Hospede), 1, hosp);
 
-            } else {
+            } /*else {
                 Hospede h2 = arrHosp[i];
-                //printf("É ESSE AQUI QUE VAI DELETAR: COD %d == %d\n",arrHosp[i].codigo,h2.codigo);
-            }
+                printf("É ESSE AQUI QUE VAI DELETAR: COD %d == %d\n",arrHosp[i].codigo,h2.codigo);
+            }*/
 
         }
 
         fclose(hosp);
         free(arrHosp);
+        /*
+        remove o arquivo antigo e renomeia o arquivo temporário, que agora será 
+        o arquivo atualizado
+         */
         remove(".\\arquivos\\hospedes.bin");
         rename(".\\arquivos\\hospedes_temp.bin", ".\\arquivos\\hospedes.bin");
     }
 }
 
-
+/*
+ * FUNÇÃO: getNumHospedes 
+ * 
+ * Calcula o número de hóspedes cadastrados no arquivo TXT com base no número
+ * de linhas do arquivo
+ * 
+ * PARÂMETROS: nenhum
+ * 
+ * RETORNO: Retorna o número de Hóspedes 
+ * 
+ * OBS: ESTE MÉTODO É SOMENTE USADO PARA A EXTENSÃO TXT
+ */
 int getNumHospedes() {
-    //UTILIZADO APENAS POR FUNÇÕES TXT
-    //CALCULA O NÚMERO DE HÓSPEDES A PARTIR DA QTE DE LINHAS DO ARQUIVO.
-    
+
+
     FILE *arq;
     int numLinhas = 0, numHospedes = 0;
     char c;
+    //tenta abrir o arquivo, se não conseguir cria um novo.
     arq = fopen(".\\arquivos\\hospedes.txt", "r");
     if (arq == NULL) {
         arq = fopen(".\\arquivos\\hospedes.txt", "w");
-        if (arq == NULL){
+        if (arq == NULL) {
             printf("ERRO AO ACESSAR ARQUIVO");
         }
         return 0;
     }
+    //enquando nao for o fim do arquivo...
     while ((c = fgetc(arq)) != EOF) {
-
+        //procura pelo caracter de quebra de linha.
         if (c == '\n') {
             numLinhas++;
         }
     }
+
     numHospedes = numLinhas / 17; // um hóspede gasta 17 linhas no arquivo
 
     //printf("O NÚMERO DE LINHAS DO ARQ É: %d\n", numLinhas);

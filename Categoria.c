@@ -133,7 +133,8 @@ int numLinhasCategoria() {
 
 int validarCategoria(int cod) {
     Categoria *cat = listarCategoriaTXT();
-    int lin = sizeof (*cat) / sizeof (Categoria);
+    //int lin = sizeof (*cat) / sizeof (Categoria);
+    int lin = numLinhasCategoria();
     int i;
     for (i = 0; i < lin; i++) {
         if (cod == cat[i].codigo) {

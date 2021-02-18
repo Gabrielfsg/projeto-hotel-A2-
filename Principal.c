@@ -239,29 +239,25 @@ void subReservas() {
     while (opc >= 0) {
         printf("******* Reservas **********\n");
         printf("1.Cadastrar Reserva.\n");
-        printf("2.Alterar Reservas.\n");
-        printf("3.Visualizar Reservas Disponiveis.\n");
-        printf("4.Visualizar Reservas Não Disponiveis.\n");
-        printf("5.Cancelar Reserva.\n");
-        printf("6.Voltar.\n");
+        printf("2.Visualizar Reservas Disponiveis.\n");
+        printf("3.Visualizar Reservas Cadastradas.\n");
+        printf("4.Cancelar Reserva.\n");
+        printf("5.Voltar.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
                 cadReserva();
                 break;
             case 2:
-
-                break;
-            case 3:
                 subVisualizarReservas();
                 break;
-            case 4:
-                
+            case 3:
+                listarReserva();
                 break;
-            case 5:
+            case 4:
                 CancelarReserva();
                 break;
-            case 6:
+            case 5:
                 menuPrincipal();
                 break;
             default:

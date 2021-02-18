@@ -55,12 +55,21 @@ void menuCRUDProdConsumo() {
     }
 }
 
+/*
+ * FUNÇÃO: cadastrarProdConsumoControl 
+ * 
+ * Cadastra um Produto, validando o código e verificando a extensão do arquivo 
+ * 
+ * PARÂMETROS: nenhum
+ * 
+ * RETORNO: Void
+ */
 void cadastrarProdConsumoControl() {
     printf("***** CADASTRAR PRODUTO *****\n");
     Produto p;
     int cod;
-    int ext = listar();
-    //PEGA OS DADOS
+    int ext = listar();//pega a extensão do arquivo
+
     printf("Digite o cod do Produto \n");
     scanf("%d%*c", &cod);
     //valida para ver se já existe
@@ -70,7 +79,7 @@ void cadastrarProdConsumoControl() {
         p.codigo = cod;
 
 
-
+        //PEGA OS DADOS
         printf("Digite a descrição do Produto \n");
         //scanf("%[^\n]s%*c", &p.descricao); 
         fgets(p.descricao, 101, stdin);
@@ -99,8 +108,8 @@ void cadastrarProdConsumoControl() {
         printf("PV: %.2f\n",p.precoVenda);
         printf("#############\n");
          */
-        //VERIFICAR EXTENSÃO DO ARQUIVO
 
+        //VERIFICAR EXTENSÃO DO ARQUIVO
         if (ext == 2) {
             //BIN
             int retorno = cadastrarProdutoBIN(p);
@@ -123,31 +132,41 @@ void cadastrarProdConsumoControl() {
     }
 }
 
+/*
+ * FUNÇÃO: atualizarProdConsumoControl 
+ * 
+ * Atualiza os dados de um Produto específico, na extensão escolhida.
+ * 
+ * PARÂMETROS: nenhum
+ * 
+ * RETORNO: void
+ */
 void atualizarProdConsumoControl() {
     printf("***** ALTERAR DADOS DO PRODUTO *****\n");
     int cod;
     Produto novoProduto;
-    int ext = listar();
+    int ext = listar(); //pega a extensão do arquivo
     printf("Digite o cod do Produto \n");
     scanf("%d%*c", &cod);
 
     if (validarCodProdConsumo(cod, ext) == 1) {
-        //COD NAO EXISTE
+        printf("CÓDIGO NÃO CADASTRADO\n");
         return;
     } else {
         novoProduto.codigo = cod;
 
-        printf("Digite a descrição do produto\n");
+        //pega os dados
+        printf("Digite a nova descrição do produto\n");
         fgets(novoProduto.descricao, 101, stdin);
         strtok(novoProduto.descricao, "\n");
 
-        printf("Digite o estoque do Produto \n");
+        printf("Digite o novo estoque do Produto \n");
         scanf("%d%*c", &novoProduto.estoque);
-        printf("Digite o estoque minimo do Produto \n");
+        printf("Digite o novo estoque minimo do Produto \n");
         scanf("%d%*c", &novoProduto.estoqueMinimo);
-        printf("Digite o preco de custo do Produto \n");
+        printf("Digite o novo preco de custo do Produto \n");
         scanf("%f%*c", &novoProduto.precoCusto);
-        printf("Digite o preco de venda do Produto \n");
+        printf("Digite o novo preco de venda do Produto \n");
         scanf("%f%*c", &novoProduto.precoVenda);
 
         if (ext == 2) {
@@ -161,6 +180,16 @@ void atualizarProdConsumoControl() {
     }
 }
 
+/*
+ * FUNÇÃO: listarProdConsumoControl 
+ * 
+ * Mostra os dados completos de todos os Produtos cadastrados
+ * na extensão escolhida. 
+ * 
+ * PARÂMETROS: nenhum
+ * 
+ * RETORNO: Void
+ */
 void listarProdConsumoControl() {
     //VERIFICAR EXTENSÃO DO ARQUIVO
     int ext = listar();
@@ -194,6 +223,15 @@ void listarProdConsumoControl() {
     printf("\n FIM DA LISTA DE PRODUTOS \n");
 }
 
+/*
+ * FUNÇÃO: getProdConsumoByCodControl 
+ * 
+ * Busca um Produto específico por código, na extensão escolhida
+ * 
+ * PARÂMETROS: nenhum
+ * 
+ * RETORNO: retorna o Produto, se encontrado, ou termina a função, se não encontrado
+ */
 Produto getProdConsumoByCodControl() {
 
     Produto prod;
@@ -204,7 +242,7 @@ Produto getProdConsumoByCodControl() {
     int ext = listar();
     //VALIDAÇÃO DO COD
     if (validarCodProdConsumo(cod, ext) == 1) {
-        //COD NAO EXISTE
+        printf("CÓDIGO NÃO CADASTRADO\n");
         return;
     } else {
 
@@ -214,8 +252,8 @@ Produto getProdConsumoByCodControl() {
         }
         if (ext == 1) {
             //TXT
-            numProdutos = getNumProdConsumo();
-            prod = getProdutoByCodTXT(cod, numProdutos);
+            //numProdutos = getNumProdConsumo();
+            prod = getProdutoByCodTXT(cod);
         }
 
         printf("INFORMAÇÕES DO PRODUTO: \n");
@@ -232,6 +270,15 @@ Produto getProdConsumoByCodControl() {
     }
 }
 
+/*
+ * FUNÇÃO: deletarProdConsumoControl 
+ * 
+ * Deleta um Produto específico, na extensão escolhida.
+ * 
+ * PARÂMETROS: nenhum
+ * 
+ * RETORNO: void
+ */
 void deletarProdConsumoControl() {
     printf("***** DELETAR PRODUTO *****\n");
 
@@ -243,10 +290,11 @@ void deletarProdConsumoControl() {
     int ext = listar();
     //VALIDAÇÃO DO COD 
     if (validarCodProdConsumo(cod, ext) == 1) {
-        //COD NAO EXISTE
+        printf("CÓDIGO NÃO CADASTRADO\n");
         return;
     }
 
+    //com um código válido, busca o produto.
     if (ext == 2) {
         //BIN
         p = getProdutoByCodBIN(cod);
@@ -254,10 +302,11 @@ void deletarProdConsumoControl() {
     }
     if (ext == 1) {
         //TXT
-        int numProdutos = getNumProdConsumo();
-        p = getProdutoByCodTXT(cod, numProdutos);
+        //int numProdutos = getNumProdConsumo();
+        p = getProdutoByCodTXT(cod);
     }
 
+    //mostra o produto e pede uma confirmação do usuário
     printf("INFORMAÇÕES DO PRODUTO: \n");
     printf("***************\n");
     printf("COD: %d\n", p.codigo);
@@ -274,12 +323,12 @@ void deletarProdConsumoControl() {
     if (confirmacao == 'S' || confirmacao == 's') {
 
         if (ext == 2) {
-            ////////BIN
+            //BIN
             deletarProdutoBIN(cod);
 
         }
         if (ext == 1) {
-            ////////TXT
+            //TXT
             deletarProdutoTXT(cod);
         }
 
@@ -290,44 +339,25 @@ void deletarProdConsumoControl() {
     printf("PRODUTO DELETADO\n");
 }
 
-int getNumProdConsumo() {
-    //APENAS PARA TXT
-    FILE *arq;
-    int numLinhas = 0, numProdutos = 0;
-    char c;
-    arq = fopen(".\\arquivos\\produtos.txt", "r");
-    if (arq == NULL) {
-        arq = fopen(".\\arquivos\\produtos.txt", "w");
-        if(arq == NULL){
-            printf("ERRO AO ACESSAR ARQUIVO");
-            exit(1);
-        }
-        
-        return 0;
-    }
-    while ((c = fgetc(arq)) != EOF) {
 
-        if (c == '\n') {
-            numLinhas++;
-        }
-    }
-    numProdutos = numLinhas / 6;
-
-    //printf("O NÚMERO DE LINHAS DO ARQ É: %d\n", numLinhas);
-    //printf("O NÚMERO DE PRODS CADASTRADOS É: %d\n", numProdutos);
-    fclose(arq);
-    free(arq);
-    return numProdutos;
-
-}
-
+/*
+ * FUNÇÃO: validarCodProdConsumo 
+ * 
+ * Valida o código de um Produto, na extensão escolhida.
+ * 
+ * PARÂMETROS: 
+ * 
+ * cod - o código que será verificado
+ * ext - a extensão do arquivo
+ * 
+ * RETORNO: retorna 1 se o cod não existe, ou 0, se já existe
+ */
 int validarCodProdConsumo(int cod, int ext) {
-    //RETORNA 1 SE O COD NÃO EXISTE
-    //RETORNA 0 SE O COD JÁ EXISTE
-    //printf("ENTROU VALIDAÇÃO\n");
+    
     int codExistente = 1;
     Produto* arrayProdutos;
     int numProdutos = 0;
+    //pega todos dos produtos, de acordo com a extensão
     if (ext == 2) {
         //BIN
         arrayProdutos = getAllProdutoBIN(&numProdutos);
@@ -338,6 +368,7 @@ int validarCodProdConsumo(int cod, int ext) {
         arrayProdutos = getAllProdutoTXT(numProdutos);
     }
 
+    //verifica se o cod existe
     int i;
     for (i = 0; i < numProdutos; i++) {
         if (cod == arrayProdutos[i].codigo) {
