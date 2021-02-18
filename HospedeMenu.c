@@ -53,12 +53,22 @@ void menuCRUDHospedes() {
     }
 }
 
+/*
+ * FUNÇÃO: cadastrarHospedesControl 
+ * 
+ * Cadastra um hóspede, validando o código e verificando a extensão do arquivo 
+ * 
+ * PARÂMETROS: nenhum
+ * 
+ * RETORNO: Void
+ */
 void cadastrarHospedesControl() {
     printf("***** CADASTRAR HÓSPEDE *****\n");
     int cod;
     Hospede h;
     //pega a extensão do arquivo
     int ext = listar();
+
     //pega os dados
     printf("Digite o cod do hóspede \n");
     scanf("%d%*c", &cod);
@@ -68,14 +78,14 @@ void cadastrarHospedesControl() {
     } else {
         h.codigo = cod;
     }
-    
+
     printf("Digite o nome do hóspede \n");
     //scanf("%[^\n]s%*c", &h.nome); 
     fgets(h.nome, 101, stdin);
     strtok(h.nome, "\n"); // Esse comando serve para retirar o \n que o fgets coloca no final da string lida
 
     printf("Digite o cpf do hóspede (apenas números) \n");
-    fgets(h.cpf, 13, stdin); // tamanho 13 porque tem o \0 e o fgets adciona uma quebra de linha no final(?)
+    fgets(h.cpf, 13, stdin); // tamanho 13 porque tem o \0 e o fgets adciona uma quebra de linha no final
     strtok(h.cpf, "\n");
 
     setbuf(stdin, NULL); // limpa o buffer
@@ -144,24 +154,41 @@ void cadastrarHospedesControl() {
     printf("Digite o Número do endereço \n");
     scanf("%d%*c", &h.endereco.numero);
 
-    
+
     //CADASTRA DE ACORDO COM A EXTENSÃO DO ARQUIVO
+    int retorno = 0;
     if (ext == 2) {
         //BIN
-        cadastrarHospedesBIN(h);
+        retorno = cadastrarHospedesBIN(h);
+        printf("\nHOSPEDE CADASTRADO COM SUCESSO\n");
     }
     if (ext == 1) {
         //TXT
-        cadastrarHospedesTXT(h);
-        printf("\nHOSPEDE CADASTRADO COM SUCESSO\n");
+        retorno = cadastrarHospedesTXT(h);
     }
-    
+
+    if (retorno > 0) {
+        printf("\nHOSPEDE CADASTRADO COM SUCESSO\n");
+    } else {
+        printf("ERRO AO CADASTRAR HOSPEDE\n");
+    }
 }
 
+/*
+ * FUNÇÃO: listarHospedesControl 
+ * 
+ * Mostra os dados completos de todos os hóspedes cadastrados
+ * na extensão escolhida. 
+ * 
+ * PARÂMETROS: nenhum
+ * 
+ * RETORNO: Void
+ */
 void listarHospedesControl() {
-    int numHospedes = 0; // será atualizado, para poder mostrar todos os hóspedes;
+    int numHospedes = 0; // o valor será atualizado, para poder mostrar todos os hóspedes;
     Hospede* arrayHospedes;
     printf("LISTA DE TODOS OS HÓSPEDES \n");
+
     //pega a extensão do arquivo
     int ext = listar();
     if (ext == 2) {
@@ -175,8 +202,9 @@ void listarHospedesControl() {
 
     }
 
+    //lista os hóspedes
     for (int i = 0; i < numHospedes; i++) {
-        //lista os hóspedes
+
         printf("***************\n");
         printf("COD: %d\n", arrayHospedes[i].codigo);
         printf("NOME: %s\n", arrayHospedes[i].nome);
@@ -198,11 +226,21 @@ void listarHospedesControl() {
         printf("***************\n");
     }
     printf("\n FIM DA LISTA DE HÓSPEDES \n");
-
     //printf("NUMHOSPEDES: %d\n", numHospedes);
+
+    //libera memória
     free(arrayHospedes);
 }
 
+/*
+ * FUNÇÃO: getHospedeByCodControl 
+ * 
+ * Busca um Hóspede específico por código, na extensão escolhida
+ * 
+ * PARÂMETROS: nenhum
+ * 
+ * RETORNO: retorna o Hóspede, se encontrado, ou termina a função, se não encontrado
+ */
 Hospede getHospedeByCodControl() {
     Hospede hos;
     int cod;
@@ -211,6 +249,7 @@ Hospede getHospedeByCodControl() {
     printf("Digite o código do Hóspede que deseja procurar:\n");
     scanf("%d%*c", &cod);
 
+    //valida se o cod digitado existe
     if (validarCodHospede(cod, ext) == 1) {
         printf("COD INEXISTENTE\n");
         return;
@@ -222,12 +261,13 @@ Hospede getHospedeByCodControl() {
         }
         if (ext == 1) {
             //TXT
-            int numHospede = getNumHospedes();
-            hos = getHospedeByCodTXT(cod, numHospede);
+            //int numHospede = getNumHospedes();
+            hos = getHospedeByCodTXT(cod);
 
         }
     }
 
+    //EXIBE O HÓSPEDE ENCONTRADO
     printf("INFORMAÇÕES DO HÓSPEDE: \n");
     printf("***************\n");
     printf("COD: %d\n", hos.codigo);
@@ -253,6 +293,15 @@ Hospede getHospedeByCodControl() {
 
 }
 
+/*
+ * FUNÇÃO: atualizarHospedesControl 
+ * 
+ * Atualiza os dados de um Hóspede específico, na extensão escolhida.
+ * 
+ * PARÂMETROS: nenhum
+ * 
+ * RETORNO: void
+ */
 void atualizarHospedesControl() {
     printf("***** ALTERAR DADOS DO HÓSPEDE *****\n");
 
@@ -260,6 +309,8 @@ void atualizarHospedesControl() {
     //pega a extensão do arquivo
     int ext = listar();
     Hospede novoHosp;
+
+    //pega o cod e valida para ver se o Hóspede existe
     printf("Digite o cod do hóspede \n");
     scanf("%d%*c", &cod);
     if (validarCodHospede(cod, ext) == 0) {
@@ -273,7 +324,7 @@ void atualizarHospedesControl() {
         strtok(novoHosp.nome, "\n"); // Esse comando serve para retirar o \n que o fgets coloca no final da string lida
 
         printf("Atualize o cpf do hóspede (apenas números) \n");
-        fgets(novoHosp.cpf, 13, stdin); // tamanho 13 porque tem o \0 e o fgets adciona uma quebra de linha no final(?)
+        fgets(novoHosp.cpf, 13, stdin); // tamanho 13 porque tem o \0 e o fgets adciona uma quebra de linha no final
         strtok(novoHosp.cpf, "\n");
 
         setbuf(stdin, NULL); // limpa o buffer
@@ -364,6 +415,7 @@ void atualizarHospedesControl() {
         printf("NUMERO: %d\n", novoHosp.endereco.numero);
         printf("UF: %s\n", novoHosp.endereco.uf);
         printf("***************\n");
+
         //ATUALIZA DE ACORDO COM A EXTENSÃO DO ARQUIVO
         if (ext == 2) {
             //BIN
@@ -373,7 +425,6 @@ void atualizarHospedesControl() {
             //TXT
             atualizarHospedeTXT(novoHosp);
         }
-        //
 
         printf("ALTERAÇÃO CONCLUÍDA\n");
 
@@ -382,6 +433,15 @@ void atualizarHospedesControl() {
     }
 }
 
+/*
+ * FUNÇÃO: deletarHospedesControl 
+ * 
+ * Deleta um Hóspede específico, na extensão escolhida.
+ * 
+ * PARÂMETROS: nenhum
+ * 
+ * RETORNO: void
+ */
 void deletarHospedesControl() {
     printf("***** DELETAR HÓSPEDE *****\n");
 
@@ -390,10 +450,12 @@ void deletarHospedesControl() {
     int cod;
     //pega a extensão do arquivo
     int ext = listar();
+
+    //pega o cod e valida para ver se o Hóspede existe
     printf("Digite o cod do hóspede \n");
     scanf("%d%*c", &cod);
     if (validarCodHospede(cod, ext) == 1) {
-        
+
         printf("COD INEXISTENTE\n");
         return;
     } else {
@@ -403,7 +465,7 @@ void deletarHospedesControl() {
         }
         if (ext == 1) {
             int numHospedes = getNumHospedes();
-            h = getHospedeByCodTXT(cod, numHospedes);
+            h = getHospedeByCodTXT(cod);
         }
 
 
@@ -449,14 +511,24 @@ void deletarHospedesControl() {
 
 }
 
+/*
+ * FUNÇÃO: validarCodHospede 
+ * 
+ * Valida o código de um Hóspede, na extensão escolhida.
+ * 
+ * PARÂMETROS: 
+ * 
+ * cod - o código que será verificado
+ * ext - a extensão do arquivo
+ * 
+ * RETORNO: retorna 1 se o cod não existe, ou 0, se já existe
+ */
 int validarCodHospede(int cod, int ext) {
-    //RETORNA 1 SE O COD NÃO EXISTE
-    //RETORNA 0 SE O COD JÁ EXISTE
     //printf("ENTROU VALIDAÇÃO\n");
     int codExistente = 1;
     Hospede* arrHospedes;
     int numHospedes = 0;
-
+    //pega todos dos hospedes, de acordo com a extensão
     if (ext == 2) {
         //BIN
         arrHospedes = getAllHospedesBIN(&numHospedes);
@@ -467,11 +539,12 @@ int validarCodHospede(int cod, int ext) {
         arrHospedes = getAllHospedesTXT(numHospedes);
     }
 
+    //verifica se o cod existe
     int i;
     for (i = 0; i < numHospedes; i++) {
         if (cod == arrHospedes[i].codigo) {
             codExistente = 0;
-            //printf("ACHOU COD : %d = %d\n",cod,arrHospedes[i].codigo);
+            //printf("ACHOU COD HOSP : %d = %d\n",cod,arrHospedes[i].codigo);
         }
     }
     free(arrHospedes);

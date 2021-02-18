@@ -34,6 +34,7 @@ int cadastrarReservaTXT(Reserva aco) {
     // abre o arquivo com o cursor no final
     arq = fopen("arquivos\\ReservaTXT.txt", "a");
     if (arq == NULL) {
+         
         // se ele não existir cria um
         arq = fopen("arquivos\\ReservaTXT.txt", "w");
         if (arq == NULL) {
@@ -47,6 +48,7 @@ int cadastrarReservaTXT(Reserva aco) {
     fclose(arq);
     //libera memoria
     free(arq);
+    printf("DEBUG: ENTROU AQUI\n");
     return 1;
 }
 //metodo salva, sobrescrevendo o array de tamanho num
@@ -293,7 +295,7 @@ Reserva * listarReservaBIN(int *numLinha) {
     return aco;
 }
 
-Reserva * listarResTXT() {
+/*Reserva * listarResTXT() {
     int numOL = 0, i = 0;
     FILE* arq;
     numOL = contarLinhasResTXT(arq);
@@ -332,9 +334,9 @@ Reserva * listarResTXT() {
     //libera memoria
     free(arq);
     return res;
-}
+}*/
 
-int editarReservaBIN(Reserva aco, int posi) {
+/*int editarReservaBIN(Reserva aco, int posi) {
     FILE *arquivo;
     //abre arquivo para leitura e escrita, ele deve existir "r+b"
     arquivo = fopen("arquivos\\ReservaBIN.bin", "r+b");
@@ -352,7 +354,7 @@ int editarReservaBIN(Reserva aco, int posi) {
     //libera memoria
     free(arquivo);
     return 1;
-}
+}*/
 
 int validarReservaBIN(int cod) {
     int num;
@@ -369,14 +371,14 @@ int validarReservaBIN(int cod) {
     return 0;
 }
 
-int removerReservaBIN() {
+/*int removerReservaBIN() {
     int status = remove("arquivos\\ReservaBIN.bin");
     if (status != 0) {
         printf("\nErro na remoção do arquivo.\n");
         return 0;
     }
     return 1;
-}
+}*/
 
 //Tales
 

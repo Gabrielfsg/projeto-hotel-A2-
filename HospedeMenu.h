@@ -18,7 +18,6 @@
 void menuCRUDHospedes();
 void cadastrarHospedesControl();
 void listarHospedesControl();
-Hospede* getAllHospedesControl();
 Hospede getHospedeByCodControl();
 void atualizarHospedesControl();
 void deletarHospedesControl();

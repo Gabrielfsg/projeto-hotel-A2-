@@ -29,7 +29,7 @@ void reservaPQuantidade() {
     Categoria *cat;
     Reserva *res;
     //n = contarLinhasResTXT();
-    //res = listarResTXT();
+    res = listarReservaTXT();
     Hospede *arrayHospedes;
     int achou = 0;
     int achouD = 0, achouR = 0;
@@ -37,7 +37,7 @@ void reservaPQuantidade() {
     int codReserva;
     if (bd == 1) {
         num4 = numReserva();
-        res = listarResTXT();
+        res = listarReservaTXT();
         num = numLinhasAcomodacao();
         aco = listarAcomodacaoTXT();
         num2 = numLinhasCategoria();
@@ -316,12 +316,13 @@ void reservaCombCriterios() {
     Categoria categoriaDaReserva;
     Acomodacao acomodacaoDaReserva;
     Acomodacao* arrayAllAcomod;
+    Acomodacao* arrayAcomodacoesDisponiveis;
     Categoria *arrayAllCat;
     Reserva reserva;
     Hospede* arrayAllhosp;
 
 
-    int numHospedes = 0, numLinhaAcomod, numLinhaCat;
+    int numHospedes = 0, numLinhaAcomod, numLinhaCat, numAcomodDisponivel = 0;
     int codHosp, codCat, codAcomod = 0;
 
 
@@ -359,14 +360,16 @@ void reservaCombCriterios() {
 
     printf("Digite o código do Hospede Responsável:\n");
     scanf("%d%*c", &codHosp);
+    printf("DEBUG: COD HOSP = %d\n",codHosp);
     if (validarCodHospede(codHosp, ext) == 1) {
         printf("CÓDIGO DO HÓSPEDE NÃO EXISTE\n");
         return;
     } else {
+        
         printf("NUM HOSPEDES = %d\n", numHospedes);
         for (int i = 0; i < numHospedes; i++) {
-            if (codHosp = arrayAllhosp[i].codigo) {
-                printf("ACHOU O HOSPEDE NO ARRAY");
+            if (codHosp == arrayAllhosp[i].codigo) {
+                printf("ACHOU O HOSPEDE NO ARRAY ()\n");
                 reserva.codH = codHosp;
                 reserva.hospede = arrayAllhosp[i];
             }
@@ -436,27 +439,32 @@ void reservaCombCriterios() {
     printf("Digita o ano da data do fim da reserva:\n");
     scanf("%d%*c", &dataFim.ano);
 
+    arrayAcomodacoesDisponiveis = listarAcomodacoesDisponiveis(dataIn, dataFim, &numAcomodDisponivel);
 
     printf("************* LISTA DE QUARTOS DISPONÍVEIS *************\n");
-    for (int i = 0; i < numLinhaAcomod; i++) {
-        if (arrayAllAcomod[i].categoria.codigo == codCat) {
+    for (int i = 0; i < numAcomodDisponivel; i++) {
+       // printf("******** %d *********\n", numAcomodDisponivel);
+        //printf("COD: %d\n",arrayAcomodacoesDisponiveis[i].codigo);
+        //printf("DESC: %d\n",arrayAcomodacoesDisponiveis[i].codigo);
+        if (arrayAcomodacoesDisponiveis[i].categoria.codigo == codCat) {
             //VERIFICAR SE "STATUS" = LIVRE
             printf("*****************\n");
-            printf("CODIGO: %d\n", arrayAllAcomod[i].codigo);
-            printf("DESC: %s\n", arrayAllAcomod[i].descricao);
+            printf("CODIGO: %d\n", arrayAcomodacoesDisponiveis[i].codigo);
+            printf("DESC: %s\n", arrayAcomodacoesDisponiveis[i].descricao);
             printf("*****************\n");
-
+             
         }
     }
+    printf("O NÚMERO DE ACOMODAÇÕES DISPONÍVEIS É %d\n", numAcomodDisponivel);
     printf("************* FIM DA LISTA DE QUARTOS *************\n");
 
     printf("Digite o código do quarto: \n");
     scanf("%d%*c", &codAcomod);
 
     achou = 0;
-    for (int i = 0; i < numLinhaAcomod; i++) {
-        if (arrayAllAcomod[i].codigo == codAcomod) {
-            acomodacaoDaReserva = arrayAllAcomod[i];
+    for (int i = 0; i < numAcomodDisponivel; i++) {
+        if (arrayAcomodacoesDisponiveis[i].codigo == codAcomod) {
+            acomodacaoDaReserva = arrayAcomodacoesDisponiveis[i];
             achou = 1;
         }
     }
@@ -616,7 +624,7 @@ void listarReserva() {
     Reserva *res;
     if (bd == 1) {
         n = numReserva();
-        res = listarResTXT();
+        res = listarReservaTXT();
     } else if (bd == 2) {
         res = listarReservaBIN(&n);
     }
@@ -626,8 +634,8 @@ void listarReserva() {
             printf("COD: %d \n", res[i].codigo);
             printf("DATA INI: %d /%d /%d\n", res[i].DataIn.dia, res[i].DataIn.mes, res[i].DataIn.ano);
             printf("DATA FIM: %d /%d /%d\n", res[i].DataFin.dia, res[i].DataFin.mes, res[i].DataFin.ano);
-            printf("HOSPEDES: %d \n", res[i].codH);
-            printf("Acomodação: %d \n", res[i].codA);
+            printf("HOSPEDES: (%d) - %s \n", res[i].hospede.codigo, res[i].hospede.nome);
+            printf("Acomodação: (%d) - %s \n", res[i].acomodacao.codigo, res[i].acomodacao.descricao);
             printf("\n");
         }
 
@@ -645,7 +653,7 @@ void listarReserva() {
     }
 }
 
-int contarLinhasResTXT() {// contar linhas arq txt
+/*int contarLinhasResTXT() {// contar linhas arq txt
 
     FILE *listOperador;
     int numOL = 0, c, numF;
@@ -673,7 +681,7 @@ int contarLinhasResTXT() {// contar linhas arq txt
 
 
 
-}
+}*/
 
 
 //Daniel
@@ -708,6 +716,7 @@ void reservarPorData() {
         scanf("%d%*c", &dataFim.ano);
         //lista as Acomodações disponiveis no intervalo da data digitada
         aco = listarAcomodacoesDisponiveis(dataIn, dataFim, &num);
+        printf("DEBUG: O NUM É %d\n",num);
         //verifica onde sera uscado os dados
         if (bd == 1) {
             numH = getNumHospedes();
@@ -769,7 +778,7 @@ void reservarPorData() {
             while (aux2 == 0) {
                 printf("Entre com o codigo do hospede desejado: ");
                 scanf("%d*c", &cod);
-                for (i = 0; i < numH; i++) {                    
+                for (i = 0; i < numH; i++) {
                     //se achar
                     if (hos[i].codigo == cod) {
                         aux2 = 1;
@@ -784,13 +793,14 @@ void reservarPorData() {
             // salva a reserva no determinado tipo de salvamento de dados
             int retorno = 0;
             if (bd == 2) {
-                int retorno = cadastrarReservaBIN(&res, 1);
+                retorno = cadastrarReservaBIN(&res, 1);
                 printf("BIN");
             }
             if (bd == 1) {
-                int retorno = cadastrarReservaTXT(res);
+                retorno = cadastrarReservaTXT(res);
             }
 
+            printf("DEBUG: O RETORNO É %d\n", retorno);
             if (retorno >= 1) {
                 printf("Reserva Cadastrada com Sucesso!!\n");
             } else {
@@ -812,7 +822,7 @@ void reservarPorData() {
 }
 //Tales
 
-void * mostrarReservaBIN(int *numLinha) {
+/*void * mostrarReservaBIN(int *numLinha) {
 
     FILE *arquivo;
     //abrea arquivo para leitura apenas "rb"
@@ -825,7 +835,7 @@ void * mostrarReservaBIN(int *numLinha) {
             return NULL;
         }
     }
-    *numLinha = 0;
+ *numLinha = 0;
 
     Reserva re;
     //instancia vetor com tamanho 1 printf("DEBUG 2.5\n");
@@ -836,7 +846,7 @@ void * mostrarReservaBIN(int *numLinha) {
     if (r > 0) {
         do {
             //soma a +1 no tamanho do vetor o qual comessa com 0
-            *numLinha = (*numLinha) + 1;
+ *numLinha = (*numLinha) + 1;
             // realoca o vetor com o tamanho numLinha, a arqa interação ele realoca um a mais
             res = realloc(res, *numLinha * sizeof (Reserva));
             //adicionar o struct o vetor,(numLinha -1) pois o vetor comessa sempre por 0
@@ -854,7 +864,7 @@ void * mostrarReservaBIN(int *numLinha) {
     free(arquivo);
 
     return res;
-}
+}*/
 
 void mostrarReservas() {
     int bd = listar();
@@ -920,26 +930,40 @@ Acomodacao* listarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDi
         res = listarReservaBIN(&numR);
     }
     Acomodacao *aco2 = (Acomodacao*) calloc(numA, sizeof (Acomodacao));
-    //printf("numA = %d ,numR %d ")
+    //printf("numA = %d ,numR %d \n",numA,numR);
     int i, j = 0, k = 0, aux = 0;
     for (i = 0; i < numA; i++) {
         // aco2 = realloc(aco, *numLinha * sizeof (Acomodacao));
         for (j = 0; j < numR; j++) {
             if (aco[i].codigo == res[j].acomodacao.codigo) {
+                //printf("DEBUG: ACOMOD %d ESTÁ NA RESERVA %d (%d == %d), DEVE VERIFICAR A DATA\n",aco[i].codigo,res[j].codigo,res[j].acomodacao.codigo,aco[i].codigo);
                 aux = 1;
                 if (dataDisponivel(in, fin, res[j].DataIn, res[j].DataFin) == 1) {
+               //     printf("DEBUG: ENTROU AQUI\n");
                     aco2[*quantidadeAcoDisponiveis] = aco[i];
                     *quantidadeAcoDisponiveis = (*quantidadeAcoDisponiveis) + 1;
+             //       printf("DEBUG: O QUARTO %d ESTÁ DISPONÍVEL NESSA DATA: TOTAL: %d\n",aco2[(*quantidadeAcoDisponiveis)-1].codigo, *quantidadeAcoDisponiveis);
                 }
             }
         }
         if (aux == 0) {
+           // printf("DEBUG: ACOMOD %d NÃO ESTÁ EM NENHUMA RESERVA, DEVE INCLUIR NO ARRAY\n",aco[i].codigo);
             aco2[*quantidadeAcoDisponiveis] = aco[i];
             *quantidadeAcoDisponiveis = (*quantidadeAcoDisponiveis) + 1;
         }
         aux = 0;
     }
     free(res);
+    /*printf("$$$$$$$$$$$$$$$$$$$$$$\n");
+    printf("QUANTI: %d\n",(*quantidadeAcoDisponiveis));
+    for(int i=0;i<*quantidadeAcoDisponiveis;i++){
+        printf("((((((((((((((((((()))))))))))))))))))\n");
+        printf("COD: %d\n",aco2[i].codigo);
+        printf("DESC: %s\n",aco2[i].descricao);
+        printf("((((((((((((((((((()))))))))))))))))))\n");
+        
+    }
+    */
     return aco2;
 
 }

@@ -29,10 +29,10 @@ void atualizarProdutoTXT(Produto novoProd);
 void atualizarProdutoBIN(Produto novoProd);
 Produto* getAllProdutoTXT(int numProdutos);
 Produto* getAllProdutoBIN(int* numProdutos);
-Produto getProdutoByCodTXT(int cod, int numProdutos);
+Produto getProdutoByCodTXT(int cod);
 Produto getProdutoByCodBIN(int cod);
 void deletarProdutoTXT(int cod);
 void deletarProdutoBIN(int cod);
-
+int getNumProdConsumo();
 #endif /* PRODUTO_H */
 

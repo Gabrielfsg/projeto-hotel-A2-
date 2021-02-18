@@ -37,7 +37,8 @@ void cadReserva() {
                 reservaPQuantidade();
                 break;
             case 4:
-                mostrarReservas();
+                //mostrarReservas();
+                listarReserva();
                 break;
             case 5:
                 reservaCombCriterios();
