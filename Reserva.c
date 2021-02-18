@@ -293,46 +293,7 @@ Reserva * listarReservaBIN(int *numLinha) {
     return aco;
 }
 
-Reserva * listarResTXT() {
-    int numOL = 0, i = 0;
-    FILE* arq;
-    numOL = contarLinhasResTXT(arq);
-    arq = fopen("arquivos\\ReservaTXT", "r");
-    if (arq == NULL) {
-        arq = fopen("arquivos\\ReservaTXT", "w");
-        if (arq == NULL) {
-            printf("\nERRO ao acessar arquivo\n");
-            return 0;
-        }
-    }
-    char t[100];
-    Reserva *res = (Reserva*) calloc(numOL, sizeof (Reserva));
-    for (i = 0; i < numOL; i++) {
-        fgets(t, 100, arq);
-        res[i].codigo = atoi(t);
-        fgets(t, 100, arq);
-        res[i].DataIn.dia = atoi(t);
-        fgets(t, 100, arq);
-        res[i].DataIn.mes = atoi(t);
-        fgets(t, 100, arq);
-        res[i].DataIn.ano = atoi(t);
-        fgets(t, 100, arq);
-        res[i].DataFin.dia = atoi(t);
-        fgets(t, 100, arq);
-        res[i].DataFin.mes = atoi(t);
-        fgets(t, 100, arq);
-        res[i].DataFin.ano = atoi(t);
-        fgets(t, 100, arq);
-        res[i].codH = atoi(t);
-        fgets(t, 100, arq);
-        res[i].codA = atoi(t);
-    }
-    //fecha arquivo
-    fclose(arq);
-    //libera memoria
-    free(arq);
-    return res;
-}
+
 
 int editarReservaBIN(Reserva aco, int posi) {
     FILE *arquivo;

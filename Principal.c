@@ -256,7 +256,7 @@ void subReservas() {
                 subVisualizarReservas();
                 break;
             case 4:
-                listarReserva();
+                
                 break;
             case 5:
                 CancelarReserva();

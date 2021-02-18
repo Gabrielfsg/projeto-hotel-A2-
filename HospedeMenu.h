@@ -18,8 +18,8 @@
 void menuCRUDHospedes();
 void cadastrarHospedesControl();
 void listarHospedesControl();
-Hospede* getAllHospedesControl();
 Hospede getHospedeByCodControl();
+Hospede* getAllHospedesBIN(int* numHospedes);
 void atualizarHospedesControl();
 void deletarHospedesControl();
 int validarCodHospede(int cod, int ext);
