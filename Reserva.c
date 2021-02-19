@@ -211,14 +211,14 @@ int numReserva() {
 }
 
 int validarReserva(int cod) {
-    printf("ENTROU VALIDACAO\n");
+   // printf("ENTROU VALIDACAO\n");
     Reserva *aco = listarReservaTXT();
-    printf("COD = %d\n",cod);
+    //printf("COD = %d\n",cod);
     int achou = 0;
     if (aco != NULL) {
         //int lin = sizeof (*aco) / sizeof (Reserva);
         int lin = numReserva();
-        printf("LIN = %d\n",lin);
+        //printf("LIN = %d\n",lin);
         int i;
         for (i = 0; i <= lin; i++) {
             if (cod == aco[i].codigo) {

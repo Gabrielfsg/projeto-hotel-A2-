@@ -24,7 +24,7 @@ typedef struct acomodacao {
 int cadastrarAcomodacaoTXT(Acomodacao aco);
 int salvarAcomodacaoTXT(Acomodacao *aco, int num);
 Acomodacao* listarAcomodacaoTXT();
-int numLinhasAcomodacao();
+int numAcomodacao();
 int validarAcomodacao(int cod);
 int cadastrarAcomodacaoBIN(Acomodacao *aco, int quantidade);
 Acomodacao* listarAcomodacaoBIN(int *numLinha);

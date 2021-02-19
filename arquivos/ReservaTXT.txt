@@ -5,37 +5,9 @@
 5
 1
 1
-9
-QUARTO NOVE
-3
-livre
-1
-UM
-1
-1
-UM
-F
-UM
-1
+10
+Standart
 2
-3
-4
-BAIRRO 1
-5
-CIDADE 1
-LOGARD 1
-12
-UM
-2
-1
-1
-1
-5
-1
-1
-6
-QUARTO SEIS
-3
 livre
 3
 HOSPEDE TRES
@@ -54,3 +26,31 @@ FORMIGA
 OUTRA CASA
 44
 MG
+3
+2
+1
+1
+4
+1
+1
+10
+Standart
+2
+livre
+1
+UM
+1
+1
+UM
+F
+UM
+1
+2
+3
+4
+BAIRRO 1
+5
+CIDADE 1
+LOGARD 1
+12
+UM

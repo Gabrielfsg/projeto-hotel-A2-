@@ -55,7 +55,7 @@ void listarCategoria() {
     Categoria *cat;
     if (bd == 1) {
         cat = listarCategoriaTXT();
-        num = numLinhasCategoria();
+        num = numCategoria();
     } else if (bd == 2) {
         cat = listarCategoriaBIN(&num);
     } else {
@@ -87,7 +87,7 @@ void atualizarCategoria() {
     int bd = listar();
     if (bd == 1) {
         cat = listarCategoriaTXT();
-        num = numLinhasCategoria();
+        num = numCategoria();
     } else if (bd == 2) {
         listarCategoriaBIN(&num);
     } else {
@@ -184,7 +184,7 @@ int editarCategoriaTXT(Categoria *cat, Categoria c, int num) {
 }
 
 int excluirCategoria(int cod) {
-    int num = numLinhasCategoria();
+    int num = numCategoria();
     Categoria *cat = listarCategoriaTXT();
     int i;
     for (i = 0; i < num; i++) {

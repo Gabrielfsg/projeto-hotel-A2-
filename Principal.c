@@ -30,7 +30,6 @@ void menuPrincipal() {
     int opc = 0;
     while (opc >= 0) {
         printf("******* MENU PRINCIPAL **********\n");
-        //printf("*******    HOTEL    **********\n");
         printf("\n");
         printf("1.Cadastros e Gestão de dados.\n");
         printf("2.Cadastros Hotel (ADM).\n");
@@ -59,10 +58,9 @@ void menuPrincipal() {
                 subReservas();
                 break;
             case 5:
-                subReservas();
+                subRelatorios();
                 break;
             case 6:
-                subRelatorios();
                 break;
             case 7:
                 break;
