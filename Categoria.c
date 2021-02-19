@@ -66,7 +66,7 @@ int salvarCategoriaTXT(Categoria *cat, int num) {
 Categoria* listarCategoriaTXT() {
     int numLinha = 0, i = 0;
     FILE *arquivo;
-    numLinha = numLinhasCategoria(arquivo);
+    numLinha = numCategoria(arquivo);
     //abrea arquivo para leitura apenas "r"
     arquivo = fopen("arquivos\\CategoriaTXT.txt", "r");
     if (arquivo == NULL) {
@@ -80,22 +80,21 @@ Categoria* listarCategoriaTXT() {
     //instancia vetor com tamanho de numLinha
     Categoria *cat = (Categoria*) calloc(numLinha, sizeof (Categoria));
     i = 0;
-    printf("linhas %d \n", numLinha);
-    while (fscanf(arquivo, "%d", &cat[i].codigo) == 1) {
-        //retira o \n do inicio  da string
-        fgetc(arquivo);
-        //pega a string descrição
-        fscanf(arquivo, "%100[a-z A-Z\n]s", cat[i].descricao);
-        //retira o \n do fim da descrição
+
+    char t[100];
+    //printf("linhas %d \n", numLinha);
+
+    for (i = 0; i < numLinha; i++) {
+        fgets(t, 100, arquivo);
+        cat[i].codigo = atoi(t);
+        fgets(cat[i].descricao, 100, arquivo);
         strtok(cat[i].descricao, "\n");
-        fscanf(arquivo, "%d", &cat[i].quantidadePessoas);
-        //retira o \n do inicio da facilidade
-        fgetc(arquivo);
-        fscanf(arquivo, "%100[a-z A-Z\n]s", cat[i].facilidade);
-        //retira o \n do fim da facilidade
+        fgets(t, 100, arquivo);
+        cat[i].quantidadePessoas = atoi(t);
+        fgets(cat[i].facilidade, 100, arquivo);
         strtok(cat[i].facilidade, "\n");
-        fscanf(arquivo, "%f", &cat[i].valorDiario);
-        i++;
+        fgets(t, 100, arquivo);
+        cat[i].valorDiario = atof(t);
     }
     //fecha arquivo
     fclose(arquivo);
@@ -104,7 +103,7 @@ Categoria* listarCategoriaTXT() {
     return cat;
 }
 
-int numLinhasCategoria() {
+int numCategoria() {
     FILE *arquivo;
     int numLinha = 0, c;
     //abre arquivo para leitura "r"
@@ -134,7 +133,7 @@ int numLinhasCategoria() {
 int validarCategoria(int cod) {
     Categoria *cat = listarCategoriaTXT();
     //int lin = sizeof (*cat) / sizeof (Categoria);
-    int lin = numLinhasCategoria();
+    int lin = numCategoria();
     int i;
     for (i = 0; i < lin; i++) {
         if (cod == cat[i].codigo) {
@@ -199,7 +198,7 @@ Categoria * listarCategoriaBIN(int *numLinha) {
             fread(&c, sizeof (Categoria), 1, arquivo);
             //verifica se chegou no fim do arquivo
         } while (!feof(arquivo));
-    }else{
+    } else {
         return NULL;
     }
     //fecha arquivo

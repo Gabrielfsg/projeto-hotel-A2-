@@ -57,7 +57,7 @@ int salvarAcomodacaoTXT(Acomodacao *aco, int num) {
 Acomodacao * listarAcomodacaoTXT() {
     int numLinha = 0, i = 0;
     FILE *arquivo;
-    numLinha = numLinhasAcomodacao(arquivo);
+    numLinha = numAcomodacao(arquivo);
     //area arquivo para leitura apenas "r"
     arquivo = fopen("arquivos\\AcomodacaoTXT.txt", "r");
     if (arquivo == NULL) {
@@ -70,23 +70,17 @@ Acomodacao * listarAcomodacaoTXT() {
     //instancia vetor com tamanho de numLinha
     Acomodacao *aco = (Acomodacao*) calloc(numLinha, sizeof (Acomodacao));
     i = 0;
-    //printf("linhas %d \n", numLinha);
-    while (fscanf(arquivo, "%d", &aco[i].codigo) == 1) {
-        //retira o \n do inicio  da string
-        fgetc(arquivo);
-        //fgetc(arquivo);
-        //pega a string descrição
-        fscanf(arquivo, "%100[a-z A-Z\n]s", aco[i].descricao);
-        //retira o \n do fim da descrição
+    char t[100];
+      for (i = 0; i < numLinha; i++) {
+        fgets(t, 100, arquivo);
+        aco[i].codigo = atoi(t);
+        //fgets(t, 100, arquivo);
+        fgets(aco[i].descricao, 100, arquivo);
         strtok(aco[i].descricao, "\n");
-        fscanf(arquivo, "%d", &aco[i].categoria.codigo);
-        //retira o \n do inicio da status
-        fgetc(arquivo);
-        //fgetc(arquivo);
-        fscanf(arquivo, "%100[a-z A-Z\n]s", aco[i].status);
-        //retira o \n do fim da status
+        fgets(t, 100, arquivo);
+        aco[i].categoria.codigo = atoi(t);
+        fgets(aco[i].status, 100, arquivo);
         strtok(aco[i].status, "\n");
-        i++;
     }
     //fecha arquivo
     fclose(arquivo);
@@ -95,7 +89,7 @@ Acomodacao * listarAcomodacaoTXT() {
     return aco;
 }
 
-int numLinhasAcomodacao() {
+int numAcomodacao() {
     //printf("num linhas");
     FILE *arquivo;
     int numLinha = 0, c;
@@ -126,7 +120,7 @@ int numLinhasAcomodacao() {
 int validarAcomodacao(int cod) {
     Acomodacao *aco = listarAcomodacaoTXT();
     if (aco != NULL) {
-        int lin = numLinhasAcomodacao();
+        int lin = numAcomodacao();
         int i;
         for (i = 0; i < lin; i++) {
             if (cod == aco[i].codigo) {

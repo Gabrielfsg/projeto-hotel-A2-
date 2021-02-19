@@ -54,10 +54,10 @@ void listarAcomodacao() {
     int bd = listar();
     if (bd == 1) {
         //pega a lista de ACOMODAÇÃO do arquivo
-        num = numLinhasAcomodacao();
+        num = numAcomodacao();
         a = listarAcomodacaoTXT();
         c = listarCategoriaTXT();
-        num2 = numLinhasCategoria();
+        num2 = numCategoria();
     } else if (bd == 2) {
         //lista as acomodaçoes e aponta o tamanho do vetor para num
         a = listarAcomodacaoBIN(&num);
@@ -100,7 +100,7 @@ void atualizarAcomodacao() {
     int bd = listar();
     if (bd == 1) {
         //pega a lista de ACOMODAÇÃO do arquivo
-        num = numLinhasAcomodacao();
+        num = numAcomodacao();
         a = listarAcomodacaoTXT();
 
     } else if (bd == 2) {
@@ -179,7 +179,7 @@ void deletarAcomodacao() {
 /****Metodos controle*****/
 
 int cadastrarAcomodacaoControle(Acomodacao cat) {
-    int n = numLinhasAcomodacao();
+    int n = numAcomodacao();
     if (n > 0) {
         int v = validarAcomodacao(cat.codigo);
         if (v == 0) {
@@ -200,7 +200,7 @@ int editarAcomodacaoTXT(Acomodacao *cat, Acomodacao c, int num, int i) {
 }
 
 int excluirAcomodacao(int cod) {
-    int num = numLinhasAcomodacao();
+    int num = numAcomodacao();
     Acomodacao *cat = listarAcomodacaoTXT();
     int i;
     for (i = 0; i < num; i++) {
@@ -277,7 +277,7 @@ int printCategoria(Acomodacao *a) {
     int i;
     if (bd == 1) {
         //pega a lista de ACOMODAÇÃO do arquivo
-        num = numLinhasCategoria();
+        num = numCategoria();
         c = listarCategoriaTXT();
     } else if (bd == 2) {
         //lista as acomodaçoes e aponta o tamanho do vetor para num

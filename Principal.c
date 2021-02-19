@@ -59,10 +59,10 @@ void menuPrincipal() {
                 subReservas();
                 break;
             case 5:
-                subReservas();
+                subRelatorios();
                 break;
             case 6:
-                subRelatorios();
+
                 break;
             case 7:
                 break;

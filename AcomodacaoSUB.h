@@ -24,7 +24,7 @@ int printCategoria(Acomodacao *a);
 int cadastrarAcomodacaoControle(Acomodacao cat) ;
 //
 //lista o tamanho do vetor de categoria do arquivo txt
-int numLinhasAcomodacao();
+//int numAcomodacao();
 
 int editarAcomodacaoTXT(Acomodacao *cat, Acomodacao c, int num, int i) ;
 

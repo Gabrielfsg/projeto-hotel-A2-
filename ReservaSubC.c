@@ -36,8 +36,8 @@ void reservaPQuantidade() {
     if (bd == 1) {
         num4 = numReserva();
         num3 = getNumHospedes();
-        num2 = numLinhasCategoria();
-        num = numLinhasAcomodacao();
+        num2 = numCategoria();
+        num = numAcomodacao();
         aco = listarAcomodacaoTXT();
         cat = listarCategoriaTXT();
         hosp = getAllHospedesTXT(num3);
@@ -296,8 +296,8 @@ void reservaPCategoria() {
     if (bd == 1) {
         num4 = numReserva();
         num3 = getNumHospedes();
-        num2 = numLinhasCategoria();
-        num = numLinhasAcomodacao();
+        num2 = numCategoria();
+        num = numAcomodacao();
         aco = listarAcomodacaoTXT();
         cat = listarCategoriaTXT();
         hosp = getAllHospedesTXT(num3);
@@ -664,8 +664,8 @@ void reservaCombCriterios() {
     if (ext == 1) {
         //TXT
         //numHospedes = getNumHospedes();
-        numLinhaCat = numLinhasCategoria();
-        //numLinhaAcomod = numLinhasAcomodacao();
+        numLinhaCat = numCategoria();
+        //numLinhaAcomod = numAcomodacao();
 
         //arrayAllhosp = getAllHospedesTXT(numHospedes);
         //arrayAllAcomod = listarAcomodacaoTXT();
@@ -949,7 +949,7 @@ void reservarPorData() {
             numH = getNumHospedes();
             hos = getAllHospedesTXT(numH);
             cat = listarCategoriaTXT();
-            num2 = numLinhasCategoria();
+            num2 = numCategoria();
         } else {
             hos = getAllHospedesBIN(&numH);
             cat = listarCategoriaBIN(&num2);
@@ -1152,7 +1152,7 @@ Acomodacao* listarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDi
     if (bd == 1) {
         aco = listarAcomodacaoTXT();
         res = listarReservaTXT();
-        numA = numLinhasAcomodacao();
+        numA = numAcomodacao();
         numR = numReserva();
     } else {
         aco = listarAcomodacaoBIN(&numA);
