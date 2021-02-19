@@ -32,11 +32,11 @@ int cadastrarReservaBIN(Reserva *aco, int quantidade) {
 int cadastrarReservaTXT(Reserva aco) {
     FILE *arq;
     // abre o arquivo com o cursor no final
-    arq = fopen("arquivos\\ReservaTXT", "a");
+    arq = fopen("arquivos\\ReservaTXT.txt", "a");
     if (arq == NULL) {
          
         // se ele não existir cria um
-        arq = fopen("arquivos\\ReservaTXT", "w");
+        arq = fopen("arquivos\\ReservaTXT.txt", "w");
         if (arq == NULL) {
             printf("\nErro ao acessar arquivo\n");
             return 0;
