@@ -32,11 +32,11 @@ int cadastrarReservaBIN(Reserva *aco, int quantidade) {
 int cadastrarReservaTXT(Reserva aco) {
     FILE *arq;
     // abre o arquivo com o cursor no final
-    arq = fopen("arquivos\\ReservaTXT", "a");
+    arq = fopen("arquivos\\ReservaTXT.txt", "a");
     if (arq == NULL) {
          
         // se ele não existir cria um
-        arq = fopen("arquivos\\ReservaTXT", "w");
+        arq = fopen("arquivos\\ReservaTXT.txt", "w");
         if (arq == NULL) {
             printf("\nErro ao acessar arquivo\n");
             return 0;
@@ -211,14 +211,14 @@ int numReserva() {
 }
 
 int validarReserva(int cod) {
-    printf("ENTROU VALIDACAO\n");
+   // printf("ENTROU VALIDACAO\n");
     Reserva *aco = listarReservaTXT();
-    printf("COD = %d\n",cod);
+    //printf("COD = %d\n",cod);
     int achou = 0;
     if (aco != NULL) {
         //int lin = sizeof (*aco) / sizeof (Reserva);
         int lin = numReserva();
-        printf("LIN = %d\n",lin);
+        //printf("LIN = %d\n",lin);
         int i;
         for (i = 0; i <= lin; i++) {
             if (cod == aco[i].codigo) {
