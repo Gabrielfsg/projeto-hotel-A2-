@@ -328,11 +328,11 @@ void reservaPCategoria() {
     if (bd > 0) {
         int aux = 0;
         while (aux == 0) {
-            printf("Entre com o estilo de categoria de pessoas desejada: \n");
-            scanf("%s*c", &opc);
+            //printf("Entre com o estilo de categoria de pessoas desejada: \n");
+            //scanf("%s*c", &opc);
             int i, j;
             for (i = 0; i < num; i++) {
-                if (strcmp(aco[i].descricao, opc) == 0) {
+                //if (strcmp(aco[i].descricao, opc) == 0) {
                     printf("\n**************** %d *****************\n", i);
                     printf("COD: %d\n", aco[i].codigo);
                     printf("DESCRIÇÃO: %s\n", aco[i].descricao);
@@ -347,7 +347,7 @@ void reservaPCategoria() {
                         }
 
                     }
-                }
+                //}
             }
             if (aux == 0) {
                 printf("Acomodação não encontrada. \n");
@@ -868,8 +868,32 @@ int contarLinhasResTXT() {// contar linhas arq txt
 
 
 
-}*/
+}
 
+void listarReserva() {
+    int bd = listar();
+    int n, aux;
+    Reserva *res;
+    if (bd == 1) {
+        n = numReserva();
+        res = listarReservaTXT();
+    } else if (bd == 2) {
+        res = listarReservaBIN(&n);
+    }
+    if (bd > 0) {
+        int i;
+        for (i = 0; i < n; i++) {
+            printf("COD: %d \n", res[i].codigo);
+            printf("DATA INI: %d /%d /%d\n", res[i].DataIn.dia, res[i].DataIn.mes, res[i].DataIn.ano);
+            printf("DATA FIM: %d /%d /%d\n", res[i].DataFin.dia, res[i].DataFin.mes, res[i].DataFin.ano);
+            printf("HOSPEDES: (%d) - %s \n", res[i].hospede.codigo, res[i].hospede.nome);
+            printf("Acomodação: (%d) - %s \n", res[i].acomodacao.codigo, res[i].acomodacao.descricao);
+            printf("\n");
+        }
+
+        free(res);
+    }
+}
 
 //Daniel
 

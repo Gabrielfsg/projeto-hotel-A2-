@@ -201,7 +201,11 @@ void listarHospedesControl() {
         arrayHospedes = getAllHospedesTXT(numHospedes);
 
     }
-
+    //se não existe nenhum hóspede, termina a função
+    if(numHospedes == 0){
+        printf("NENHUM HÓSPEDE CADASTRADO\n");
+        return;
+    }
     //lista os hóspedes
     for (int i = 0; i < numHospedes; i++) {
 
@@ -539,6 +543,10 @@ int validarCodHospede(int cod, int ext) {
         arrHospedes = getAllHospedesTXT(numHospedes);
     }
 
+    //se não existe nenhum hóspede, retorna 1
+    if(numHospedes ==0){
+        return 1;
+    }
     //verifica se o cod existe
     int i;
     for (i = 0; i < numHospedes; i++) {

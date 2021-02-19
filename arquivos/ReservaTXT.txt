@@ -1,41 +1,13 @@
 1
-25
 1
 1
-5
-2
 1
 1
-DESC
-1
-livre
-1
-UM
-1
-1
-UM
-F
-UM
-1
-2
-3
-4
-BAIRRO 1
-5
-CIDADE 1
-LOGARD 1
-12
-UM
-2
-27
 1
 1
 2
+DESC DOIS
 2
-1
-4
-QUARTO QUATRO
-1
 livre
 1
 UM
