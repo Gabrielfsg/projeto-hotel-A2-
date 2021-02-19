@@ -126,7 +126,7 @@ int numLinhasAcomodacao() {
 int validarAcomodacao(int cod) {
     Acomodacao *aco = listarAcomodacaoTXT();
     if (aco != NULL) {
-        int lin = sizeof (*aco) / sizeof (Acomodacao);
+        int lin = numLinhasAcomodacao();
         int i;
         for (i = 0; i < lin; i++) {
             if (cod == aco[i].codigo) {

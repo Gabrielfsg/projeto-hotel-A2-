@@ -15,6 +15,7 @@
 #include "Principal.h"
 #include "Menus.h"
 #include "SalvametoBD.h"
+#include "ReservaSubC.h"
 
 void subArquivo();
 void subCadastros();
@@ -239,25 +240,21 @@ void subReservas() {
     while (opc >= 0) {
         printf("******* Reservas **********\n");
         printf("1.Cadastrar Reserva.\n");
-        printf("2.Visualizar Reservas Disponiveis.\n");
-        printf("3.Visualizar Reservas Cadastradas.\n");
-        printf("4.Cancelar Reserva.\n");
-        printf("5.Voltar.\n");
+        printf("2.Visualizar Reservas Cadastradas.\n");
+        printf("3.Cancelar Reserva.\n");
+        printf("4.Voltar.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
                 cadReserva();
                 break;
             case 2:
-                subVisualizarReservas();
+                mostrarReservas();
                 break;
             case 3:
-                listarReserva();
-                break;
-            case 4:
                 CancelarReserva();
                 break;
-            case 5:
+            case 4:
                 menuPrincipal();
                 break;
             default:
