@@ -199,7 +199,6 @@ void reservaPQuantidade() {
                         if (bd == 1) {
 
                             int validacao = validarReserva(codReserva);
-                            printf("VALID: %d\n", validacao);
 
                             if (validacao == 1) {
                                 printf("COD DA RESERVA JÁ EXISTE\n");
@@ -211,7 +210,6 @@ void reservaPQuantidade() {
                         if (bd == 2) {
 
                             int validacao = validarReservaBIN(codReserva);
-                            printf("VALID: %d\n", validacao);
 
                             if (validacao == 1) {
                                 printf("COD DA RESERVA JÁ EXISTE\n");
@@ -454,24 +452,22 @@ void reservaPCategoria() {
                             if (bd == 1) {
 
                                 int validacao = validarReserva(codReserva);
-                                printf("VALID: %d\n", validacao);
 
                                 if (validacao == 1) {
                                     printf("COD DA RESERVA JÁ EXISTE\n");
                                 } else {
-                                    printf("COD OK!!\n");
+                                    printf("CODIGO DISPONIVEL !!\n");
                                     aux3 = 1;
                                 }
                             }
                             if (bd == 2) {
 
                                 int validacao = validarReservaBIN(codReserva);
-                                printf("VALID: %d\n", validacao);
 
                                 if (validacao == 1) {
                                     printf("COD DA RESERVA JÁ EXISTE\n");
                                 } else {
-                                    printf("COD OK!!\n");
+                                    printf("CODIGO DISPONIVEL !!\n");
                                     aux3 = 1;
                                 }
                             }
