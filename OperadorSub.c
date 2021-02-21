@@ -41,11 +41,12 @@ void cadastrarOperador() {
         strtok(op.senha, "\n");
         setbuf(stdin, NULL);
         printf("Digite a permição: (Numero) \n");
-        scanf("%d%*c", &op.permicao);
+        fgets(op.permicao, 100, stdin);
+        strtok(op.permicao, "\n");
         if (bd == 1) {// txt
-            r = controleCadTXT(op);// chama o metodo que chama o cdastro txt que retorna 0 ou 1
+            r = controleCadTXT(op); // chama o metodo que chama o cdastro txt que retorna 0 ou 1
         } else if (bd == 2) {//bin
-            r = cadastrarOpBin(&op, 1);// chama o metodo que chama o cadastro bin que retorna 0 ou 1
+            r = cadastrarOpBin(&op, 1); // chama o metodo que chama o cadastro bin que retorna 0 ou 1
         }
         if (r == 1) {
             printf("Cadastro Efetuado com sucesso! \n");
@@ -79,7 +80,7 @@ void listarOperador() {
                 printf("\nNome: %s", opera[i].nome);
                 printf("\nUsuario: %s", opera[i].usuario);
                 printf("\nSenha: %s", opera[i].senha);
-                printf("\nPermição: %d", opera[i].permicao);
+                printf("\nPermição: %s", opera[i].permicao);
                 printf("\n");
             }
         } else {
@@ -125,7 +126,9 @@ void atualizarOperador() {
                     strtok(op.senha, "\n");
                     setbuf(stdin, NULL);
                     printf("Digite a permição: (Numero) \n");
-                    scanf("%d%*c", &op.permicao);
+                    fgets(op.permicao, 100, stdin);
+                    strtok(op.permicao, "\n");
+                    setbuf(stdin, NULL);
                     aux = 1;
                     break;
                 } else {
@@ -156,58 +159,64 @@ void deletarOperador() {
     int cod;
     int bd = listar();
     int r;
-    printf("DELETAR: \n");//menu
+    printf("DELETAR: \n"); //menu
     printf("1.DELETAR 1.\n");
     printf("2.Voltar\n");
     scanf("%d", &opc);
-    if (bd > 0) {
-        if (opc == 1) {
-            printf("Entre com o código do operador: ");
-            scanf("%d*c", &cod);// digita o cod que deseja validar
-            if (bd == 1) {//txt
-                r = removerOperadorControleTXT(cod);// chama os metodos que retorna 1 ou 0 sendo 1 exclusão feita com sucesso e 0 que o cod não existe
-            } else {//bin
-                r = removerOpSControleBIN(cod);
+    if (opc >= 1 && opc <= 2) {
+        if (bd > 0) {
+            if (opc == 1) {
+                printf("Entre com o código do operador: ");
+                scanf("%d*c", &cod); // digita o cod que deseja validar
+                if (bd == 1) {//txt
+                    r = removerOperadorControleTXT(cod); // chama os metodos que retorna 1 ou 0 sendo 1 exclusão feita com sucesso e 0 que o cod não existe
+                } else if (bd == 2) {//bin
+                    r = removerOpSControleBIN(cod);
+                }
+                if (r == 1) {
+                    printf("\nExclusão realizada com sucesso!\n");
+                } else {
+                    printf("\nNão foi possivel encontrar operador de codigo %d \n", cod);
+                }
+            } else if (opc == 2) {
+                menuCRUDOperador();
             }
-            if (r == 1) {
-                printf("\nExclusão realizada com sucesso!\n");
-            } else {
-                printf("\nNão foi possivel encontrar operador de codigo %d \n", cod);
-            }
-        } else if (opc == 2) {
-            menuCRUDOperador();
+        } else {
+            printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
         }
     } else {
-        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
+        printf("Digite a opção correta. \n");
     }
 }
 
 int removerOpSControleBIN(int cod) {
     int num;
     OperadorSistema *opera = listarOpBIN(&num);
-
+    int ver;
     int i;
     for (i = 0; i < num; i++) {
         if (opera[i].codigo == cod) {// verifica se o cod existe e coloca os dados no vetor
-            int j;
-            for (j = i; j < num - 1; j++) {
-                opera[i].codigo = opera[i + 1].codigo;
-                strcpy(opera[i].nome, opera[i + 1].nome);
-                strcpy(opera[i].usuario, opera[i + 1].usuario);
-                strcpy(opera[i].senha, opera[i + 1].senha);
-                opera[i].permicao = opera[i + 1].permicao;
-                opera = realloc(opera, (num - 1) * sizeof (OperadorSistema));
-            }
+            opera[i].codigo = opera[i + 1].codigo;
+            strcpy(opera[i].nome, opera[i + 1].nome);
+            strcpy(opera[i].usuario, opera[i + 1].usuario);
+            strcpy(opera[i].senha, opera[i + 1].senha);
+            strcpy(opera[i].permicao, opera[i + 1].permicao);
+            opera = realloc(opera, (num - 1) * sizeof (OperadorSistema));
+            ver = 1;
             break;
-        } else {// se n existir retorna 0
-            return 0;
+        } else {
+            ver = 0;
         }
     }
     //apaga arquivo
-    int r = removerOperadorBIN();
-    if (r == 1) {
-        //se deu certo reescreve arquivo
-        return cadastrarOpBin(opera, (num - 1));
+    if (ver == 1) {
+        int r = removerOperadorBIN();
+        if (r == 1) {
+            //se deu certo reescreve arquivo
+            return cadastrarOpBin(opera, (num - 1));
+        } else {
+            return 0;
+        }
     } else {
         return 0;
     }
@@ -238,7 +247,7 @@ int contarLinhasTXT() {//txt
             numOL++;
         }
     }
-    numF = numOL / 5;
+    numF = numOL / 4;
     fclose(listOperador);
     free(listOperador);
 
@@ -259,7 +268,7 @@ int contarLinhas() {//bin
     //Lendo o arquivo 1 por 1
     while (fread(&c, sizeof (char), 1, listOperador)) {
         if (c == letra) {
-            vezes++;// conta quantas linhas o arq tem
+            vezes++; // conta quantas linhas o arq tem
         }
     }
 
@@ -272,31 +281,41 @@ int contarLinhas() {//bin
 }
 
 int salvarOperadorControleTXT(OperadorSistema* opera, int num) {
-    return salvarOperadorTXT(opera, num);// controle que chama o método de salvamento txt do operador
+    return salvarOperadorTXT(opera, num); // controle que chama o método de salvamento txt do operador
 }
 
 int removerOperadorControleTXT(int cod) {
     int num = contarLinhasTXT();
     OperadorSistema *opera = listarOpTXT();
     int i;
+    int ver;
     for (i = 0; i < num; i++) {
         if (opera[i].codigo == cod) {// verifica o cod e se existir guarda os valores no vetor os realocando n deixando ficar espaço no arquivo
-            int j;
-            for (j = i; j < num - 1; j++) {
-                opera[i].codigo = opera[i + 1].codigo;
-                strcpy(opera[i].nome, opera[i + 1].nome);
-                strcpy(opera[i].usuario, opera[i + 1].usuario);
-                strcpy(opera[i].senha, opera[i + 1].senha);
-                opera[i].permicao = opera[i + 1].permicao;
-                opera = realloc(opera, (num - 1) * sizeof (OperadorSistema));
-            }
+            opera[i].codigo = opera[i + 1].codigo;
+            strcpy(opera[i].nome, opera[i + 1].nome);
+            strcpy(opera[i].usuario, opera[i + 1].usuario);
+            strcpy(opera[i].senha, opera[i + 1].senha);
+            strcpy(opera[i].permicao, opera[i + 1].permicao);
+            opera = realloc(opera, (num - 1) * sizeof (OperadorSistema));
+            ver = 1; // verifica se achou
             break;
-        } else {// se n existir retorna 0
-            return 0;
+
+
+        } else {// se n
+            ver = 0;
         }
+
     }
-    // se existir salva no arquivo txt
-    return salvarOperadorTXT(opera, num - 1);
+
+    if (ver == 1) { //se deu certo reescreve arquivo
+        return salvarOperadorTXT(opera, num - 1);
+    } else {
+        return 0;
+    }
+
+
+
+
 
 }
 

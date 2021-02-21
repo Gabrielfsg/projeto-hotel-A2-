@@ -19,7 +19,7 @@ typedef struct operadorSistema {
     char nome[100];
     char usuario[100];
     char senha[100];
-    int permicao;
+    char permicao[100];
 } OperadorSistema;
 
 int salvarOperadorTXT(OperadorSistema* opera, int num);

@@ -32,9 +32,6 @@ int cadastrarOpBin(OperadorSistema op, int quantidade) {
 }
 
 int cadastrarOpTXT(OperadorSistema opera) {
-    printf("ENTROU CADASTRAR\n");
-    printf("COD = %d\n",opera.codigo);
-    printf("SENHA = %s\n",opera.senha);
     
     FILE *arq;
     //abrea arquivo para escrita e posiciona cursor no final "ab"
@@ -48,7 +45,7 @@ int cadastrarOpTXT(OperadorSistema opera) {
         }
     }
 
-    fprintf(arq, "%d\n%s\n%s\n%s\n", opera.codigo, opera.nome, opera.usuario, opera.senha, opera.permicao);
+    fprintf(arq, "%d\n%s\n%s\n%s\n%s\n", opera.codigo, opera.nome, opera.usuario, opera.senha, opera.permicao);
 
     fclose(arq);
 
@@ -66,7 +63,7 @@ int salvarOperadorTXT(OperadorSistema *opera, int num) {
         int i;
         // grava todos os dados do vetor no arquivo
         for (i = 0; i < num; i++) {
-            fprintf(cade, "%d\n%s\n%s\n%s\n", opera[i].codigo, opera[i].nome, opera[i].usuario, opera[i].senha, opera[i].permicao); // f
+            fprintf(cade, "%d\n%s\n%s\n%s\n%s\n", opera[i].codigo, opera[i].nome, opera[i].usuario, opera[i].senha, opera[i].permicao); // f
         }
     }
     // força salvar arquivo
@@ -145,7 +142,9 @@ OperadorSistema * listarOpTXT() {
         // printf("%s", aco[i].razaoSocial);
         fgets(opera[i].senha, 100, arq);
         strtok(opera[i].senha, "\r\n");
-        opera[i].permicao = atoi(t);
+        
+        fgets(opera[i].permicao, 100, arq);
+        strtok(opera[i].permicao, "\r\n");
     }
     //fecha arquivo
     fclose(arq);
@@ -181,7 +180,7 @@ int editarOperadorTXT(OperadorSistema *opera, OperadorSistema op, int num) {
             strcpy(opera[i].nome, op.nome);
             strcpy(opera[i].usuario, op.usuario);
             strcpy(opera[i].senha, op.senha);
-            opera[i].permicao = op.permicao;
+            strcpy(opera[i].permicao, op.permicao);
         }
     }
 
