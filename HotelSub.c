@@ -280,7 +280,7 @@ void alterarHotel() {
     }
 }
 
-/*int removerHotelControleBIN(int cod) {
+/*int removerHotelControleBIN(int cod) {// metodo que remove n hoteis
     int num;
     Hotel *hot = listarHotelBIN(&num);
     int i;

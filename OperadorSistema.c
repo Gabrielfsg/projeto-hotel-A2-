@@ -48,7 +48,7 @@ int cadastrarOpTXT(OperadorSistema opera) {
         }
     }
 
-    fprintf(arq, "%d\n%s\n%s\n%s\n", opera.codigo, opera.nome, opera.usuario, opera.senha);
+    fprintf(arq, "%d\n%s\n%s\n%s\n", opera.codigo, opera.nome, opera.usuario, opera.senha, opera.permicao);
 
     fclose(arq);
 
@@ -66,7 +66,7 @@ int salvarOperadorTXT(OperadorSistema *opera, int num) {
         int i;
         // grava todos os dados do vetor no arquivo
         for (i = 0; i < num; i++) {
-            fprintf(cade, "%d\n%s\n%s\n%s\n", opera[i].codigo, opera[i].nome, opera[i].usuario, opera[i].senha); // f
+            fprintf(cade, "%d\n%s\n%s\n%s\n", opera[i].codigo, opera[i].nome, opera[i].usuario, opera[i].senha, opera[i].permicao); // f
         }
     }
     // força salvar arquivo
@@ -145,6 +145,7 @@ OperadorSistema * listarOpTXT() {
         // printf("%s", aco[i].razaoSocial);
         fgets(opera[i].senha, 100, arq);
         strtok(opera[i].senha, "\r\n");
+        opera[i].permicao = atoi(t);
     }
     //fecha arquivo
     fclose(arq);
@@ -180,13 +181,14 @@ int editarOperadorTXT(OperadorSistema *opera, OperadorSistema op, int num) {
             strcpy(opera[i].nome, op.nome);
             strcpy(opera[i].usuario, op.usuario);
             strcpy(opera[i].senha, op.senha);
+            opera[i].permicao = op.permicao;
         }
     }
 
-    return salvarOperadorTXT(opera, num);
+    return salvarOperadorTXT(opera, num);// chama o metodo que salva de novo os dados no arquivo
 }
 
-int removerOperadorBIN() {
+int removerOperadorBIN() {// função que remove o arquivo bin
     int status = remove(".\\persist\\operador.bin");
     if (status != 0) {
         printf("\nErro na remoção do arquivo.\n");
@@ -195,7 +197,7 @@ int removerOperadorBIN() {
     return 1;
 }
 
-int removerOperadorTXT() {// exclui o arquivo das pastas
+int removerOperadorTXT() {// função que remove o arquivo txt
     int status = remove(".\\persist\\operadorTXT");
     if (status != 0) {
         printf("\nErro na remoção do arquivo.\n");
