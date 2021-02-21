@@ -137,8 +137,8 @@ Hotel * listarHTXT() {
     }
     char t[100];// vetor de string para armazenar dados
     Hotel *hot = (Hotel*) calloc(numOL, sizeof (Hotel));//vetor do tamanho do numero de linhas
-    for (i = 0; i < numOL; i++) {//pega os dados armazenados
-        fgets(t, 100, arq);// retira o \n
+    for (i = 0; i < numOL; i++) {//pega os dados armazenados no arquivo colocando no vetor
+        fgets(t, 100, arq);// retira o \n 
         hot[i].codigo = atoi(t);
         fgets(hot[i].cnpj, 100, arq);
         strtok(hot[i].cnpj, "\r\n");
