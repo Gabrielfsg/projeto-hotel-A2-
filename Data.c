@@ -212,39 +212,24 @@ int data1maiordata2(Data data1, Data data2) {
 }
 
 int dataDisponivel(Data in1, Data fin1, Data in2, Data fin2) {
-    //in2, fin2 - da reserva que ele ta analisando
-    //in1 fim1 - datas que ele digitou
-    
-    //se a data digitada está no meio de uma reserva
-    //ex Reserva do dia 1/1 até 5/1, ele digitou 2/1 até 4/1 -> a data está no meio da reserva
-    
-    if((in1.dia > in2.dia &&  in1.dia < fin2.dia) && (fin1.dia > in2.dia &&  fin1.dia < fin2.dia) ){
-        //printf("\n\n A data está no meio da reserva\n");
+    // verifica se esta ente duas datas 
+    if (data1maiordata2(in1, in2) && data1maiordata2(fin2, fin1)) {
+        //data não esta disponivel
+        printf("Entre datas!\n");
         return 0;
-    }
-    
-    if(in2.mes<fin2.mes){//o mesmo if de cima, mas adaptado para pegar datas entre meses
-        if((in1.dia> fin1.dia) &&(in1.dia > in2.dia)){
-            if(fin1.dia < fin2.dia){
-                //printf("\n\n A DATA ESTÁ ENTRE MESES\n");
+    } else {
+        Data aux = in1;
+        for (; data1maiordata2(aux, fin1) == 0;) {
+            if (compararDatas(aux, in2) == 1) {
+                //data não esta disponivel
+                return 0;
+            } else if (compararDatas(aux, fin2) == 1) {
+                //data não esta disponivel
                 return 0;
             }
-            //se o dia inicial que ele digitou é maior que o dia final que ele digitou
-            //se o dia inicial que ele digitou é maior que o dia inical da reserva
+            somaDias(&aux, 1);
         }
+        return 1;
     }
-    
-    Data aux = in1;
-    for (; data1maiordata2(aux, fin1) == 0;) {
-        if (compararDatas(aux, in2) == 1) {
-            return 0;
-            break;
-        } else if (compararDatas(aux, fin2) == 1) {
-            return 0;
-            break;
-        }
-        somaDias(&aux, 1);
-    }
-    return 1;
 
 }

@@ -101,17 +101,17 @@ void reservaPQuantidade() {
         if (achou > 0) {// caso houver quantidade prossegue
             int aux1 = 0;
             while (aux1 == 0) {
-                printf("Digite o código da acomodação que deseja: ");// entra com o código da acomodação que foi mostrada
+                printf("Digite o código da acomodação que deseja: "); // entra com o código da acomodação que foi mostrada
                 scanf("%d*c", &cod);
                 if (bd == 1) {
-                    achei = validarAcomodacao(cod);// valida se o cod existe
+                    achei = validarAcomodacao(cod); // valida se o cod existe
                     if (achei == 1) {
                         aux1 = 1;
                     } else {
                         printf("Código da acomodação não existente. \n");
                     }
                 } else if (bd == 2) {
-                    achei = validarAcomodacaoBIN(cod);// valida se o cod existe
+                    achei = validarAcomodacaoBIN(cod); // valida se o cod existe
                     if (achei == 1) {
                         aux1 = 1;
                     } else {
@@ -126,7 +126,7 @@ void reservaPQuantidade() {
                     }
 
                 }
-                printf("Acodação %d selecionada. \n", cod);// acomodação que foi pega
+                printf("Acodação %d selecionada. \n", cod); // acomodação que foi pega
                 // entra com as datas
                 int nq;
                 printf("Digita o dia da data de início da reserva (1-30):\n");
@@ -144,17 +144,17 @@ void reservaPQuantidade() {
                 scanf("%d%*c", &dataFim.ano);
                 //reserva.DataFin = dataFim;
 
-                aco = listarAcomodacoesDisponiveis(dataIn, dataFim, &nq);// lista as validações disponíveis e quantas são no código digitado
+                aco = listarAcomodacoesDisponiveis(dataIn, dataFim, &nq); // lista as validações disponíveis e quantas são no código digitado
                 for (int i = 0; i < nq; i++) {
                     if (aco[i].codigo == cod) {
-                        printf("*****************\n");// mostra os dados das acomodações
+                        printf("*****************\n"); // mostra os dados das acomodações
                         printf("CODIGO: %d\n", aco[i].codigo);
                         printf("DESC: %s\n", aco[i].descricao);
                         printf("*****************\n");
                     }
                 }
-                printf("O NÚMERO DE ACOMODAÇÕES DISPONÍVEIS É %d\n", nq);// numero de acomodações
-                if(nq == 0){// se não houver nenhuma retorna ao menu de cadastro mas se houver prossegue
+                printf("O NÚMERO DE ACOMODAÇÕES DISPONÍVEIS É %d\n", nq); // numero de acomodações
+                if (nq == 0) {// se não houver nenhuma retorna ao menu de cadastro mas se houver prossegue
                     cadReserva();
                 }
                 int aux2 = 0;
@@ -162,9 +162,9 @@ void reservaPQuantidade() {
                     printf("Digite o código do hospede: ");
                     scanf("%d*c", &hos);
                     if (bd == 1) {
-                        achei2 = validarCodHospede(hos, 1);// valida se o cod existe
+                        achei2 = validarCodHospede(hos, 1); // valida se o cod existe
                     } else if (bd == 2) {
-                        achei2 = validarCodHospede(hos, 2);// valida se o cod existe
+                        achei2 = validarCodHospede(hos, 2); // valida se o cod existe
                     }
 
                     if (achei2 == 0) {
@@ -187,12 +187,12 @@ void reservaPQuantidade() {
                     reserva.DataFin = dataFim;
                     int aux3 = 0;
                     while (aux3 == 0) {
-                        printf("Digite o código da Reserva: \n");// entrar com o cod da reserva
+                        printf("Digite o código da Reserva: \n"); // entrar com o cod da reserva
                         scanf("%d%*c", &codReserva);
                         reserva.codigo = codReserva;
                         if (bd == 1) {// txt
 
-                            int validacao = validarReserva(codReserva);//validar o cod da reserva no arquivo txt
+                            int validacao = validarReserva(codReserva); //validar o cod da reserva no arquivo txt
 
                             if (validacao == 1) {// se o resultado que retorna for um o código não pode ser usado e vc deve repetir
                                 printf("COD DA RESERVA JÁ EXISTE\n");
@@ -203,7 +203,7 @@ void reservaPQuantidade() {
                         }
                         if (bd == 2) {// bin
 
-                            int validacao = validarReservaBIN(codReserva);//validar o cod da reserva no arquivo bin
+                            int validacao = validarReservaBIN(codReserva); //validar o cod da reserva no arquivo bin
 
                             if (validacao == 1) {// se o resultado que retorna for um o código não pode ser usado e vc deve repetir
                                 printf("COD DA RESERVA JÁ EXISTE\n");
@@ -213,8 +213,8 @@ void reservaPQuantidade() {
                             }
                         }
                     }
-                    printf("########## Reserva #############\n");// mostra tods os dados da struct reserva
-                                                                 // com dados da reserva, do hospede, da categoria e da acomodação
+                    printf("########## Reserva #############\n"); // mostra tods os dados da struct reserva
+                    // com dados da reserva, do hospede, da categoria e da acomodação
                     printf("COD : %d \n", reserva.codigo);
                     printf("Data Inicio: %d/%d/%d \n", reserva.DataIn.dia, reserva.DataIn.mes, reserva.DataIn.ano);
                     printf("Data Fim: %d/%d/%d \n", reserva.DataFin.dia, reserva.DataFin.mes, reserva.DataFin.ano);
@@ -362,30 +362,30 @@ void reservaPCategoria() {
                 scanf("%d%*c", &dataFim.ano);
                 //reserva.DataFin = dataFim;
 
-                aco = listarAcomodacoesDisponiveis(dataIn, dataFim, &nq);// verifica qual estão disponíveis na data digitada e retorna o código e descrição delas
+                aco = listarAcomodacoesDisponiveis(dataIn, dataFim, &nq); // verifica qual estão disponíveis na data digitada e retorna o código e descrição delas
                 for (int i = 0; i < nq; i++) {
                     printf("*****************\n");
                     printf("CODIGO: %d\n", aco[i].codigo);
                     printf("DESC: %s\n", aco[i].descricao);
                     printf("*****************\n");
                 }
-                printf("O NÚMERO DE ACOMODAÇÕES DISPONÍVEIS É %d\n", nq);// numero de cat cadastradas
-                if(nq == 0){// se n houver nenhuma volta ao menu de cadastro
+                printf("O NÚMERO DE ACOMODAÇÕES DISPONÍVEIS É %d\n", nq); // numero de cat cadastradas
+                if (nq == 0) {// se n houver nenhuma volta ao menu de cadastro
                     cadReserva();
                 }
                 int aux1 = 0;
                 while (aux1 == 0) {
-                    printf("Digite o código da acomodação que deseja: ");// digite o cod da acomodação que escolheu
+                    printf("Digite o código da acomodação que deseja: "); // digite o cod da acomodação que escolheu
                     scanf("%d*c", &cod);
                     if (bd == 1) {
-                        achei = validarAcomodacao(cod);// valida o codigo txt
+                        achei = validarAcomodacao(cod); // valida o codigo txt
                         if (achei == 1) {// se = 1 o código n existe e pode ser usado
                             aux1 = 1;
                         } else {// caso contrario deve digitar outro
                             printf("Código da acomodação não existente. \n");
                         }
                     } else if (bd == 2) {
-                        achei = validarAcomodacaoBIN(cod);//valida o cod em bin
+                        achei = validarAcomodacaoBIN(cod); //valida o cod em bin
                         if (achei == 1) {// se = 1 o código n existe e pode ser usado
                             aux1 = 1;
                         } else {// caso contrario deve digitar outro
@@ -406,9 +406,9 @@ void reservaPCategoria() {
                         printf("Digite o código do hospede: ");
                         scanf("%d*c", &hos);
                         if (bd == 1) {//txt
-                            achei2 = validarCodHospede(hos, 1);// valida o codigo txt
+                            achei2 = validarCodHospede(hos, 1); // valida o codigo txt
                         } else if (bd == 2) {//bin
-                            achei2 = validarCodHospede(hos, 2);//valida o cod em bin
+                            achei2 = validarCodHospede(hos, 2); //valida o cod em bin
                         }
                         if (achei2 == 0) {// se achei == 0  cod pode ser usado se n deve digitar outro
                             aux2 = 1;
@@ -425,7 +425,7 @@ void reservaPCategoria() {
                         }
                         int aux4 = 0;
                         printf("Hospede %d selecionado. \n", cod);
-                        reserva.DataIn = dataIn;// aloca os dados da data na struct reserva
+                        reserva.DataIn = dataIn; // aloca os dados da data na struct reserva
                         reserva.DataFin = dataFim;
                         int aux3 = 0;
                         while (aux3 == 0) {
@@ -435,7 +435,7 @@ void reservaPCategoria() {
                             reserva.codigo = codReserva;
                             if (bd == 1) {// txt
 
-                                int validacao = validarReserva(codReserva);// valida o cod reserva
+                                int validacao = validarReserva(codReserva); // valida o cod reserva
 
                                 if (validacao == 1) {
                                     printf("COD DA RESERVA JÁ EXISTE\n");
@@ -446,7 +446,7 @@ void reservaPCategoria() {
                             }
                             if (bd == 2) {//bin
 
-                                int validacao = validarReservaBIN(codReserva);// valida o cod reserva
+                                int validacao = validarReservaBIN(codReserva); // valida o cod reserva
 
                                 if (validacao == 1) {
                                     printf("COD DA RESERVA JÁ EXISTE\n");
@@ -1129,39 +1129,60 @@ Acomodacao* listarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDi
     }
     Acomodacao *aco2 = (Acomodacao*) calloc(numA, sizeof (Acomodacao));
     //printf("numA = %d ,numR %d \n",numA,numR);
-    int i, j = 0, k = 0, aux = 0;
+    int i, j = 0, k = 0, aux = 0, aux2 = 0;
+    int acoNDis[numR];
+    for (i = 0; i < numR; i++) {
+        for (j = 0; j < numA; j++) {
+            if (aco[j].codigo == res[i].acomodacao.codigo) {
+                if (dataDisponivel(in, fin, res[i].DataIn, res[i].DataFin) == 0) {
+                    acoNDis[aux] = aco[j].codigo;
+                    aux++;
+                    break;
+                }
+            }
+        }
+    }
+
     for (i = 0; i < numA; i++) {
+        for (j = 0; j <= aux; j++) {
+            if (aco[i].codigo == acoNDis[j]) {
+                aux2 = 1;
+            }
+        }
+        if (aux2 == 0) {
+            aco2[*quantidadeAcoDisponiveis] = aco[i];
+            *quantidadeAcoDisponiveis = (*quantidadeAcoDisponiveis) + 1;
+        }
+        aux2 = 0;
+    }
+
+
+    /*for (i = 0; i < numA; i++) {
         // aco2 = realloc(aco, *numLinha * sizeof (Acomodacao));
         for (j = 0; j < numR; j++) {
             if (aco[i].codigo == res[j].acomodacao.codigo) {
-                printf("DEBUG: ACOMOD %d ESTÁ NA RESERVA %d (%d == %d), DEVE VERIFICAR A DATA\n", aco[i].codigo, res[j].codigo, res[j].acomodacao.codigo, aco[i].codigo);
                 aux = 1;
-                if (dataDisponivel(in, fin, res[j].DataIn, res[j].DataFin) == 1) {
-                    printf("DEBUG: ENTROU AQUI\n");
-                    aco2[*quantidadeAcoDisponiveis] = aco[i];
-                    *quantidadeAcoDisponiveis = (*quantidadeAcoDisponiveis) + 1;
-                    printf("DEBUG: O QUARTO %d ESTÁ DISPONÍVEL NESSA DATA: TOTAL: %d\n", aco2[(*quantidadeAcoDisponiveis) - 1].codigo, *quantidadeAcoDisponiveis);
+                for (k = 0; k < numR; k++) {
+                    if (aco[i].codigo == res[k].acomodacao.codigo) {
+                        if (dataDisponivel(in, fin, res[k].DataIn, res[k].DataFin) == 0) {
+                            aux2 = 1;
+                        }
+                    }
+                    if (aux2 == 0) {
+                        aco2[*quantidadeAcoDisponiveis] = aco[i];
+     *quantidadeAcoDisponiveis = (*quantidadeAcoDisponiveis) + 1;
+                    }
+                    aux2 = 0;
                 }
             }
         }
         if (aux == 0) {
-            printf("DEBUG: ACOMOD %d NÃO ESTÁ EM NENHUMA RESERVA, DEVE INCLUIR NO ARRAY\n", aco[i].codigo);
             aco2[*quantidadeAcoDisponiveis] = aco[i];
-            *quantidadeAcoDisponiveis = (*quantidadeAcoDisponiveis) + 1;
+     *quantidadeAcoDisponiveis = (*quantidadeAcoDisponiveis) + 1;
         }
         aux = 0;
-    }
+    }*/
     free(res);
-    printf("$$$$$$$$$$$$$$$$$$$$$$\n");
-    printf("QUANTI: %d\n", (*quantidadeAcoDisponiveis));
-    for (int i = 0; i<*quantidadeAcoDisponiveis; i++) {
-        printf("((((((((((((((((((()))))))))))))))))))\n");
-        printf("COD: %d\n", aco2[i].codigo);
-        printf("DESC: %s\n", aco2[i].descricao);
-        printf("((((((((((((((((((()))))))))))))))))))\n");
-
-    }
-
     return aco2;
 
 }
