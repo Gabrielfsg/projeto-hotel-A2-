@@ -33,6 +33,8 @@ int cadastrarCategoriaBIN(Categoria cat, int quantidade);
 Categoria* listarCategoriaBIN(int *numLinha) ;
 int contCategoria();
 int removerCategoriaBIN();
+int editarCategoriaBIN(Categoria cat, int posi);
+int validarCategoriaBIN(int cod);
 
 #endif /* CATEGORIA_H */
 

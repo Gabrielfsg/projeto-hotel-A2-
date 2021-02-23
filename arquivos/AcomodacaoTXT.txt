@@ -34,7 +34,3 @@ livre
 QUARTO NOVE
 3
 livre
-10
-Standart
-2
-livre

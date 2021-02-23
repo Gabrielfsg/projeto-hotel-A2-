@@ -13,11 +13,18 @@
 
 #ifndef CATEGORIASUB_H
 #define CATEGORIASUB_H
+#include "Categoria.h"
 
 void listarCategoriaSUB();
 void mostrarCategoria();
 void atualizarCategoria();
 void deletarCategoria();
+int excluirCategoria(int cod);
+int cadastrarCategoriaControle(Categoria cat);
+int editarCategoriaTXT(Categoria *cat, Categoria c, int num);
+int cadastrarCategoriaControleBIN(Categoria cat, int qtd);
+int editarCategoriaControleBIN(Categoria cat) ;
+int removerCategoriaControleBIN(int cod);
 
 #endif /* CATEGORIASUB_H */
 
