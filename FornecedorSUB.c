@@ -266,13 +266,14 @@ int editarFornecedorTXT(Fornecedor *cat, Fornecedor c, int num, int i) {
 }
 
 int excluirFornecedor(int cod) {
-    int num = numLinhasFornecedor();
+    int aux = 0, num = numLinhasFornecedor();
     Fornecedor *cat = listarFornecedorTXT();
     int i;
     for (i = 0; i < num; i++) {
         if (cat[i].codigo == cod) {
             int j;
-            for (j = i; j < num - 1; j++) {
+            aux = 1;
+            for (j = i; j < num - 1; j++) {                
                 cat[i].codigo = cat[i + 1].codigo;
                 strcpy(cat[i].nomeFantazia, cat[i + 1].nomeFantazia);
                 cat[i].endereco.numero = cat[i + 1].endereco.numero;
@@ -291,9 +292,13 @@ int excluirFornecedor(int cod) {
             break;
         }
     }
-    //salva no arquivo txt com uma categoria a menos
-    // retorna 1, se editou com sucesso e 0 se não achou o codigo;
-    return salvarFornecedorTXT(cat, num - 1);
+    if (aux == 1) {
+        //salva no arquivo txt com uma categoria a menos
+        // retorna 1, se editou com sucesso e 0 se não achou o codigo;
+        return salvarFornecedorTXT(cat, num - 1);
+    } else {
+        return 0;
+    }
 
 }
 
@@ -317,12 +322,13 @@ int editarFornecedorControleBIN(Fornecedor cat) {
 // remove a categoria do vetor, realoca ele e reecreve o arquivo
 
 int removerFornecedorControleBIN(int cod) {
-    int num;
+    int num, aux = 0;
     Fornecedor *cat = listarFornecedorBIN(&num);
     int i;
     for (i = 0; i < num; i++) {
         if (cat[i].codigo == cod) {
             int j;
+            aux = 1;
             //realoca o vetor
             for (j = i; j < num - 1; j++) {
                 cat[i].codigo = cat[i + 1].codigo;
@@ -335,11 +341,15 @@ int removerFornecedorControleBIN(int cod) {
             break;
         }
     }
-    //apaga arquivo
-    int r = removerFornecedorBIN();
-    if (r == 1) {
-        //se deu certo reescreve arquivo
-        return cadastrarFornecedorBIN(cat, (num - 1));
+    if (aux == 1) {
+        //apaga arquivo
+        int r = removerFornecedorBIN();
+        if (r == 1) {
+            //se deu certo reescreve arquivo
+            return cadastrarFornecedorBIN(cat, (num - 1));
+        } else {
+            return 0;
+        }
     } else {
         return 0;
     }
