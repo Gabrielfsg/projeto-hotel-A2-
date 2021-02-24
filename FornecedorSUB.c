@@ -68,6 +68,16 @@ void cadastrarFornecedor() {
             setbuf(stdin, NULL);
             printf("Digite o Numero do Endereço do Fornecedor \n");
             scanf("%d%*c", &a.endereco.numero);
+            
+            printf("TESTE\n");
+            printf("COD = %d\n",a.codigo);
+            printf("FANT = %s\n",a.nomeFantazia);
+            printf("RAZ = %s\n",a.razaoSocial);
+            printf("RAZ = %s\n",a.endereco.bairro);
+            printf("RAZ = %d\n",a.endereco.numero);
+            
+            printf("______________________________\n");
+            
             if (bd == 1) {
                 r = cadastrarFornecedorTXT(a);
             } else if (bd == 2) {
@@ -100,7 +110,8 @@ void listarFornecedor() {
         printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
     if (bd > 0) {
-        //lista ACOMODAÇÃO
+        //lista FORNECEDOR
+        printf("NUM = %d\n",num);
         if (num > 0) {
             int i, j;
             for (i = 0; i < num; i++) {

@@ -22,3 +22,15 @@ livre
 QUARTO SEIS
 2
 livre
+7
+QUARTO SETE
+3
+livre
+8
+QUARTO OITO
+3
+livre
+9
+QUARTO NOVE
+3
+livre

@@ -8,7 +8,9 @@
 #include <string.h>
 #include "Fornecedor.h"
 
-int cadastrarFornecedorTXT(Fornecedor aco) {
+int cadastrarFornecedorTXT(Fornecedor forn) {
+    printf("ENTROU AQUI\n");
+    printf("COD = %d , numero = %d \n", forn.codigo, forn.endereco.numero);
     FILE *arq;
     // abre o arquivo com o cursor no final
     arq = fopen("arquivos\\FornecedorTXT.txt", "a");
@@ -21,9 +23,9 @@ int cadastrarFornecedorTXT(Fornecedor aco) {
         }
     }
     // salva arqa campo em uma linha
-    fprintf(arq, "%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n", aco.codigo, aco.nomeFantazia, aco.razaoSocial, aco.inscricaoEstadual,
-            aco.cnpj, aco.telefone, aco.email, aco.endereco.logradouro, aco.endereco.numero, aco.endereco.bairro,
-            aco.endereco.cidade, aco.endereco.cep, aco.endereco.uf); // f
+    fprintf(arq, "%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n", forn.codigo, forn.nomeFantazia, forn.razaoSocial, forn.inscricaoEstadual,
+            forn.cnpj, forn.telefone, forn.email, forn.endereco.logradouro, forn.endereco.numero, forn.endereco.bairro,
+            forn.endereco.cidade, forn.endereco.cep, forn.endereco.uf); // f
     //fecha o arquivo
     fclose(arq);
     //libera memoria
@@ -76,45 +78,67 @@ Fornecedor * listarFornecedorTXT() {
     Fornecedor *aco = (Fornecedor*) calloc(numLinha, sizeof (Fornecedor));
     i = 0;
     char t[100];
-    //printf("linhas %d \n", numLinha);
+    printf("linhas %d \n", numLinha);
     for (i = 0; i < numLinha; i++) {
+        //printf("((((((((()))))))))POS = %d\n", i);
+
         fgets(t, 100, arquivo);
         aco[i].codigo = atoi(t);
+        //printf("COD = %d\n", aco[i].codigo);
         fgets(aco[i].nomeFantazia, 100, arquivo);
         strtok(aco[i].nomeFantazia, "\r\n");
-        //printf("%s", aco[i].nomeFantazia);
+        //printf("FANT = %s\n", aco[i].nomeFantazia);
         fgets(aco[i].razaoSocial, 100, arquivo);
         strtok(aco[i].razaoSocial, "\r\n");
-        // printf("%s", aco[i].razaoSocial);
+        //printf("RAZ = %s\n", aco[i].razaoSocial);
         fgets(aco[i].inscricaoEstadual, 100, arquivo);
         strtok(aco[i].inscricaoEstadual, "\r\n");
-        //printf("%s", aco[i].inscricaoEstadual);
+        //printf("IE = %s\n", aco[i].inscricaoEstadual);
         fgets(aco[i].cnpj, 100, arquivo);
         strtok(aco[i].cnpj, "\r\n");
-        // printf("%s", aco[i].cnpj);
+        //printf("CN = %s\n", aco[i].cnpj);
         fgets(aco[i].telefone, 100, arquivo);
         strtok(aco[i].telefone, "\r\n");
-        //printf("%s", aco[i].telefone);
+        //printf("TE = %s\n", aco[i].telefone);
         fgets(aco[i].email, 100, arquivo);
         strtok(aco[i].email, "\r\n");
-        //printf("%s", aco[i].email);
+        //printf("EM = %s\n", aco[i].email);
         fgets(aco[i].endereco.logradouro, 100, arquivo);
         strtok(aco[i].endereco.logradouro, "\r\n");
-        //printf("%s", aco[i].endereco.logradouro);
-        fgets(t, 5, arquivo);
+        //printf("LOG = %s\n", aco[i].endereco.logradouro);
+        fgets(t, 5, arquivo);aco[i].endereco.numero = atoi(t);
         fgets(aco[i].endereco.bairro, 100, arquivo);
         strtok(aco[i].endereco.bairro, "\r\n");
-        //printf("%s", aco[i].endereco.bairro);
+        //printf("BA = %s\n", aco[i].endereco.bairro);
         fgets(aco[i].endereco.cidade, 100, arquivo);
         strtok(aco[i].endereco.cidade, "\r\n");
-        // printf("%s", aco[i].endereco.cidade);
+        //printf("CI = %s\n", aco[i].endereco.cidade);
         fgets(aco[i].endereco.cep, 14, arquivo);
         strtok(aco[i].endereco.cep, "\r\n");
-        //printf("%s", aco[i].endereco.cep);
+        //printf("CEP = %s\n", aco[i].endereco.cep);
         fgets(aco[i].endereco.uf, 4, arquivo);
         strtok(aco[i].endereco.uf, "\r\n");
-        //printf("%s", aco[i].endereco.uf);
+        //printf("UF = %s\n", aco[i].endereco.uf);
         aco[i].endereco.numero = atoi(t);
+        //printf("((((((((()))))))))\n");
+    }
+    
+    for (int i = 0; i < numLinha; i++) {
+        printf("((((((((()))))))))POS = %d\n", i);
+        printf("COD = %d\n", aco[i].codigo);
+        printf("FANT = %s\n", aco[i].nomeFantazia);
+        printf("RAZ = %s\n", aco[i].razaoSocial);
+        printf("IE = %s\n", aco[i].inscricaoEstadual);
+        printf("CN = %s\n", aco[i].cnpj);
+        printf("TE = %s\n", aco[i].telefone);
+        printf("EM = %s\n", aco[i].email);
+        printf("LOG = %s\n", aco[i].endereco.logradouro);
+        printf("BA = %s\n", aco[i].endereco.bairro);
+        printf("CEP = %s\n", aco[i].endereco.cep);
+        printf("CEP = %s\n", aco[i].endereco.cep);
+        printf("UF = %s\n", aco[i].endereco.uf);
+        printf("NUM = %d\n", aco[i].endereco.numero);
+        printf("((((((((()))))))))\n");
     }
     //fecha arquivo
     fclose(arquivo);

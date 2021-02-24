@@ -7,12 +7,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/HospedeMenu.c</file>
             <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Principal.c</file>
-            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Data.c</file>
-            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/main.c</file>
-            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/ReservaMenu.c</file>
-            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/ReservaSubC.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/FornecedorMenu.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Fornecedor.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/FornecedorSUB.c</file>
         </group>
     </open-files>
 </project-private>
