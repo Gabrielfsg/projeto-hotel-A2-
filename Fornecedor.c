@@ -85,13 +85,13 @@ Fornecedor * listarFornecedorTXT() {
         //printf("%s", aco[i].nomeFantazia);
         fgets(aco[i].razaoSocial, 100, arquivo);
         strtok(aco[i].razaoSocial, "\r\n");
-       // printf("%s", aco[i].razaoSocial);
+        // printf("%s", aco[i].razaoSocial);
         fgets(aco[i].inscricaoEstadual, 100, arquivo);
         strtok(aco[i].inscricaoEstadual, "\r\n");
         //printf("%s", aco[i].inscricaoEstadual);
         fgets(aco[i].cnpj, 100, arquivo);
         strtok(aco[i].cnpj, "\r\n");
-       // printf("%s", aco[i].cnpj);
+        // printf("%s", aco[i].cnpj);
         fgets(aco[i].telefone, 100, arquivo);
         strtok(aco[i].telefone, "\r\n");
         //printf("%s", aco[i].telefone);
@@ -107,15 +107,14 @@ Fornecedor * listarFornecedorTXT() {
         //printf("%s", aco[i].endereco.bairro);
         fgets(aco[i].endereco.cidade, 100, arquivo);
         strtok(aco[i].endereco.cidade, "\r\n");
-       // printf("%s", aco[i].endereco.cidade);
+        // printf("%s", aco[i].endereco.cidade);
         fgets(aco[i].endereco.cep, 14, arquivo);
         strtok(aco[i].endereco.cep, "\r\n");
-       //printf("%s", aco[i].endereco.cep);
+        //printf("%s", aco[i].endereco.cep);
         fgets(aco[i].endereco.uf, 4, arquivo);
         strtok(aco[i].endereco.uf, "\r\n");
         //printf("%s", aco[i].endereco.uf);
         aco[i].endereco.numero = atoi(t);
-        fgetc(arquivo);
     }
     //fecha arquivo
     fclose(arquivo);
@@ -154,7 +153,7 @@ int numLinhasFornecedor() {
 int validarFornecedor(int cod) {
     Fornecedor *aco = listarFornecedorTXT();
     if (aco != NULL) {
-        int lin = sizeof (*aco) / sizeof (Fornecedor);
+        int lin = numLinhasFornecedor();
         int i;
         for (i = 0; i < lin; i++) {
             if (cod == aco[i].codigo) {
@@ -164,7 +163,7 @@ int validarFornecedor(int cod) {
         free(aco);
         return 0;
     }
-    return 1;
+    return 0;
 }
 
 /*Aruivos binarios*/
@@ -233,7 +232,7 @@ Fornecedor * listarFornecedorBIN(int *numLinha) {
     return aco;
 }
 
-int editarFornecedorBIN(Fornecedor aco, int posi) {
+int editarFornecedorBIN(Fornecedor aco) {
     FILE *arquivo;
     //abre arquivo para leitura e escrita, ele deve existir "r+b"
     arquivo = fopen("arquivos\\FornecedorBIN.bin", "r+b");
@@ -241,6 +240,7 @@ int editarFornecedorBIN(Fornecedor aco, int posi) {
         printf("Erro ao acessar arquivo\n");
         return 0;
     }
+    int posi = posicaoFornecedorBIN(aco.codigo);
     //Posiciona o cursor na posição do struct
     fseek(arquivo, (posi * sizeof (Fornecedor)), SEEK_SET);
     //Substitui o struct de posição posi
@@ -260,8 +260,23 @@ int validarFornecedorBIN(int cod) {
     for (i = 0; i < num; i++) {
         if (cod == aco[i].codigo) {
             // retorna o indice se achar
+            return 1;
+        }
+    }
+    free(aco);
+    return 0;
+}
+
+int posicaoFornecedorBIN(int cod) {
+    int num;
+    Fornecedor *aco = listarFornecedorBIN(&num);
+    int i;
+    for (i = 0; i < num;) {
+        if (cod == aco[i].codigo) {
+            // retorna o indice se achar
             return i;
         }
+        i++;
     }
     free(aco);
     return 0;

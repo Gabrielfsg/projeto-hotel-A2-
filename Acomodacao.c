@@ -71,7 +71,7 @@ Acomodacao * listarAcomodacaoTXT() {
     Acomodacao *aco = (Acomodacao*) calloc(numLinha, sizeof (Acomodacao));
     i = 0;
     char t[100];
-      for (i = 0; i < numLinha; i++) {
+    for (i = 0; i < numLinha; i++) {
         fgets(t, 100, arquivo);
         aco[i].codigo = atoi(t);
         //fgets(t, 100, arquivo);
@@ -130,7 +130,7 @@ int validarAcomodacao(int cod) {
         free(aco);
         return 0;
     }
-    return 1;
+    return 0;
 }
 
 /*Aruivos binarios*/
@@ -199,9 +199,7 @@ Acomodacao * listarAcomodacaoBIN(int *numLinha) {
     return aco;
 }
 
-
-
-int editarAcomodacaoBIN(Acomodacao aco, int posi) {
+int editarAcomodacaoBIN(Acomodacao aco) {
     FILE *arquivo;
     //abre arquivo para leitura e escrita, ele deve existir "r+b"
     arquivo = fopen("arquivos\\AcomodacaoBIN.bin", "r+b");
@@ -209,6 +207,7 @@ int editarAcomodacaoBIN(Acomodacao aco, int posi) {
         printf("Erro ao acessar arquivo\n");
         return 0;
     }
+    int posi = posicaoAcomodacaoBIN(aco.codigo);
     //Posiciona o cursor na posição do struct
     fseek(arquivo, (posi * sizeof (Acomodacao)), SEEK_SET);
     //Substitui o struct de posição posi
@@ -227,9 +226,24 @@ int validarAcomodacaoBIN(int cod) {
     int i;
     for (i = 0; i < num; i++) {
         if (cod == aco[i].codigo) {
-            // retorna o indice se achar
+            // retorna 1 se achar 
             return 1;
         }
+    }
+    free(aco);
+    return 0;
+}
+
+int posicaoAcomodacaoBIN(int cod) {
+    int num;
+    Acomodacao *aco = listarAcomodacaoBIN(&num);
+    int i;
+    for (i = 0; i < num;) {
+        if (cod == aco[i].codigo) {
+            // retorna 1 se achar 
+            return i;
+        }
+        i++;
     }
     free(aco);
     return 0;

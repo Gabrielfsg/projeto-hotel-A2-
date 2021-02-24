@@ -22,14 +22,14 @@ Data* newData(int dia, int mes, int ano) {
                     d->dia = dia;
                 } else {
                     printf("Valor inválido para o campo dia, no ano bissexto!\n");
-                    exit(1);
+                    return NULL;
                 }
             } else {
                 if (dia >= 1 && dia <= 28) {
                     d->dia = dia;
                 } else {
                     printf("Valor inválido para o campo dia!\n");
-                    exit(1);
+                    return NULL;
                 }
             }
         } else if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) {
@@ -37,7 +37,7 @@ Data* newData(int dia, int mes, int ano) {
                 d->dia = dia;
             } else {
                 printf("Valor inválido para o campo dia!\n");
-                exit(1);
+                return NULL;
             }
         } else {
             if (dia >= 1 && dia <= 30) {
@@ -45,19 +45,19 @@ Data* newData(int dia, int mes, int ano) {
 
             } else {
                 printf("Valor inválido para o campo dia!\n");
-                exit(1);
+                return NULL;
             }
         }
 
     } else {
         printf("Valor inválido para o campo mês!\n");
-        exit(1);
+        return NULL;
     }
     if (ano > 0) {
         d->ano = ano;
     } else {
         printf("Valor inválido para o campo ano!\n");
-        exit(1);
+        return NULL;
     }
 }
 

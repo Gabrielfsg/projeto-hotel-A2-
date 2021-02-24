@@ -47,5 +47,7 @@ int removerReservaBIN();
 int salvarReservaTXT(Reserva aco, int num) ;
 Reserva * listarResBIN(int *numLinha);
 Reserva * listarResTXT();
+int maiorCodReservaBIN() ;
+int maiorCodReservaTXT();
 #endif /* RESERVA_H */
 

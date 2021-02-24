@@ -32,8 +32,9 @@ int numLinhasFornecedor() ;
 int validarFornecedor(int cod);
 int cadastrarFornecedorBIN(Fornecedor *aco, int quantidade) ;
 Fornecedor * listarFornecedorBIN(int *numLinha);
-int editarFornecedorBIN(Fornecedor aco, int posi);
+int editarFornecedorBIN(Fornecedor aco);
 int validarFornecedorBIN(int cod) ;
 int removerFornecedorBIN();
+int posicaoFornecedorBIN(int cod);
 #endif /* FORNECEDOR_H */
 

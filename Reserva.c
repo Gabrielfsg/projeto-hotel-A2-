@@ -34,7 +34,7 @@ int cadastrarReservaTXT(Reserva aco) {
     // abre o arquivo com o cursor no final
     arq = fopen("arquivos\\ReservaTXT.txt", "a");
     if (arq == NULL) {
-         
+
         // se ele não existir cria um
         arq = fopen("arquivos\\ReservaTXT.txt", "w");
         if (arq == NULL) {
@@ -206,12 +206,11 @@ int numReserva() {
     fclose(arquivo);
     //libera memoria
     free(arquivo);
-    printf("DEBUG: O NUMERO DE LINHAS É: %d\n", numLinha);
     return (numLinha / 28);
 }
 
 int validarReserva(int cod) {
-   // printf("ENTROU VALIDACAO\n");
+    // printf("ENTROU VALIDACAO\n");
     Reserva *aco = listarReservaTXT();
     //printf("COD = %d\n",cod);
     int achou = 0;
@@ -298,8 +297,6 @@ Reserva * listarReservaBIN(int *numLinha) {
 
     return aco;
 }
-
-
 
 /*int editarReservaBIN(Reserva aco, int posi) {
     FILE *arquivo;
@@ -398,4 +395,28 @@ int removerReservaTXT(int cod) {
         rename(".\\arquivos\\reserva_temp.txt", ".\\arquivos\\ReservaTXT.txt");
         return 1;
     }
+}
+
+int maiorCodReservaTXT() {
+    int num = numReserva();
+    Reserva * res = listarReservaTXT();
+    int i, aux = 0;
+    for (i = 0; i < num; i++) {
+        if (res[i].codigo > aux) {
+            aux = res[i].codigo;
+        }
+    }
+    return aux;
+}
+
+int maiorCodReservaBIN() {
+    int num;
+    Reserva * res = listarReservaBIN(&num);
+    int i, aux = 0;
+    for (i = 0; i < num; i++) {
+        if (res[i].codigo > aux) {
+            aux = res[i].codigo;
+        }
+    }
+    return aux;
 }

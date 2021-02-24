@@ -883,12 +883,14 @@ void listarReserva() {
 //Daniel
 
 void reservarPorData() {
-    Data dataIn, dataFim;
+    int dia, mes, ano;
+    Data *dataIn, *dataFim;
     //lista o modo de salvamento de dados
     int bd = listar();
+    int aux = 0;
     // se for maior que 0 existe uma opção definida
     if (bd > 0) {
-        int quant, num = 0, cod, num2, numH;
+        int quant, num = 0, cod, num2, numH = 0;
         int r;
         Acomodacao *aco;
         Categoria *cat;
@@ -896,36 +898,55 @@ void reservarPorData() {
         Reserva res;
         int achou = 0;
         int achouD = 0;
-        printf("Entre com a data Desejada: ");
-        printf("Digita o dia da data de início da reserva:\n");
-        scanf("%d%*c", &dataIn.dia);
-        printf("Digita o mes da data de início da reserva:\n");
-        scanf("%d%*c", &dataIn.mes);
-        printf("Digita o ano da data de início da reserva:\n");
-        scanf("%d%*c", &dataIn.ano);
 
-        printf("Digita o dia da data do fim da reserva:\n");
-        scanf("%d%*c", &dataFim.dia);
-        printf("Digita o mes da data do fim da reserva:\n");
-        scanf("%d%*c", &dataFim.mes);
-        printf("Digita o ano da data do fim da reserva:\n");
-        scanf("%d%*c", &dataFim.ano);
+        printf("Entre com a data Desejada: ");
+        while (aux == 0) {
+            printf("Digita o dia da data de início da reserva:\n");
+            scanf("%d%*c", &dia);
+            printf("Digita o mes da data de início da reserva:\n");
+            scanf("%d%*c", &mes);
+            printf("Digita o ano da data de início da reserva:\n");
+            scanf("%d%*c", &ano);
+            dataIn = newData(dia, mes, ano);
+            if (dataIn != NULL) {
+                break;
+            }
+        }
+        aux = 0;
+        while (aux == 0) {
+            printf("Digita o dia da data do fim da reserva:\n");
+            scanf("%d%*c", &dia);
+            printf("Digita o mes da data do fim da reserva:\n");
+            scanf("%d%*c", &mes);
+            printf("Digita o ano da data do fim da reserva:\n");
+            scanf("%d%*c", &ano);
+            dataFim = newData(dia, mes, ano);
+            if (dataFim != NULL) {
+                if (data1maiordata2(*dataFim, *dataIn) == 1) {
+                    break;
+                } else {
+                    printf("Data final, menor que data inicial, favor digite uma data final válida!!!\n");
+                }
+
+            }
+        }
         //lista as Acomodações disponiveis no intervalo da data digitada
-        aco = listarAcomodacoesDisponiveis(dataIn, dataFim, &num);
-        printf("DEBUG: O NUM É %d\n", num);
-        //verifica onde sera uscado os dados
+        aco = listarAcomodacoesDisponiveis(*dataIn, *dataFim, &num);
+        //verifica onde sera buscado os dados
         if (bd == 1) {
             numH = getNumHospedes();
             hos = getAllHospedesTXT(numH);
             cat = listarCategoriaTXT();
             num2 = numCategoria();
+            res.codigo = maiorCodReservaTXT() + 1;
         } else {
             hos = getAllHospedesBIN(&numH);
             cat = listarCategoriaBIN(&num2);
+            res.codigo = maiorCodReservaBIN() + 1;
         }
-        res.codigo = 1;
-        res.DataIn = dataIn;
-        res.DataFin = dataFim;
+
+        res.DataIn = *dataIn;
+        res.DataFin = *dataFim;
         //mostra as acomodações disponiveis
         if (num > 0) {
             int i, j;
