@@ -25,7 +25,7 @@ void cadastrarFornecedor() {
         } else if (bd == 2) {
             aux = validarFornecedorBIN(a.codigo);
         }
-        if (aux == 0) {
+        if (aux == 0 && a.codigo > 0) {
             printf("Digite o nome Fantasia do Fornecedor \n");
             fgets(a.nomeFantazia, 100, stdin);
             strtok(a.nomeFantazia, "\n");
@@ -244,7 +244,6 @@ void deletarFornecedor() {
 }
 
 //metodos de crud
-
 
 int editarFornecedorTXT(Fornecedor *cat, Fornecedor c, int num, int i) {
 

@@ -80,6 +80,11 @@ Fornecedor * listarFornecedorTXT() {
     for (i = 0; i < numLinha; i++) {
         fgets(t, 100, arquivo);
         aco[i].codigo = atoi(t);
+        if (aco[i].codigo == 0) {
+            fgets(t, 100, arquivo);
+            aco[i].codigo = atoi(t);
+        }
+        aco[i].codigo = atoi(t);
         fgets(aco[i].nomeFantazia, 100, arquivo);
         strtok(aco[i].nomeFantazia, "\r\n");
         //printf("%s", aco[i].nomeFantazia);
@@ -115,6 +120,7 @@ Fornecedor * listarFornecedorTXT() {
         strtok(aco[i].endereco.uf, "\r\n");
         //printf("%s", aco[i].endereco.uf);
         aco[i].endereco.numero = atoi(t);
+        //fgetc(arquivo);
     }
     //fecha arquivo
     fclose(arquivo);
