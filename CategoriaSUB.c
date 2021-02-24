@@ -10,37 +10,44 @@
 #include "Categoria.h"
 #include "CategoriaSUB.h"
 #include "AcomodacaoSUB.h"
-//#include "CategoriaSUB.h"
 
 void cadastrarCategoriaSUB() {
     int bd = listar();
-    int r;
+    int r, aux = 0;
     if (bd > 0) {
         Categoria c;
         printf("***** CADASTRAR  CATEGORIA DA ACOMODAÇÃO *****\n");
         printf("Digite o cod da Categoria da Acomodação \n");
         scanf("%d%*c", &c.codigo);
-        printf("Digite a descrição da Categoria da Acomodação \n");
-        fgets(c.descricao, 100, stdin);
-        strtok(c.descricao, "\n");
-        setbuf(stdin, NULL);
-        printf("Digite a descrição da Facilidade da Acomodação \n");
-        fgets(c.facilidade, 100, stdin);
-        strtok(c.facilidade, "\n");
-        setbuf(stdin, NULL);
-        printf("Digite o Valor da Diária \n");
-        scanf("%f%*c", &c.valorDiario);
-        printf("Digite a Capacidade de Pessoas \n");
-        scanf("%d%*c", &c.quantidadePessoas);
-        //Salva no arquivo se não possuir codigo igual
         if (bd == 1) {
-            r = cadastrarCategoriaControle(c);
+            aux = validarCategoria(c.codigo);
 
         } else {
-            r = cadastrarCategoriaControleBIN(c, 1);
+            aux = validarCategoriaBIN(c.codigo);
         }
-        if (r == 1) {
-            printf("\nCadastro Realizado com Sucesso!\n");
+        if (aux == 0) {
+            printf("Digite a descrição da Categoria da Acomodação \n");
+            fgets(c.descricao, 100, stdin);
+            strtok(c.descricao, "\n");
+            setbuf(stdin, NULL);
+            printf("Digite a descrição da Facilidade da Acomodação \n");
+            fgets(c.facilidade, 100, stdin);
+            strtok(c.facilidade, "\n");
+            setbuf(stdin, NULL);
+            printf("Digite o Valor da Diária \n");
+            scanf("%f%*c", &c.valorDiario);
+            printf("Digite a Capacidade de Pessoas \n");
+            scanf("%d%*c", &c.quantidadePessoas);
+            //Salva no arquivo se não possuir codigo igual
+            if (bd == 1) {
+                r = cadastrarCategoriaTXT(c);
+
+            } else {
+                r = cadastrarCategoriaBIN(&c, 1);
+            }
+            if (r == 1) {
+                printf("\nCadastro Realizado com Sucesso!\n");
+            }
         } else {
             printf("\nNÂO foi possivel realizar o cadastro,codigo %d já existente!\n", c.codigo);
         }
@@ -62,26 +69,29 @@ void listarCategoria() {
         printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
     //lista CATEGORIA
-    if (bd > 0) {
-        int i;
-        for (i = 0; i < num; i++) {
-            printf("\n-----CATEGORIA %d -----------\n", i + 1);
-            printf("CODIGO : %d\n", cat[i].codigo);
-            printf("DESCRIÇÃO :");
-            printf("%s\n", cat[i].descricao);
-            printf("FACILIDADE :");
-            printf("%s\n", cat[i].facilidade);
-            printf("QUANTIDADE DE PESSOAS : %d\n", cat[i].quantidadePessoas);
-            printf("Valor Diaria: %f \n", cat[i].valorDiario);
+    if (num > 0) {
+        if (bd > 0) {
+            int i;
+            for (i = 0; i < num; i++) {
+                printf("\n-----CATEGORIA %d -----------\n", i + 1);
+                printf("CODIGO : %d\n", cat[i].codigo);
+                printf("DESCRIÇÃO :");
+                printf("%s\n", cat[i].descricao);
+                printf("FACILIDADE :");
+                printf("%s\n", cat[i].facilidade);
+                printf("QUANTIDADE DE PESSOAS : %d\n", cat[i].quantidadePessoas);
+                printf("Valor Diaria: %f \n", cat[i].valorDiario);
+            }
+            free(cat);
         }
-        free(cat);
+    } else {
+        printf("Nenhuma categoria cadastrada!!\n");
     }
     /* */
 }
 
 void atualizarCategoria() {
-
-    int num, r;
+    int num, r, aux = 0;
     Categoria *cat;
     Categoria c;
     int bd = listar();
@@ -89,7 +99,7 @@ void atualizarCategoria() {
         cat = listarCategoriaTXT();
         num = numCategoria();
     } else if (bd == 2) {
-        listarCategoriaBIN(&num);
+        cat = listarCategoriaBIN(&num);
     } else {
         printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
@@ -108,26 +118,38 @@ void atualizarCategoria() {
         }
         printf("Digite o cod da categoria da acomodação \n");
         scanf("%d%*c", &c.codigo);
-        printf("Digite a descrição da Categoria da Acomodação \n");
-        fgets(c.descricao, 100, stdin);
-        //scanf("%[^\n]s%*c", c.descricao);
-        strtok(c.descricao, "\n");
-        setbuf(stdin, NULL);
-        printf("Digite a descrição da Facilidade da Acomodação \n");
-        fgets(c.facilidade, 100, stdin);
-        strtok(c.facilidade, "\n");
-        setbuf(stdin, NULL);
-        printf("Digite o Valor da Diária \n");
-        scanf("%f%*c", &c.valorDiario);
-        printf("Digite a Capacidade de Pessoas \n");
-        scanf("%d%*c", &c.quantidadePessoas);
-        if (bd == 1) {
-            r = editarCategoriaTXT(cat, c, num);
-        } else {
-            r = editarCategoriaControleBIN(c);
+        aux = 0;
+        for (i = 0; i < num;) {
+            if (c.codigo == cat[i].codigo) {
+                aux = 1;
+                break;
+            }
+            i++;
         }
-        if (r == 1) {
-            printf("\nEdição Realizado com Sucesso!\n");
+        if (aux == 1) {
+            printf("Digite a descrição da Categoria da Acomodação \n");
+            fgets(c.descricao, 100, stdin);
+            //scanf("%[^\n]s%*c", c.descricao);
+            strtok(c.descricao, "\n");
+            setbuf(stdin, NULL);
+            printf("Digite a descrição da Facilidade da Acomodação \n");
+            fgets(c.facilidade, 100, stdin);
+            strtok(c.facilidade, "\n");
+            setbuf(stdin, NULL);
+            printf("Digite o Valor da Diária \n");
+            scanf("%f%*c", &c.valorDiario);
+            printf("Digite a Capacidade de Pessoas \n");
+            scanf("%d%*c", &c.quantidadePessoas);
+            if (bd == 1) {
+                r = editarCategoriaTXT(cat, c, num);
+            } else {
+                r = editarCategoriaBIN(c);
+            }
+            if (r == 1) {
+                printf("\nEdição Realizado com Sucesso!\n");
+            } else {
+                printf("\nNÂO foi possivel realizar a Edição,codigo %d NÃO existente!\n", c.codigo);
+            }
         } else {
             printf("\nNÂO foi possivel realizar a Edição,codigo %d NÃO existente!\n", c.codigo);
         }
@@ -139,10 +161,10 @@ void deletarCategoria() {
     int cod, r;
     if (bd > 0) {
         printf("***** DELETAR CATEGORIA DA ACOMODAÇÃO  *****\n");
-        printf("Digite o cod da acomodação \n");
+        printf("Digite o cod da categoria \n");
         scanf("%d%*c", &cod);
         if (bd == 1) {
-            r = removerCategoriaControleBIN(cod);
+            r = excluirCategoria(cod);
         } else if (bd == 2) {
             r = removerCategoriaControleBIN(cod);
         }
@@ -159,97 +181,77 @@ void deletarCategoria() {
 
 //metodos de controle
 
-int cadastrarCategoriaControle(Categoria cat) {
-    int v = validarCategoria(cat.codigo);
-    if (v == 0) {
-        return cadastrarCategoriaTXT(cat);
-    } else {
-        return 0;
-    }
-}
-
 int editarCategoriaTXT(Categoria *cat, Categoria c, int num) {
     int i;
     for (i = 0; i < num; i++) {
         if ((int) (cat[i].codigo) == (int) (c.codigo)) {
-            printf("entrou");
             strcpy(cat[i].descricao, c.descricao);
             strcpy(cat[i].facilidade, c.facilidade);
             cat[i].quantidadePessoas = c.quantidadePessoas;
             cat[i].valorDiario = c.valorDiario;
         }
     }
-
-    return salvarCategoriaTXT(cat, num);
+    if (i > 0) {
+        return salvarCategoriaTXT(cat, num);
+    } else {
+        return 0;
+    }
 }
 
 int excluirCategoria(int cod) {
     int num = numCategoria();
     Categoria *cat = listarCategoriaTXT();
-    int i;
+    int i, aux = 0;
     for (i = 0; i < num; i++) {
         if (cat[i].codigo == cod) {
-            int j;
-            for (j = i; j < num - 1; j++) {
-                cat[i].codigo = cat[i + 1].codigo;
-                strcpy(cat[i].descricao, cat[i + 1].descricao);
-                strcpy(cat[i].facilidade, cat[i + 1].facilidade);
-                cat[i].quantidadePessoas = cat[i + 1].quantidadePessoas;
-                cat[i].valorDiario = cat[i + 1].valorDiario;
-                cat = realloc(cat, (num - 1) * sizeof (Categoria));
+            aux = 1;
+            for (; i < num - 1; i++) {
+                cat[i] = cat[i + 1];
             }
+            cat = realloc(cat, (num - 1) * sizeof (Categoria));
             break;
         }
     }
-    //salva no arquivo txt com uma categoria a menos
-    // retorna s, se editou com sucesso e f se não achou o codigo;
-    return salvarCategoriaTXT(cat, num - 1);
+    if (aux == 1) {
+        //salva no arquivo txt com uma categoria a menos
+        // retorna s, se editou com sucesso e f se não achou o codigo;
+        return salvarCategoriaTXT(cat, num - 1);
+    } else {
+        // não alterou, codigo incorreto
+        return 0;
+    }
 
 }
 
 /*arquivo binario*/
-int cadastrarCategoriaControleBIN(Categoria cat, int qtd) {
-    int v = validarCategoriaBIN(cat.codigo);
-    if (v == 0) {
-        return cadastrarCategoriaBIN(cat, qtd);
-    } else {
-        return 0;
-    }
-    return 1;
-}
-
-int editarCategoriaControleBIN(Categoria cat) {
-    int v = validarCategoriaBIN(cat.codigo);
-    int r = editarCategoriaBIN(cat, v);
-    return r;
-}
 
 // remove a categoria do vetor, realoca ele e reecreve o arquivo
 
 int removerCategoriaControleBIN(int cod) {
     int num;
     Categoria *cat = listarCategoriaBIN(&num);
-    int i;
+    int i, aux = 0;
     for (i = 0; i < num; i++) {
         if (cat[i].codigo == cod) {
-            int j;
+            aux = 1;
             //realoca o vetor
-            for (j = i; j < num - 1; j++) {
-                cat[i].codigo = cat[i + 1].codigo;
-                strcpy(cat[i].descricao, cat[i + 1].descricao);
-                strcpy(cat[i].facilidade, cat[i + 1].facilidade);
-                cat[i].quantidadePessoas = cat[i + 1].quantidadePessoas;
-                cat[i].valorDiario = cat[i + 1].valorDiario;
-                cat = realloc(cat, (num - 1) * sizeof (Categoria));
+            for (; i < num - 1; i++) {
+                cat[i] = cat[i + 1];
             }
+            cat = realloc(cat, (num - 1) * sizeof (Categoria));
             break;
         }
+
     }
-    //apaga arquivo
-    int r = removerCategoriaBIN();
-    if (r == 1) {
-        //se deu certo reescreve arquivo
-        return salvarCategoriaTXT(cat, num - 1);
+    if (aux == 1) {
+        //apaga arquivo
+        int r = removerCategoriaBIN();
+        if (r == 1) {
+            //se deu certo reescreve arquivo
+            return cadastrarCategoriaBIN(cat, num - 1);
+        } else {
+            return 0;
+        }
     } else {
         return 0;
     }

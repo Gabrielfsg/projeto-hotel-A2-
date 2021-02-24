@@ -1,40 +1,24 @@
-2
-DESC DOIS
-2
-livre
 1
-DESC
+QUARTO UM
+1
+livre
+2
+QUARTO DOIS
 1
 livre
 3
 QUARTO TRES
-3
+1
 livre
 4
 QUARTO QUATRO
-1
-livre
-7
-QUARTO SETE
-1
+2
 livre
 5
 QUARTO CINCO
 2
 livre
-8
-QUARTO OITO
-2
-livre
 6
 QUARTO SEIS
-3
-livre
-9
-QUARTO NOVE
-3
-livre
-10
-Standart
 2
 livre

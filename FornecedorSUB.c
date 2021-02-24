@@ -12,62 +12,72 @@
 
 void cadastrarFornecedor() {
     int bd = listar();
-    int r;
+    int r, aux = 0;
+
     if (bd > 0) {
         Fornecedor a;
         printf("***** CADASTRAR FORNECEDOR *****\n");
         //pega os dados
         printf("Digite o cod do Fornecedor \n");
         scanf("%d%*c", &a.codigo);
-        printf("Digite o nome Fantasia do Fornecedor \n");
-        fgets(a.nomeFantazia, 100, stdin);
-        strtok(a.nomeFantazia, "\n");
-        setbuf(stdin, NULL);
-        printf("Digite a Razão Social do Fornecedor \n");
-        fgets(a.razaoSocial, 100, stdin);
-        strtok(a.razaoSocial, "\n");
-        setbuf(stdin, NULL);
-        printf("Digite a Inscrição Estadual do Fornecedor \n");
-        fgets(a.inscricaoEstadual, 100, stdin);
-        strtok(a.inscricaoEstadual, "\n");
-        setbuf(stdin, NULL);
-        printf("Digite o CNPJ do Fornecedor \n");
-        scanf("%[0-9 .-]s%*c", a.cnpj);
-        strtok(a.cnpj, "\n");
-        setbuf(stdin, NULL);
-        printf("Digite o Email do Fornecedor \n");
-        fgets(a.email, 100, stdin);
-        strtok(a.email, "\n");
-        setbuf(stdin, NULL);
-        printf("Digite o Telefone do Fornecedor \n");
-        scanf("%[0-9.()]%*c", a.telefone);
-        printf("Digite o Cep do Endereço do Fornecedor \n");
-        scanf("%[0-9]%*c", a.endereco.cep);
-        printf("Digite o logradouro do Endereço do Fornecedor \n");
-        fgets(a.endereco.logradouro, 100, stdin);
-        strtok(a.endereco.logradouro, "\n");
-        setbuf(stdin, NULL);
-        printf("Digite o Bairro do Endereço do Fornecedor \n");
-        fgets(a.endereco.bairro, 100, stdin);
-        strtok(a.endereco.bairro, "\n");
-        setbuf(stdin, NULL);
-        printf("Digite o Cidade do Endereço do Fornecedor \n");
-        fgets(a.endereco.cidade, 100, stdin);
-        strtok(a.endereco.cidade, "\n");
-        setbuf(stdin, NULL);
-        printf("Digite o UF do Endereço do Fornecedor \n");
-        fgets(a.endereco.uf, 100, stdin);
-        strtok(a.endereco.uf, "\n");
-        setbuf(stdin, NULL);
-        printf("Digite o Numero do Endereço do Fornecedor \n");
-        scanf("%d%*c", &a.endereco.numero);
         if (bd == 1) {
-            r = cadastrarFornecedorControle(a);
+            aux = validarFornecedor(a.codigo);
         } else if (bd == 2) {
-            r = cadastrarFornecedorBIN(&a, 1);
+            aux = validarFornecedorBIN(a.codigo);
         }
-        if (r == 1) {
-            printf("\nFornecedor Cadastrada com SUCESSO!\n");
+        if (aux == 0) {
+            printf("Digite o nome Fantasia do Fornecedor \n");
+            fgets(a.nomeFantazia, 100, stdin);
+            strtok(a.nomeFantazia, "\n");
+            setbuf(stdin, NULL);
+            printf("Digite a Razão Social do Fornecedor \n");
+            fgets(a.razaoSocial, 100, stdin);
+            strtok(a.razaoSocial, "\n");
+            setbuf(stdin, NULL);
+            printf("Digite a Inscrição Estadual do Fornecedor \n");
+            fgets(a.inscricaoEstadual, 100, stdin);
+            strtok(a.inscricaoEstadual, "\n");
+            setbuf(stdin, NULL);
+            printf("Digite o CNPJ do Fornecedor \n");
+            scanf("%[0-9 .-]s%*c", a.cnpj);
+            strtok(a.cnpj, "\n");
+            setbuf(stdin, NULL);
+            printf("Digite o Email do Fornecedor \n");
+            fgets(a.email, 100, stdin);
+            strtok(a.email, "\n");
+            setbuf(stdin, NULL);
+            printf("Digite o Telefone do Fornecedor \n");
+            scanf("%[0-9.()]%*c", a.telefone);
+            printf("Digite o Cep do Endereço do Fornecedor \n");
+            scanf("%[0-9]%*c", a.endereco.cep);
+            printf("Digite o logradouro do Endereço do Fornecedor \n");
+            fgets(a.endereco.logradouro, 100, stdin);
+            strtok(a.endereco.logradouro, "\n");
+            setbuf(stdin, NULL);
+            printf("Digite o Bairro do Endereço do Fornecedor \n");
+            fgets(a.endereco.bairro, 100, stdin);
+            strtok(a.endereco.bairro, "\n");
+            setbuf(stdin, NULL);
+            printf("Digite o Cidade do Endereço do Fornecedor \n");
+            fgets(a.endereco.cidade, 100, stdin);
+            strtok(a.endereco.cidade, "\n");
+            setbuf(stdin, NULL);
+            printf("Digite o UF do Endereço do Fornecedor \n");
+            fgets(a.endereco.uf, 100, stdin);
+            strtok(a.endereco.uf, "\n");
+            setbuf(stdin, NULL);
+            printf("Digite o Numero do Endereço do Fornecedor \n");
+            scanf("%d%*c", &a.endereco.numero);
+            if (bd == 1) {
+                r = cadastrarFornecedorTXT(a);
+            } else if (bd == 2) {
+                r = cadastrarFornecedorBIN(&a, 1);
+            }
+            if (r == 1) {
+                printf("\nFornecedor Cadastrada com SUCESSO!\n");
+            }
+        } else {
+            printf("\nCod Já existente!\n");
         }
     } else {
         printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
@@ -94,7 +104,7 @@ void listarFornecedor() {
         if (num > 0) {
             int i, j;
             for (i = 0; i < num; i++) {
-                printf("\n**************** %d *****************\n", i);
+                printf("\n**************** %d *****************\n", i + 1);
                 printf("CODIGO : %d\n", a[i].codigo);
                 printf("NOME FANTASIA: %s\n", a[i].nomeFantazia);
                 printf("RAZÃO SOCIAL: %s\n", a[i].razaoSocial);
@@ -191,10 +201,10 @@ void atualizarFornecedor() {
                 if (bd == 1) {
                     r = editarFornecedorTXT(aco, a, num, i);
                 } else if (bd == 2) {
-                    r = editarFornecedorControleBIN(a);
+                    r = editarFornecedorBIN(a);
                 }
                 if (r == 1) {
-                    printf("\nAFornecedo Editado com SUCESSO!\n");
+                    printf("\nFornecedor Editado com SUCESSO!\n");
                 } else {
                     printf("\n ERRO ao Cadastrar Forncedor, tente outro codigo!\n");
                 }
@@ -235,18 +245,6 @@ void deletarFornecedor() {
 
 //metodos de crud
 
-int cadastrarFornecedorControle(Fornecedor cat) {
-    int n = numLinhasFornecedor();
-    if (n > 0) {
-        int v = validarFornecedor(cat.codigo);
-        if (v == 0) {
-            return cadastrarFornecedorTXT(cat);
-        } else {
-            return 0;
-        }
-    }
-    return cadastrarFornecedorTXT(cat);
-}
 
 int editarFornecedorTXT(Fornecedor *cat, Fornecedor c, int num, int i) {
 
@@ -266,80 +264,57 @@ int editarFornecedorTXT(Fornecedor *cat, Fornecedor c, int num, int i) {
 }
 
 int excluirFornecedor(int cod) {
-    int num = numLinhasFornecedor();
+    int aux = 0, num = numLinhasFornecedor();
     Fornecedor *cat = listarFornecedorTXT();
     int i;
     for (i = 0; i < num; i++) {
         if (cat[i].codigo == cod) {
-            int j;
-            for (j = i; j < num - 1; j++) {
-                cat[i].codigo = cat[i + 1].codigo;
-                strcpy(cat[i].nomeFantazia, cat[i + 1].nomeFantazia);
-                cat[i].endereco.numero = cat[i + 1].endereco.numero;
-                strcpy(cat[i].razaoSocial, cat[i + 1].razaoSocial);
-                strcpy(cat[i].inscricaoEstadual, cat[i + 1].inscricaoEstadual);
-                strcpy(cat[i].email, cat[i + 1].email);
-                strcpy(cat[i].telefone, cat[i + 1].telefone);
-                strcpy(cat[i].cnpj, cat[i + 1].cnpj);
-                strcpy(cat[i].endereco.logradouro, cat[i + 1].endereco.logradouro);
-                strcpy(cat[i].endereco.bairro, cat[i + 1].endereco.bairro);
-                strcpy(cat[i].endereco.cep, cat[i + 1].endereco.cep);
-                strcpy(cat[i].endereco.cidade, cat[i + 1].endereco.cidade);
-                strcpy(cat[i].endereco.uf, cat[i + 1].endereco.uf);
-                cat = realloc(cat, (num - 1) * sizeof (Fornecedor));
+            aux = 1;
+            for (; i < num - 1; i++) {
+                cat[i] = cat[i + 1];
             }
+            cat = realloc(cat, (num - 1) * sizeof (Fornecedor));
             break;
         }
     }
-    //salva no arquivo txt com uma categoria a menos
-    // retorna 1, se editou com sucesso e 0 se não achou o codigo;
-    return salvarFornecedorTXT(cat, num - 1);
+    if (aux == 1) {
+        //salva no arquivo txt com uma categoria a menos
+        // retorna 1, se editou com sucesso e 0 se não achou o codigo;
+        return salvarFornecedorTXT(cat, num - 1);
+    } else {
+        return 0;
+    }
 
 }
 
 /*arquivo binario*/
-int cadastrarFornecedorControleBIN(Fornecedor *cat, int qtd) {
-    int v = validarFornecedorBIN(cat->codigo);
-    if (v == 0) {
-        return cadastrarFornecedorBIN(cat, qtd);
-    } else {
-        return 0;
-    }
-    return 1;
-}
-
-int editarFornecedorControleBIN(Fornecedor cat) {
-    int v = validarFornecedorBIN(cat.codigo);
-    int r = editarFornecedorBIN(cat, v);
-    return r;
-}
-
 // remove a categoria do vetor, realoca ele e reecreve o arquivo
 
 int removerFornecedorControleBIN(int cod) {
-    int num;
+    int num, aux = 0;
     Fornecedor *cat = listarFornecedorBIN(&num);
-    int i;
-    for (i = 0; i < num; i++) {
+    int i, j;
+    for (i = 0; i < num;) {
         if (cat[i].codigo == cod) {
-            int j;
+            aux = 1;
             //realoca o vetor
-            for (j = i; j < num - 1; j++) {
-                cat[i].codigo = cat[i + 1].codigo;
-                cat[i].codigo = cat[i + 1].codigo;
-                //                strcpy(cat[i].descricao, cat[i + 1].descricao);
-                // cat[i].categoria.codigo = cat[i + 1].categoria.codigo;
-                //strcpy(cat[i].status, cat[i + 1].status);
-                //                cat = realloc(cat, (num - 1) * sizeof (Fornecedor));
+            for (; i < num - 1; i++) {
+                cat[i] = cat[i + 1];
             }
+            cat = realloc(cat, (num - 1) * sizeof (Fornecedor));
             break;
         }
+        i++;
     }
-    //apaga arquivo
-    int r = removerFornecedorBIN();
-    if (r == 1) {
-        //se deu certo reescreve arquivo
-        return cadastrarFornecedorBIN(cat, (num - 1));
+    if (aux == 1) {
+        //apaga arquivo
+        int r = removerFornecedorBIN();
+        if (r == 1) {
+            //se deu certo reescreve arquivo
+            return cadastrarFornecedorBIN(cat, (num - 1));
+        } else {
+            return 0;
+        }
     } else {
         return 0;
     }

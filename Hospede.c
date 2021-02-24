@@ -235,9 +235,7 @@ Hospede* getAllHospedesBIN(int* numHospedes) {
                 index++;
                 arrayHospedes = realloc(arrayHospedes, (index + 1) * sizeof (Hospede));
                 //printf("INDEX = %d\n", index);
-            } else {
-                printf("ERRO AO LER HOSPEDE\n");
-            }
+            } 
 
         }
 

@@ -34,7 +34,7 @@ int cadastrarReservaTXT(Reserva aco) {
     // abre o arquivo com o cursor no final
     arq = fopen("arquivos\\ReservaTXT.txt", "a");
     if (arq == NULL) {
-         
+
         // se ele não existir cria um
         arq = fopen("arquivos\\ReservaTXT.txt", "w");
         if (arq == NULL) {
@@ -48,7 +48,7 @@ int cadastrarReservaTXT(Reserva aco) {
     fclose(arq);
     //libera memoria
     free(arq);
-    printf("DEBUG: ENTROU AQUI\n");
+    //printf("DEBUG: ENTROU AQUI\n");
     return 1;
 }
 //metodo salva, sobrescrevendo o array de tamanho num
@@ -206,12 +206,11 @@ int numReserva() {
     fclose(arquivo);
     //libera memoria
     free(arquivo);
-    printf("DEBUG: O NUMERO DE LINHAS É: %d\n", numLinha);
     return (numLinha / 28);
 }
 
 int validarReserva(int cod) {
-   // printf("ENTROU VALIDACAO\n");
+    // printf("ENTROU VALIDACAO\n");
     Reserva *aco = listarReservaTXT();
     //printf("COD = %d\n",cod);
     int achou = 0;
@@ -299,8 +298,6 @@ Reserva * listarReservaBIN(int *numLinha) {
     return aco;
 }
 
-
-
 /*int editarReservaBIN(Reserva aco, int posi) {
     FILE *arquivo;
     //abre arquivo para leitura e escrita, ele deve existir "r+b"
@@ -347,8 +344,8 @@ int validarReservaBIN(int cod) {
 
 //Tales
 
-void deletarReservaBIN(int cod) {
-
+int deletarReservaBIN(int cod) {
+    int retorno = -1;
     FILE* arqReserva = fopen(".\\arquivos\\reserva_temp.bin", "wb");
     if (arqReserva == NULL) {
         printf("ERRO AO ABRIR ARQUIVO");
@@ -360,11 +357,11 @@ void deletarReservaBIN(int cod) {
             if (arrayReservas[i].codigo != cod) {
                 Reserva r = arrayReservas[i];
 
-                fwrite(&r, sizeof (Reserva), 1, arqReserva);
-
+                retorno = fwrite(&r, sizeof (Reserva), 1, arqReserva);
+                 printf("RETORNO BIN É %d\n",retorno);
             } else {
-                Reserva r2 = arrayReservas[i];
-                printf("É ESSE AQUI QUE VAI DELETAR: COD %d == %d\n", arrayReservas[i].codigo, r2.codigo);
+                //Reserva r2 = arrayReservas[i];
+                //printf("É ESSE AQUI QUE VAI DELETAR: COD %d == %d\n", arrayReservas[i].codigo, r2.codigo);
             }
 
         }
@@ -373,6 +370,12 @@ void deletarReservaBIN(int cod) {
         free(arrayReservas);
         remove(".\\arquivos\\ReservaBIN.bin");
         rename(".\\arquivos\\reserva_temp.bin", ".\\arquivos\\ReservaBIN.bin");
+    }
+    
+    if(retorno != -1){
+        return 1;
+    } else{
+        return 0;
     }
 }
 
@@ -398,4 +401,28 @@ int removerReservaTXT(int cod) {
         rename(".\\arquivos\\reserva_temp.txt", ".\\arquivos\\ReservaTXT.txt");
         return 1;
     }
+}
+
+int maiorCodReservaTXT() {
+    int num = numReserva();
+    Reserva * res = listarReservaTXT();
+    int i, aux = 0;
+    for (i = 0; i < num; i++) {
+        if (res[i].codigo > aux) {
+            aux = res[i].codigo;
+        }
+    }
+    return aux;
+}
+
+int maiorCodReservaBIN() {
+    int num;
+    Reserva * res = listarReservaBIN(&num);
+    int i, aux = 0;
+    for (i = 0; i < num; i++) {
+        if (res[i].codigo > aux) {
+            aux = res[i].codigo;
+        }
+    }
+    return aux;
 }

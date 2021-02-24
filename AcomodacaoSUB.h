@@ -32,6 +32,5 @@ int excluirAcomodacao(int cod);
 
 int cadastrarAcomodacaoControleBIN(Acomodacao *cat, int qtd) ;
 
-int removerAcomodacaoControleBIN(int cod);
 #endif /* ACOMODACAOCONTROL_H */
 

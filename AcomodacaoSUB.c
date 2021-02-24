@@ -14,28 +14,36 @@
 
 void cadastrarAcomodacao() {
     int bd = listar();
+    int aux = 0;
     if (bd > 0) {
         Acomodacao a;
         printf("***** CADASTRAR ACOMODAÇÃO *****\n");
         //pega os dados
         printf("Digite o cod da acomodação \n");
         scanf("%d%*c", &a.codigo);
-        printf("Digite a descrição da acomodação \n");
-        fgets(a.descricao, 100, stdin);
-        strtok(a.descricao, "\n");
-        setbuf(stdin, NULL);
-        //cadastra acomodação com status de disponiilidade live
-        strcpy(a.status, "livre");
-        //listar categorias
-        int r = printCategoria(&a);
-        if (r == 1) {
-            if (bd == 1) {
-                r = cadastrarAcomodacaoControle(a);
-            } else if (bd == 2) {
-                r = cadastrarAcomodacaoBIN(&a, 1);
-            }
+        if (bd == 1) {
+            aux = validarAcomodacao(a.codigo);
+        } else if (bd == 2) {
+            aux = validarAcomodacaoBIN(a.codigo);
+        }
+        if (aux == 0) {
+            printf("Digite a descrição da acomodação \n");
+            fgets(a.descricao, 100, stdin);
+            strtok(a.descricao, "\n");
+            setbuf(stdin, NULL);
+            //cadastra acomodação com status de disponiilidade live
+            strcpy(a.status, "livre");
+            //listar categorias
+            int r = printCategoria(&a);
             if (r == 1) {
-                printf("\nAcomodação Cadastrada com SUCESSO!\n");
+                if (bd == 1) {
+                    r = cadastrarAcomodacaoTXT(a);
+                } else if (bd == 2) {
+                    r = cadastrarAcomodacaoBIN(&a, 1);
+                }
+                if (r == 1) {
+                    printf("\nAcomodação Cadastrada com SUCESSO!\n");
+                }
             }
         } else {
             printf("\n ERRO ao Cadastrar Acomodação, tente outro codigo!\n");
@@ -43,7 +51,7 @@ void cadastrarAcomodacao() {
     } else {
         printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
-    
+
 
 }
 
@@ -133,11 +141,11 @@ void atualizarAcomodacao() {
                 int r = printCategoria(&aco);
                 if (r == 1) {
                     if (bd == 1) {
-                       r = editarAcomodacaoTXT(a, aco, num, i);
+                        r = editarAcomodacaoTXT(a, aco, num, i);
                     } else if (bd == 2) {
-                       r = editarAcomodacaoControleBIN(a);
+                        r = editarAcomodacaoBIN(aco);
                     }
-                    
+
                     if (r == 1) {
                         printf("\nAcomodação Editada com SUCESSO!\n");
                     } else {
@@ -202,69 +210,55 @@ int editarAcomodacaoTXT(Acomodacao *cat, Acomodacao c, int num, int i) {
 int excluirAcomodacao(int cod) {
     int num = numAcomodacao();
     Acomodacao *cat = listarAcomodacaoTXT();
-    int i;
+    int i, aux = 0;
     for (i = 0; i < num; i++) {
         if (cat[i].codigo == cod) {
+            aux = 1;
             int j;
-            for (j = i; j < num - 1; j++) {
-                cat[i].codigo = cat[i + 1].codigo;
-                strcpy(cat[i].descricao, cat[i + 1].descricao);
-                cat[i].categoria.codigo = cat[i + 1].categoria.codigo;
-                strcpy(cat[i].status, cat[i + 1].status);
-                cat = realloc(cat, (num - 1) * sizeof (Acomodacao));
+            for (; i < num - 1; i++) {
+                cat[i] = cat[i + 1];
             }
+            cat = realloc(cat, (num - 1) * sizeof (Acomodacao));
             break;
         }
     }
-    //salva no arquivo txt com uma categoria a menos
-    // retorna 1, se editou com sucesso e 0 se não achou o codigo;
-    return salvarAcomodacaoTXT(cat, num - 1);
-
-}
-
-/*arquivo binario*/
-int cadastrarAcomodacaoControleBIN(Acomodacao *cat, int qtd) {
-    int v = validarAcomodacaoBIN(cat->codigo);
-    if (v == 0) {
-        return cadastrarAcomodacaoBIN(cat, qtd);
+    if (aux == 1) {
+        //salva no arquivo txt com uma categoria a menos
+        // retorna 1, se editou com sucesso e 0 se não achou o codigo;
+        return salvarAcomodacaoTXT(cat, num - 1);
     } else {
         return 0;
     }
-    return 1;
 }
 
-int editarAcomodacaoControleBIN(Acomodacao cat) {
-    int v = validarAcomodacaoBIN(cat.codigo);
-    int r = editarAcomodacaoBIN(cat, v);
-    return r;
-}
+/*arquivo binario*/
 
 // remove a categoria do vetor, realoca ele e reecreve o arquivo
 
 int removerAcomodacaoControleBIN(int cod) {
     int num;
     Acomodacao *cat = listarAcomodacaoBIN(&num);
-    int i;
+    int i, aux = 0;
     for (i = 0; i < num; i++) {
         if (cat[i].codigo == cod) {
-            int j;
+            aux = 1;
             //realoca o vetor
-            for (j = i; j < num - 1; j++) {
-                cat[i].codigo = cat[i + 1].codigo;
-                cat[i].codigo = cat[i + 1].codigo;
-                strcpy(cat[i].descricao, cat[i + 1].descricao);
-                cat[i].categoria.codigo = cat[i + 1].categoria.codigo;
-                strcpy(cat[i].status, cat[i + 1].status);
-                cat = realloc(cat, (num - 1) * sizeof (Acomodacao));
+            for (; i < num - 1; i++) {
+                cat[i] = cat[i + 1];
             }
+            cat = realloc(cat, (num - 1) * sizeof (Acomodacao));
             break;
         }
     }
-    //apaga arquivo
-    int r = removerAcomodacaoBIN();
-    if (r == 1) {
-        //se deu certo reescreve arquivo
-        return cadastrarAcomodacaoBIN(cat, (num - 1));
+    if (aux == 1) {
+        //apaga arquivo
+        int r = removerAcomodacaoBIN();
+        if (r == 1) {
+            //se deu certo reescreve arquivo
+            return cadastrarAcomodacaoBIN(cat, (num - 1));
+        } else {
+            return 0;
+        }
     } else {
         return 0;
     }

@@ -51,36 +51,38 @@ void CancelarReserva() {
         printf("Digite o código da reserva que deseja cancelar:\n");
         scanf("%d%*c", &cod);
 
-        int validacao =0;
+        int validacao = 0;
         if (bd == 1) {
             //TXT
             validacao = validarReserva(cod);
-            printf("VALID TXT == %d\n",validacao);
+            //printf("VALID TXT == %d\n",validacao);
         }
         if (bd == 2) {
             //BIN
             validacao = validarReservaBIN(cod);
-            printf("VALID BIN == %d\n",validacao);
+            // printf("VALID BIN == %d\n",validacao);
         }
 
         if (validacao == 1) {
-            printf("VALID == 1\n");
-            int retorno =0;
-            if(bd ==1){
+            //printf("VALID == 1\n");
+            int retorno = 0;
+            if (bd == 1) {
                 //TXT
-                 retorno = removerReservaTXT(cod);
+                retorno = removerReservaTXT(cod);
+                
             }
-            if(bd ==2){
+            if (bd == 2) {
                 //BIN
                 retorno = deletarReservaBIN(cod);
             }
-            
+
+           /* printf("RETORNO É %d\n",retorno);
             if (retorno == 1) {
                 printf("RESERVA CANCELADA COM SUCESSO\n");
             } else {
                 printf("ERRO AO CANCELAR RESERVA\n");
             }
-
+            */
         } else {
             printf("CÓDIGO INVÁLIDO \n");
         }

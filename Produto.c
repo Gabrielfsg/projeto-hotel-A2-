@@ -178,8 +178,8 @@ void atualizarProdutoBIN(Produto novoProd) {
 
         fclose(arqProduto);
         free(arrProdutos);
-        remove(".\\persist\\hospedes.bin");
-        rename(".\\persist\\hospedes_temp.bin", ".\\persist\\hospedes.bin");
+        remove(".\\arquivos\\produtos.bin");
+        rename(".\\arquivos\\produtos_temp.bin", ".\\arquivos\\produtos.bin");
     }
 
 }

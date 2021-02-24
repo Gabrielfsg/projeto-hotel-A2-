@@ -28,9 +28,10 @@ int numAcomodacao();
 int validarAcomodacao(int cod);
 int cadastrarAcomodacaoBIN(Acomodacao *aco, int quantidade);
 Acomodacao* listarAcomodacaoBIN(int *numLinha);
-int editarAcomodacaoBIN(Acomodacao aco, int posi);
+int editarAcomodacaoBIN(Acomodacao aco);
 int validarAcomodacaoBIN(int cod);
 int removerAcomodacaoBIN();
+int posicaoAcomodacaoBIN(int cod);
 
 
 #endif /* ACOMODACAO_H */

@@ -146,7 +146,7 @@ int validarCategoria(int cod) {
 
 /*Aruivos binarios*/
 
-int cadastrarCategoriaBIN(Categoria cat, int quantidade) {
+int cadastrarCategoriaBIN(Categoria *cat, int quantidade) {
     FILE *cad;
     //cad = fopen("arquivos\\ReservaQBIN.bin", "ab");
     cad = fopen("arquivos\\CategoriaBIN.bin", "ab");
@@ -157,7 +157,7 @@ int cadastrarCategoriaBIN(Categoria cat, int quantidade) {
     } else {
         //strlen()-> informa o tamanho de uma string 
         /*grava toda struct de categoria no arquivo*/
-        fwrite(&cat, sizeof (Categoria), quantidade, cad);
+        fwrite(cat, sizeof (Categoria), quantidade, cad);
         fflush(cad);
         /*fecha o arquivo*/
         fclose(cad);
@@ -217,14 +217,15 @@ Categoria * listarCategoriaBIN(int *numLinha) {
     return cat;
 }
 
-int editarCategoriaBIN(Categoria cat, int posi) {
+int editarCategoriaBIN(Categoria cat) {
     FILE *arquivo;
-    //abre arquivo para leitura e escrita "wb"
-    arquivo = fopen("arquivos\\CategoriaBIN.bin", "wb");
+    //abre arquivo para leitura e escrita "r+b"
+    arquivo = fopen("arquivos\\CategoriaBIN.bin", "r+b");
     if (arquivo == NULL) {
         printf("Erro ao acessar arquivo\n");
         return 0;
     }
+    int posi = posicaoCategoriaBIN(cat.codigo);
     //Posiciona o cursor na posição do struct
     fseek(arquivo, (posi * sizeof (Categoria)), SEEK_SET);
     //Substitui o struct de posição posi
@@ -243,9 +244,24 @@ int validarCategoriaBIN(int cod) {
     int i;
     for (i = 0; i < num; i++) {
         if (cod == cat[i].codigo) {
-            // retorna o indice se achar
+            // retorna um se achar
+            return 1;
+        }
+    }
+    free(cat);
+    return 0;
+}
+
+int posicaoCategoriaBIN(int cod) {
+    int num;
+    Categoria *cat = listarCategoriaBIN(&num);
+    int i;
+    for (i = 0; i < num;) {
+        if (cod == cat[i].codigo) {
+            // retorna um se achar
             return i;
         }
+        i++;
     }
     free(cat);
     return 0;

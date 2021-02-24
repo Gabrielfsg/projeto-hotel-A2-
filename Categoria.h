@@ -29,10 +29,13 @@ Categoria* listarCategoriaTXT();
 Categoria* newCate(int num);
 void mostrar(Categoria *cat, int numLinha);
 int numCategoria();
-int cadastrarCategoriaBIN(Categoria cat, int quantidade);
+int cadastrarCategoriaBIN(Categoria *cat, int quantidade);
 Categoria* listarCategoriaBIN(int *numLinha) ;
 int contCategoria();
 int removerCategoriaBIN();
+int editarCategoriaBIN(Categoria cat);
+int validarCategoriaBIN(int cod);
+int posicaoCategoriaBIN(int cod);
 
 #endif /* CATEGORIA_H */
 

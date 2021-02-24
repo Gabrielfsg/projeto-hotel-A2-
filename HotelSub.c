@@ -179,19 +179,16 @@ void alterarHotel() {
     Hotel h;
     Hotel *hot;
     int bd = listar();
-    if (bd == 1) {
-        hot = listarHTXT();
-        n = contarLinhasHotelTXT();
-    } else if (bd == 2) {
-        hot = listarHotelBIN(&n);
+    if (bd == 1) {//txt
+        hot = listarHTXT();//lista hotel em arquivo txt
+        n = contarLinhasHotelTXT();//contas as linhas arquivo txt
+    } else if (bd == 2) {//bin
+        hot = listarHotelBIN(&n);//lista hotel em arquivo bin usando n como parametro
     } else {
         printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
     if (bd > 0) {
         if (n > 0) {
-
-
-
             printf("***** ALTERAR DADOS DO Hotel *****\n");
             printf("Digite o cod do Hotel \n");
             scanf("%d%*c", &h.codigo);
@@ -269,9 +266,9 @@ void alterarHotel() {
             }
             if (aux == 1) {
                 if(bd == 1){
-                     int r = editarHotelTXT(hot, h, n);
+                     int r = editarHotelTXT(hot, h, n);// chama o metodo que faz a edição em txt
                 }else if(bd == 2){
-                    int r = editarHotelBin(h, i);
+                    int r = editarHotelBin(h, i);// chama o metodo que faz a edição em bin
                 }
                 printf("Atualização Efetuada com sucesso! \n");              
             }else{
@@ -283,7 +280,7 @@ void alterarHotel() {
     }
 }
 
-/*int removerHotelControleBIN(int cod) {
+/*int removerHotelControleBIN(int cod) {// metodo que remove n hoteis
     int num;
     Hotel *hot = listarHotelBIN(&num);
     int i;
