@@ -18,6 +18,15 @@
 
 #include "ReservaSubCancel.h"
 
+/*
+ * FUNÇÃO: CancelarReserva 
+ * 
+ * Cancela uma resreva por código, na extensão escolhida
+ * 
+ * PARÂMETROS: nenhum
+ * 
+ * RETORNO: Void
+ */
 void CancelarReserva() {
     int bd = listar();
     int cod;
@@ -73,7 +82,7 @@ void CancelarReserva() {
             }
             if (bd == 2) {
                 //BIN
-                retorno = deletarReservaBIN(cod);
+                retorno = removerReservaBIN(cod);
             }
 
            /* printf("RETORNO É %d\n",retorno);

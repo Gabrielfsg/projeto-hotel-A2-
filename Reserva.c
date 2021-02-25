@@ -344,8 +344,8 @@ int validarReservaBIN(int cod) {
 
 //Tales
 
-int deletarReservaBIN(int cod) {
-    int retorno = -1;
+int removerReservaBIN(int cod) {
+    int retorno =0;
     FILE* arqReserva = fopen(".\\arquivos\\reserva_temp.bin", "wb");
     if (arqReserva == NULL) {
         printf("ERRO AO ABRIR ARQUIVO");
@@ -357,8 +357,8 @@ int deletarReservaBIN(int cod) {
             if (arrayReservas[i].codigo != cod) {
                 Reserva r = arrayReservas[i];
 
-                retorno = fwrite(&r, sizeof (Reserva), 1, arqReserva);
-                 printf("RETORNO BIN É %d\n",retorno);
+                fwrite(&r, sizeof (Reserva), 1, arqReserva);
+                
             } else {
                 //Reserva r2 = arrayReservas[i];
                 //printf("É ESSE AQUI QUE VAI DELETAR: COD %d == %d\n", arrayReservas[i].codigo, r2.codigo);
@@ -372,15 +372,11 @@ int deletarReservaBIN(int cod) {
         rename(".\\arquivos\\reserva_temp.bin", ".\\arquivos\\ReservaBIN.bin");
     }
     
-    if(retorno != -1){
-        return 1;
-    } else{
-        return 0;
-    }
+    return retorno;
 }
 
 int removerReservaTXT(int cod) {
-
+    int retorno =0;
     FILE* arqReserva = fopen(".\\arquivos\\reserva_temp.txt", "w");
     if (arqReserva == NULL) {
         printf("ERRO AO ABRIR ARQUIVO");
@@ -399,7 +395,7 @@ int removerReservaTXT(int cod) {
         free(arrayReservas);
         remove(".\\arquivos\\ReservaTXT.txt");
         rename(".\\arquivos\\reserva_temp.txt", ".\\arquivos\\ReservaTXT.txt");
-        return 1;
+        return retorno;
     }
 }
 

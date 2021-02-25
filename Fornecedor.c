@@ -84,7 +84,11 @@ Fornecedor * listarFornecedorTXT() {
 
         fgets(t, 100, arquivo);
         aco[i].codigo = atoi(t);
-        //printf("COD = %d\n", aco[i].codigo);
+        if (aco[i].codigo == 0) {
+            fgets(t, 100, arquivo);
+            aco[i].codigo = atoi(t);
+        }
+        aco[i].codigo = atoi(t);
         fgets(aco[i].nomeFantazia, 100, arquivo);
         strtok(aco[i].nomeFantazia, "\r\n");
         //printf("FANT = %s\n", aco[i].nomeFantazia);
@@ -120,25 +124,7 @@ Fornecedor * listarFornecedorTXT() {
         strtok(aco[i].endereco.uf, "\r\n");
         //printf("UF = %s\n", aco[i].endereco.uf);
         aco[i].endereco.numero = atoi(t);
-        //printf("((((((((()))))))))\n");
-    }
-    
-    for (int i = 0; i < numLinha; i++) {
-        printf("((((((((()))))))))POS = %d\n", i);
-        printf("COD = %d\n", aco[i].codigo);
-        printf("FANT = %s\n", aco[i].nomeFantazia);
-        printf("RAZ = %s\n", aco[i].razaoSocial);
-        printf("IE = %s\n", aco[i].inscricaoEstadual);
-        printf("CN = %s\n", aco[i].cnpj);
-        printf("TE = %s\n", aco[i].telefone);
-        printf("EM = %s\n", aco[i].email);
-        printf("LOG = %s\n", aco[i].endereco.logradouro);
-        printf("BA = %s\n", aco[i].endereco.bairro);
-        printf("CEP = %s\n", aco[i].endereco.cep);
-        printf("CEP = %s\n", aco[i].endereco.cep);
-        printf("UF = %s\n", aco[i].endereco.uf);
-        printf("NUM = %d\n", aco[i].endereco.numero);
-        printf("((((((((()))))))))\n");
+        //fgetc(arquivo);
     }
     //fecha arquivo
     fclose(arquivo);
