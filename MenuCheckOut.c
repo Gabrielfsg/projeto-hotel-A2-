@@ -122,7 +122,7 @@ void checkOutHospede() {
                         cr.codigo = maiorCodContaReceber() + 1;
                         cr.caixa = 0;
                         cr.data = *dataIn;
-                        strcpy(cr.pagamento, "Cartão");
+                       strcpy(cr.pagamento, "Cartão");
                         strcpy(cr.status, "Agendado");
                         cr.valor = c.valorTotal;
                         aux = 1;

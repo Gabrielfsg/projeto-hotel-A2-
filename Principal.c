@@ -205,7 +205,7 @@ void subCaixa() {
         printf("1.Vender Produto.\n");
         printf("2.Opções Caixa.\n");
         printf("3.Despesas.\n");
-        printf("4.Contas a Pagar.\n");
+        printf("4.Contas.\n");
         printf("5.Listar Valor Caixa .\n");
         printf("6.Sair.\n");
         scanf("%d%*c", &opc);
@@ -220,7 +220,7 @@ void subCaixa() {
                 //função Contas a Pagar
                 break;
             case 4:
-                //função Listar Valor Caixa
+                menuContas();
                 break;
             case 5:
                 //função Fechar Caixa
@@ -328,7 +328,7 @@ void subRelatorios() {
 
                 break;
             case 2:
-                //metodo editar empresa
+                relatarAcomodacao();
                 break;
             case 3:
                 //metodo mostrar dados empresa

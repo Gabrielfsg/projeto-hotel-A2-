@@ -8,10 +8,10 @@
 int cadastrarContaReceberTXT(ContaReceber cat) {
     FILE *cad;
     // abre o arquivo e posiciona o cursor no final
-    cad = fopen("arquivos\\ContaReceberTXT.txt", "a");
+    cad = fopen("arquivos\\ContaReceberTXT", "a");
     if (cad == NULL) {
         // se ele não existir cria um
-        cad = fopen("arquivos\\ContaReceberTXT.txt", "w");
+        cad = fopen("arquivos\\ContaReceberTXT", "w");
         if (cad == NULL) {
             printf("\nErro: aao cessar arquivo\n");
             return 0;
@@ -31,7 +31,7 @@ int cadastrarContaReceberTXT(ContaReceber cat) {
 int salvarContaReceberTXT(ContaReceber *cat, int num) {
     FILE *cad;
     // w pra substituir o arquivo
-    cad = fopen("arquivos\\ContaReceberTXT.txt", "w");
+    cad = fopen("arquivos\\ContaReceberTXT", "w");
     if (cad == NULL) {
         printf("\nErro ao abrir arquivo!!");
         return 0;
@@ -57,10 +57,10 @@ ContaReceber* listarContaReceberTXT() {
     FILE *arquivo;
     numLinha = numContaReceber(arquivo);
     //abrea arquivo para leitura apenas "r"
-    arquivo = fopen("arquivos\\ContaReceberTXT.txt", "r");
+    arquivo = fopen("arquivos\\ContaReceberTXT", "r");
     if (arquivo == NULL) {
         //cria arquivo para leitura/escrita se não houver "w+"
-        arquivo = fopen("arquivos\\ContaReceberTXT.txt", "w+");
+        arquivo = fopen("arquivos\\ContaReceberTXT", "w+");
         if (arquivo == NULL) {
             printf("\nErro ao acessar arquivo categoria\n");
             return NULL;
@@ -102,9 +102,9 @@ int numContaReceber() {
     FILE *arquivo;
     int numLinha = 0, c;
     //abre arquivo para leitura "r"
-    arquivo = fopen("arquivos\\ContaReceberTXT.txt", "r");
+    arquivo = fopen("arquivos\\ContaReceberTXT", "r");
     if (arquivo == NULL) {
-        arquivo = fopen("arquivos\\ContaReceberTXT.txt", "w+");
+        arquivo = fopen("arquivos\\ContaReceberTXT", "w+");
         if (arquivo == NULL) {
             printf("Erro ao acessar arquivo\n");
             return 0;

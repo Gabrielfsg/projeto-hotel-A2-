@@ -101,8 +101,8 @@ void checkInPorData() {
                         cr.codigo = maiorCodContaReceber() + 1;
                         cr.caixa = 0;
                         cr.data = *dataIn;
-                        strcpy(cr.pagamento, "Cartão");
-                        strcpy(cr.status, "Agendado");
+                        //strcpy(cr.pagamento, "Cartão");
+                        //strcpy(cr.status, "Agendado");
                         cr.valor = c.valor;
                         aux = 1;
                         if (bd == 1)
@@ -225,8 +225,8 @@ void checkInHospede() {
                             cr.codigo = maiorCodContaReceber() + 1;
                             cr.caixa = 0;
                             cr.data = *dataIn;
-                            strcpy(cr.pagamento, "Cartão");
-                            strcpy(cr.status, "Agendado");
+//                            strcpy(cr.pagamento, "Cartão");
+                      //      strcpy(cr.status, "Agendado");
                             cr.valor = c.valor;
                             aux = 1;
                             if (bd == 1)

@@ -19,8 +19,10 @@ typedef struct contaReceber {
     int codigo;
     float valor;
     Data data;
+   // int status;
     char status[100];
     char pagamento[100];
+   // int formaPagamento;
     int caixa;
 } ContaReceber;
 int maiorCodContaReceber();
