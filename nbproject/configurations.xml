@@ -16,6 +16,9 @@
         <itemPath>FornecedorMenu.h</itemPath>
         <itemPath>FornecedorSUB.h</itemPath>
         <itemPath>HospedeMenu.h</itemPath>
+        <itemPath>MenuCaixa.h</itemPath>
+        <itemPath>MenuCheckIn.h</itemPath>
+        <itemPath>MenuCheckOut.h</itemPath>
         <itemPath>OperadorsistemaMenu.h</itemPath>
         <itemPath>ProdutoConsumoMenu.h</itemPath>
         <itemPath>ReservaSubC.h</itemPath>
@@ -29,6 +32,7 @@
         </logicalFolder>
         <logicalFolder name="f1" displayName="Util" projectFiles="true">
           <itemPath>Data.h</itemPath>
+          <itemPath>Hora.h</itemPath>
         </logicalFolder>
         <itemPath>Acomodacao.h</itemPath>
         <itemPath>Caixa.h</itemPath>
@@ -40,14 +44,15 @@
         <itemPath>ContaReceber.h</itemPath>
         <itemPath>Endereco.h</itemPath>
         <itemPath>Fornecedor.h</itemPath>
-        <itemPath>Hora.h</itemPath>
         <itemPath>Hospede.h</itemPath>
         <itemPath>Hotel.h</itemPath>
         <itemPath>OperadorSistema.h</itemPath>
         <itemPath>Produto.h</itemPath>
+        <itemPath>ProdutoReserva.h</itemPath>
         <itemPath>Reserva.h</itemPath>
         <itemPath>Retirada.h</itemPath>
         <itemPath>Venda.h</itemPath>
+        <itemPath>VendaProduto.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="sync" projectFiles="true">
       </logicalFolder>
@@ -96,6 +101,13 @@
                        projectFiles="true">
         </logicalFolder>
         <logicalFolder name="f5" displayName="Caixa" projectFiles="true">
+          <itemPath>MenuCaixa.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f8" displayName="CheckIn" projectFiles="true">
+          <itemPath>MenuCheckIn.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f3" displayName="CheckOut" projectFiles="true">
+          <itemPath>MenuCheckOut.c</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="Login" projectFiles="true">
           <itemPath>Login.c</itemPath>
@@ -135,6 +147,7 @@
         <itemPath>Hotel.c</itemPath>
         <itemPath>OperadorSistema.c</itemPath>
         <itemPath>Produto.c</itemPath>
+        <itemPath>ProdutoReserva.c</itemPath>
         <itemPath>Reserva.c</itemPath>
         <itemPath>Retirada.c</itemPath>
         <itemPath>Venda.c</itemPath>
@@ -257,6 +270,18 @@
       </item>
       <item path="Login.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="MenuCaixa.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="MenuCaixa.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MenuCheckIn.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="MenuCheckIn.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MenuCheckOut.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="MenuCheckOut.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Menus.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="OperadorMenu.c" ex="false" tool="0" flavor2="0">
@@ -280,6 +305,10 @@
       <item path="ProdutoConsumoMenu.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="ProdutoConsumoMenu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ProdutoReserva.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="ProdutoReserva.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Reserva.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -306,6 +335,8 @@
       <item path="Venda.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Venda.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="VendaProduto.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -421,6 +452,18 @@
       </item>
       <item path="Login.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="MenuCaixa.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="MenuCaixa.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MenuCheckIn.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="MenuCheckIn.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MenuCheckOut.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="MenuCheckOut.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Menus.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="OperadorMenu.c" ex="false" tool="0" flavor2="0">
@@ -442,6 +485,10 @@
       <item path="Produto.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ProdutoConsumoMenu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ProdutoReserva.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="ProdutoReserva.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Reserva.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -468,6 +515,8 @@
       <item path="Venda.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Venda.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="VendaProduto.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>

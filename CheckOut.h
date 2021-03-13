@@ -14,8 +14,29 @@
 #ifndef CHECKOUT_H
 #define CHECKOUT_H
 
-typedef struct checkOut CheckOut;
+#include "Data.h"
+#include "CheckIn.h"
 
+typedef struct checkOut {
+    int codigo;
+    float valorTotal;
+    Data saida;
+    int hospede;
+    CheckIn checkin;
+    int caixa;
+} CheckOut;
+int numCheckOut();
+int validarCheckOut(int cod);
+int cadastrarCheckOutBIN(CheckOut *cat, int quantidade);
+CheckOut * listarCheckOutBIN(int *numLinha);
+int editarCheckOutBIN(CheckOut cat);
+int validarCheckOutBIN(int cod);
+int posicaoCheckOutBIN(int cod);
+int removerCheckOutBIN();
+CheckOut* listarCheckOutTXT();
+int salvarCheckOutTXT(CheckOut *cat, int num);
+int cadastrarCheckOutTXT(CheckOut cat);
+float somaCheckOutCaixa(int codigo);
 
 #endif /* CHECKOUT_H */
 

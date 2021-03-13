@@ -5,21 +5,15 @@
  */
 
 /* 
- * File:   Hora.h
+ * File:   MenuCaixa.h
  * Author: Daniel
  *
- * Created on 7 de Janeiro de 2021, 00:17
+ * Created on 12 de Março de 2021, 22:56
  */
 
-#ifndef HORA_H
-#define HORA_H
-
-typedef struct hora {
-    int hh;
-    int mm;
-    int ss;
-} Hora;
-
-#endif /* HORA_H */
-Hora getHoraAtual();
+#ifndef MENUCAIXA_H
+#define MENUCAIXA_H
+void menuCaixa();
+float somaValores();
+#endif /* MENUCAIXA_H */
 

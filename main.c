@@ -16,6 +16,8 @@
 #include "CatAcomod.h"
 #include "Principal.h"
 #include "Login.h"
+#include "Data.h"
+#include "Hora.h"
 
 /*
  * 
@@ -23,9 +25,8 @@
 
 
 int main() {
-    
+
     menuPrincipal();
-    
 
     return (EXIT_SUCCESS);
 }

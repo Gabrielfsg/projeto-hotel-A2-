@@ -13,8 +13,28 @@
 
 #ifndef CONTARECEBER_H
 #define CONTARECEBER_H
+#include "Data.h"
 
-typedef struct contaReceber ContaReceber;
-
+typedef struct contaReceber {
+    int codigo;
+    float valor;
+    Data data;
+    char status[100];
+    char pagamento[100];
+    int caixa;
+} ContaReceber;
+int maiorCodContaReceber();
+int removerContaReceberBIN();
+int posicaoContaReceberBIN(int cod);
+int validarContaReceberBIN(int cod);
+int editarContaReceberBIN(ContaReceber cat);
+ContaReceber * listarContaReceberBIN(int *numLinha);
+int cadastrarContaReceberBIN(ContaReceber *cat, int quantidade);
+int validarContaReceber(int cod);
+int numContaReceber();
+ContaReceber* listarContaReceberTXT();
+int salvarContaReceberTXT(ContaReceber *cat, int num);
+int cadastrarContaReceberTXT(ContaReceber cat);
+float somaContaReceberCaixa(Data data);
 #endif /* CONTARECEBER_H */
 

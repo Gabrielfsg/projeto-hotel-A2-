@@ -6,6 +6,8 @@
 #include "Data.h"
 #include "Reserva.h"
 #include "Hospede.h"
+#include "SalvametoBD.h"
+#include "SalvametoBD.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <String.h>
@@ -31,6 +33,7 @@ int cadastrarReservaBIN(Reserva *aco, int quantidade) {
 
 int cadastrarReservaTXT(Reserva aco) {
     FILE *arq;
+    aco.status = 0;
     // abre o arquivo com o cursor no final
     arq = fopen("arquivos\\ReservaTXT.txt", "a");
     if (arq == NULL) {
@@ -43,7 +46,7 @@ int cadastrarReservaTXT(Reserva aco) {
         }
     }
     // salva arqa campo em uma linha
-    fprintf(arq, "%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\n%s\n%d\n%s\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%c\r\n%s\r\n%d\r\n%d\r\n%d\r\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%d\r\n%s\r\n", aco.codigo, aco.DataIn.dia, aco.DataIn.mes, aco.DataIn.ano, aco.DataFin.dia, aco.DataFin.mes, aco.DataFin.ano, aco.acomodacao.codigo, aco.acomodacao.descricao, aco.acomodacao.categoria.codigo, aco.acomodacao.status, aco.hospede.codigo, aco.hospede.nome, aco.hospede.cpf, aco.hospede.telefone, aco.hospede.email, aco.hospede.sexo, aco.hospede.esCivil, aco.hospede.dataNascimento.dia, aco.hospede.dataNascimento.mes, aco.hospede.dataNascimento.ano, aco.hospede.endereco.codigo, aco.hospede.endereco.bairro, aco.hospede.endereco.cep, aco.hospede.endereco.cidade, aco.hospede.endereco.logradouro, aco.hospede.endereco.numero, aco.hospede.endereco.uf); // f
+    fprintf(arq, "%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\n%s\n%d\n%s\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%c\r\n%s\r\n%d\r\n%d\r\n%d\r\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%d\r\n%s\r\n", aco.codigo, aco.status, aco.DataIn.dia, aco.DataIn.mes, aco.DataIn.ano, aco.DataFin.dia, aco.DataFin.mes, aco.DataFin.ano, aco.acomodacao.codigo, aco.acomodacao.descricao, aco.acomodacao.categoria.codigo, aco.acomodacao.status, aco.hospede.codigo, aco.hospede.nome, aco.hospede.cpf, aco.hospede.telefone, aco.hospede.email, aco.hospede.sexo, aco.hospede.esCivil, aco.hospede.dataNascimento.dia, aco.hospede.dataNascimento.mes, aco.hospede.dataNascimento.ano, aco.hospede.endereco.codigo, aco.hospede.endereco.bairro, aco.hospede.endereco.cep, aco.hospede.endereco.cidade, aco.hospede.endereco.logradouro, aco.hospede.endereco.numero, aco.hospede.endereco.uf); // f
     //fecha o arquivo
     fclose(arq);
     //libera memoria
@@ -53,7 +56,7 @@ int cadastrarReservaTXT(Reserva aco) {
 }
 //metodo salva, sobrescrevendo o array de tamanho num
 
-int salvarReservaTXT(Reserva aco, int num) {
+int salvarReservaTXT(Reserva *aco, int num) {
     FILE *arq;
     // w pra substituir o arquivo
     arq = fopen("arquivos\\ReservaTXT.txt", "w");
@@ -64,7 +67,7 @@ int salvarReservaTXT(Reserva aco, int num) {
         int i;
         // grava todos os dados do vetor no arquivo
         for (i = 0; i < num; i++) {
-            fprintf(arq, "%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\n%s\n%d\n%s\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%c\r\n%s\r\n%d\r\n%d\r\n%d\r\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%d\r\n%s\r\n", aco.codigo, aco.DataIn.dia, aco.DataIn.mes, aco.DataIn.ano, aco.DataFin.dia, aco.DataFin.mes, aco.DataFin.ano, aco.acomodacao.codigo, aco.acomodacao.descricao, aco.acomodacao.categoria.codigo, aco.acomodacao.status, aco.hospede.codigo, aco.hospede.nome, aco.hospede.cpf, aco.hospede.telefone, aco.hospede.email, aco.hospede.sexo, aco.hospede.esCivil, aco.hospede.dataNascimento.dia, aco.hospede.dataNascimento.mes, aco.hospede.dataNascimento.ano, aco.hospede.endereco.codigo, aco.hospede.endereco.bairro, aco.hospede.endereco.cep, aco.hospede.endereco.cidade, aco.hospede.endereco.logradouro, aco.hospede.endereco.numero, aco.hospede.endereco.uf); // f
+            fprintf(arq, "%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\n%s\n%d\n%s\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%c\r\n%s\r\n%d\r\n%d\r\n%d\r\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%d\r\n%s\r\n", aco[i].codigo, aco[i].status, aco[i].DataIn.dia, aco[i].DataIn.mes, aco[i].DataIn.ano, aco[i].DataFin.dia, aco[i].DataFin.mes, aco[i].DataFin.ano, aco[i].acomodacao.codigo, aco[i].acomodacao.descricao, aco[i].acomodacao.categoria.codigo, aco[i].acomodacao.status, aco[i].hospede.codigo, aco[i].hospede.nome, aco[i].hospede.cpf, aco[i].hospede.telefone, aco[i].hospede.email, aco[i].hospede.sexo, aco[i].hospede.esCivil, aco[i].hospede.dataNascimento.dia, aco[i].hospede.dataNascimento.mes, aco[i].hospede.dataNascimento.ano, aco[i].hospede.endereco.codigo, aco[i].hospede.endereco.bairro, aco[i].hospede.endereco.cep, aco[i].hospede.endereco.cidade, aco[i].hospede.endereco.logradouro, aco[i].hospede.endereco.numero, aco[i].hospede.endereco.uf); // f
         }
     }
     // força salvar arquivo
@@ -99,6 +102,8 @@ Reserva * listarReservaTXT() {
     for (i = 0; i < numLinha; i++) {
         fgets(t, 100, arquivo);
         aco[i].codigo = atoi(t);
+        fgets(t, 100, arquivo);
+        aco[i].status = atoi(t);
         //printf("%d,",aco[i].codigo);
         fgets(t, 100, arquivo);
 
@@ -206,7 +211,7 @@ int numReserva() {
     fclose(arquivo);
     //libera memoria
     free(arquivo);
-    return (numLinha / 28);
+    return (numLinha / 29);
 }
 
 int validarReserva(int cod) {
@@ -298,7 +303,7 @@ Reserva * listarReservaBIN(int *numLinha) {
     return aco;
 }
 
-/*int editarReservaBIN(Reserva aco, int posi) {
+int editarReservaBIN(Reserva aco, int posi) {
     FILE *arquivo;
     //abre arquivo para leitura e escrita, ele deve existir "r+b"
     arquivo = fopen("arquivos\\ReservaBIN.bin", "r+b");
@@ -309,14 +314,14 @@ Reserva * listarReservaBIN(int *numLinha) {
     //Posiciona o cursor na posição do struct
     fseek(arquivo, (posi * sizeof (Reserva)), SEEK_SET);
     //Substitui o struct de posição posi
-    fwrite(&aco, sizeof (Reserva), 1, arquivo);
+    fwrite(&aco, sizeof (Reserva), posi, arquivo);
     //fecha arquivo 
     fclose(arquivo);
     //fclose(&aco);
     //libera memoria
     free(arquivo);
     return 1;
-}*/
+}
 
 int validarReservaBIN(int cod) {
     int num;
@@ -358,7 +363,7 @@ int deletarReservaBIN(int cod) {
                 Reserva r = arrayReservas[i];
 
                 retorno = fwrite(&r, sizeof (Reserva), 1, arqReserva);
-                 printf("RETORNO BIN É %d\n",retorno);
+                printf("RETORNO BIN É %d\n", retorno);
             } else {
                 //Reserva r2 = arrayReservas[i];
                 //printf("É ESSE AQUI QUE VAI DELETAR: COD %d == %d\n", arrayReservas[i].codigo, r2.codigo);
@@ -371,10 +376,10 @@ int deletarReservaBIN(int cod) {
         remove(".\\arquivos\\ReservaBIN.bin");
         rename(".\\arquivos\\reserva_temp.bin", ".\\arquivos\\ReservaBIN.bin");
     }
-    
-    if(retorno != -1){
+
+    if (retorno != -1) {
         return 1;
-    } else{
+    } else {
         return 0;
     }
 }
@@ -424,5 +429,98 @@ int maiorCodReservaBIN() {
             aux = res[i].codigo;
         }
     }
+    return aux;
+}
+
+Reserva* listarReservasHoje(int *numAtual) {
+    Reserva *res, *aux;
+    Data data = getDataHoje();
+    aux = (Reserva*) calloc(1, sizeof (Reserva));
+    int num;
+    *numAtual = 0;
+    int bd = listar();
+    if (bd == 1) {
+        res = listarReservaTXT();
+        num = numReserva();
+    } else {
+        res = listarReservaBIN(&num);
+    }
+    int i;
+    for (i = 0; i < num; i++) {
+        if (compararDatas(res[i].DataIn, data) == 1 && res[i].status == 0) {
+            (*numAtual)++;
+            aux = realloc(aux, *numAtual * sizeof (Reserva));
+            if (aux != NULL) {
+                aux[(*numAtual) - 1] = res[i];
+            } else {
+                printf("ERRO: realoc memoria\n");
+            }
+        }
+    }
+    //libera memoria
+    free(res);
+    return aux;
+}
+
+Reserva* listarReservasPendentes(int *numAtual) {
+    Reserva *res, *aux;
+    aux = (Reserva*) calloc(1, sizeof (Reserva));
+    int num;
+    *numAtual = 0;
+    int bd = listar();
+    if (bd == 1) {
+        res = listarReservaTXT();
+        num = numReserva();
+    } else {
+        res = listarReservaBIN(&num);
+    }
+    int i;
+    for (i = 0; i < num; i++) {
+        if (res[i].status == 0) {
+            (*numAtual)++;
+            aux = realloc(aux, *numAtual * sizeof (Reserva));
+            if (aux != NULL) {
+                aux[(*numAtual) - 1] = res[i];
+            } else {
+                printf("ERRO: realoc memoria\n");
+            }
+        }
+    }
+
+    //libera memoria
+    free(res);
+    return aux;
+}
+
+Reserva* listarReservasOcupadas(int *numAtual) {
+    Reserva *res, *aux;
+    aux = (Reserva*) calloc(1, sizeof (Reserva));
+    int num;
+    *numAtual = 0;
+    int bd = listar();
+    if (bd == 1) {
+        res = listarReservaTXT();
+        num = numReserva();
+    } else {
+        res = listarReservaBIN(&num);
+    }
+    int i;
+    for (i = 0; i < num; i++) {
+        if (res[i].status == 1) {
+            (*numAtual)++;
+            aux = realloc(aux, *numAtual * sizeof (Reserva));
+            if (aux != NULL) {
+                aux[(*numAtual) - 1] = res[i];
+            } else {
+                printf("ERRO: realoc memoria\n");
+            }
+        }
+    }
+    for (i = 0; i < *numAtual; i++) {
+        printf("cod : %d\n", aux[i].codigo);
+        printf("Nome : %s\n", aux[i].hospede.nome);
+    }
+    //libera memoria
+    free(res);
     return aux;
 }

@@ -16,6 +16,8 @@
 #include "Menus.h"
 #include "SalvametoBD.h"
 #include "ReservaSubC.h"
+#include "MenuCheckOut.h"
+#include "MenuCaixa.h"
 
 void subArquivo();
 void subCadastros();
@@ -61,8 +63,10 @@ void menuPrincipal() {
                 subRelatorios();
                 break;
             case 6:
+                menuCheckIn();
                 break;
             case 7:
+                menuCheckOut();
                 break;
             case 8:
                 break;
@@ -199,10 +203,10 @@ void subCaixa() {
     while (opc >= 0) {
         printf("*******  Caixa **********\n");
         printf("1.Vender Produto.\n");
-        printf("2.Despesas.\n");
-        printf("3.Contas a Pagar.\n");
-        printf("4.Listar Valor Caixa .\n");
-        printf("5.Fechar Caixa.\n");
+        printf("2.Opções Caixa.\n");
+        printf("3.Despesas.\n");
+        printf("4.Contas a Pagar.\n");
+        printf("5.Listar Valor Caixa .\n");
         printf("6.Sair.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
@@ -210,7 +214,7 @@ void subCaixa() {
                 // Vender Produto
                 break;
             case 2:
-                //função Despesas
+                menuCaixa();
                 break;
             case 3:
                 //função Contas a Pagar

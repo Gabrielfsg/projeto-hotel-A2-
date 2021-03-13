@@ -132,7 +132,7 @@ void reservaPQuantidade() {
                 }
                 printf("Acomodação %d selecionada. \n", cod); // acomodação que foi pega
                 // entra com as datas
-                int nq=0;
+                int nq = 0;
                 printf("Digita o dia da data de início da reserva (1-30):\n");
                 scanf("%d%*c", &dataIn.dia);
                 printf("Digita o mes da data de início da reserva (1-12):\n");
@@ -149,27 +149,27 @@ void reservaPQuantidade() {
                 reserva.DataFin = dataFim;
 
                 aco = listarAcomodacoesDisponiveis(dataIn, dataFim, &nq); // lista as validações disponíveis e quantas são no código digitado
-                int isAcoDisponivel=0;
+                int isAcoDisponivel = 0;
                 for (int i = 0; i < nq; i++) {
                     if (aco[i].codigo == cod) {
                         printf("*******\n"); // mostra os dados das acomodações
                         printf("CODIGO: %d\n", aco[i].codigo);
                         printf("DESC: %s\n", aco[i].descricao);
                         printf("*******\n");
-                        isAcoDisponivel =1; // a acomodacao está disponível nessa data
-                        
+                        isAcoDisponivel = 1; // a acomodacao está disponível nessa data
+
                     }
                 }
                 //printf("O NÚMERO DE ACOMODAÇÕES DISPONÍVEIS É %d\n", nq); // numero de acomodações
                 if (nq == 0) {// se não houver nenhuma retorna ao menu de cadastro mas se houver prossegue
                     cadReserva();
                 }
-                
-                if(isAcoDisponivel ==0){// se a acomodação não está disponível nessa data
+
+                if (isAcoDisponivel == 0) {// se a acomodação não está disponível nessa data
                     printf("A ACOMODÃÇÃO NÃO ESTÁ DISPONIVEL NESSA DATA\n");
                     cadReserva();
                 }
-                
+
                 int aux2 = 0;
                 while (aux2 == 0) {// entrar com o código do hospede
                     printf("Digite o código do hospede: ");
@@ -361,7 +361,7 @@ void reservaPCategoria() {
                 printf("Acomodação não encontrada. \n");
             }
             if (achou > 0) {// se houver vc deve digitar a data
-                int nq=0;
+                int nq = 0;
                 printf("Digita o dia da data de início da reserva (1-30):\n");
                 scanf("%d%*c", &dataIn.dia);
                 printf("Digita o mes da data de início da reserva (1-12):\n");
@@ -376,7 +376,7 @@ void reservaPCategoria() {
                 printf("Digita o ano da data do fim da reserva:\n");
                 scanf("%d%*c", &dataFim.ano);
                 reserva.DataFin = dataFim;
-                
+
 
                 aco = listarAcomodacoesDisponiveis(dataIn, dataFim, &nq); // verifica qual estão disponíveis na data digitada e retorna o código e descrição delas
 
@@ -916,7 +916,7 @@ void reservarPorData() {
         int achou = 0;
         int achouD = 0;
 
-        printf("Entre com a data Desejada: ");
+        printf("Entre com a data Desejada: \n");
         while (aux == 0) {
             printf("Digita o dia da data de início da reserva:\n");
             scanf("%d%*c", &dia);
@@ -993,11 +993,11 @@ void reservarPorData() {
                     if (aco[i].codigo == cod) {
                         for (j = 0; j < num2; j++) {
                             if (aco[i].categoria.codigo == cat[j].codigo) {
-                                aux2 = 1;
                                 //coloca a categoria no vetor de acomodação
                                 aco[i].categoria = cat[j];
                                 //coloca a acomodação junto com a categoria em reserva com acomodação
                                 res.acomodacao = aco[i];
+                                aux2 = 1;
                             }
                         }
                     }
@@ -1149,9 +1149,10 @@ void mostrarReservas() {
     }
 
 }
+//Daniel
 
 Acomodacao* listarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDisponiveis) {
-    
+
     int bd = listar();
     Acomodacao *aco;
     Reserva * res;
@@ -1188,9 +1189,9 @@ Acomodacao* listarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDi
     for (i = 0; i < numA; i++) {
 
         for (j = 0; j <= aux; j++) {
-  
+
             if (aco[i].codigo == acoNDis[j]) {
-                aux2 = 1; 
+                aux2 = 1;
             }
         }
         if (aux2 == 0) {
@@ -1201,7 +1202,7 @@ Acomodacao* listarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDi
 
     }
 
-    
+
     /*for (i = 0; i < numA; i++) {
         // aco2 = realloc(aco, *numLinha * sizeof (Acomodacao));
         for (j = 0; j < numR; j++) {

@@ -37,5 +37,8 @@ int dataDisponivel(Data in1, Data fin1, Data in2, Data fin2);
 int data1maiordata2(Data data1, Data data2);
 //Compara se as duas datas são iguais, 1 verdade e 0 falso.
 int compararDatas(Data in1, Data fin1);
+
+Data getDataHoje();
+int diasEntreDatas(Data data1, Data data2);
 #endif /* DATA_H */
 
