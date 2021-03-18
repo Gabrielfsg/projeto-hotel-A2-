@@ -47,6 +47,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/CheckOutProduto.o \
 	${OBJECTDIR}/ContaPagar.o \
 	${OBJECTDIR}/ContaReceber.o \
+	${OBJECTDIR}/ContasMenu.o \
 	${OBJECTDIR}/Data.o \
 	${OBJECTDIR}/Endereco.o \
 	${OBJECTDIR}/Fornecedor.o \
@@ -59,11 +60,17 @@ OBJECTFILES= \
 	${OBJECTDIR}/HotelMenu.o \
 	${OBJECTDIR}/HotelSub.o \
 	${OBJECTDIR}/Login.o \
+	${OBJECTDIR}/MenuCaixa.o \
+	${OBJECTDIR}/MenuCheckIn.o \
+	${OBJECTDIR}/MenuCheckOut.o \
+	${OBJECTDIR}/MenuEntradaProdutos.o \
+	${OBJECTDIR}/MenuRelatorio.o \
 	${OBJECTDIR}/OperadorMenu.o \
 	${OBJECTDIR}/OperadorSistema.o \
 	${OBJECTDIR}/OperadorSub.o \
 	${OBJECTDIR}/Principal.o \
 	${OBJECTDIR}/Produto.o \
+	${OBJECTDIR}/ProdutoReserva.o \
 	${OBJECTDIR}/Reserva.o \
 	${OBJECTDIR}/ReservaMenu.o \
 	${OBJECTDIR}/ReservaSubC.o \
@@ -158,6 +165,11 @@ ${OBJECTDIR}/ContaReceber.o: ContaReceber.c
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ContaReceber.o ContaReceber.c
 
+${OBJECTDIR}/ContasMenu.o: ContasMenu.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ContasMenu.o ContasMenu.c
+
 ${OBJECTDIR}/Data.o: Data.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -218,6 +230,31 @@ ${OBJECTDIR}/Login.o: Login.c
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Login.o Login.c
 
+${OBJECTDIR}/MenuCaixa.o: MenuCaixa.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MenuCaixa.o MenuCaixa.c
+
+${OBJECTDIR}/MenuCheckIn.o: MenuCheckIn.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MenuCheckIn.o MenuCheckIn.c
+
+${OBJECTDIR}/MenuCheckOut.o: MenuCheckOut.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MenuCheckOut.o MenuCheckOut.c
+
+${OBJECTDIR}/MenuEntradaProdutos.o: MenuEntradaProdutos.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MenuEntradaProdutos.o MenuEntradaProdutos.c
+
+${OBJECTDIR}/MenuRelatorio.o: MenuRelatorio.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MenuRelatorio.o MenuRelatorio.c
+
 ${OBJECTDIR}/OperadorMenu.o: OperadorMenu.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -242,6 +279,11 @@ ${OBJECTDIR}/Produto.o: Produto.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Produto.o Produto.c
+
+${OBJECTDIR}/ProdutoReserva.o: ProdutoReserva.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ProdutoReserva.o ProdutoReserva.c
 
 ${OBJECTDIR}/Reserva.o: Reserva.c
 	${MKDIR} -p ${OBJECTDIR}

@@ -13,8 +13,28 @@
 
 #ifndef CAIXA_H
 #define CAIXA_H
+#include "Data.h"
 
-typedef struct caixa Caixa;
-
+typedef struct caixa {
+    int codigo;
+    Data data;
+    float valorIn;
+    float valorFin;
+    char status[8];
+} Caixa;
+int getCaixaAtual(Data dataHoje);
+int cadastrarCaixaTXT(Caixa aco);
+int salvarCaixaTXT(Caixa *aco, int num);
+Caixa * listarCaixaTXT();
+int numCaixa();
+int validarCaixa(int cod) ;
+int cadastrarCaixaBIN(Caixa *aco, int quantidade);
+Caixa * listarCaixaBIN(int *numLinha);
+int editarCaixaBIN(Caixa aco);
+int validarCaixaBIN(int cod);
+int posicaoCaixaBIN(int cod);
+int removerCaixaBIN();
+int maiorCodCaixa();
+Caixa caixaAberto();
 #endif /* CAIXA_H */
 

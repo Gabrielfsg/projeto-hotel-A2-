@@ -5,7 +5,10 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
 #include "Data.h"
+#include <String.h>
 
 Data* newData(int dia, int mes, int ano) {
     Data* d = (Data*) calloc(1, sizeof (Data));
@@ -75,7 +78,6 @@ int anoBissexto(Data *data) {
 
 void somaDias(Data *data, int dias) {
     int soma = dias + (data->dia);
-    printf("data %d ", data->dia);
     for (; dias != 0;) {
         if (data->mes == 1 || data->mes == 3 || data->mes == 5 || data->mes == 7 || data->mes == 8 || data->mes == 10 || data->mes == 12) {
             if (data->dia < 31) {
@@ -233,3 +235,55 @@ int dataDisponivel(Data in1, Data fin1, Data in2, Data fin2) {
     }
 
 }
+
+Data getDataHoje() {
+    Data data;
+    char mes[4], dia[3], ano[5];
+    strcpy(mes, "");
+    strcpy(dia, "");
+    strcpy(ano, "");
+    strncat(mes, __DATE__, 3);
+    strncat(dia, __DATE__ + 4, 2);
+    strncat(ano, __DATE__ + 7, 4);
+   // printf("Data %s \n", __DATE__);
+    data.ano = atoi(ano);
+    data.dia = atoi(dia);
+    if (strcmp("Jan", mes) == 0) {
+        data.mes = 1;
+    } else if (strcmp("Feb", mes) == 0) {
+        data.mes = 2;
+    } else if (strcmp("Mar", mes) == 0) {
+        data.mes = 3;
+    } else if (strcmp("Apr", mes) == 0) {
+        data.mes = 4;
+    } else if (strcmp("Mai", mes) == 0) {
+        data.mes = 5;
+    } else if (strcmp("Jun", mes) == 0) {
+        data.mes = 6;
+    } else if (strcmp("Jul", mes) == 0) {
+        data.mes = 7;
+    } else if (strcmp("Ago", mes) == 0) {
+        data.mes = 8;
+    } else if (strcmp("Sep", mes) == 0) {
+        data.mes = 9;
+    } else if (strcmp("Oct", mes) == 0) {
+        data.mes = 10;
+    } else if (strcmp("Nov", mes) == 0) {
+        data.mes = 11;
+    } else if (strcmp("Dez", mes) == 0) {
+        data.mes = 12;
+    } else {
+        printf("Erro: não encontrado mes.\n");
+    }
+    return data;
+}
+
+int diasEntreDatas(Data data1, Data data2) {
+    int i;
+    for (i = 0; data1maiordata2(data1, data2) != 1; i++) {
+        somaDias(&data1, 1);
+    }
+    return i - 1;
+}
+
+

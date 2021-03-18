@@ -10,8 +10,8 @@ typedef struct contaPagar{
     int codigo;
     char descricao;
     float valor;
-    Data *data;
+    Data data;
     char status;
-    Caixa *caixa;
+    Caixa caixa;
     Fornecedor *fornecedor;
 }ContaPagar;

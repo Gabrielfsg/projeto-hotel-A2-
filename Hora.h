@@ -14,7 +14,12 @@
 #ifndef HORA_H
 #define HORA_H
 
-typedef struct hora Hora;
+typedef struct hora {
+    int hh;
+    int mm;
+    int ss;
+} Hora;
 
 #endif /* HORA_H */
+Hora getHoraAtual();
 
