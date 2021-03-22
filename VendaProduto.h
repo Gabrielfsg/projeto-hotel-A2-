@@ -15,12 +15,11 @@
 #define VENDAPRODUTO_H
 #endif
 
-#endif /* VENDAPRODUTO_H */
 #include "Produto.h"
 #include "Venda.h"
 
 typedef struct vendaProduto {
-    Produto pro;
-    Venda res;
+    Produto produto;
+    Venda venda;
     int quantidade;
 } VendaProduto;

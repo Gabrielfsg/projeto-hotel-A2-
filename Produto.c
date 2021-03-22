@@ -357,10 +357,10 @@ Produto getProdutoByCodTXT(int cod) {
  * disponível
  */
 Produto getProdutoByCodBIN(int cod) {
-    //printf("ENTROU GETHOSPEDEBYCOD BIN");
+    
     Produto prod;
     int numProdutos = 0;
-    if (validarCodHospede(cod, 2) == 0) {
+    if (validarCodProdConsumo(cod, 2) == 0) {
         Produto* arrayProdutos = getAllProdutoBIN(&numProdutos);
         for (int i = 0; i < numProdutos; i++) {
             if (arrayProdutos[i].codigo == cod) {

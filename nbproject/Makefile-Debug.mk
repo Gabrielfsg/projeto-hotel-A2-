@@ -80,6 +80,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/Retirada.o \
 	${OBJECTDIR}/SalvamentoBD.o \
 	${OBJECTDIR}/Venda.o \
+	${OBJECTDIR}/VendaProduto.o \
+	${OBJECTDIR}/VendaProdutosMenu.o \
 	${OBJECTDIR}/main.o
 
 
@@ -331,6 +333,16 @@ ${OBJECTDIR}/Venda.o: Venda.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Venda.o Venda.c
+
+${OBJECTDIR}/VendaProduto.o: VendaProduto.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/VendaProduto.o VendaProduto.c
+
+${OBJECTDIR}/VendaProdutosMenu.o: VendaProdutosMenu.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/VendaProdutosMenu.o VendaProdutosMenu.c
 
 ${OBJECTDIR}/main.o: main.c
 	${MKDIR} -p ${OBJECTDIR}

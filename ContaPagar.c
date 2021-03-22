@@ -196,6 +196,7 @@ float somaContaPagarCaixa(Data data) {
             valor += cai[i].valor;
         }
     }
+    printf("O VALOR DO SOMA CONTAS PAGAR = %f\n",valor);
     return valor;
 
 }

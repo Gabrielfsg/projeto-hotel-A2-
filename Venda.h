@@ -13,8 +13,15 @@
 
 #ifndef VENDA_H
 #define VENDA_H
+#include "Data.h"
 
-typedef struct venda Venda;
+typedef struct venda{
+    int codVenda;
+    float valorTotal;
+    Data dataVenda;
+    int codCaixa;
+}Venda;
+    
 
 #endif /* VENDA_H */
 

@@ -23,6 +23,7 @@
         <itemPath>ProdutoConsumoMenu.h</itemPath>
         <itemPath>ReservaSubC.h</itemPath>
         <itemPath>ReservaSubCancel.h</itemPath>
+        <itemPath>VendaProdutosMenu.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Persistecia" projectFiles="true">
         <logicalFolder name="f2" displayName="Configuracoes" projectFiles="true">
@@ -125,6 +126,9 @@
           <itemPath>ReservaSubC.c</itemPath>
           <itemPath>ReservaSubCancel.c</itemPath>
         </logicalFolder>
+        <logicalFolder name="f10" displayName="VendaProdutos" projectFiles="true">
+          <itemPath>VendaProdutosMenu.c</itemPath>
+        </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f8" displayName="Persistencia" projectFiles="true">
         <logicalFolder name="f2" displayName="Configuracoes" projectFiles="true">
@@ -155,6 +159,7 @@
         <itemPath>Reserva.c</itemPath>
         <itemPath>Retirada.c</itemPath>
         <itemPath>Venda.c</itemPath>
+        <itemPath>VendaProduto.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>
@@ -359,7 +364,13 @@
       </item>
       <item path="Venda.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="VendaProduto.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="VendaProduto.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="VendaProdutosMenu.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="VendaProdutosMenu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -547,7 +558,13 @@
       </item>
       <item path="Venda.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="VendaProduto.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="VendaProduto.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="VendaProdutosMenu.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="VendaProdutosMenu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>

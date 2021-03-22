@@ -19,6 +19,8 @@
 #include "MenuCheckOut.h"
 #include "MenuCaixa.h"
 #include "MenuEntradaProdutos.h"
+#include "VendaProduto.h"
+#include "VendaProdutosMenu.h"
 
 void subArquivo();
 void subCadastros();
@@ -214,6 +216,7 @@ void subCaixa() {
         switch (opc) {
             case 1:
                 // Vender Produto
+                menuVenderProdutos();
                 break;
             case 2:
                 menuCaixa();
