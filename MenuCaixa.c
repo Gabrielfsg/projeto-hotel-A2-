@@ -76,6 +76,8 @@ float somaValores() {
     checkIn = somaCheckInCaixa(c.codigo);
     checkOut = somaCheckOutCaixa(c.codigo);
     contasRece = somaContaReceberCaixa(c.data);
-    final = checkIn + checkOut + contasRece + prodV + c.valorIn - retiradas;
+    retiradas = somaContaPagarCaixa(c.data);
+    final = checkIn + checkOut + contasRece + prodV + c.valorIn - retiradas; //- DESPESAS
+    printf("DEBUG NO SOMA VALORES: RETIRADAS = %f  FINAL = %f:\n",retiradas, final);
     return final;
 }

@@ -50,6 +50,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/ContasMenu.o \
 	${OBJECTDIR}/Data.o \
 	${OBJECTDIR}/Endereco.o \
+	${OBJECTDIR}/EntradaProdutos.o \
 	${OBJECTDIR}/Fornecedor.o \
 	${OBJECTDIR}/FornecedorMenu.o \
 	${OBJECTDIR}/FornecedorSUB.o \
@@ -180,6 +181,11 @@ ${OBJECTDIR}/Endereco.o: Endereco.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Endereco.o Endereco.c
+
+${OBJECTDIR}/EntradaProdutos.o: EntradaProdutos.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EntradaProdutos.o EntradaProdutos.c
 
 ${OBJECTDIR}/Fornecedor.o: Fornecedor.c
 	${MKDIR} -p ${OBJECTDIR}

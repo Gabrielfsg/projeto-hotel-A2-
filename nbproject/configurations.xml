@@ -145,6 +145,7 @@
         <itemPath>ContaPagar.c</itemPath>
         <itemPath>ContaReceber.c</itemPath>
         <itemPath>Endereco.c</itemPath>
+        <itemPath>EntradaProdutos.c</itemPath>
         <itemPath>Fornecedor.c</itemPath>
         <itemPath>Hospede.c</itemPath>
         <itemPath>Hotel.c</itemPath>
@@ -249,6 +250,8 @@
       <item path="Endereco.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Endereco.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="EntradaProdutos.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Fornecedor.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -437,6 +440,8 @@
       <item path="Endereco.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Endereco.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="EntradaProdutos.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Fornecedor.c" ex="false" tool="0" flavor2="0">
       </item>

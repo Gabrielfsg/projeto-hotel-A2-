@@ -354,7 +354,7 @@ void subRelatorios() {
 
                 break;
             case 10:
-
+                mostrarContasPagar();
                 break;
             case 11:
 

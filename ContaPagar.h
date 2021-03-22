@@ -14,7 +14,16 @@
 #ifndef CONTASPAGAR_H
 #define CONTASPAGAR_H
 
-typedef struct contaPagar ContaPagar;
+typedef struct contaPagar{
+    int codigo;
+    char descricao[50];
+    float valor;
+    Data data;
+    char status[50];
+    Caixa caixa;
+    //Fornecedor *fornecedor;
+    int codForn;
+}ContaPagar;
 
 #endif /* CONTASPAGAR_H */
 

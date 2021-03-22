@@ -15,9 +15,12 @@
 #define ENTRADAPRODUTOS_H
 
 #include "Produto.h"
+#include "Data.h"
 
 
 typedef struct notaFiscalEntrada{
+    Data dataNota;
+    int codCaixa;
     char nomeForn[100];
     char cnpjForn[100];
     int qteProds;
@@ -25,10 +28,12 @@ typedef struct notaFiscalEntrada{
     float imposto;
     float total;
     Produto* produtosComprados;
+    //VendaProdutos vp;
     int* arrayQtes;
     
     
 }NotaFiscalEntrada;
 
+void cadastrarNotaFiscalEntradaBIN(NotaFiscalEntrada nota);
 #endif /* ENTRADAPRODUTOS_H */
 
