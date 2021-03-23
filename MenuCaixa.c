@@ -34,10 +34,12 @@ void menuCaixa() {
                     printf("Caixa Aberto!!\n");
                 } else {
                     printf("Digite o valor inicial do caixa: ");
-                    scanf("%d*C", &c.valorIn);
+                    scanf("%f*c", &c.valorIn);
+                    printf("DEBUG 1 -> VALOR INI DO CAIXA É: %f \n",c.valorIn);
                     c.codigo = maiorCodCaixa() + 1;
                     c.data = data;
                     strcpy(c.status, "aberto");
+                    //printf("DEBUG 2 \n");
                     if (bd == 1) {
                         cadastrarCaixaTXT(c);
                     } else {
@@ -77,7 +79,7 @@ float somaValores() {
     checkOut = somaCheckOutCaixa(c.codigo);
     contasRece = somaContaReceberCaixa(c.data);
     retiradas = somaContaPagarCaixa(c.data);
-    final = checkIn + checkOut + contasRece + prodV + c.valorIn - retiradas; //- DESPESAS
+    final = checkIn + checkOut + contasRece + prodV + c.valorIn - retiradas; 
     printf("DEBUG NO SOMA VALORES: RETIRADAS = %f  FINAL = %f:\n",retiradas, final);
     return final;
 }

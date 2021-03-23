@@ -326,11 +326,13 @@ void mostrarVendas() {
     }
     printf("O NUM DE VENDAS É: %d\n", num);
     for (int i = 0; i < num; i++) {
-        printf("DEBUG: ENTROU FOR\n");
+        //printf("DEBUG: ENTROU FOR\n");
+        printf("++++++++++++++++++\n");
         printf("COD VENDA: %d\n", arrVendas[0].codVenda);
         printf("COD CAIXA: %d\n", arrVendas[0].codCaixa);
         printf("DATA: %d / %d /%d \n", arrVendas[0].dataVenda.dia, arrVendas[0].dataVenda.mes, arrVendas[0].dataVenda.ano);
         printf("VALOR TOTAL: %.2f\n", arrVendas[0].valorTotal);
+        printf("++++++++++++++++++\n");
     }
 }
 

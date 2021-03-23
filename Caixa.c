@@ -10,23 +10,28 @@
 #include <string.h>
 
 int maiorCodCaixa() {
+    //printf("DEBUG 1  MAIOR COD\n");
     int bd = listar();
     int num;
     Caixa *cr;
     if (bd == 1) {
-        num = numContaReceber();
+        //num = numContaReceber();
+        num = numCaixa();
         if (num > 0) {
-            cr = listarContaReceberTXT();
+            //cr = listarContaReceberTXT();
+            cr = listarCaixaTXT();
         } else {
             return 0;
         }
+        //printf("DEBUG 2A \n");
     } else {
-        cr = listarContaReceberBIN(&num);
+        cr = listarCaixaBIN(&num);
         if (num == 0) {
             return 0;
         }
     }
     int i, aux = 0;
+    //printf("DEBUG 3A \n");
     for (i = 0; i < num; i++) {
         if (cr[i].codigo > aux) {
             aux = cr[i].codigo;

@@ -179,8 +179,8 @@ void ComprarProdutos() {
     int codForn;
     int valid = 0;
     printf("Digite o codigo do fornecedor:\n");
-    //scanf("%d%*c", &codForn);
-    codForn = 2;
+    scanf("%d%*c", &codForn);
+    //codForn = 2;
 
     if (bd == 1) {
         //TXT

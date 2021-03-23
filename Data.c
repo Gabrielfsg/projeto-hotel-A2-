@@ -188,13 +188,16 @@ void liberaMemoriaData(Data *data) {
 }
 
 int compararDatas(Data in1, Data fin1) {
+    printf("DEBUG COMP DATAS \n");
     if (in1.dia == fin1.dia) {
         if (in1.mes == fin1.mes) {
             if (in1.ano == fin1.ano) {
+                printf("DEBUG RETRUN 1 \n");
                 return 1;
             }
         }
     }
+    printf("DEBUG RETURN 0 \n");
     return 0;
 }
 

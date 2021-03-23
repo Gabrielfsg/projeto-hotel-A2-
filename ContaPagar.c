@@ -13,6 +13,7 @@
 #include "SalvametoBD.h"
 
 int cadastrarContaPagarTXT(ContaPagar cp) {
+    printf("DEBUG: CAD CONTA PAGAR TXT\n");
     FILE* arrContasPagar;
 
     arrContasPagar = fopen(".\\arquivos\\ContaPagarTXT.txt", "a");
@@ -33,7 +34,7 @@ int cadastrarContaPagarTXT(ContaPagar cp) {
 }
 
 int cadastrarContaPagarBIN(ContaPagar *conta, int quantidade) {
-    printf("DEBUG: CAD CONTA PAGAR\n");
+    printf("DEBUG: CAD CONTA PAGAR BIN\n");
     FILE *cad;
 
     cad = fopen("arquivos\\ContaPagarBIN.bin", "ab");
@@ -179,7 +180,9 @@ int atualizar() {
     int bd = listar();
     Data data = getDataHoje();
     ContaPagar* arrayCP;
-     ContaPagar cp;
+    ContaPagar cp;
+    int aux;
+    int i;
     int numContas = 0;
     if (bd == 1) {
         numContas = getNumContaPagar();
@@ -189,18 +192,65 @@ int atualizar() {
         arrayCP = listarContaPagarBIN(&numContas);
     }
 
-    for (int i = 0; i < numContas; i++) {
-        if (arrayCP[i].data.dia == 13 && arrayCP[i].data.mes == 6 && arrayCP[i].data.ano == 2021) {
-          //  cp.caixa = arrayCP[i].caixa;
-          //  cp.codForn = arrayCP[i].codForn;
-          //  cp.codigo = arrayCP[i].codigo;
-           // cp.descricao = arrayCP[i].caixa;
-           // cp.caixa = arrayCP[i].caixa;
-         //   cp.caixa = arrayCP[i].caixa;
-         //   cp.caixa = arrayCP[i].caixa;
-            strcpy(cp.status, "Concluido");
+    for (i = 0; i < numContas; i++) {
+        if (arrayCP[i].data.dia == 11 && arrayCP[i].data.mes == 6 && arrayCP[i].data.ano == 2021) {
+            cp.codigo = arrayCP[i].codigo;
+            strcpy(cp.descricao, arrayCP[i].descricao);
+            cp.valor = arrayCP[i].valor;
+            cp.data.dia = arrayCP[i].data.dia;
+            cp.data.mes = arrayCP[i].data.mes;
+            cp.data.ano = arrayCP[i].data.ano;
+            strcpy(cp.status, "Pago");
+            cp.caixa.codigo = arrayCP[i].caixa.codigo;
+            cp.caixa.data.dia = arrayCP[i].caixa.data.dia;
+            cp.caixa.data.mes = arrayCP[i].caixa.data.mes;
+            cp.caixa.data.ano = arrayCP[i].caixa.data.ano;
+            cp.codForn = arrayCP[i].codForn;
+            printf("%d \n", cp.codigo);
+            printf("%s\n", cp.descricao);
+            printf("%f\n", cp.valor);
+            printf("%d\n", cp.data.dia);
+            printf("%d\n", cp.data.mes);
+            printf("%d\n", cp.data.ano);
+            printf("%s\n", cp.status);
+            printf("%d\n", cp.caixa.codigo);
+            printf("%d\n", cp.caixa.data.dia);
+            printf("%d\n", cp.caixa.data.mes);
+            printf("%d\n", cp.caixa.data.ano);
+            printf("%d\n", cp.codForn);
+            aux = 1;
+        } else {
+            aux = 0;
         }
     }
+
+    if (aux == 1) {
+        if (bd == 1) {
+
+        } else if (bd == 2) {
+            editarStatusBIN(cp, i);
+        }
+    }
+
+}
+
+int editarStatusBIN(ContaPagar cp, int posi) {
+    FILE *arquivo;
+    //abre arquivo para leitura e escrita, ele deve existir "r+b"
+    arquivo = fopen(".\\persist\\ContaPagarBIN.bin", "r+b");
+    if (arquivo == NULL) {
+        printf("Erro ao acessar arquivo\n");
+        return 0;
+    }
+    //Posiciona o cursor na posição do struct
+    fseek(arquivo, (posi * sizeof (ContaPagar)), SEEK_SET);
+    //Substitui o struct de posição posi
+    fwrite(&cp, sizeof (ContaPagar), 1, arquivo);
+    //fecha arquivo 
+    fclose(arquivo);
+    //libera memoria
+    free(arquivo);
+    return 1;
 }
 
 float somaContaPagarCaixa(Data data) {
@@ -208,20 +258,26 @@ float somaContaPagarCaixa(Data data) {
     float valor = 0;
     //ContaReceber *caiaaa;
     ContaPagar *cai;
-    int num;
+    int num=0;
     int bd = listar();
     if (bd == 1) {
+        printf("DEBUG 1 \n");
         cai = listarContaReceberTXT();
+        printf("DEBUG 2 \n");
         num = numContaReceber();
+        printf("DEBUG 3 \n");
     } else {
         printf("DEBUG: ENTROU NO ELSE\n");
         cai = listarContaPagarBIN(&num);
     }
     int i;
+    printf("DEBUG 4 -> NUM É: %d \n",num);
     for (i = 0; i < num; i++) {
-        if (compararDatas(cai[i].data, data) == 1) {
+        printf("DEBUG FOR \n");
+       /* if (compararDatas(cai[i].data, data) == 1) {
+            printf("DEBUG IF \n");
             valor += cai[i].valor;
-        }
+        }*/
     }
     printf("O VALOR DO SOMA CONTAS PAGAR = %f\n", valor);
     return valor;
@@ -250,26 +306,6 @@ int maiorCodContasPagar() {
 
     printf("O MAIR COD É: %d\n", maior);
     return maior;
-}
-
-int editarCPSBIN(ContaPagar cp, int posi) {
-    FILE *arquivo;
-    //abre arquivo para leitura e escrita, ele deve existir "r+b"
-    arquivo = fopen(".\\persist\\ContaPagarBIN.bin", "r+b");
-    if (arquivo == NULL) {
-        printf("Erro ao acessar arquivo\n");
-        return 0;
-    }
-    //Posiciona o cursor na posição do struct
-    fseek(arquivo, (posi * sizeof (ContaPagar)), SEEK_SET);
-    //Substitui o struct de posição posi
-    fwrite(&cp, sizeof (ContaPagar), 1, arquivo);
-    //fecha arquivo 
-    fclose(arquivo);
-    //fclose(&aco);
-    //libera memoria
-    free(arquivo);
-    return 1;
 }
 
 int getNumContaPagar() {
