@@ -14,6 +14,7 @@
 #include "MenuCaixa.h"
 #include "Venda.h"
 #include "VendaProduto.h"
+#include "ProdutoReserva.h"
 
 void menuVenderProdutos() {
     int opc = 0;
@@ -21,7 +22,8 @@ void menuVenderProdutos() {
         printf("******* VENDA DE PRODUTOS **********\n");
         printf("1.Venda a Vista.\n");
         printf("2.Venda para Hóspede de uma Reserva.\n");
-        printf("3.Sair.\n");
+        printf("3.Listas Vendas.\n");
+        printf("4.Sair.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
@@ -33,6 +35,9 @@ void menuVenderProdutos() {
                 menuVendaHospedeReserva();
                 break;
             case 3:
+                mostrarVendas();
+                break;
+            case 4:
                 subCaixa();
                 break;
             default:
@@ -44,7 +49,84 @@ void menuVenderProdutos() {
 }
 
 void menuVendaHospedeReserva() {
-    //    Reserva r;
+    int bd = listar();
+    int codReserva;
+    int codProd;
+    int qte;
+    int retorno = 0;
+    Produto p;
+
+    printf("DEBUG 1\n");
+    printf("Digite o código da reserva:\n");
+    scanf("%d%*c", &codReserva);
+    //VALIDAR RESERVA
+    if (bd == 1) {
+        retorno = validarReserva(codReserva);
+    }
+    if (bd == 2) {
+        retorno = validarReservaBIN(codReserva);
+    }
+
+    if (retorno == 0) {
+        printf("COD DA RESERVA INVÁLIDO\n");
+        return;
+    }
+    printf("DEBUG 2\n");
+    printf("Digite o código do Produto:\n");
+    scanf("%d%*c", &codProd);
+
+    //VALIDAR PROD
+    if (validarCodProdConsumo(codProd, bd) == 1) {
+        printf("NÃO EXISTE PRODUTO COM ESSE COD\n");
+        return;
+    } else {
+
+        if (bd == 1) {
+            p = getProdutoByCodTXT(codProd);
+        }
+        if (bd == 2) {
+            p = getProdutoByCodBIN(codProd);
+        }
+    }
+
+    printf("DEBUG 3\n");
+    printf("Digite a quantidade do Produto:\n");
+    scanf("%d%*c", &qte);
+    //VALIDAR ESTOQUE
+    if (p.estoque < qte) {
+        printf("NÃO EXISTE ESTOQUE SUFICIENTE DO PRODUTO\n");
+        return;
+    } else {
+        printf("DEBUG 4\n");
+        //SE OS DADOS ESTAO CORRETOS, COLOCA NA "CONTA" (produto Reserva)
+        ProdutoReserva pr;
+        pr.codProd = codProd;
+        pr.codRes = codReserva;
+        pr.data = getDataHoje();
+        pr.quantidade = qte;
+        printf("DEBUG 5\n");
+        if (bd == 1) {
+            printf("DEBUG ANTES DO CADASTRO\n");
+            cadastrarProdutoReservaTXT(pr);
+            printf("DEBUG DEPOIS DO CADASTRO\n");
+        }
+        if (bd == 2) {
+            cadastrarProdutoReservaBIN(pr);
+        }
+
+
+        //ATUALIZA O ESTOQUE
+        p.estoque -= qte;
+
+        if (bd == 1) {
+            atualizarProdutoTXT(p);
+        }
+        if (bd == 2) {
+            atualizarProdutoBIN(p);
+        }
+
+
+    }
 }
 
 void menuVendaAVista() {
@@ -157,7 +239,7 @@ void menuVendaAVista() {
         vp.quantidade = arrQte[i];
         printf("COD PROD %d | QTE = %d \n", vp.codProduto, vp.quantidade);
         //CADASTRAR PRODUTOS DA VENDA TXT OU BIN
-        bd =2;
+        bd = 2;
         if (bd == 1) {
             cadastrarVendaProdutoTXT(vp);
         }
@@ -228,6 +310,28 @@ void menuVendaAVista() {
 
        }
      */
+}
+
+void mostrarVendas() {
+
+    int bd = listar();
+    int num = 0;
+    Venda* arrVendas;
+    if (bd == 1) {
+        num = numVendas();
+        arrVendas = listarVendaTXT(num);
+    }
+    if (bd == 2) {
+        arrVendas = listarVendaBIN(&num);
+    }
+    printf("O NUM DE VENDAS É: %d\n", num);
+    for (int i = 0; i < num; i++) {
+        printf("DEBUG: ENTROU FOR\n");
+        printf("COD VENDA: %d\n", arrVendas[0].codVenda);
+        printf("COD CAIXA: %d\n", arrVendas[0].codCaixa);
+        printf("DATA: %d / %d /%d \n", arrVendas[0].dataVenda.dia, arrVendas[0].dataVenda.mes, arrVendas[0].dataVenda.ano);
+        printf("VALOR TOTAL: %.2f\n", arrVendas[0].valorTotal);
+    }
 }
 
 /*void menuVendaAVista2() {

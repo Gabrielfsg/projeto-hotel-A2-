@@ -104,7 +104,7 @@ void checkOutHospede() {
                         c.caixa = 0;
                         printf("O valor Total é de %f \n", c.valorTotal);
                         // Cadastra em contas a receber
-                        printf("Digite a Data de Vencmento do cartão:\n");
+                        printf("Digite a Data de Vencimento do cartão:\n");
                         int dia, mes, ano;
                         aux = 0;
                         while (aux == 0) {
@@ -122,7 +122,7 @@ void checkOutHospede() {
                         cr.codigo = maiorCodContaReceber() + 1;
                         cr.caixa = 0;
                         cr.data = *dataIn;
-                       strcpy(cr.pagamento, "Cartão");
+                        strcpy(cr.pagamento, "Cartão");
                         strcpy(cr.status, "Agendado");
                         cr.valor = c.valorTotal;
                         aux = 1;

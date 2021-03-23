@@ -13,6 +13,7 @@
 
 #ifndef CONTASPAGAR_H
 #define CONTASPAGAR_H
+#include "Caixa.h"
 
 #include "Caixa.h"
 

@@ -23,11 +23,11 @@ int cadastrarVendaTXT(Venda v) {
             printf("ERRO DE ABERTURA\n");
         }
     } else {
-        int retorno =1;
+        int retorno = 1;
         //grava os dados do hóspede no arquivo
-        
+
         fprintf(arVenda, "%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%f\r\n", v.codVenda, v.codCaixa, v.dataVenda.dia, v.dataVenda.mes, v.dataVenda.ano, v.valorTotal);
-        
+
         fflush(arVenda);
         fclose(arVenda);
         return retorno;
@@ -85,8 +85,7 @@ int maiorCodVenda() {
     return aux;
 }
 
-Venda* listarVendaTXT(int numVendas){
-    
+Venda* listarVendaTXT(int numVendas) {
     int index = 1; //PARA ARMAZENAR O TAMANHO DO VETOR
 
     Venda *arrayVendas = (Venda *) malloc(sizeof (Venda) * numVendas); //PONTEIRO DE HÓSPEDE VIRA UM VETOR AO CHAMAR MALLOC
@@ -95,37 +94,36 @@ Venda* listarVendaTXT(int numVendas){
         exit(1);
     }
 
-    //pega a lista de Produtos do arquivo
+    //pega a lista de VENDAS do arquivo
     FILE *arqVenda;
 
     arqVenda = fopen(".\\arquivos\\vendas.txt", "r");
     if (arqVenda == NULL) {
         printf(" ERRO DE LEITURA ");
     } else {
-
         for (int i = 0; i < numVendas; i++) {
             Venda v;
             
-
             //FSCANF PARA PEGAR OS VALORES DO ARQUIVO. "TEXT[20]" É APENAS PARA ARMAZENAR A STRING QUE VEM ANTES DO VALOR.
             fscanf(arqVenda, "%d", &v.codVenda);
-            fscanf(arqVenda, "%d", v.codCaixa);
-            fscanf(arqVenda, "%d",  &v.dataVenda.dia);
+            fscanf(arqVenda, "%d", &v.codCaixa);
+            fscanf(arqVenda, "%d", &v.dataVenda.dia);
             fscanf(arqVenda, "%d", &v.dataVenda.mes);
             fscanf(arqVenda, "%d", &v.dataVenda.ano);
-            
+            fscanf(arqVenda, "%f", &v.valorTotal);
 
             //COLOCA O PRODUTO NO ARRAY
             arrayVendas[index - 1] = v;
             index++;
+            
         }
         fclose(arqVenda);
         return arrayVendas;
     }
 }
 
-Venda* listarVendaBIN(int *&numVendas){
-    
+Venda* listarVendaBIN(int *numVendas) {
+
     int totalLido = 0;
     int index = 0;
     Venda *arrayVenda = (Venda *) malloc(sizeof (Venda) * 1); //PONTEIRO DE PRODUTOS VIRA UM VETOR AO CHAMAR MALLOC
@@ -168,14 +166,14 @@ Venda* listarVendaBIN(int *&numVendas){
 
 }
 
-int numVendas(){
-    //printf("num linhas");
+int numVendas() {
+    //printf("DEBUG: ENTROU NUM VENDA\n");
     FILE *arquivo;
     int numLinha = 0, c;
     //abre arquivo para leitura "r"
-    arquivo = fopen("arquivos\\VendaTXT.txt", "r");
+    arquivo = fopen("arquivos\\vendas.txt", "r");
     if (arquivo == NULL) {
-        arquivo = fopen("arquivos\\VendaTXT.txt", "w+");
+        arquivo = fopen("arquivos\\vendas.txt", "w+");
         if (arquivo == NULL) {
             printf("\nErro ao acessar arquivo\n");
             return 0;
@@ -192,6 +190,7 @@ int numVendas(){
     fclose(arquivo);
     //libera memoria
     free(arquivo);
-
+    //printf("DEBUG: O NUM DE LINHAS É: %d\n", numLinha);
+    //printf("DEBUG: O NUM DE VENDAS É: %d\n", numLinha / 6);
     return numLinha / 6;
 }

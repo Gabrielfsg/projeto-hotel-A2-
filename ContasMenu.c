@@ -18,13 +18,16 @@
 #include "ContaReceber.h"
 #include "ContaPagar.h"
 #include "SalvametoBD.h"
+#include "ContaPagar.h"
+#include "MenuEntradaProdutos.h"
 
 void menuContas() {
     int opc = 0;
+    int aux = 0;
     while (opc >= 0) {
         printf("*******  Contas **********\n");
         printf("1.Contas a Receber.\n");
-        printf("2.Pagar Conta.\n");
+        printf("2.Listar Pagar Conta.\n");
         printf("3.Listar Contas.\n");
         printf("4.Voltar.\n");
         scanf("%d%*c", &opc);
@@ -33,7 +36,7 @@ void menuContas() {
                 contasRec();
                 break;
             case 2:
-                //contaPagar();
+                atualizar();
                 break;
             case 3:
                 visualizarHistContas();
@@ -56,7 +59,7 @@ void contasRec() {
     if (bd > 0) {
         printf("### RECEBER CONTAS ### \n");
         printf("Entre com o código da conta: ");
-        scanf("%d%*c", &cr.codigo);// validar
+        scanf("%d%*c", &cr.codigo); // validar
         printf("Entre com o valor da conta: ");
         scanf("%f%*c", &cr.valor);
         printf("Entre com o dia de pagamento: ");
@@ -71,7 +74,7 @@ void contasRec() {
         scanf("%d*c", &aux);
         if (aux == 1) {
             strcpy(cr.status, "Concluido");
-             strcpy(cr.pagamento, "Dinheiro");
+            strcpy(cr.pagamento, "Dinheiro");
         } else if (aux == 2) {
             strcpy(cr.status, "Pendente");
             strcpy(cr.pagamento, "Cartão");
@@ -124,30 +127,3 @@ void visualizarHistContas() {
         free(cr);
     }
 }
-
-void contasPag() {
-    int opc = 0;
-    int cod;
-    int opcao;
-    while (opc >= 0) {
-        printf("Entre com o código da conta: ");
-        scanf("%d*c", &cod);
-        //verf
-
-        for (int i = 0; i < 0; i++) {
-            // mostra a conta
-        }
-
-        printf("DESEJA PAGAR E DESCONTAR DO CAIXA: \n"
-                "1.SIM. \n"
-                "2.NÃO. \n"
-                "OPÇÃO: ");
-        scanf("%d*c", &opcao);
-        if (opcao == 1) {
-
-        } else if (opcao == 2) {
-
-        }
-    }
-}
-

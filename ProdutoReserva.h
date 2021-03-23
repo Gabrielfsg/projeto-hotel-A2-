@@ -18,12 +18,14 @@
 #include "Reserva.h"
 
 typedef struct produtoReserva {
-    Produto pro;
-    Reserva res;
+    int codProd;
+    int codRes;
     int quantidade;
     Data data;
 } ProdutoReserva;
 
 
 float somaProdutosConsumido(int reserva);
+ProdutoReserva* getAllProdutoReservaBIN(int* numProdutos);
+ProdutoReserva* getAllProdutoReservaTXT(int numProdutos);
 #endif /* PRODUTORESERVA_H */
