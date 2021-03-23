@@ -76,6 +76,7 @@ float somaValores() {
     float prodV = 0;
     float final = 0;
     float retiradas = 0;
+    float aprazo = 0;
     checkIn = somaCheckInCaixa(c.codigo);
     checkOut = somaCheckOutCaixa(c.codigo);
     contasRece = somaContaReceberCaixa(c.data);

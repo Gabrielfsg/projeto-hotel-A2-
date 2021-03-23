@@ -40,7 +40,7 @@ void menuContas() {
                 atualizar();
                 break;
             case 3:
-                visualizarHistContas();
+                atualizarCR();
                 break;
             case 4:
                 subCaixa();
@@ -92,16 +92,16 @@ void contasRec() {
         } else if (bd == 2) {
             r = cadastrarContaReceberBIN(&cr, 1);
         }
-
-        if (r == 1) {
-            somaContaReceberCaixa(cr.data);
+        if (aux == 1) {
+            if (r == 1) {
+                somaContaReceberCaixa(cr.data);
+            }
         }
-
     }
 
 }
 
-void visualizarHistContas() {
+/*void visualizarHistContas() {
     int n, aux;
     int bd = listar();
     ContaReceber *cr;
@@ -134,3 +134,4 @@ void visualizarHistContas() {
         free(cr);
     }
 }
+*/
