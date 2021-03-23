@@ -4,6 +4,7 @@
 #include <string.h>
 #include "ContaReceber.h"
 #include "Hora.h"
+#include "ContaPagar.h"
 
 int cadastrarContaReceberTXT(ContaReceber cat) {
     FILE *cad;
@@ -242,7 +243,7 @@ int atualizarCR() {
     valor = cr.valor;
     if (aux == 1) {
         if (bd == 1) {
-            //  r = editarContaReceberTXT(arrayCR, cr, numContas);
+              r = editarContaReceberTXT(arrayCR, cr, numContas);
         } else if (bd == 2) {
             r = editarContaReceberBIN(cr);
         }
@@ -258,28 +259,23 @@ int atualizarCR() {
 
 }
 
-/*int editarContaReceberTXT(ContaPagar *arrayPC, ContaPagar cp, int num) {
+int editarContaReceberTXT(ContaPagar *arrayCP, ContaPagar cp, int num) {
     int i;
     for (i = 0; i < num; i++) {//sobre escreve os dados
-        if ((int) (arrayPC[i].codigo) == (int) (cp.codigo)) {
-            strcpy(arrayPC[i].descricao, cp.descricao);
-            arrayPC[i].valor = cp.valor;
-            arrayPC[i].data.dia = cp.data.dia;
-            arrayPC[i].data.mes = cp.data.mes;
-            arrayPC[i].data.ano = cp.data.ano;
-            strcpy(arrayPC[i].status, cp.status);
-            arrayPC[i].caixa.codigo = cp.caixa.codigo;
-            arrayPC[i].caixa.data.dia = cp.caixa.data.dia;
-            arrayPC[i].caixa.data.mes = cp.caixa.data.mes;
-            arrayPC[i].caixa.data.ano = cp.caixa.data.ano;
-            arrayPC[i].codForn = cp.codForn;
+        if ((int) (arrayCP[i].codigo) == (int) (cp.codigo)) {
+            strcpy(arrayCP[i].descricao, cp.descricao);
+            arrayCP[i].valor = cp.valor;
+            arrayCP[i].data.dia = cp.data.dia;
+            arrayCP[i].data.mes = cp.data.mes;
+            arrayCP[i].data.ano = cp.data.ano;
+            strcpy(arrayCP[i].status, cp.status);
+            arrayCP[i].codForn = cp.codForn;
+            arrayCP[i].caixa = cp.caixa;
         }
     }
 
-    return salvarContaReceberTXT(arrayPC, num); // chama o metodo que salva de novo os dados no arquivo
+    return salvarContaReceberTXT(arrayCP, num); // chama o metodo que salva de novo os dados no arquivo
 }
- */
-
 
 int editarContaReceberBIN(ContaReceber cat) {
     FILE *arquivo;
@@ -382,64 +378,64 @@ float somaContaReceberCaixa(Data data) {
     for (i = 0; i < num; i++) {
         if (datah.dia == cai[i].data.dia && datah.mes == cai[i].data.mes && datah.ano == cai[i].data.ano) {
             //if (22 == cai[i].data.dia && 3 == cai[i].data.mes && 2020 == cai[i].data.ano) {
-                valor += cai[i].valor;
-            }
+            valor += cai[i].valor;
         }
-        return valor;
-
     }
+    return valor;
 
-    /*float somaContaReceberCaixa(Data data) {
-        float valor = 0;
-        ContaReceber *cai;
-        int num;
-        int bd = listar();
-        if (bd == 1) {
-            cai = listarContaReceberTXT();
-            num = numContaReceber();
-        } else {
-            cai = listarContaReceberBIN(&num);
+}
+
+/*float somaContaReceberCaixa(Data data) {
+    float valor = 0;
+    ContaReceber *cai;
+    int num;
+    int bd = listar();
+    if (bd == 1) {
+        cai = listarContaReceberTXT();
+        num = numContaReceber();
+    } else {
+        cai = listarContaReceberBIN(&num);
+    }
+    int i;
+    for (i = 0; i < num; i++) {
+        if (compararDatas(cai[i].data, data) == 1) {
+            valor += cai[i].valor;
         }
+    }
+    return valor;
+
+}*/
+
+void visualizarHistContas() {
+    int n, aux;
+    int bd = listar();
+    ContaReceber *cr;
+    if (bd == 1) {//verifica o tipo de salvamento
+        cr = listarContaReceberTXT();
+        n = numContaReceber();
+    } else if (bd == 2) {
+        cr = listarContaReceberBIN(&n);
+    } else {
+        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
+    }
+    if (bd > 0) {
         int i;
-        for (i = 0; i < num; i++) {
-            if (compararDatas(cai[i].data, data) == 1) {
-                valor += cai[i].valor;
+        if (n > 0) {
+            for (i = 0; i < n; i++) {// pela contagem de linhas eles mostra os dados
+                printf("\n*******%d************", i);
+                printf("\nCodigo: %d", cr[i].codigo);
+                printf("\nValor: %f", cr[i].valor);
+                printf("\nDia Pagamento: %d", cr[i].data.dia);
+                printf("\nMes Pagamento: %d", cr[i].data.mes);
+                printf("\nAno Pagamento: %d", cr[i].data.ano);
+                printf("\nStatus: %s", cr[i].status);
+                printf("\nForma de Pagamento: %s", cr[i].pagamento);
+                printf("\nCodigo do caixa: %d", cr[i].caixa);
+                printf("\n");
             }
-        }
-        return valor;
-
-    }*/
-
-    void visualizarHistContas() {
-        int n, aux;
-        int bd = listar();
-        ContaReceber *cr;
-        if (bd == 1) {//verifica o tipo de salvamento
-            cr = listarContaReceberTXT();
-            n = numContaReceber();
-        } else if (bd == 2) {
-            cr = listarContaReceberBIN(&n);
         } else {
-            printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
+            printf("Não à operadores cadastrados. \n");
         }
-        if (bd > 0) {
-            int i;
-            if (n > 0) {
-                for (i = 0; i < n; i++) {// pela contagem de linhas eles mostra os dados
-                    printf("\n*******%d************", i);
-                    printf("\nCodigo: %d", cr[i].codigo);
-                    printf("\nValor: %f", cr[i].valor);
-                    printf("\nDia Pagamento: %d", cr[i].data.dia);
-                    printf("\nMes Pagamento: %d", cr[i].data.mes);
-                    printf("\nAno Pagamento: %d", cr[i].data.ano);
-                    printf("\nStatus: %s", cr[i].status);
-                    printf("\nForma de Pagamento: %s", cr[i].pagamento);
-                    printf("\nCodigo do caixa: %d", cr[i].caixa);
-                    printf("\n");
-                }
-            } else {
-                printf("Não à operadores cadastrados. \n");
-            }
-            free(cr);
-        }
+        free(cr);
     }
+}
