@@ -172,7 +172,34 @@ void mostrarContasPagar() {
         printf("DESC = %s\n", arrayCP[i].descricao);
         printf("STATUS = %s\n", arrayCP[i].status);
         printf("VALOR = %.2f\n", arrayCP[i].valor);
+    }
+}
 
+int atualizar() {
+    int bd = listar();
+    Data data = getDataHoje();
+    ContaPagar* arrayCP;
+     ContaPagar cp;
+    int numContas = 0;
+    if (bd == 1) {
+        numContas = getNumContaPagar();
+        arrayCP = listarContaPagarTXT(numContas);
+    }
+    if (bd == 2) {
+        arrayCP = listarContaPagarBIN(&numContas);
+    }
+
+    for (int i = 0; i < numContas; i++) {
+        if (arrayCP[i].data.dia == 11 && arrayCP[i].data.mes == 6 && arrayCP[i].data.ano == 2021) {
+          //  cp.caixa = arrayCP[i].caixa;
+          //  cp.codForn = arrayCP[i].codForn;
+          //  cp.codigo = arrayCP[i].codigo;
+           // cp.descricao = arrayCP[i].caixa;
+           // cp.caixa = arrayCP[i].caixa;
+         //   cp.caixa = arrayCP[i].caixa;
+         //   cp.caixa = arrayCP[i].caixa;
+            strcpy(cp.status, "Concluido");
+        }
     }
 }
 
@@ -196,7 +223,7 @@ float somaContaPagarCaixa(Data data) {
             valor += cai[i].valor;
         }
     }
-    printf("O VALOR DO SOMA CONTAS PAGAR = %f\n",valor);
+    printf("O VALOR DO SOMA CONTAS PAGAR = %f\n", valor);
     return valor;
 
 }
@@ -223,6 +250,26 @@ int maiorCodContasPagar() {
 
     printf("O MAIR COD É: %d\n", maior);
     return maior;
+}
+
+int editarCPSBIN(ContaPagar cp, int posi) {
+    FILE *arquivo;
+    //abre arquivo para leitura e escrita, ele deve existir "r+b"
+    arquivo = fopen(".\\persist\\ContaPagarBIN.bin", "r+b");
+    if (arquivo == NULL) {
+        printf("Erro ao acessar arquivo\n");
+        return 0;
+    }
+    //Posiciona o cursor na posição do struct
+    fseek(arquivo, (posi * sizeof (ContaPagar)), SEEK_SET);
+    //Substitui o struct de posição posi
+    fwrite(&cp, sizeof (ContaPagar), 1, arquivo);
+    //fecha arquivo 
+    fclose(arquivo);
+    //fclose(&aco);
+    //libera memoria
+    free(arquivo);
+    return 1;
 }
 
 int getNumContaPagar() {
@@ -257,3 +304,4 @@ int getNumContaPagar() {
     return numContas;
 
 }
+
