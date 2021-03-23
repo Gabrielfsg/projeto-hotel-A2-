@@ -151,6 +151,72 @@ ContaPagar* listarContaPagarBIN(int* numContasPagar) {
     }
 }
 
+int atualizar() {
+    int bd = listar();
+    Data datah = getDataHoje();
+    ContaPagar* arrayCP;
+    ContaPagar cp;
+    int aux;
+    int r;
+    int i;
+    int numContas = 0;
+    if (bd == 1) {
+        numContas = getNumContaPagar();
+        arrayCP = listarContaPagarTXT(numContas);
+    }
+    if (bd == 2) {
+        arrayCP = listarContaPagarBIN(&numContas);
+    }
+
+    for (i = 0; i < numContas; i++) {
+        if (arrayCP[i].data.dia == datah.dia && arrayCP[i].data.mes == datah.mes && arrayCP[i].data.ano == datah.ano) {
+            cp.codigo = arrayCP[i].codigo;
+            strcpy(cp.descricao, arrayCP[i].descricao);
+            cp.valor = arrayCP[i].valor;
+            cp.data.dia = arrayCP[i].data.dia;
+            cp.data.mes = arrayCP[i].data.mes;
+            cp.data.ano = arrayCP[i].data.ano;
+            strcpy(cp.status, "Pago");
+            cp.caixa.codigo = arrayCP[i].caixa.codigo;
+            cp.caixa.data.dia = arrayCP[i].caixa.data.dia;
+            cp.caixa.data.mes = arrayCP[i].caixa.data.mes;
+            cp.caixa.data.ano = arrayCP[i].caixa.data.ano;
+            cp.codForn = arrayCP[i].codForn;
+        /*    printf("%d \n", cp.codigo);
+            printf("%s\n", cp.descricao);
+            printf("%f\n", cp.valor);
+            printf("%d\n", cp.data.dia);
+            printf("%d\n", cp.data.mes);
+            printf("%d\n", cp.data.ano);
+            printf("%s\n", cp.status);
+            printf("%d\n", cp.caixa.codigo);
+            printf("%d\n", cp.caixa.data.dia);
+            printf("%d\n", cp.caixa.data.mes);
+            printf("%d\n", cp.caixa.data.ano);
+            printf("%d\n", cp.codForn);*/
+            aux = 1;
+            break;
+        } else {
+            aux = 0;
+        }
+    }
+
+    if (aux == 1) {
+        if (bd == 1) {
+            r = editarStatusTXT(arrayCP, cp, numContas);
+        } else if (bd == 2) {
+            r = editarStatusBIN(cp, i);
+        }
+    }
+
+    if (r == 1) {
+        printf("Atualizado. \n");
+    } else {
+        printf("Erro ao atualizar. \n");
+    }
+    mostrarContasPagar();
+}
+
 void mostrarContasPagar() {
     int bd = listar();
     ContaPagar* arrayCP;
@@ -175,68 +241,10 @@ void mostrarContasPagar() {
     }
 }
 
-int atualizar() {
-    int bd = listar();
-    Data data = getDataHoje();
-    ContaPagar* arrayCP;
-    ContaPagar cp;
-    int aux;
-    int i;
-    int numContas = 0;
-    if (bd == 1) {
-        numContas = getNumContaPagar();
-        arrayCP = listarContaPagarTXT(numContas);
-    }
-    if (bd == 2) {
-        arrayCP = listarContaPagarBIN(&numContas);
-    }
-
-    for (i = 0; i < numContas; i++) {
-        if (arrayCP[i].data.dia == 11 && arrayCP[i].data.mes == 6 && arrayCP[i].data.ano == 2021) {
-            cp.codigo = arrayCP[i].codigo;
-            strcpy(cp.descricao, arrayCP[i].descricao);
-            cp.valor = arrayCP[i].valor;
-            cp.data.dia = arrayCP[i].data.dia;
-            cp.data.mes = arrayCP[i].data.mes;
-            cp.data.ano = arrayCP[i].data.ano;
-            strcpy(cp.status, "Pago");
-            cp.caixa.codigo = arrayCP[i].caixa.codigo;
-            cp.caixa.data.dia = arrayCP[i].caixa.data.dia;
-            cp.caixa.data.mes = arrayCP[i].caixa.data.mes;
-            cp.caixa.data.ano = arrayCP[i].caixa.data.ano;
-            cp.codForn = arrayCP[i].codForn;
-            printf("%d \n", cp.codigo);
-            printf("%s\n", cp.descricao);
-            printf("%f\n", cp.valor);
-            printf("%d\n", cp.data.dia);
-            printf("%d\n", cp.data.mes);
-            printf("%d\n", cp.data.ano);
-            printf("%s\n", cp.status);
-            printf("%d\n", cp.caixa.codigo);
-            printf("%d\n", cp.caixa.data.dia);
-            printf("%d\n", cp.caixa.data.mes);
-            printf("%d\n", cp.caixa.data.ano);
-            printf("%d\n", cp.codForn);
-            aux = 1;
-        } else {
-            aux = 0;
-        }
-    }
-
-    if (aux == 1) {
-        if (bd == 1) {
-
-        } else if (bd == 2) {
-            editarStatusBIN(cp, i);
-        }
-    }
-
-}
-
 int editarStatusBIN(ContaPagar cp, int posi) {
     FILE *arquivo;
     //abre arquivo para leitura e escrita, ele deve existir "r+b"
-    arquivo = fopen(".\\persist\\ContaPagarBIN.bin", "r+b");
+    arquivo = fopen(".\\arquivos\\ContaPagarBIN.bin", "r+b");
     if (arquivo == NULL) {
         printf("Erro ao acessar arquivo\n");
         return 0;
@@ -249,6 +257,50 @@ int editarStatusBIN(ContaPagar cp, int posi) {
     fclose(arquivo);
     //libera memoria
     free(arquivo);
+    return 1;
+}
+
+int editarStatusTXT(ContaPagar *arrayPC, ContaPagar cp, int num) {
+    int i;
+    for (i = 0; i < num; i++) {//sobre escreve os dados
+        if ((int) (arrayPC[i].codigo) == (int) (cp.codigo)) {
+            strcpy(arrayPC[i].descricao, cp.descricao);
+            arrayPC[i].valor = cp.valor;
+            arrayPC[i].data.dia = cp.data.dia;
+            arrayPC[i].data.mes = cp.data.mes;
+            arrayPC[i].data.ano = cp.data.ano;
+            strcpy(arrayPC[i].status, cp.status);
+            arrayPC[i].caixa.codigo = cp.caixa.codigo;
+            arrayPC[i].caixa.data.dia = cp.caixa.data.dia;
+            arrayPC[i].caixa.data.mes = cp.caixa.data.mes;
+            arrayPC[i].caixa.data.ano = cp.caixa.data.ano;
+            arrayPC[i].codForn = cp.codForn;
+        }
+    }
+
+    return salvarContasPagarTXT(arrayPC, num); // chama o metodo que salva de novo os dados no arquivo
+}
+
+int salvarContasPagarTXT(ContaPagar *arrayCP, int num) {
+    // w pra substituir o arquivo
+    FILE *cade = fopen(".\\arquivos\\ContaPagarTXT.txt", "w");
+    if (cade == NULL) {
+        printf("\nErro ao abrir arquivo!!");
+        return 0;
+    } else {
+        int i;
+        // grava todos os dados do vetor no arquivo
+        for (i = 0; i < num; i++) {
+            fprintf(cade, "%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%s\r\n%s\r\n%.2f\r\n", arrayCP[i].codigo, arrayCP[i].caixa.codigo, arrayCP[i].caixa.data.dia, arrayCP[i].caixa.data.mes, arrayCP[i].caixa.data.ano, arrayCP[i].codForn, arrayCP[i].data.dia, arrayCP[i].data.mes, arrayCP[i].data.ano, arrayCP[i].descricao, arrayCP[i].status, arrayCP[i].valor);
+        }
+    }
+    // força salvar arquivo
+    fflush(cade);
+    //fecha arquivo
+    fclose(cade);
+    //libera memoria
+    free(cade);
+    free(arrayCP);
     return 1;
 }
 
