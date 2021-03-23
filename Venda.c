@@ -194,3 +194,33 @@ int numVendas() {
     //printf("DEBUG: O NUM DE VENDAS É: %d\n", numLinha / 6);
     return numLinha / 6;
 }
+
+float somaVendaCaixa(Data data) {
+    printf("DEBUG: ENTROU NO SOMA VENDA\n");
+    float valor = 0;
+    Venda *vendas;
+    int num=0;
+    int bd = listar();
+    if (bd == 1) {
+        printf("DEBUG 1 \n");
+        num = numVendas();
+        printf("DEBUG 2 \n");
+        vendas = listarVendaTXT(num);
+        printf("DEBUG 3 \n");
+    } else {
+        printf("DEBUG: ENTROU NO ELSE\n");
+        vendas = listarVendaBIN(&num);
+    }
+    int i;
+    printf("DEBUG 4 -> NUM É: %d \n",num);
+    for (i = 0; i < num; i++) {
+        printf("DEBUG FOR \n");
+        if (compararDatas(vendas[i].dataVenda, data) == 1) {
+            printf("DEBUG IF \n");
+            valor += vendas[i].valorTotal;
+        }
+    }
+    printf("O VALOR DA SOMA VENDAS = %f\n", valor);
+    return valor;
+
+}

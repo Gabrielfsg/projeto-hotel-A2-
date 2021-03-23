@@ -22,6 +22,7 @@ void menuCaixa() {
     int bd = listar();
     while (opc >= 0) {
         printf("***** CAIXA***** \n");
+        printf("Data: %d/%d/%d. \n", data.dia,data.mes,data.ano);
         printf("1.Abrir Caixa. \n");
         printf("2.Saldo Caixa. \n");
         printf("3.Fechar caixa. \n");
@@ -79,6 +80,7 @@ float somaValores() {
     checkOut = somaCheckOutCaixa(c.codigo);
     contasRece = somaContaReceberCaixa(c.data);
     retiradas = somaContaPagarCaixa(c.data);
+    prodV = somaVendaCaixa(c.data);
     final = checkIn + checkOut + contasRece + prodV + c.valorIn - retiradas; 
     printf("DEBUG NO SOMA VALORES: RETIRADAS = %f  FINAL = %f:\n",retiradas, final);
     return final;

@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -344,7 +345,7 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
         //SE TEM DINHEIRO NO CAIXA, CADASTRA A NOTA
         //PRECISO ARMAZENAR O VALOR QUE VAI SER RETIRADO
         printf("DEBUG 1\n");
-        printf("VALOR DO CAIXA: %f, VALOR DA NOTA: %f\n", somaValores(), notFisc.total);
+        //printf("VALOR DO CAIXA: %f, VALOR DA NOTA: %f\n", somaValores(), notFisc.total);
         //valida o saldo do caixa
         if (somaValores() < notFisc.total) {
             printf("ERRO!\n");
@@ -361,9 +362,9 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
         cp.codigo = maiorCodContasPagar() + 1;
         cp.data = getDataHoje();
         //cp.descricao = "Pagamento a vista";
-        strcpy(cp.descricao, "PAgamento_a_vista");
+        strcpy(cp.descricao, "Pagamento_a_vista");
         //cp.status = "status";
-        strcpy(cp.status, "status");
+        strcpy(cp.status, "concluido");
         cp.valor = notFisc.total;
         bd = 1;
         printf("\n\n BD ==1\n\n");
@@ -415,7 +416,7 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
             //cp.descricao = "Entrada";
             strcpy(cp.descricao, "Entrada");
             //cp.status = "status";
-            strcpy(cp.status, "status");
+            strcpy(cp.status, "concluido");
             cp.valor = entrada;
             printf("DEBUG: DEPOIS DO CAIXA?\n");
             //DEBITAR O VALOR DA ENTRADA
@@ -463,7 +464,7 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
         cp.codForn = codForn;
         cp.valor = (notFisc.total / parcelas);
         //cp.status = "Status";
-        strcpy(cp.status, "Status");
+        strcpy(cp.status, "Pendente");
 
         printf("DEBUG: DEPOIS DA STRUCT\n");
 

@@ -247,69 +247,6 @@ void menuVendaAVista() {
             cadastrarVendaProdutoBIN(vp);
         }
     }
-    /////////////////////////////////////////
-    /*   printf("Digite o cód do produto: \n");
-       scanf("%d%*c", &codProd);
-       if (validarCodProdConsumo(codProd, bd) == 1) {
-           printf("NÃO EXISTE PRODUTO COM ESSE COD\n");
-           return;
-       } else {
-
-           if (bd == 1) {
-               p = getProdutoByCodTXT(codProd);
-           }
-           if (bd == 2) {
-               p = getProdutoByCodBIN(codProd);
-           }
-       }
-
-       printf("DEBUG: O PROD É %s \n", p.descricao);
-
-       printf("Digite a qte do produto: \n");
-       scanf("%d%*c", &qteDigitada);
-
-       if (p.estoque < qteDigitada) {
-           printf("SEM ESTOQUE SUFICIENTE DO PRODUTO\n");
-           return;
-       } else {
-           float prTotal = p.precoVenda * qteDigitada;
-           printf("O PREÇO TOTAL É: %.2f * %d = %.2f\n", p.precoVenda, qteDigitada, prTotal);
-
-           printf("DEBUG: ESTOQUE ANTES = %d \n", p.estoque);
-           p.estoque -= qteDigitada;
-           printf("DEBUG: ESTOQUE DEPOIS = %d \n", p.estoque);
-           if (bd == 1) {
-               printf("DEBUG: ANTES DE ATUALIZAR \n");
-               atualizarProdutoTXT(p);
-               printf("DEBUG: DEPOIS DE ATUALIZAR \n");
-           }
-           if (bd == 2) {
-               atualizarProdutoBIN(p);
-           }
-
-           ContaReceber cr;
-           cr.caixa = caixaAberto().codigo;
-           cr.codigo = maiorCodContaReceber() + 1;
-           cr.data = getDataHoje();
-           //cr.pagamento = "A_Vista";
-           strcpy(cr.pagamento, "A_Vista");
-           cr.valor = prTotal;
-           //cr.status = "Pago";
-           strcpy(cr.status, "Pago");
-           printf("DEBUG: CRIOU CONTA\n");
-           if (bd == 1) {
-               printf("DEBUG: ANTES DE CADASTRAR CONTA\n");
-               cadastrarContaReceberTXT(cr);
-               printf("DEBUG: DEPOIS DE CADASTRAR CONTA\n");
-           }
-           if (bd == 2) {
-               cadastrarContaReceberBIN(&cr, 1);
-           }
-
-
-
-       }
-     */
 }
 
 void mostrarVendas() {

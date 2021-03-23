@@ -208,10 +208,10 @@ void subCaixa() {
         printf("*******  Caixa **********\n");
         printf("1.Vender Produto.\n");
         printf("2.Opções Caixa.\n");
-        printf("3.Despesas.\n");
-        printf("4.Contas.\n");
-        printf("5.Listar Valor Caixa .\n");
-        printf("6.Voltar.\n");
+        //printf("3.Despesas.\n");
+        printf("3.Contas.\n");
+        //printf("5.Listar Valor Caixa .\n");
+        printf("4.Voltar.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
@@ -221,16 +221,20 @@ void subCaixa() {
             case 2:
                 menuCaixa();
                 break;
+/*
             case 3:
                 //função Contas a Pagar
                 break;
-            case 4:
+*/
+            case 3:
                 menuContas();
                 break;
+/*
             case 5:
                 //função Fechar Caixa
                 break;
-            case 6:
+*/
+            case 4:
                 menuPrincipal();
                 break;
             default:

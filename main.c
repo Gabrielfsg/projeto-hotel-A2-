@@ -18,6 +18,7 @@
 #include "Login.h"
 #include "Data.h"
 #include "Hora.h"
+#include "Caixa.h"
 
 /*
  * 
@@ -26,8 +27,9 @@
 
 int main() {
 
-    menuPrincipal();
-
+    //menuPrincipal();
+    Caixa c = caixaAberto();
+    somaVendaCaixa(c.data);
     return (EXIT_SUCCESS);
 }
 

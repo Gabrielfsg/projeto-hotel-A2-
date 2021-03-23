@@ -309,27 +309,27 @@ float somaContaPagarCaixa(Data data) {
     printf("DEBUG: ENTROU NO SOMA CONTA\n");
     float valor = 0;
     //ContaReceber *caiaaa;
-    ContaPagar *cai;
+    ContaPagar *cp;
     int num=0;
     int bd = listar();
     if (bd == 1) {
         printf("DEBUG 1 \n");
-        cai = listarContaReceberTXT();
+        cp = listarContaReceberTXT();
         printf("DEBUG 2 \n");
         num = numContaReceber();
         printf("DEBUG 3 \n");
     } else {
         printf("DEBUG: ENTROU NO ELSE\n");
-        cai = listarContaPagarBIN(&num);
+        cp = listarContaPagarBIN(&num);
     }
     int i;
     printf("DEBUG 4 -> NUM É: %d \n",num);
     for (i = 0; i < num; i++) {
         printf("DEBUG FOR \n");
-       /* if (compararDatas(cai[i].data, data) == 1) {
+        if (compararDatas(cp[i].data, data) == 1) {
             printf("DEBUG IF \n");
-            valor += cai[i].valor;
-        }*/
+            valor += cp[i].valor;
+        }
     }
     printf("O VALOR DO SOMA CONTAS PAGAR = %f\n", valor);
     return valor;
