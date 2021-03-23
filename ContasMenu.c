@@ -27,8 +27,8 @@ void menuContas() {
     while (opc >= 0) {
         printf("*******  Contas **********\n");
         printf("1.Contas a Receber.\n");
-        printf("2.Listar Pagar Conta.\n");
-        printf("3.Listar Contas Receber.\n");
+        printf("2.Listar Pagar Conta. (Para Atualizar selecione essa opção novamente)\n");
+        printf("3.Listar Contas Receber. (Para Atualizar selecione essa opção novamente) \n");
         printf("4.Voltar.\n");
         scanf("%d%*c", &opc);
         switch (opc) {

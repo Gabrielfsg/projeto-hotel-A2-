@@ -222,7 +222,7 @@ int atualizarCR() {
     }
 
     for (i = 0; i < numContas; i++) {
-        if (arrayCR[i].data.dia == 21 && arrayCR[i].data.mes == 5 && arrayCR[i].data.ano == 2021) {
+        if (arrayCR[i].data.dia == datah.dia && arrayCR[i].data.mes == datah.mes && arrayCR[i].data.ano == datah.ano) {
             if (strcmp(arrayCR[i].status, "Pendente") == 0) {
                 cr.codigo = arrayCR[i].codigo;
                 strcpy(cr.pagamento, arrayCR[i].pagamento);
@@ -380,8 +380,8 @@ float somaContaReceberCaixa(Data data) {
     }
     int i;
     for (i = 0; i < num; i++) {
-        //if (datah.dia == cai[i].data.dia && datah.mes == cai[i].data.mes && datah.ano == cai[i].data.ano) {
-            if (21 == cai[i].data.dia && 5 == cai[i].data.mes && 2021 == cai[i].data.ano) {
+        if (datah.dia == cai[i].data.dia && datah.mes == cai[i].data.mes && datah.ano == cai[i].data.ano) {
+            //if (22 == cai[i].data.dia && 3 == cai[i].data.mes && 2020 == cai[i].data.ano) {
                 valor += cai[i].valor;
             }
         }
