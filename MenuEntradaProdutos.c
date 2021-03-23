@@ -262,6 +262,7 @@ int inseirProdutosNaNotaDeEntrada(NotaFiscalEntrada *notFisc) {
             //pega o produto
             if (bd == 1) {
                 //TXT
+                p = getProdutoByCodTXT(codProd);
             }
             if (bd == 2) {
                 //BIN

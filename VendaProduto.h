@@ -19,7 +19,9 @@
 #include "Venda.h"
 
 typedef struct vendaProduto {
-    Produto produto;
-    Venda venda;
+    //Produto produto;
+    int codProduto;
+    //Venda venda;
+    int codVenda;
     int quantidade;
 } VendaProduto;

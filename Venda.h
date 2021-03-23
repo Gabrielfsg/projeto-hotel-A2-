@@ -22,6 +22,7 @@ typedef struct venda{
     int codCaixa;
 }Venda;
     
-
+Venda* listarVendaTXT();
+Venda* listarVendaBIN();
 #endif /* VENDA_H */
 

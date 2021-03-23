@@ -92,7 +92,7 @@ int cadastrarProdutoBIN(Produto p) {
  * 
  */
 void atualizarProdutoTXT(Produto novoProd) {
-    //printf("ENTROU ATUALIZAR PROD\n");
+    printf("ENTROU ATUALIZAR PROD\n");
     FILE* arqProduto = fopen(".\\arquivos\\produtos_temp.txt", "w");
     if (arqProduto == NULL) {
         printf("ERRO AO ABRIR ARQUIVO");

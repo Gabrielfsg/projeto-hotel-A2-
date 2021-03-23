@@ -211,7 +211,7 @@ void subCaixa() {
         printf("3.Despesas.\n");
         printf("4.Contas.\n");
         printf("5.Listar Valor Caixa .\n");
-        printf("6.Sair.\n");
+        printf("6.Voltar.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
@@ -231,7 +231,7 @@ void subCaixa() {
                 //função Fechar Caixa
                 break;
             case 6:
-                exit(0);
+                menuPrincipal();
                 break;
             default:
                 printf("Valor Invalido!\n");

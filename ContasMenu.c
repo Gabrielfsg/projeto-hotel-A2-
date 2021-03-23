@@ -16,6 +16,7 @@
 #include "Hotel.h"
 #include "Data.h"
 #include "ContaReceber.h"
+#include "ContaPagar.h"
 #include "SalvametoBD.h"
 
 void menuContas() {
