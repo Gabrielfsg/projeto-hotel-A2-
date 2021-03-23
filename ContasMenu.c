@@ -19,6 +19,7 @@
 #include "SalvametoBD.h"
 #include "ContaPagar.h"
 #include "MenuEntradaProdutos.h"
+#include "Caixa.h"
 
 void menuContas() {
     int opc = 0;
@@ -27,7 +28,7 @@ void menuContas() {
         printf("*******  Contas **********\n");
         printf("1.Contas a Receber.\n");
         printf("2.Listar Pagar Conta.\n");
-        printf("3.Listar Contas.\n");
+        printf("3.Listar Contas Receber.\n");
         printf("4.Voltar.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
@@ -53,20 +54,17 @@ void menuContas() {
 
 void contasRec() {
     ContaReceber cr;
+    Data dataH = getDataHoje();
     int bd = listar();
     int aux = 0, aux2 = 0;
+    int cod = caixaAberto().codigo;
+    int r;
     if (bd > 0) {
         printf("### RECEBER CONTAS ### \n");
         printf("Entre com o código da conta: ");
         scanf("%d%*c", &cr.codigo); // validar
         printf("Entre com o valor da conta: ");
         scanf("%f%*c", &cr.valor);
-        printf("Entre com o dia de pagamento: ");
-        scanf("%d%*c", &cr.data.dia);
-        printf("Entre com o mês de pagamento: ");
-        scanf("%d%*c", &cr.data.mes);
-        printf("Entre com o ano do pagamento: ");
-        scanf("%d%*c", &cr.data.ano);
         printf("Digite o status da conta: \n"
                 "1.Cocluido. \n"
                 "2.Pendente.");
@@ -74,18 +72,27 @@ void contasRec() {
         if (aux == 1) {
             strcpy(cr.status, "Concluido");
             strcpy(cr.pagamento, "Dinheiro");
+            cr.data.dia = dataH.dia;
+            cr.data.mes = dataH.mes;
+            cr.data.ano = dataH.ano;
         } else if (aux == 2) {
             strcpy(cr.status, "Pendente");
             strcpy(cr.pagamento, "Cartão");
+            printf("Entre com o dia de pagamento: ");
+            scanf("%d%*c", &cr.data.dia);
+            printf("Entre com o mês de pagamento: ");
+            scanf("%d%*c", &cr.data.mes);
+            printf("Entre com o ano do pagamento: ");
+            scanf("%d%*c", &cr.data.ano);
         }
-        printf("Entre com o código do caixa: ");
-        scanf("%d%*c", &cr.caixa);
-        //validar
+        cr.caixa = cod;
         if (bd == 1) {
-            cadastrarContaReceberTXT(cr);
-            somaContaReceberCaixa(cr.data);
+            r = cadastrarContaReceberTXT(cr);
         } else if (bd == 2) {
-            cadastrarContaReceberBIN(&cr, 1);
+            r = cadastrarContaReceberBIN(&cr, 1);
+        }
+
+        if (r == 1) {
             somaContaReceberCaixa(cr.data);
         }
 
