@@ -131,6 +131,8 @@ void menuVendaHospedeReserva() {
 
 void menuVendaAVista() {
     printf("DEBUG: ENTROU VENDA VISTA \n");
+    //VERIFICAR CAIXA ABERTO
+    
     int bd = listar();
     int qteItensDaVenda = 0;
     Produto p;

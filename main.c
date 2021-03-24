@@ -27,9 +27,9 @@
 
 int main() {
 
-    //menuPrincipal();
-    Caixa c = caixaAberto();
-    somaVendaCaixa(c.data);
+    menuPrincipal();
+    //Caixa c = caixaAberto();
+    //somaVendaCaixa(c.data);
     return (EXIT_SUCCESS);
 }
 

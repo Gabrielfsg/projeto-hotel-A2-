@@ -177,7 +177,7 @@ int atualizar() {
             cp.data.dia = arrayCP[i].data.dia;
             cp.data.mes = arrayCP[i].data.mes;
             cp.data.ano = arrayCP[i].data.ano;
-            strcpy(cp.status, "Pago");
+            strcpy(cp.status, "Concluido");
             cp.caixa.codigo = arrayCP[i].caixa.codigo;
             cp.caixa.data.dia = arrayCP[i].caixa.data.dia;
             cp.caixa.data.mes = arrayCP[i].caixa.data.mes;

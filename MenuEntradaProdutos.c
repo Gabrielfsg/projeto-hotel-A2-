@@ -33,7 +33,6 @@ void menuEntradaProdutos() {
         switch (opc) {
             case 1:
                 ComprarProdutos();
-                //ComprarProdutos2();
                 break;
 
             case 2:
