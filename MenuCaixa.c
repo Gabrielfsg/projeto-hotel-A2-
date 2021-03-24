@@ -70,6 +70,7 @@ void menuCaixa() {
 
 float somaValores() {
     Caixa c = caixaAberto();
+    printf("\n\n DATA DO SOMA VALORES: %d / %d / %d \n\n",c.data.dia, c.data.mes,c.data.ano);
     float checkIn = 0;
     float checkOut = 0;
     float contasRece = 0;
@@ -77,12 +78,20 @@ float somaValores() {
     float final = 0;
     float retiradas = 0;
     float aprazo = 0;
-    checkIn = somaCheckInCaixa(c.codigo);
+/*    checkIn = somaCheckInCaixa(c.codigo);
     checkOut = somaCheckOutCaixa(c.codigo);
     contasRece = somaContaReceberCaixa(c.data);
     retiradas = somaContaPagarCaixa(c.data);
     prodV = somaVendaCaixa(c.data);
+*/
+    
+    somaCheckInCaixa(c.codigo,&checkIn);
+    somaCheckOutCaixa(c.codigo,&checkOut);
+    somaContaReceberCaixa(c.data,&contasRece);
+    somaContaPagarCaixa(c.data,&retiradas);
+    somaVendaCaixa(c.data,&prodV);
     final = checkIn + checkOut + contasRece + prodV + c.valorIn - retiradas; 
-    printf("DEBUG NO SOMA VALORES: RETIRADAS = %f  FINAL = %f:\n",retiradas, final);
+    printf("DEBUG NO SOMA VALORES: PRODV = %f \n", prodV);
+    printf("DEBUG NO SOMA VALORES: CHECK IN = %f ||| CHECKOUT = %f ||| CONTAS RECEBER = %f ||| RETIRADAS = %f ||| PRODVENDAS = %f  FINAL = %f:\n",checkIn, checkOut, contasRece,retiradas,prodV, final);
     return final;
 }

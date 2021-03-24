@@ -27,7 +27,7 @@ int cadastrarVendaProdutoTXT(VendaProduto vp) {
 }
 
 int cadastrarVendaProdutoBIN(VendaProduto vp) {
-    printf("DEBUG: ENTROU CADASTRA VENDA PROD BIN\n");
+    //printf("DEBUG: ENTROU CADASTRA VENDA PROD BIN\n");
     FILE* arqVEndaProduto;
     //abre o arquivo, ou cria um novo se não conseguir abrir
     arqVEndaProduto = fopen(".\\arquivos\\vendaProduto.bin", "ab");

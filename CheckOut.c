@@ -96,6 +96,7 @@ CheckOut* listarCheckOutTXT() {
         cat[i].codigo = atoi(t);
         fgets(t, 100, arquivo);
         cat[i].valorTotal = atof(t);
+        printf("DEBUG CHECKOUT: LEU %f\n",cat[i].valorTotal);
         fgets(t, 100, arquivo);
         cat[i].saida.dia = atoi(t);
         fgets(t, 100, arquivo);
@@ -285,8 +286,8 @@ int removerCheckOutBIN() {
     return 1;
 }
 
-float somaCheckOutCaixa(int codigo) {
-    float valor = 0;
+float somaCheckOutCaixa(int codigo, float* valor) {
+    
     CheckOut *cai;
     int num;
     int bd = listar();
@@ -299,10 +300,9 @@ float somaCheckOutCaixa(int codigo) {
     int i;
     for (i = 0; i < num; i++) {
         if (cai[i].caixa == codigo) {
-            valor += cai[i].valorTotal;
+            *valor += cai[i].valorTotal;
         }
     }
-    return valor;
 
 }
 

@@ -36,7 +36,7 @@ int removerCheckOutBIN();
 CheckOut* listarCheckOutTXT();
 int salvarCheckOutTXT(CheckOut *cat, int num);
 int cadastrarCheckOutTXT(CheckOut cat);
-float somaCheckOutCaixa(int codigo);
+//float somaCheckOutCaixa(int codigo);
 
 #endif /* CHECKOUT_H */
 

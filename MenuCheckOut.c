@@ -123,7 +123,7 @@ void checkOutHospede() {
                         cr.caixa = 0;
                         cr.data = *dataIn;
                         strcpy(cr.pagamento, "Cartão");
-                        strcpy(cr.status, "Agendado");
+                        strcpy(cr.status, "Pendente");
                         cr.valor = c.valorTotal;
                         aux = 1;
                         if (bd == 1)

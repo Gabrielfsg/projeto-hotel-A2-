@@ -140,7 +140,7 @@ int numLinhasFornecedor() {
     //abre arquivo para leitura "r"
     arquivo = fopen("arquivos\\FornecedorTXT.txt", "r");
     if (arquivo == NULL) {
-        arquivo = fopen("arquivos\\CategoriaTXT.txt", "w+");
+        arquivo = fopen("arquivos\\FornecedorTXT.txt", "w+");
         if (arquivo == NULL) {
             printf("\nErro ao acessar arquivo\n");
             return 0;

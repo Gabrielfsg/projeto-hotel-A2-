@@ -362,8 +362,8 @@ int maiorCodContaReceber() {
     return aux;
 }
 
-float somaContaReceberCaixa(Data data) {
-    float valor = 0;
+float somaContaReceberCaixa(Data data, float* valor) {
+    
     ContaReceber *cai;
     Data datah = getDataHoje();
     int num;
@@ -378,10 +378,9 @@ float somaContaReceberCaixa(Data data) {
     for (i = 0; i < num; i++) {
         if (datah.dia == cai[i].data.dia && datah.mes == cai[i].data.mes && datah.ano == cai[i].data.ano) {
             //if (22 == cai[i].data.dia && 3 == cai[i].data.mes && 2020 == cai[i].data.ano) {
-            valor += cai[i].valor;
+            *valor += cai[i].valor;
         }
     }
-    return valor;
 
 }
 

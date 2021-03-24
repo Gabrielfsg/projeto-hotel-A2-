@@ -56,6 +56,7 @@ int cadastrarContaPagarBIN(ContaPagar *conta, int quantidade) {
 }
 
 ContaPagar* listarContaPagarTXT(int numContasPagar) {
+    printf("DEBUG: ENTROU NO LISTA CONTA PAGAR TXT\n");
     int index = 1; //ÍNDICE DO ARRAY
 
     ContaPagar *arrayContasPagar = (ContaPagar *) malloc(sizeof (ContaPagar) * numContasPagar); //Ponteiro de Hóspedes vira um Array ao chamar malloc
@@ -80,7 +81,7 @@ ContaPagar* listarContaPagarTXT(int numContasPagar) {
         //pega os hóspedes do arquivo
         for (int i = 0; i < numContasPagar; i++) {
             ContaPagar cp;
-
+            printf("DEBUG: ENTRO NO FOR DO LISTAR TXT\n");
             fscanf(scanContasPagar, "%d", &cp.codigo);
             fscanf(scanContasPagar, "%d", &cp.caixa.codigo);
             fscanf(scanContasPagar, "%d", &cp.caixa.data.dia);
@@ -183,18 +184,18 @@ int atualizar() {
             cp.caixa.data.mes = arrayCP[i].caixa.data.mes;
             cp.caixa.data.ano = arrayCP[i].caixa.data.ano;
             cp.codForn = arrayCP[i].codForn;
-        /*    printf("%d \n", cp.codigo);
-            printf("%s\n", cp.descricao);
-            printf("%f\n", cp.valor);
-            printf("%d\n", cp.data.dia);
-            printf("%d\n", cp.data.mes);
-            printf("%d\n", cp.data.ano);
-            printf("%s\n", cp.status);
-            printf("%d\n", cp.caixa.codigo);
-            printf("%d\n", cp.caixa.data.dia);
-            printf("%d\n", cp.caixa.data.mes);
-            printf("%d\n", cp.caixa.data.ano);
-            printf("%d\n", cp.codForn);*/
+            /*    printf("%d \n", cp.codigo);
+                printf("%s\n", cp.descricao);
+                printf("%f\n", cp.valor);
+                printf("%d\n", cp.data.dia);
+                printf("%d\n", cp.data.mes);
+                printf("%d\n", cp.data.ano);
+                printf("%s\n", cp.status);
+                printf("%d\n", cp.caixa.codigo);
+                printf("%d\n", cp.caixa.data.dia);
+                printf("%d\n", cp.caixa.data.mes);
+                printf("%d\n", cp.caixa.data.ano);
+                printf("%d\n", cp.codForn);*/
             aux = 1;
             break;
         } else {
@@ -305,34 +306,26 @@ int salvarContasPagarTXT(ContaPagar *arrayCP, int num) {
     return 1;
 }
 
-float somaContaPagarCaixa(Data data) {
+float somaContaPagarCaixa(Data data,float* valor) {
     printf("DEBUG: ENTROU NO SOMA CONTA\n");
-    float valor = 0;
+    
     //ContaReceber *caiaaa;
     ContaPagar *cp;
-    int num=0;
+    int num = 0;
     int bd = listar();
     if (bd == 1) {
-        printf("DEBUG 1 \n");
-        cp = listarContaReceberTXT();
-        printf("DEBUG 2 \n");
         num = numContaReceber();
-        printf("DEBUG 3 \n");
+        cp = listarContaPagarTXT(num);
     } else {
-        printf("DEBUG: ENTROU NO ELSE\n");
         cp = listarContaPagarBIN(&num);
     }
     int i;
-    printf("DEBUG 4 -> NUM É: %d \n",num);
     for (i = 0; i < num; i++) {
-        printf("DEBUG FOR \n");
         if (compararDatas(cp[i].data, data) == 1) {
-            printf("DEBUG IF \n");
-            valor += cp[i].valor;
+            *valor += cp[i].valor;
         }
     }
-    printf("O VALOR DO SOMA CONTAS PAGAR = %f\n", valor);
-    return valor;
+    printf("O VALOR DO SOMA CONTAS PAGAR = %f\n", *valor);
 
 }
 

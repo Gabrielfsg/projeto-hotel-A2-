@@ -130,9 +130,12 @@ void menuVendaHospedeReserva() {
 }
 
 void menuVendaAVista() {
-    printf("DEBUG: ENTROU VENDA VISTA \n");
+    //printf("DEBUG: ENTROU VENDA VISTA \n");
     //VERIFICAR CAIXA ABERTO
-    
+    if(caixaAberto(getDataHoje()).codigo == 0){
+        printf("É NECESSÁRIO ABRIR O CAIXA ANTES DA VENDA\n");
+        return;
+    }
     int bd = listar();
     int qteItensDaVenda = 0;
     Produto p;
@@ -152,7 +155,7 @@ void menuVendaAVista() {
             return;
         } else {
             qteItensDaVenda++;
-            printf("DEBUG: QTE ITENS AGORA É %d \n", qteItensDaVenda);
+            //printf("DEBUG: QTE ITENS AGORA É %d \n", qteItensDaVenda);
             if (bd == 1) {
                 p = getProdutoByCodTXT(codProd);
             }
@@ -167,16 +170,14 @@ void menuVendaAVista() {
                 printf("SEM ESTOQUE SUFICIENTE DO PRODUTO\n");
                 return;
             } else {
-                printf("DEBUG 1 \n");
+                
                 //REALOCA O VETOR
                 arrQte = realloc(arrQte, sizeof (int) * qteItensDaVenda);
-                printf("DEBUG 2 \n");
+                
                 prodVendidos = (Produto*) realloc(prodVendidos, sizeof (Produto) * qteItensDaVenda);
-                printf("DEBUG 3 \n");
+                
                 prodVendidos[qteItensDaVenda - 1] = p;
-                printf("DEBUG 4 \n");
                 arrQte[qteItensDaVenda - 1] = qteDigitada;
-                printf("DEBUG 5 \n");
             }
 
             printf("DESEJA CONTINUAR A VENDA? (1-SIM  2-NÃO)\n");
@@ -185,8 +186,7 @@ void menuVendaAVista() {
     }
 
 
-    printf("TESTES \n");
-    printf("QTE ITENS = %d\n", qteItensDaVenda);
+    
 
     for (int i = 0; i < qteItensDaVenda; i++) {
         printf("VOCE VENDEU O PRODUTO %s (%d) \n", prodVendidos[i].descricao, arrQte[i]);

@@ -19,6 +19,8 @@
 #include "Data.h"
 #include "Hora.h"
 #include "Caixa.h"
+#include "MenuCaixa.h"
+#include "EntradaProdutos.h"
 
 /*
  * 
@@ -26,10 +28,18 @@
 
 
 int main() {
-
-    menuPrincipal();
-    //Caixa c = caixaAberto();
-    //somaVendaCaixa(c.data);
+    float v;
+    //somaVendaCaixa(getDataHoje());
+    //somaVendaCaixa2(getDataHoje(),&v);
+    //NotaFiscalEntrada *arr;
+    //int num = 0;
+    
+    //arr = listarNotaFiscalEntradaBIN(&num);
+    
+    //printf("AAA: %d\n",arr[0].codCaixa);
+    somaValores();
+    //menuPrincipal();
+    //printf("MAIN = %f\n",v);
     return (EXIT_SUCCESS);
 }
 
