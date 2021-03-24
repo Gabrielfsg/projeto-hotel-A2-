@@ -60,10 +60,24 @@ void contasRec() {
     int aux = 0, aux2 = 0;
     int cod = caixaAberto().codigo;
     int r;
+    int valid,valid2;
     if (bd > 0) {
         printf("### RECEBER CONTAS ### \n");
         printf("Entre com o código da conta: ");
-        scanf("%d%*c", &cr.codigo); // validar
+        scanf("%d%*c", &cr.codigo);
+        if (bd == 1) {// verifica se é arquivo txt 
+            valid = validarCodContaTXT(cr.codigo); //passa o código digitado como parametro
+            if (valid == 1) {//se resultado retornado 1
+                printf("CONTA JÁ CADASTRADA! \n");
+                menuContas();
+            }
+        } else if (bd == 2) {// faz o mesmo com o arquivo bin
+            valid2 = validarCodContaBIN(cr.codigo);
+            if (valid2 == 1) {
+                printf("CONTA JÁ CADASTRADA! \n");
+                menuContas();
+            }
+        }
         printf("Entre com o valor da conta: ");
         scanf("%f%*c", &cr.valor);
         printf("Digite o status da conta: \n"
@@ -134,4 +148,4 @@ void contasRec() {
         free(cr);
     }
 }
-*/
+ */

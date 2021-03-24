@@ -439,3 +439,32 @@ void visualizarHistContas() {
         free(cr);
     }
 }
+
+int validarCodContaBIN(int cod) {//pega código  por parâmetro
+    int num;
+   ContaReceber *arrayCR = listarContaReceberBIN(&num); // lista os operadores bin
+    int i, aux = 0;
+    for (i = 0; i < num; i++) {
+        if (cod == arrayCR[i].codigo) {
+            return 1; // faz a validação e retorna 1
+        }
+
+    }
+    free(arrayCR);
+    return 0;
+}
+
+int validarCodContaTXT(int cod) {
+    ContaReceber *arrayCR = listarContaReceberTXT(); //lista os operadores
+    if (arrayCR != NULL) {
+        int num = numContaReceber();
+        int i, aux = 0;
+        for (i = 0; i < num; i++) {//verifica se o cod digitado passado por parametro é o msm no vetor
+            if (cod == arrayCR[i].codigo) {
+                return 1; //se sim retorna 1 que será usado na validação
+            }
+        }
+        free(arrayCR);
+        return 0;
+    }
+}

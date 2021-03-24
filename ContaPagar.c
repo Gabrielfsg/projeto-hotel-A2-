@@ -171,31 +171,33 @@ int atualizar() {
 
     for (i = 0; i < numContas; i++) {
         if (arrayCP[i].data.dia == datah.dia && arrayCP[i].data.mes == datah.mes && arrayCP[i].data.ano == datah.ano) {
-            cp.codigo = arrayCP[i].codigo;
-            strcpy(cp.descricao, arrayCP[i].descricao);
-            cp.valor = arrayCP[i].valor;
-            cp.data.dia = arrayCP[i].data.dia;
-            cp.data.mes = arrayCP[i].data.mes;
-            cp.data.ano = arrayCP[i].data.ano;
-            strcpy(cp.status, "Concluido");
-            cp.caixa.codigo = arrayCP[i].caixa.codigo;
-            cp.caixa.data.dia = arrayCP[i].caixa.data.dia;
-            cp.caixa.data.mes = arrayCP[i].caixa.data.mes;
-            cp.caixa.data.ano = arrayCP[i].caixa.data.ano;
-            cp.codForn = arrayCP[i].codForn;
-        /*    printf("%d \n", cp.codigo);
-            printf("%s\n", cp.descricao);
-            printf("%f\n", cp.valor);
-            printf("%d\n", cp.data.dia);
-            printf("%d\n", cp.data.mes);
-            printf("%d\n", cp.data.ano);
-            printf("%s\n", cp.status);
-            printf("%d\n", cp.caixa.codigo);
-            printf("%d\n", cp.caixa.data.dia);
-            printf("%d\n", cp.caixa.data.mes);
-            printf("%d\n", cp.caixa.data.ano);
-            printf("%d\n", cp.codForn);*/
-            aux = 1;
+            if (strcmp(arrayCP[i].status, "Status") == 0) {
+                cp.codigo = arrayCP[i].codigo;
+                strcpy(cp.descricao, arrayCP[i].descricao);
+                cp.valor = arrayCP[i].valor;
+                cp.data.dia = arrayCP[i].data.dia;
+                cp.data.mes = arrayCP[i].data.mes;
+                cp.data.ano = arrayCP[i].data.ano;
+                strcpy(cp.status, "Concluido");
+                cp.caixa.codigo = arrayCP[i].caixa.codigo;
+                cp.caixa.data.dia = arrayCP[i].caixa.data.dia;
+                cp.caixa.data.mes = arrayCP[i].caixa.data.mes;
+                cp.caixa.data.ano = arrayCP[i].caixa.data.ano;
+                cp.codForn = arrayCP[i].codForn;
+                /*    printf("%d \n", cp.codigo);
+                    printf("%s\n", cp.descricao);
+                    printf("%f\n", cp.valor);
+                    printf("%d\n", cp.data.dia);
+                    printf("%d\n", cp.data.mes);
+                    printf("%d\n", cp.data.ano);
+                    printf("%s\n", cp.status);
+                    printf("%d\n", cp.caixa.codigo);
+                    printf("%d\n", cp.caixa.data.dia);
+                    printf("%d\n", cp.caixa.data.mes);
+                    printf("%d\n", cp.caixa.data.ano);
+                    printf("%d\n", cp.codForn);*/
+                aux = 1;
+            }
             break;
         } else {
             aux = 0;
@@ -310,7 +312,7 @@ float somaContaPagarCaixa(Data data) {
     float valor = 0;
     //ContaReceber *caiaaa;
     ContaPagar *cp;
-    int num=0;
+    int num = 0;
     int bd = listar();
     if (bd == 1) {
         printf("DEBUG 1 \n");
@@ -323,7 +325,7 @@ float somaContaPagarCaixa(Data data) {
         cp = listarContaPagarBIN(&num);
     }
     int i;
-    printf("DEBUG 4 -> NUM É: %d \n",num);
+    printf("DEBUG 4 -> NUM É: %d \n", num);
     for (i = 0; i < num; i++) {
         printf("DEBUG FOR \n");
         if (compararDatas(cp[i].data, data) == 1) {
