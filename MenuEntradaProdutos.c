@@ -231,7 +231,6 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
 
     if (opcPagamento == 1) {
 
-
         //printf("VALOR DO CAIXA: %f, VALOR DA NOTA: %f\n", somaValores(), notFisc.total);
         //valida o saldo do caixa
         if (somaValores() < notFisc.total) {
@@ -239,23 +238,16 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
             printf("VALOR DO CAIXA: %f, VALOR DA NOTA: %f\n", somaValores(), notFisc.total);
             exit(1);
         }
-        printf("DEBUG 2\n");
         ContaPagar cp;
-        //cp.caixa.codigo = getCaixaAtual(getDataHoje());
-        printf("DEBUG ANTES CAIXA ABERTO\n");
         cp.caixa = caixaAberto();
-        printf("DEBUG DEPOIS CAIXA ABERTO\n");
         cp.codForn = codForn;
         cp.codigo = maiorCodContasPagar() + 1;
         cp.data = getDataHoje();
-        //cp.descricao = "Pagamento a vista";
         strcpy(cp.descricao, "Pagamento_a_vista");
-        //cp.status = "status";
         strcpy(cp.status, "Concluido");
         cp.valor = notFisc.total;
 
         if (bd == 1) {
-
             cadastrarContaPagarTXT(cp);
             printf("Conta cadastrada com sucesso\n");
         }
@@ -267,6 +259,7 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
 
         notFisc.codCaixa = getCaixaAtual(getDataHoje());
         //printf("DEBUG: O CAIXA É %d\n", notFisc.codCaixa);
+        
         //CADASTRA NOTA
         if (bd == 1) {
             cadastrarNotaFiscalEntradaTXT(notFisc);
@@ -283,23 +276,21 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
     }
     if (opcPagamento == 2) {
         ContaPagar cp;
-        float entrada=0.0;
+        float entrada = 0.0;
         int opc = 0;
         printf("Deseja dar um valor de entada? (1- SIM | 2- NÃO)\n");
         scanf("%d%*c", &opc);
         if (opc == 1) {
-            
+
             printf("Digite o valor da entrada:\n");
             scanf("%f%*c", &entrada);
-            printf("DEBUG: ENTRADA É %f\n", entrada);
             //VALIDA O SALDO DO CAIXA
             if (somaValores() < entrada) {
                 printf("ERRO!\n");
                 printf("VALOR DO CAIXA: %f, VALOR DA NOTA: %f\n", somaValores(), notFisc.total);
                 exit(1);
             }
-            
-            printf("DEBUG: ANTES DO CAIXA?\n");
+
             cp.caixa = caixaAberto();
             cp.codForn = codForn;
             cp.codigo = maiorCodContasPagar() + 1;
@@ -307,11 +298,8 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
             strcpy(cp.descricao, "Entrada");
             strcpy(cp.status, "Concluido");
             cp.valor = entrada;
-            //DEBITAR O VALOR DA ENTRADA
-            printf("DEBUG: NOT FISC ANTES: %f\n", notFisc.total);
-            //notFisc.total -= entrada;
-            notFisc.total = entrada;
-            printf("DEBUG: NOT FISC DEPOIS: %f\n", notFisc.total);
+          
+            
             notFisc.codCaixa = getCaixaAtual(getDataHoje());
             //CADASTRA A CONTA DA ENTRADA
             if (bd == 1) {
@@ -329,11 +317,7 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
         int parcelas;
         printf("Digite o número de parcelas:\n");
         scanf("%d%*c", &parcelas);
-        printf("DEBUG: AS PARCELAS É %d\n", parcelas);
-
         //CADASTRA UMA CONTA PARA CADA PARCELA
-        printf("DEBUG: DEPOIS DO NUM DE PARCELAS\n");
-        
 
         cp.caixa = caixaAberto();
 
@@ -348,21 +332,27 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
         cp.data = getDataHoje();
         //como só vai pagar no próximo mes...
         somaDias(&(cp.data), 30);
-        
+
         strcpy(cp.descricao, "Parcela_Nota_Fiscal");
         cp.codForn = codForn;
-        cp.valor = ((notFisc.total - entrada) / parcelas);     
+        cp.valor = ((notFisc.total - entrada) / parcelas);
         strcpy(cp.status, "Pendente");
 
         for (int i = 0; i < parcelas; i++) {
             //CADASTRA A CONTA
-            cadastrarContaPagarBIN(&cp, 1);
+            if (bd == 1) {
+                cadastrarContaPagarTXT(cp);
+            }
+            if (bd == 2) {
+                cadastrarContaPagarBIN(&cp, 1);
+            }
+
             //printf("DEBUG: NO FOR (%d) MES = %d\n", i, cp.data.mes);
             somaDias(&(cp.data), 30);
         }
 
         //CADASTRA NOTA
-        if (bd == 1) {  
+        if (bd == 1) {
             cadastrarNotaFiscalEntradaTXT(notFisc);
         }
         if (bd == 2) {

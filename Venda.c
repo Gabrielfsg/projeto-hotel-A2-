@@ -111,7 +111,7 @@ Venda* listarVendaTXT(int numVendas) {
             fscanf(arqVenda, "%d", &v.dataVenda.mes);
             fscanf(arqVenda, "%d", &v.dataVenda.ano);
             fscanf(arqVenda, "%f", &v.valorTotal);
-            printf("DEBUG LISTAR VENDAS TXT -> LEU %f\n",v.valorTotal);
+            //printf("DEBUG LISTAR VENDAS TXT -> LEU %f\n",v.valorTotal);
             //COLOCA O PRODUTO NO ARRAY
             arrayVendas[index - 1] = v;
             index++;
@@ -196,7 +196,7 @@ int numVendas() {
 }
 
 float somaVendaCaixa(Data data,float* valor) {
-    printf("DEBUG: ENTROU NO SOMA VENDA\n");
+    //printf("DEBUG: ENTROU NO SOMA VENDA\n");
     
     Venda *vendas;
     int num = 0;
@@ -213,35 +213,9 @@ float somaVendaCaixa(Data data,float* valor) {
 
         if (compararDatas(vendas[i].dataVenda, data) == 1) {
             *valor += vendas[i].valorTotal;
-            printf("DEBUG SOMA VENDAS -> VALOR = %f \n",*valor);
+            //printf("DEBUG SOMA VENDAS -> VALOR = %f \n",*valor);
         }
     }
-    printf("O VALOR DA SOMA VENDAS = %f\n", *valor);
-
-}
-
-void somaVendaCaixa2(Data data, float *valor) {
-    printf("DEBUG: ENTROU NO SOMA VENDA\n");
-    //float valor = 0;
-    Venda *vendas;
-    int num = 0;
-    int bd = listar();
-
-    if (bd == 1) {
-        num = numVendas();
-        vendas = listarVendaTXT(num);
-    } else {
-        vendas = listarVendaBIN(&num);
-    }
-    int i;
-    for (i = 0; i < num; i++) {
-
-        if (compararDatas(vendas[i].dataVenda, data) == 1) {
-            *valor += vendas[i].valorTotal;
-            printf("DEBUG SOMA VENDAS -> VALOR = %f \n",*valor);
-        }
-    }
-    printf("O VALOR DA SOMA VENDAS = %f\n", *valor);
-    //return valor;
+    //printf("O VALOR DA SOMA VENDAS = %f\n", *valor);
 
 }

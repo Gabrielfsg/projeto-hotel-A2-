@@ -56,7 +56,7 @@ int cadastrarContaPagarBIN(ContaPagar *conta, int quantidade) {
 }
 
 ContaPagar* listarContaPagarTXT(int numContasPagar) {
-    printf("DEBUG: ENTROU NO LISTA CONTA PAGAR TXT\n");
+    //printf("DEBUG: ENTROU NO LISTA CONTA PAGAR TXT\n");
     int index = 1; //ÍNDICE DO ARRAY
 
     ContaPagar *arrayContasPagar = (ContaPagar *) malloc(sizeof (ContaPagar) * numContasPagar); //Ponteiro de Hóspedes vira um Array ao chamar malloc
@@ -81,8 +81,9 @@ ContaPagar* listarContaPagarTXT(int numContasPagar) {
         //pega os hóspedes do arquivo
         for (int i = 0; i < numContasPagar; i++) {
             ContaPagar cp;
-            printf("DEBUG: ENTRO NO FOR DO LISTAR TXT\n");
+            //printf("DEBUG: ENTRO NO FOR DO LISTAR TXT\n");
             fscanf(scanContasPagar, "%d", &cp.codigo);
+            //printf("leu cod = %d\n",cp.codigo);
             fscanf(scanContasPagar, "%d", &cp.caixa.codigo);
             fscanf(scanContasPagar, "%d", &cp.caixa.data.dia);
             fscanf(scanContasPagar, "%d", &cp.caixa.data.mes);
@@ -172,31 +173,33 @@ int atualizar() {
 
     for (i = 0; i < numContas; i++) {
         if (arrayCP[i].data.dia == datah.dia && arrayCP[i].data.mes == datah.mes && arrayCP[i].data.ano == datah.ano) {
-            cp.codigo = arrayCP[i].codigo;
-            strcpy(cp.descricao, arrayCP[i].descricao);
-            cp.valor = arrayCP[i].valor;
-            cp.data.dia = arrayCP[i].data.dia;
-            cp.data.mes = arrayCP[i].data.mes;
-            cp.data.ano = arrayCP[i].data.ano;
-            strcpy(cp.status, "Concluido");
-            cp.caixa.codigo = arrayCP[i].caixa.codigo;
-            cp.caixa.data.dia = arrayCP[i].caixa.data.dia;
-            cp.caixa.data.mes = arrayCP[i].caixa.data.mes;
-            cp.caixa.data.ano = arrayCP[i].caixa.data.ano;
-            cp.codForn = arrayCP[i].codForn;
-            /*    printf("%d \n", cp.codigo);
-                printf("%s\n", cp.descricao);
-                printf("%f\n", cp.valor);
-                printf("%d\n", cp.data.dia);
-                printf("%d\n", cp.data.mes);
-                printf("%d\n", cp.data.ano);
-                printf("%s\n", cp.status);
-                printf("%d\n", cp.caixa.codigo);
-                printf("%d\n", cp.caixa.data.dia);
-                printf("%d\n", cp.caixa.data.mes);
-                printf("%d\n", cp.caixa.data.ano);
-                printf("%d\n", cp.codForn);*/
-            aux = 1;
+            if (strcmp(arrayCP[i].status, "Status") == 0) {
+                cp.codigo = arrayCP[i].codigo;
+                strcpy(cp.descricao, arrayCP[i].descricao);
+                cp.valor = arrayCP[i].valor;
+                cp.data.dia = arrayCP[i].data.dia;
+                cp.data.mes = arrayCP[i].data.mes;
+                cp.data.ano = arrayCP[i].data.ano;
+                strcpy(cp.status, "Concluido");
+                cp.caixa.codigo = arrayCP[i].caixa.codigo;
+                cp.caixa.data.dia = arrayCP[i].caixa.data.dia;
+                cp.caixa.data.mes = arrayCP[i].caixa.data.mes;
+                cp.caixa.data.ano = arrayCP[i].caixa.data.ano;
+                cp.codForn = arrayCP[i].codForn;
+                /*    printf("%d \n", cp.codigo);
+                    printf("%s\n", cp.descricao);
+                    printf("%f\n", cp.valor);
+                    printf("%d\n", cp.data.dia);
+                    printf("%d\n", cp.data.mes);
+                    printf("%d\n", cp.data.ano);
+                    printf("%s\n", cp.status);
+                    printf("%d\n", cp.caixa.codigo);
+                    printf("%d\n", cp.caixa.data.dia);
+                    printf("%d\n", cp.caixa.data.mes);
+                    printf("%d\n", cp.caixa.data.ano);
+                    printf("%d\n", cp.codForn);*/
+                aux = 1;
+            }
             break;
         } else {
             aux = 0;
@@ -307,25 +310,26 @@ int salvarContasPagarTXT(ContaPagar *arrayCP, int num) {
 }
 
 float somaContaPagarCaixa(Data data,float* valor) {
-    printf("DEBUG: ENTROU NO SOMA CONTA\n");
+    //printf("DEBUG: ENTROU NO SOMA CONTA\n");
     
-    //ContaReceber *caiaaa;
     ContaPagar *cp;
     int num = 0;
     int bd = listar();
     if (bd == 1) {
-        num = numContaReceber();
+        num = getNumContaPagar();
         cp = listarContaPagarTXT(num);
     } else {
         cp = listarContaPagarBIN(&num);
     }
     int i;
+    
     for (i = 0; i < num; i++) {
         if (compararDatas(cp[i].data, data) == 1) {
+            //printf("ACHOU UMA CONTA PAGAR\n");
             *valor += cp[i].valor;
         }
     }
-    printf("O VALOR DO SOMA CONTAS PAGAR = %f\n", *valor);
+    //printf("O VALOR DO SOMA CONTAS PAGAR = %f\n", *valor);
 
 }
 
@@ -334,7 +338,8 @@ int maiorCodContasPagar() {
     ContaPagar* arrContaPagar;
     int numContas = 0;
     if (bd == 1) {
-
+        numContas = getNumContaPagar();
+        arrContaPagar = listarContaPagarTXT(numContas);
     }
     if (bd == 2) {
         arrContaPagar = listarContaPagarBIN(&numContas);
@@ -343,18 +348,17 @@ int maiorCodContasPagar() {
     int maior = 0;
 
     for (int i = 0; i < numContas; i++) {
-        printf("O COD DA CONTA É: %d\n", arrContaPagar[i].codigo);
+        //printf("O COD DA CONTA É: %d\n", arrContaPagar[i].codigo);
         if (arrContaPagar[i].codigo > maior) {
             maior = arrContaPagar[i].codigo;
         }
     }
 
-    printf("O MAIR COD É: %d\n", maior);
+    //printf("O MAIR COD É: %d\n", maior);
     return maior;
 }
 
 int getNumContaPagar() {
-    printf("DEBUG: ENTROU GET NUM CONTA PAGAR\n");
 
     FILE *arq;
     int numLinhas = 0, numContas = 0;
@@ -378,8 +382,8 @@ int getNumContaPagar() {
 
     numContas = numLinhas / 12; // uma conta Pagar gasta 12 linhas no arquivo
 
-    printf("O NÚMERO DE LINHAS DO ARQ É: %d\n", numLinhas);
-    printf("O NÚMERO DE CONTAS CADASTRADOS É: %d\n", numContas);
+    //printf("O NÚMERO DE LINHAS DO ARQ É: %d\n", numLinhas);
+    //printf("O NÚMERO DE CONTAS CADASTRADOS É: %d\n", numContas);
     fclose(arq);
     free(arq);
     return numContas;
