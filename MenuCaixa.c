@@ -36,7 +36,7 @@ void menuCaixa() {
                 } else {
                     printf("Digite o valor inicial do caixa: ");
                     scanf("%f*c", &c.valorIn);
-                    printf("DEBUG 1 -> VALOR INI DO CAIXA É: %f \n",c.valorIn);
+                    //printf("DEBUG 1 -> VALOR INI DO CAIXA É: %f \n",c.valorIn);
                     c.codigo = maiorCodCaixa() + 1;
                     c.data = data;
                     strcpy(c.status, "aberto");
@@ -85,7 +85,7 @@ float somaValores() {
     somaContaPagarCaixa(c.data,&retiradas);
     somaVendaCaixa(c.data,&prodV);
     final = checkIn + checkOut + contasRece + prodV + c.valorIn - retiradas; 
-    printf("DEBUG NO SOMA VALORES: PRODV = %f \n", prodV);
-    printf("DEBUG NO SOMA VALORES: CHECK IN = %f ||| CHECKOUT = %f ||| CONTAS RECEBER = %f ||| RETIRADAS = %f ||| PRODVENDAS = %f  FINAL = %f:\n",checkIn, checkOut, contasRece,retiradas,prodV, final);
+    //printf("DEBUG NO SOMA VALORES: PRODV = %f \n", prodV);
+    //printf("DEBUG NO SOMA VALORES: CHECK IN = %f ||| CHECKOUT = %f ||| CONTAS RECEBER = %f ||| RETIRADAS = %f ||| PRODVENDAS = %f  FINAL = %f:\n",checkIn, checkOut, contasRece,retiradas,prodV, final);
     return final;
 }

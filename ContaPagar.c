@@ -157,6 +157,11 @@ ContaPagar* listarContaPagarBIN(int* numContasPagar) {
 int atualizar() {
     int bd = listar();
     Data datah = getDataHoje();
+  /*  Data datah;
+    datah.dia = 23;
+    datah.mes = 4;
+    datah.ano = 2021;
+  */
     ContaPagar* arrayCP;
     ContaPagar cp;
     int aux;
@@ -173,7 +178,7 @@ int atualizar() {
 
     for (i = 0; i < numContas; i++) {
         if (arrayCP[i].data.dia == datah.dia && arrayCP[i].data.mes == datah.mes && arrayCP[i].data.ano == datah.ano) {
-            if (strcmp(arrayCP[i].status, "Status") == 0) {
+            if (strcmp(arrayCP[i].status, "Pendente") == 0) {
                 cp.codigo = arrayCP[i].codigo;
                 strcpy(cp.descricao, arrayCP[i].descricao);
                 cp.valor = arrayCP[i].valor;

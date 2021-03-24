@@ -96,7 +96,7 @@ CheckOut* listarCheckOutTXT() {
         cat[i].codigo = atoi(t);
         fgets(t, 100, arquivo);
         cat[i].valorTotal = atof(t);
-        printf("DEBUG CHECKOUT: LEU %f\n",cat[i].valorTotal);
+        //printf("DEBUG CHECKOUT: LEU %f\n",cat[i].valorTotal);
         fgets(t, 100, arquivo);
         cat[i].saida.dia = atoi(t);
         fgets(t, 100, arquivo);

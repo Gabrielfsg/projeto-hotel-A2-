@@ -259,7 +259,7 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
 
         notFisc.codCaixa = getCaixaAtual(getDataHoje());
         //printf("DEBUG: O CAIXA É %d\n", notFisc.codCaixa);
-        
+
         //CADASTRA NOTA
         if (bd == 1) {
             cadastrarNotaFiscalEntradaTXT(notFisc);
@@ -298,8 +298,8 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
             strcpy(cp.descricao, "Entrada");
             strcpy(cp.status, "Concluido");
             cp.valor = entrada;
-          
-            
+
+
             notFisc.codCaixa = getCaixaAtual(getDataHoje());
             //CADASTRA A CONTA DA ENTRADA
             if (bd == 1) {
@@ -360,7 +360,9 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
         }
 
 
-    } else {
+    }
+
+    if (opcPagamento != 1 && opcPagamento != 2) {
         printf("OPÇÃO INVÁLIDA\n");
         menuEntradaProdutos();
     }

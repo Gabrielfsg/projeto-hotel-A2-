@@ -215,7 +215,7 @@ int atualizarCR() {
     float valor = 0;
     int numContas = 0;
     if (bd == 1) {
-        numContas = getNumContaPagar();
+        numContas = numContaReceber();
         arrayCR = listarContaReceberTXT();
     }
     if (bd == 2) {
@@ -259,22 +259,23 @@ int atualizarCR() {
 
 }
 
-int editarContaReceberTXT(ContaPagar *arrayCP, ContaPagar cp, int num) {
+int editarContaReceberTXT(ContaReceber *arrayCR, ContaReceber cr, int num) {
     int i;
     for (i = 0; i < num; i++) {//sobre escreve os dados
-        if ((int) (arrayCP[i].codigo) == (int) (cp.codigo)) {
-            strcpy(arrayCP[i].descricao, cp.descricao);
-            arrayCP[i].valor = cp.valor;
-            arrayCP[i].data.dia = cp.data.dia;
-            arrayCP[i].data.mes = cp.data.mes;
-            arrayCP[i].data.ano = cp.data.ano;
-            strcpy(arrayCP[i].status, cp.status);
-            arrayCP[i].codForn = cp.codForn;
-            arrayCP[i].caixa = cp.caixa;
+        if ((int) (arrayCR[i].codigo) == (int) (cr.codigo)) {
+            
+            strcpy(arrayCR[i].pagamento, cr.pagamento);
+            arrayCR[i].valor = cr.valor;
+            arrayCR[i].data.dia = cr.data.dia;
+            arrayCR[i].data.mes = cr.data.mes;
+            arrayCR[i].data.ano = cr.data.ano;
+            strcpy(arrayCR[i].status, cr.status);
+            //arrayCR[i].codForn = cr.codForn;
+            arrayCR[i].caixa = cr.caixa;
         }
     }
 
-    return salvarContaReceberTXT(arrayCP, num); // chama o metodo que salva de novo os dados no arquivo
+    return salvarContaReceberTXT(arrayCR, num); // chama o metodo que salva de novo os dados no arquivo
 }
 
 int editarContaReceberBIN(ContaReceber cat) {
@@ -362,6 +363,7 @@ int maiorCodContaReceber() {
     return aux;
 }
 
+/*
 float somaContaReceberCaixa(Data data, float* valor) {
     
     ContaReceber *cai;
@@ -383,8 +385,9 @@ float somaContaReceberCaixa(Data data, float* valor) {
     }
 
 }
+*/
 
-/*float somaContaReceberCaixa(Data data) {
+float somaContaReceberCaixa(Data data) {
     float valor = 0;
     ContaReceber *cai;
     int num;
@@ -403,7 +406,7 @@ float somaContaReceberCaixa(Data data, float* valor) {
     }
     return valor;
 
-}*/
+}
 
 void visualizarHistContas() {
     int n, aux;
