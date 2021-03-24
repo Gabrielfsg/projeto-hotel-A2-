@@ -33,7 +33,7 @@ int main() {
     //somaContaPagarCaixa(getDataHoje(),&num);
     //somaValores();
     
-    //menuPrincipal(); 
+    menuPrincipal(); 
     
     
     return (EXIT_SUCCESS);
