@@ -22,8 +22,12 @@ typedef struct venda{
     int codCaixa;
 }Venda;
     
-Venda* listarVendaTXT();
-Venda* listarVendaBIN();
-float somaVendaCaixa(Data data);
+int cadastrarVendaTXT(Venda v);
+int cadastrarVendaBIN(Venda v);
+int maiorCodVenda();
+Venda* listarVendaTXT(int numVendas);
+Venda* listarVendaBIN(int *numVendas);
+int numVendas();
+float somaVendaCaixa(int caixa);
 #endif /* VENDA_H */
 

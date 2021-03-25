@@ -64,9 +64,9 @@ int maiorCodVenda() {
     int num;
     Venda *venda;
     if (bd == 1) {
-        num = numVendas();
+        //num = numVendas();
         if (num > 0) {
-            venda = listarVendaTXT();
+            venda = listarVendaTXT(num);
         } else {
             return 0;
         }
@@ -103,7 +103,6 @@ Venda* listarVendaTXT(int numVendas) {
     } else {
         for (int i = 0; i < numVendas; i++) {
             Venda v;
-
             //FSCANF PARA PEGAR OS VALORES DO ARQUIVO. "TEXT[20]" É APENAS PARA ARMAZENAR A STRING QUE VEM ANTES DO VALOR.
             fscanf(arqVenda, "%d", &v.codVenda);
             fscanf(arqVenda, "%d", &v.codCaixa);
@@ -195,8 +194,7 @@ int numVendas() {
     return numLinha / 6;
 }
 
-float somaVendaCaixa(Data data) {
-    //printf("DEBUG: ENTROU NO SOMA VENDA\n");
+float somaVendaCaixa(int caixa) {
     float valor = 0;
     Venda *vendas;
     int num = 0;
@@ -210,10 +208,8 @@ float somaVendaCaixa(Data data) {
     }
     int i;
     for (i = 0; i < num; i++) {
-
-        if (compararDatas(vendas[i].dataVenda, data) == 1) {
+        if (vendas[i].codCaixa == caixa) {
             valor += vendas[i].valorTotal;
-            //printf("DEBUG SOMA VENDAS -> VALOR = %f \n",*valor);
         }
     }
     //printf("O VALOR DA SOMA VENDAS = %f\n", *valor);

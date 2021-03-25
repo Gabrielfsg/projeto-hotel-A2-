@@ -23,7 +23,7 @@ void menuCheckOut() {
     int opc = 0;
 
     while (opc >= 0) {
-        printf("***** CHECK IN ***** \n");
+        printf("***** CHECK OUT ***** \n");
         printf("1.CheckOut Hospede. \n");
         printf("2.Listar checkOut. \n");
         printf("3.Voltar. \n");
@@ -140,11 +140,11 @@ void checkOutHospede() {
                         }
                         printf("Cadastro realizado com sucesso!!\n");
                         editarReservaOut(bd, res[i]);
-                        printf("Deseja Imprimir o comprovante (1-Sim/2-Não):");
+                       /* printf("Deseja Imprimir o comprovante (1-Sim/2-Não):");
                         scanf("%d%*c", &opc);
                         if (opc == 1) {
                             geraComprovanteOut(c);
-                        }
+                        }*/
                     }
                 } else {
                     printf("Nenhuma Reserva encontrada!!\n");

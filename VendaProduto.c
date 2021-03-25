@@ -20,7 +20,6 @@ int cadastrarVendaProdutoTXT(VendaProduto vp) {
     }
     int retorno;
     retorno = fprintf(arqVendaProduto, "%d\r\n%d\r\n%d\r\n", vp.codVenda,vp.codProduto,vp.quantidade);
-
     fflush(arqVendaProduto);
     fclose(arqVendaProduto);
     return retorno;

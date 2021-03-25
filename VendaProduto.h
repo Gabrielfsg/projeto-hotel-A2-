@@ -25,3 +25,5 @@ typedef struct vendaProduto {
     int codVenda;
     int quantidade;
 } VendaProduto;
+int cadastrarVendaProdutoTXT(VendaProduto vp);
+int cadastrarVendaProdutoBIN(VendaProduto vp);

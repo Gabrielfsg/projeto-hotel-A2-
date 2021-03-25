@@ -242,7 +242,6 @@ void menuVendaAVista() {
         vp.quantidade = arrQte[i];
         //printf("COD PROD %d | QTE = %d \n", vp.codProduto, vp.quantidade);
         //CADASTRAR PRODUTOS DA VENDA TXT OU BIN
-        bd = 2;
         if (bd == 1) {
             cadastrarVendaProdutoTXT(vp);
         }
