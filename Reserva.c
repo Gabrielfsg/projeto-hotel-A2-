@@ -312,9 +312,10 @@ int editarReservaBIN(Reserva aco, int posi) {
         return 0;
     }
     //Posiciona o cursor na posição do struct
+    printf("posi %d \n", posi);
     fseek(arquivo, (posi * sizeof (Reserva)), SEEK_SET);
     //Substitui o struct de posição posi
-    fwrite(&aco, sizeof (Reserva), posi, arquivo);
+    fwrite(&aco, sizeof (Reserva), 1, arquivo);
     //fecha arquivo 
     fclose(arquivo);
     //fclose(&aco);
@@ -350,7 +351,7 @@ int validarReservaBIN(int cod) {
 //Tales
 
 int removerReservaBIN(int cod) {
-    int retorno =0;
+    int retorno = 0;
     FILE* arqReserva = fopen(".\\arquivos\\reserva_temp.bin", "wb");
     if (arqReserva == NULL) {
         printf("ERRO AO ABRIR ARQUIVO");
@@ -363,7 +364,7 @@ int removerReservaBIN(int cod) {
                 Reserva r = arrayReservas[i];
 
                 fwrite(&r, sizeof (Reserva), 1, arqReserva);
-                
+
             } else {
                 //Reserva r2 = arrayReservas[i];
                 //printf("É ESSE AQUI QUE VAI DELETAR: COD %d == %d\n", arrayReservas[i].codigo, r2.codigo);
@@ -376,12 +377,12 @@ int removerReservaBIN(int cod) {
         remove(".\\arquivos\\ReservaBIN.bin");
         rename(".\\arquivos\\reserva_temp.bin", ".\\arquivos\\ReservaBIN.bin");
     }
-    
+
     return retorno;
 }
 
 int removerReservaTXT(int cod) {
-    int retorno =0;
+    int retorno = 0;
     FILE* arqReserva = fopen(".\\arquivos\\reserva_temp.txt", "w");
     if (arqReserva == NULL) {
         printf("ERRO AO ABRIR ARQUIVO");
