@@ -1,68 +1,51 @@
 Cod: 1
-Nome: UM
-CPF: 1
-Telefone: 1
-Email: UM
-Sexo: F
-EstadoCivil: UM
-DiaNasc: 1
-MesNasc: 2
-AnoNasc: 3
-CodEnder: 4
-Bairro: BAIRRO 1
-CEP: 5
-Cidade: CIDADE 1
-Logradouro: LOGARD 1
-Numero: 12
-UF: UM
-Cod: 2
-Nome: HOSPEDE DOIS
-CPF: 65465465465
-Telefone: 654654
-Email: EMAILDOIS
-Sexo: m
-EstadoCivil: CASADO
-DiaNasc: 15
-MesNasc: 5
-AnoNasc: 2001
-CodEnder: 99
-Bairro: CENTRO
-CEP: 99999999
-Cidade: FORMIGA
-Logradouro: CASA
-Numero: 33
-UF: MG
-Cod: 3
-Nome: HOSPEDE TRES
-CPF: 98798798798
-Telefone: 987987
-Email: EMAILTRES
-Sexo: F
-EstadoCivil: SOLTEIRO
-DiaNasc: 9
-MesNasc: 9
-AnoNasc: 2005
-CodEnder: 88
-Bairro: CENTRO
-CEP: 88888888
-Cidade: FORMIGA
-Logradouro: OUTRA CASA
-Numero: 44
-UF: MG
-Cod: 4
-Nome: QUATRO HOSPEDE
-CPF: 54444444444
-Telefone: 54444444
-Email: QUATROEMAIL
+Nome: Daniel
+CPF: 14316736680
+Telefone: 37998070898
+Email: danielantonio23599@gmail.com
 Sexo: M
-EstadoCivil: SOLTEIRO
-DiaNasc: 4
-MesNasc: 4
-AnoNasc: 2004
-CodEnder: 4
-Bairro: ENGENHO DE SERRA
-CEP: 4
-Cidade: FMG
-Logradouro: APARTAMENTO
-Numero: 99
-UF: GM
+EstadoCivil: Casado
+DiaNasc: 23
+MesNasc: 5
+AnoNasc: 1999
+CodEnder: 1
+Bairro: Serra Verde
+CEP: 35570730
+Cidade: Formiga
+Logradouro: rua antonio marinho da costa
+Numero: 55
+UF: MG
+Cod: 2
+Nome: Gariel[D[D[D[Dbriel
+CPF: 11111111
+Telefone: 22222222
+Email: garielfernandes@gmail.com
+Sexo: M
+EstadoCivil: solteiro
+DiaNasc: 20
+MesNasc: 2
+AnoNasc: 2000
+CodEnder: 2
+Bairro: cidade nova
+CEP: 35570000
+Cidade: formiga
+Logradouro: rua um
+Numero: 1
+UF: mg
+Cod: 3
+Nome: jose
+CPF: 213321313
+Telefone: 2321321321
+Email: jose@gmail.com
+Sexo: M
+EstadoCivil: solteiro
+DiaNasc: 1
+MesNasc: 1
+AnoNasc: 200
+CodEnder: 3
+Bairro: centro
+CEP: 35570000
+Cidade: formiga
+Logradouro: seis de junho
+Numero: 70
+UF: mg

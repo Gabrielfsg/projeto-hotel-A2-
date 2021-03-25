@@ -59,7 +59,7 @@ int getCaixaAtual(Data dataHoje) {
     return 0;
 }
 
-Caixa caixaAberto() {
+Caixa caixaAberto() { 
     Caixa *cai;
     int num;
     int bd = listar();
@@ -70,7 +70,7 @@ Caixa caixaAberto() {
         cai = listarCaixaBIN(&num);
     }
     int i;
-    for (i = 0; i < num; i++) {
+    for (i = 0; i < num; i++) {        
         if (strcmp(cai[i].status, "aberto") == 0) {
             return cai[i];
         }
@@ -101,8 +101,16 @@ int cadastrarCaixaTXT(Caixa aco) {
 }
 //metodo salva, sobrescrevendo o array de tamanho num
 
-int salvarCaixaTXT(Caixa *aco, int num) {
+int fecharCaixaTXT(Caixa c) {
     FILE *arq;
+    Caixa *aco = listarCaixaTXT();
+    int num = numCaixa();
+    int i;
+    for (i = 0; i < num; i++) {
+        if (aco[i].codigo == c.codigo) {
+            aco[i] = c;
+        }
+    }
     // w pra substituir o arquivo
     arq = fopen("arquivos\\CaixaTXT.txt", "w");
     if (arq == NULL) {
@@ -122,7 +130,6 @@ int salvarCaixaTXT(Caixa *aco, int num) {
     //libera memoria
     free(arq);
     free(aco);
-
     return 1;
 }
 
@@ -174,7 +181,7 @@ int numCaixa() {
     //abre arquivo para leitura "r"
     arquivo = fopen("arquivos\\CaixaTXT.txt", "r");
     if (arquivo == NULL) {
-        arquivo = fopen("arquivos\\Caixa.txt", "w+");
+        arquivo = fopen("arquivos\\CaixaTXT.txt", "w+");
         if (arquivo == NULL) {
             printf("\nErro ao acessar arquivo\n");
             return 0;
@@ -193,7 +200,7 @@ int numCaixa() {
     free(arquivo);
     // divide se por 4 pois acomodação tem 4 linhas
 
-    return numLinha / 4;
+    return numLinha / 7;
 }
 
 int validarCaixa(int cod) {
@@ -281,7 +288,7 @@ Caixa * listarCaixaBIN(int *numLinha) {
     return aco;
 }
 
-int editarCaixaBIN(Caixa aco) {
+int fecharCaixaBIN(Caixa aco) {
     FILE *arquivo;
     //abre arquivo para leitura e escrita, ele deve existir "r+b"
     arquivo = fopen("arquivos\\CaixaBIN.bin", "r+b");
@@ -330,7 +337,6 @@ int posicaoCaixaBIN(int cod) {
         i++;
     }
     free(aco);
-
     return 0;
 }
 

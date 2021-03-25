@@ -37,6 +37,6 @@ int numContaReceber();
 ContaReceber* listarContaReceberTXT();
 int salvarContaReceberTXT(ContaReceber *cat, int num);
 int cadastrarContaReceberTXT(ContaReceber cat);
-//float somaContaReceberCaixa(Data data);
+float somaContaReceberCaixa(Data data);
 #endif /* CONTARECEBER_H */
 

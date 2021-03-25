@@ -288,8 +288,8 @@ int removerCheckInBIN() {
     return 1;
 }
 
-void somaCheckInCaixa(int codigo, float *valor) {
-    
+float somaCheckInCaixa(int codigo) {
+    float valor;
     CheckIn *cai;
     int num;
     int bd = listar();
@@ -302,8 +302,8 @@ void somaCheckInCaixa(int codigo, float *valor) {
     int i;
     for (i = 0; i < num; i++) {
         if (cai[i].caixa == codigo) {
-            *valor += cai[i].valor;
+            valor += cai[i].valor;
         }
     }
-   
+    return valor;
 }

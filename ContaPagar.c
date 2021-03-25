@@ -334,9 +334,9 @@ int salvarContasPagarTXT(ContaPagar *arrayCP, int num) {
     return 1;
 }
 
-float somaContaPagarCaixa(Data data, float* valor) {
+float somaContaPagarCaixa(Data data) {
     //printf("DEBUG: ENTROU NO SOMA CONTA\n");
-
+    float valor = 0;
     ContaPagar *cp;
     int num = 0;
     int bd = listar();
@@ -351,11 +351,11 @@ float somaContaPagarCaixa(Data data, float* valor) {
     for (i = 0; i < num; i++) {
         if (compararDatas(cp[i].data, data) == 1) {
             //printf("ACHOU UMA CONTA PAGAR\n");
-            *valor += cp[i].valor;
+            valor += cp[i].valor;
         }
     }
     //printf("O VALOR DO SOMA CONTAS PAGAR = %f\n", *valor);
-
+    return valor;
 }
 
 int maiorCodContasPagar() {

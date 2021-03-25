@@ -125,11 +125,11 @@ void checkInPorData() {
                     }
                     printf("Cadastro realizado com sucesso!!\n");
                     editarReserva(bd, res[i]);
-                    printf("Deseja Imprimir o comprovante (1-Sim/2-Não):");
+                    /*printf("Deseja Imprimir o comprovante (1-Sim/2-Não):");
                     scanf("%d%*c", &opc2);
                     if (opc2 == 1) {
                         //geraComprovante(c);
-                    }
+                    }*/
                 } else {
                     printf("Nenhuma Reserva encontrada!!\n");
                 }
@@ -248,11 +248,11 @@ void checkInHospede() {
                         }
                         printf("Cadastro realizado com sucesso!!\n");
                         editarReserva(bd, res[i]);
-                        printf("Deseja Imprimir o comprovante (1-Sim/2-Não):");
+                        /*printf("Deseja Imprimir o comprovante (1-Sim/2-Não):");
                         scanf("%d%*c", &opc2);
                         if (opc2 == 1) {
                             //geraComprovante(c);
-                        }
+                        }*/
                     }
                 } else {
                     printf("Nenhuma Reserva encontrada!!\n");
