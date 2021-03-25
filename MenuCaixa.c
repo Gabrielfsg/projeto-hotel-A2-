@@ -22,7 +22,6 @@ void menuCaixa() {
     Caixa c;
     Data data = getDataHoje();
     int bd = listar();
-    printf("bd %d\n", bd);
     while (opc >= 0) {
         printf("***** CAIXA***** \n");
         printf("Data: %d/%d/%d. \n", data.dia, data.mes, data.ano);
@@ -44,7 +43,6 @@ void menuCaixa() {
                     c.codigo = maiorCodCaixa() + 1;
                     c.data = data;
                     strcpy(c.status, "aberto");
-                    //printf("DEBUG 2 \n");
                     if (bd == 1) {
                         cadastrarCaixaTXT(c);
                     } else {
@@ -88,7 +86,6 @@ void menuCaixa() {
             case 4:
                 c.codigo = getCaixaAtual(data);
                 if (c.codigo > 0) {
-                    printf("entrou!!\n");
                     relatorioValoresCaixa();
                 } else {
                     printf("Caixa Fechado!!\n");

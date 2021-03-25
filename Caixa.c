@@ -79,8 +79,9 @@ Caixa caixaAberto() {
             }
         }
     } else {
-        cai[0].codigo = 0;
-        return cai[0];
+        Caixa c;
+        c.codigo = 0;
+        return c;
     }
 
 }
@@ -288,7 +289,6 @@ Caixa * listarCaixaBIN(int *numLinha) {
             //verifica se chegou no fim do arquivo
         } while (!feof(arquivo));
     } else {
-        printf("null");
         return NULL;
     }
     //fecha arquivo
