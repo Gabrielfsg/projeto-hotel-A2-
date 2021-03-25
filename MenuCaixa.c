@@ -32,7 +32,7 @@ void menuCaixa() {
         scanf("%d*c", &opc);
         switch (opc) {
             case 1:
-                // c.codigo = getCaixaAtual(data);
+                c.codigo = getCaixaAtual(data);
                 if (c.codigo > 0) {
                     printf("Caixa Aberto!!\n");
                 } else {
@@ -108,7 +108,7 @@ float somaValores() {
     retiradas = somaContaPagarCaixa(c.data);
     prodV = somaVendaCaixa(c.data);
     final = checkIn + checkOut + contasRece + prodV + c.valorIn - retiradas;
-    printf("DEBUG NO SOMA VALORES: RETIRADAS = %f  FINAL = %f:\n", retiradas, final);
+    //printf("DEBUG NO SOMA VALORES: RETIRADAS = %f  FINAL = %f:\n", retiradas, final);
     return final;
 }
 

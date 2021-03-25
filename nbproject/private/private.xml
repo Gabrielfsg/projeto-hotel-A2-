@@ -7,19 +7,37 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/MenuCaixa.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/ContaPagar.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/VendaProduto.h</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/CheckOut.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/MenuCheckOut.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/main.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/ContasMenu.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/CheckIn.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/MenuCheckIn.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Caixa.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/ContaReceber.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/ContaReceber.h</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Principal.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/ContaPagar.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/MenuCheckOut.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/CheckOut.h</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Reserva.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/CheckOut.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/ProdutoReserva.h</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/ContaReceber.h</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/ProdutoReserva.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/MenuCheckIn.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/MenuEntradaProdutos.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/CheckIn.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/VendaProdutosMenu.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/MenuCaixa.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Venda.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/ContasMenu.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/ContaPagar.h</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Venda.h</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Produto.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/CheckIn.h</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Reserva.h</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Hospede.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Caixa.h</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Fornecedor.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/VendaProduto.h</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/CheckOutProduto.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/VendaProduto.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Principal.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/ContaReceber.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/main.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/EntradaProdutos.h</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/EntradaProdutos.c</file>
         </group>
     </open-files>
 </project-private>

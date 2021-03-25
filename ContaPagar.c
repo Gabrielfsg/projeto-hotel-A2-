@@ -179,7 +179,7 @@ int atualizar() {
     for (i = 0; i < numContas; i++) {
         if (arrayCP[i].data.dia == datah.dia && arrayCP[i].data.mes == datah.mes && arrayCP[i].data.ano == datah.ano) {
             if (strcmp(arrayCP[i].status, "Pendente") == 0) {
-                printf("ACHO UMA CONTA PARA ATUALIZAR\n");
+                //printf("ACHO UMA CONTA PARA ATUALIZAR\n");
 
                 cp.codigo = arrayCP[i].codigo;
                 strcpy(cp.descricao, arrayCP[i].descricao);
@@ -228,7 +228,7 @@ int atualizar() {
 
     if (aux == 1) {
         if (bd == 1) {
-            printf("ATUALIZOU?\n");
+            //printf("ATUALIZOU\n");
             r = editarStatusTXT(arrayCP, cp, numContas);
         } else if (bd == 2) {
             r = editarStatusBIN(cp, i);
@@ -249,7 +249,7 @@ void mostrarContasPagar() {
     int numContas = 0;
     if (bd == 1) {
         numContas = getNumContaPagar();
-        printf("DEBUG: O NUM DE CONTAS A PAGAR É %d\n", numContas);
+        //printf("DEBUG: O NUM DE CONTAS A PAGAR É %d\n", numContas);
         arrayCP = listarContaPagarTXT(numContas);
     }
     if (bd == 2) {
@@ -291,7 +291,7 @@ int editarStatusTXT(ContaPagar *arrayPC, ContaPagar cp, int num) {
     for (i = 0; i < num; i++) {//sobre escreve os dados
         if ((int) (arrayPC[i].codigo) == (int) (cp.codigo)) {
             if (arrayPC[i].data.dia == cp.data.dia && arrayPC[i].data.mes == cp.data.mes && arrayPC[i].data.ano == cp.data.ano) {
-                printf("ENTROU NO SEGUNODO IF\n");
+                //printf("ENTROU NO SEGUNODO IF\n");
                 strcpy(arrayPC[i].descricao, cp.descricao);
                 arrayPC[i].valor = cp.valor;
                 arrayPC[i].data.dia = cp.data.dia;
@@ -340,6 +340,7 @@ float somaContaPagarCaixa(Data data) {
     ContaPagar *cp;
     int num = 0;
     int bd = listar();
+    //PEGA TODAS CONTAS PAGAR DO ARQUIVO
     if (bd == 1) {
         num = getNumContaPagar();
         cp = listarContaPagarTXT(num);
@@ -348,6 +349,7 @@ float somaContaPagarCaixa(Data data) {
     }
     int i;
 
+    //SOMA O VALOR DE TODAS AS CONTAS DE UMA DETERMINADA DATA
     for (i = 0; i < num; i++) {
         if (compararDatas(cp[i].data, data) == 1) {
             //printf("ACHOU UMA CONTA PAGAR\n");
@@ -359,6 +361,7 @@ float somaContaPagarCaixa(Data data) {
 }
 
 int maiorCodContasPagar() {
+    //RETONA O MAIOR NÚMERO DO CÓDIGO DAS CONTAS PAGAR
     int bd = listar();
     ContaPagar* arrContaPagar;
     int numContas = 0;

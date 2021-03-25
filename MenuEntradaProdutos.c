@@ -54,7 +54,7 @@ void ComprarProdutos() {
     int qteProdutos = 0;
 
     notFisc.dataNota = getDataHoje();
-
+    
     notFisc.arrayQtes = (int*) calloc(sizeof (int), 1);
     notFisc.produtosComprados = (Produto*) calloc(sizeof (Produto), 1);
 
@@ -70,7 +70,8 @@ void ComprarProdutos() {
         arrayFornecedores = listarFornecedorBIN(&numForns);
         arrayProdutos = getAllProdutoBIN(&numProds);
     }
-
+    
+    //DIGITA E VALIDA O CODIGO DO FORNECEDOR
     int codForn;
     int valid = 0;
     printf("Digite o codigo do fornecedor:\n");
@@ -106,6 +107,7 @@ void ComprarProdutos() {
 
     //validou o fornecedor, agora vai comprar
     qteProdutos = inseirProdutosNaNotaDeEntrada(&notFisc);
+    
     /*for (int i = 0; i < qteProdutos; i++) {
         printf("\n TESTES %d \n", i);
         printf("VOCÊ COMPROU %d QTES DO PROD: %s\n", notFisc.arrayQtes[i], notFisc.produtosComprados[i].descricao);
@@ -139,7 +141,7 @@ int inseirProdutosNaNotaDeEntrada(NotaFiscalEntrada *notFisc) {
 
     while (compraFinalizada <= 1) {
         int codProd;
-
+        //VALIDA CÓDIGO DO PRODUTO
         printf("Digite o código do produto que deseja comprar\n");
         scanf("%d%*c", &codProd);
 
@@ -192,11 +194,10 @@ void calculaFreteImposto(NotaFiscalEntrada *notFisc) {
     float somaQuantiades = 0.0;
     float somaPrecos = 0.0;
     for (int i = 0; i < notFisc->qteProds; i++) {
-        //printf("A QTE DO PRODUTO %d É %d\n",i,NotFisc.arrayQtes[i]);
-        //printf("A PREÇO DE CUSTO DO PRODUTO %d É %f\n\n",i,NotFisc.produtosComprados[i].precoCusto);
+        //SOMA A QUANTIDADE DE TODOS OS PRODUTOS (DENOMINADOR FRETE)
+        //SOMA TODOS OS PREÇOS (PARA USAR NO TOTAL DA NOTA)
         somaQuantiades += notFisc->arrayQtes[i];
         somaPrecos += notFisc->produtosComprados[i].precoCusto * notFisc->arrayQtes[i];
-
     }
 
     printf("DIGITE O PREÇO DO FRETE DOS PRODUTOS:\n");
@@ -206,7 +207,6 @@ void calculaFreteImposto(NotaFiscalEntrada *notFisc) {
     float impProds;
     scanf("%f%*c", &impProds);
 
-    printf("DEBUG CALCULA FRETE 3\n");
     notFisc->prFrete = freteProds / somaQuantiades;
     notFisc->imposto = impProds / somaQuantiades;
     printf("O FRETE É %.2f\n", notFisc->prFrete);
@@ -226,18 +226,19 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
     printf("1- A VISTA\n");
     printf("2- A PRAZO\n");
     printf("Digite a opção desejada:\n");
-    scanf("%d%*c", &opcPagamento);
-    //VALIDAR A OPÇÃO    
+    scanf("%d%*c", &opcPagamento);    
 
     if (opcPagamento == 1) {
 
-        //printf("VALOR DO CAIXA: %f, VALOR DA NOTA: %f\n", somaValores(), notFisc.total);
+        
         //valida o saldo do caixa
         if (somaValores() < notFisc.total) {
             printf("ERRO!\n");
             printf("VALOR DO CAIXA: %f, VALOR DA NOTA: %f\n", somaValores(), notFisc.total);
             exit(1);
         }
+        //COMO É UMA ENTRADA, CADASTRA UMA CONTA PAGAR COM O STATUS CONCLUÍDO
+        //ENTRADA == CONTA JÁ PAGA
         ContaPagar cp;
         cp.caixa = caixaAberto();
         cp.codForn = codForn;
@@ -256,11 +257,10 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
             printf("Conta cadastrada com sucesso\n");
         }
 
-
         notFisc.codCaixa = getCaixaAtual(getDataHoje());
         //printf("DEBUG: O CAIXA É %d\n", notFisc.codCaixa);
 
-        //CADASTRA NOTA
+        //CADASTRA NOTA FISCAL
         if (bd == 1) {
             cadastrarNotaFiscalEntradaTXT(notFisc);
             //printf("DEPOIS DO CADASTRO NOTA FISC TXT\n");
@@ -299,9 +299,9 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
             strcpy(cp.status, "Concluido");
             cp.valor = entrada;
 
-
             notFisc.codCaixa = getCaixaAtual(getDataHoje());
-            //CADASTRA A CONTA DA ENTRADA
+            
+            //CADASTRA A CONTA DA ENTRADA 
             if (bd == 1) {
                 cadastrarContaPagarTXT(cp);
                 printf("Conta cadastrada com sucesso\n");
@@ -317,24 +317,25 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
         int parcelas;
         printf("Digite o número de parcelas:\n");
         scanf("%d%*c", &parcelas);
-        //CADASTRA UMA CONTA PARA CADA PARCELA
 
+        //CADASTRA UMA CONTA PARA CADA PARCELA, EM MESES DIFERENTES
         cp.caixa = caixaAberto();
 
         if (opc == 1) {
-            //se ele deu uma entrada, ela já está cadastrada
-            //o cod das parcelas deve ser o mesmo da entrada (maior cod)
+            //o cod das parcelas deve ser o mesmo da entrada (Que é o maior cod, pois a entrada já está cadastrada)
             cp.codigo = maiorCodContasPagar();
         } else {
             cp.codigo = maiorCodContasPagar() + 1;
         }
 
         cp.data = getDataHoje();
-        //como só vai pagar no próximo mes...
+        //muda o mes da parcela, pois ira pagar só no próximo mes
         somaDias(&(cp.data), 30);
 
         strcpy(cp.descricao, "Parcela_Nota_Fiscal");
         cp.codForn = codForn;
+        //VALOR DA PARCELA É O TOTAL DA NOTA - ENTADA, DIVIDIDO PELA PARCELA
+        //ENTRADA SERÁ 0 SE O USUÁRIO ESCOLHER NAO DAR ENTRADA
         cp.valor = ((notFisc.total - entrada) / parcelas);
         strcpy(cp.status, "Pendente");
 
@@ -346,12 +347,11 @@ void metodoPagamentoNotaFiscal(NotaFiscalEntrada notFisc, int codForn) {
             if (bd == 2) {
                 cadastrarContaPagarBIN(&cp, 1);
             }
-
             //printf("DEBUG: NO FOR (%d) MES = %d\n", i, cp.data.mes);
             somaDias(&(cp.data), 30);
         }
 
-        //CADASTRA NOTA
+        //CADASTRA NOTA FISCAL
         if (bd == 1) {
             cadastrarNotaFiscalEntradaTXT(notFisc);
         }
@@ -373,31 +373,34 @@ void atualizarPrecoEstoque(NotaFiscalEntrada notFisc) {
     int bd = listar();
     int num;
     Hotel *hotel = listarHotelBIN(&num);
+    //CALCULA A PORC DE LUCRO, FATOR DE MULTIPLICAÇÃO DO PREÇO VENDA
     float porcentagemLucro = 1 + (hotel->margemLucro / 100);
-    printf("DEBUG: A MARGEM DE LUCRO É:  %f\n", porcentagemLucro);
+    //printf("DEBUG: A MARGEM DE LUCRO É:  %f\n", porcentagemLucro);
 
+    
+    //ALTERA O PREÇO E ESTOQUE, E CHAMA O METODO DE ATUALIZAR PRODUTO
     for (int i = 0; i < notFisc.qteProds; i++) {
         Produto p = notFisc.produtosComprados[i];
         p.precoVenda = (p.precoCusto + notFisc.prFrete + notFisc.imposto) * porcentagemLucro;
-        printf("DEBUG: O ESTOQUE ERA DE %d\n", p.estoque);
+        //printf("DEBUG: O ESTOQUE ERA DE %d\n", p.estoque);
         p.estoque += notFisc.arrayQtes[i];
-        printf("DEBUG: O NOVO ESTOQUE E DE %d\n", p.estoque);
+        //printf("DEBUG: O NOVO ESTOQUE E DE %d\n", p.estoque);
         //printf("DEBUG: O NOVO PREÇO DE VENDA É (%f + %f + %f) * %f = %f\n",p.precoCusto,notFisc.prFrete,notFisc.imposto,porcentagemLucro,p.precoVenda);
         if (bd == 1) {
             atualizarProdutoTXT(p);
         }
         if (bd == 2) {
             atualizarProdutoBIN(p);
-            printf("DEBUG: ATUALIOU \n");
+            
         }
 
     }
-
+    printf("PRODUTOS ATUALIZADOS\n");
 }
 
 void mostrarNotaDeEntrada(NotaFiscalEntrada nota) {
     printf("*********** NOTA DE ENTRADA ***********\n");
-
+    //MOSTRA A NOTA FISCAL PARA O USUÁRIO
     printf("--------------\n");
     printf("FORNECEDOR: %s\n", nota.nomeForn);
     printf("CNPJ: %s\n", nota.cnpjForn);

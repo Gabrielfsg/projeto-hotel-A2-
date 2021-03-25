@@ -148,6 +148,7 @@ void menuVendaAVista() {
     arrQte = (int*) calloc(sizeof (int), 1);
 
     while (sair == 1) {
+        //VALIDA O COD E PEGA O PRODUTO
         printf("Digite o cód do produto: \n");
         scanf("%d%*c", &codProd);
         if (validarCodProdConsumo(codProd, bd) == 1) {
@@ -165,7 +166,7 @@ void menuVendaAVista() {
 
             printf("Digite a qte do produto: \n");
             scanf("%d%*c", &qteDigitada);
-
+            //VALIDA ESTOQUE
             if (p.estoque < qteDigitada) {
                 printf("SEM ESTOQUE SUFICIENTE DO PRODUTO\n");
                 return;
@@ -187,7 +188,7 @@ void menuVendaAVista() {
 
 
     
-
+    //MOSTRA OS PRODUTOS VENDIDOS
     for (int i = 0; i < qteItensDaVenda; i++) {
         printf("VOCE VENDEU O PRODUTO %s (%d) \n", prodVendidos[i].descricao, arrQte[i]);
     }
@@ -241,8 +242,9 @@ void menuVendaAVista() {
         vp.codProduto = prodVendidos[i].codigo;
         vp.quantidade = arrQte[i];
         //printf("COD PROD %d | QTE = %d \n", vp.codProduto, vp.quantidade);
+        
         //CADASTRAR PRODUTOS DA VENDA TXT OU BIN
-        bd = 2;
+        
         if (bd == 1) {
             cadastrarVendaProdutoTXT(vp);
         }
@@ -253,7 +255,7 @@ void menuVendaAVista() {
 }
 
 void mostrarVendas() {
-
+    //MOSTRA AS VENDAS PARA O USUÁRIO
     int bd = listar();
     int num = 0;
     Venda* arrVendas;
