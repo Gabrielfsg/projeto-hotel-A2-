@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "ProdutoConsumoMenu.h"
 #include "ContaReceber.h"
@@ -21,9 +22,10 @@ void menuVenderProdutos() {
     while (opc >= 0) {
         printf("******* VENDA DE PRODUTOS **********\n");
         printf("1.Venda a Vista.\n");
-        printf("2.Venda para Hóspede de uma Reserva.\n");
-        printf("3.Listas Vendas.\n");
-        printf("4.Sair.\n");
+        printf("2.Venda para Anotar.\n");
+        printf("3.Venda para Hóspede de uma Reserva.\n");
+        printf("4.Listas Vendas.\n");
+        printf("5.Sair.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
@@ -32,12 +34,15 @@ void menuVenderProdutos() {
                 menuVendaAVista();
                 break;
             case 2:
-                menuVendaHospedeReserva();
+                menuVendaAnotar();
                 break;
             case 3:
-                mostrarVendas();
+                menuVendaHospedeReserva();
                 break;
             case 4:
+                mostrarVendas();
+                break;
+            case 5:
                 subCaixa();
                 break;
             default:
@@ -46,6 +51,189 @@ void menuVenderProdutos() {
         }
     }
 
+}
+
+void menuVendaAnotar() {
+    printf("DEBUG: ENTROU VENDA ANOTAR \n");
+    //VERIFICAR CAIXA ABERTO
+    if(caixaAberto(getDataHoje()).codigo == 0){
+        printf("É NECESSÁRIO ABRIR O CAIXA ANTES DA VENDA\n");
+        return;
+    }
+    int bd = listar();
+    int qteItensDaVenda = 0;
+    Produto p;
+    Produto* prodVendidos;
+    int* arrQte;
+    int codProd;
+    int qteDigitada;
+    int sair = 1;
+    prodVendidos = (Produto*) calloc(sizeof (Produto), 1);
+    arrQte = (int*) calloc(sizeof (int), 1);
+
+    while (sair == 1) {
+        printf("Digite o cód do produto: \n");
+        scanf("%d%*c", &codProd);
+        if (validarCodProdConsumo(codProd, bd) == 1) {
+            printf("NÃO EXISTE PRODUTO COM ESSE COD\n");
+            return;
+        } else {
+            qteItensDaVenda++;
+            //printf("DEBUG: QTE ITENS AGORA É %d \n", qteItensDaVenda);
+            if (bd == 1) {
+                p = getProdutoByCodTXT(codProd);
+            }
+            if (bd == 2) {
+                p = getProdutoByCodBIN(codProd);
+            }
+
+            printf("Digite a qte do produto: \n");
+            scanf("%d%*c", &qteDigitada);
+
+            if (p.estoque < qteDigitada) {
+                printf("SEM ESTOQUE SUFICIENTE DO PRODUTO\n");
+                return;
+            } else {
+                
+                //REALOCA O VETOR
+                arrQte = realloc(arrQte, sizeof (int) * qteItensDaVenda);
+                
+                prodVendidos = (Produto*) realloc(prodVendidos, sizeof (Produto) * qteItensDaVenda);
+                
+                prodVendidos[qteItensDaVenda - 1] = p;
+                arrQte[qteItensDaVenda - 1] = qteDigitada;
+            }
+
+            printf("DESEJA CONTINUAR A VENDA? (1-SIM  2-NÃO)\n");
+            scanf("%d%*c", &sair);
+        }
+    }
+    
+    for (int i = 0; i < qteItensDaVenda; i++) {
+        printf("VOCE VENDEU O PRODUTO %s (%d) \n", prodVendidos[i].descricao, arrQte[i]);
+    }
+
+    float precoTotal = 0.0;
+    for (int i = 0; i < qteItensDaVenda; i++) {
+        precoTotal += arrQte[i] * prodVendidos[i].precoVenda;
+        printf("PR TOTAL = %f\n", precoTotal);
+    }
+    printf("\n PR TOTAL FINAL = %f\n", precoTotal);
+    for (int i = 0; i < qteItensDaVenda; i++) {
+        printf("ESTOQUE DO PROD %s ANTES: %d\n", prodVendidos[i].descricao, prodVendidos[i].estoque);
+        prodVendidos[i].estoque -= arrQte[i];
+        printf("ESTOQUE DO PROD %s DEPOIS: %d\n", prodVendidos[i].descricao, prodVendidos[i].estoque);
+
+        //ATUALIZAR ESTOQUE
+        if (bd == 1) {
+            printf("ANTES DE ATUALIZAR ESTOQUE\n");
+            strtok(prodVendidos[i].descricao, "\r");
+            atualizarProdutoTXT(prodVendidos[i]);
+            printf("DEPOIS DE ATUALIZAR ESTOQUE\n");
+        }
+        if (bd == 2) {
+            atualizarProdutoBIN(prodVendidos[i]);
+        }
+    }
+    
+//------------------------- CRIA NOTA PROMISSORIA -----------------------------  
+    char nomeEmitente[100] ;
+    printf("NOME DO EMITENTE: \n");
+    fgets(nomeEmitente, 101, stdin);
+    strtok(nomeEmitente, "\n"); // Esse comando serve para retirar o \n que o fgets coloca no final da string lida
+    
+    char cpfEmitente[14] ;
+    printf("CPF DO EMITENTE: \n");
+    fgets(cpfEmitente, 15, stdin);
+    strtok(cpfEmitente, "\n"); // Esse comando serve para retirar o \n que o fgets coloca no final da string lida
+    
+    int diaV, mesV, anoV;
+    printf("INFORME A DATA DE VENCIMENTO \n");
+    printf("DIA: \n");
+    scanf("%d%*c", &diaV);
+    printf("MES: \n");
+    scanf("%d%*c", &mesV);
+    printf("ANO: \n");
+    scanf("%d%*c", &anoV);
+
+    struct tm *data_hora_atual;
+    time_t segundos;
+    time(&segundos);
+    data_hora_atual = localtime(&segundos);
+
+    //CRIA STRING COM DATA E HORA ATUAL, DEFININDO O CAMINHO ONDE A NOTA SERÁ SALVA
+    char str[43] = ".\\arquivos\\notas\\NP_";
+    snprintf(str, 43, "%s%d", str, data_hora_atual->tm_mday);
+    snprintf(str, 43, "%s-%d", str, data_hora_atual->tm_mon + 1);
+    snprintf(str, 43, "%s-%d_", str, data_hora_atual->tm_year + 1900);
+    snprintf(str, 43, "%s%dh", str, data_hora_atual->tm_hour);
+    snprintf(str, 43, "%s%dm", str, data_hora_atual->tm_min);
+    snprintf(str, 43, "%s%ds.txt", str, data_hora_atual->tm_sec);
+    
+    FILE *arq;
+    // abre o arquivo com o cursor no final
+    arq = fopen(str, "w");
+    if (arq == NULL) {
+      printf("\nErro ao acessar arquivo\n");
+    }
+    
+    Data dataHoje = getDataHoje(); // Pega a data atual
+    // -------------------  NOTA PROMISSÓRIA ---------------------------------
+    fprintf(arq, "-------------------- NOTA PROMISSÓRIA -------------------\n");
+    fprintf(arq, "Em %d/%d/%d pagarei ao HOTEL CNPJ 000.000.000-01\n"
+            "a quantia de R$ %.2f.\n", diaV, mesV, anoV, precoTotal);
+    fprintf(arq, "EMITENTE: %s  CPF: %s  \nDATA DA EMISSÃO: %d/%d/%d\n", nomeEmitente, 
+            cpfEmitente, dataHoje.dia, dataHoje.mes, dataHoje.ano);
+    fprintf(arq, "---------------------------------------------------------\n");
+    fclose(arq);
+    // ----------------------------------------------------------------------
+    
+    // Cria o comando para abrir o arquivo txt da Nota Promissoria através do prompt
+    char comando[55] = "cd arquivos/notas && notepad NP_";
+    snprintf(comando, 55, "%s%d", comando, data_hora_atual->tm_mday);
+    snprintf(comando, 55, "%s-%d", comando, data_hora_atual->tm_mon + 1);
+    snprintf(comando, 55, "%s-%d_", comando, data_hora_atual->tm_year + 1900);
+    snprintf(comando, 55, "%s%dh", comando, data_hora_atual->tm_hour);
+    snprintf(comando, 55, "%s%dm", comando, data_hora_atual->tm_min);
+    snprintf(comando, 55, "%s%ds", comando, data_hora_atual->tm_sec);
+    system(comando);
+//-----------------------------------------------------------------------------
+    
+    //CADASTRA A VENDA
+    Venda v;
+    //v.codVenda = maiorCodVenda();
+    v.codVenda = 1;
+    v.codCaixa = caixaAberto().codigo;
+    v.dataVenda = getDataHoje();
+    v.valorTotal = precoTotal;
+
+    if (bd == 1) {
+        cadastrarVendaTXT(v);
+        printf("DEBUG: DEPOIS DO CADASTRO??\n");
+    }
+    if (bd == 2) {
+        cadastrarVendaBIN(v);
+    }
+
+    //CADASTRA OS PRODUTOS DA VENDA
+    VendaProduto vp;
+    vp.codVenda = v.codVenda;
+    printf("\nTESTE  VENDA PRODUTOS\n");
+    printf("COD %d = %d \n", vp.codVenda, v.codVenda);
+
+    for (int i = 0; i < qteItensDaVenda; i++) {
+        vp.codProduto = prodVendidos[i].codigo;
+        vp.quantidade = arrQte[i];
+        printf("COD PROD %d | QTE = %d \n", vp.codProduto, vp.quantidade);
+        //CADASTRAR PRODUTOS DA VENDA TXT OU BIN
+        bd = 2;
+        if (bd == 1) {
+            cadastrarVendaProdutoTXT(vp);
+        }
+        if (bd == 2) {
+            cadastrarVendaProdutoBIN(vp);
+        }
+    }
 }
 
 void menuVendaHospedeReserva() {
