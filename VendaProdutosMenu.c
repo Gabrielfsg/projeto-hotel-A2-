@@ -162,13 +162,13 @@ void menuVendaAnotar() {
     data_hora_atual = localtime(&segundos);
 
     //CRIA STRING COM DATA E HORA ATUAL, DEFININDO O CAMINHO ONDE A NOTA SERÁ SALVA
-    char str[43] = ".\\arquivos\\notas\\NP_";
-    snprintf(str, 43, "%s%d", str, data_hora_atual->tm_mday);
-    snprintf(str, 43, "%s-%d", str, data_hora_atual->tm_mon + 1);
-    snprintf(str, 43, "%s-%d_", str, data_hora_atual->tm_year + 1900);
-    snprintf(str, 43, "%s%dh", str, data_hora_atual->tm_hour);
-    snprintf(str, 43, "%s%dm", str, data_hora_atual->tm_min);
-    snprintf(str, 43, "%s%ds.txt", str, data_hora_atual->tm_sec);
+    char str[50] = ".\\arquivos\\notas\\NP_";
+    snprintf(str, 50, "%s%d", str, data_hora_atual->tm_mday);
+    snprintf(str, 50, "%s-%d", str, data_hora_atual->tm_mon + 1);
+    snprintf(str, 50, "%s-%d_", str, data_hora_atual->tm_year + 1900);
+    snprintf(str, 50, "%s%dh", str, data_hora_atual->tm_hour);
+    snprintf(str, 50, "%s%dm", str, data_hora_atual->tm_min);
+    snprintf(str, 50, "%s%ds.txt", str, data_hora_atual->tm_sec);
     
     FILE *arq;
     // abre o arquivo com o cursor no final
@@ -184,18 +184,19 @@ void menuVendaAnotar() {
             "a quantia de R$ %.2f.\n", diaV, mesV, anoV, precoTotal);
     fprintf(arq, "EMITENTE: %s  CPF: %s  \nDATA DA EMISSÃO: %d/%d/%d\n", nomeEmitente, 
             cpfEmitente, dataHoje.dia, dataHoje.mes, dataHoje.ano);
+    fprintf(arq, "ASSINATURA: ______________________________________\n");
     fprintf(arq, "---------------------------------------------------------\n");
     fclose(arq);
     // ----------------------------------------------------------------------
     
     // Cria o comando para abrir o arquivo txt da Nota Promissoria através do prompt
-    char comando[55] = "cd arquivos/notas && notepad NP_";
-    snprintf(comando, 55, "%s%d", comando, data_hora_atual->tm_mday);
-    snprintf(comando, 55, "%s-%d", comando, data_hora_atual->tm_mon + 1);
-    snprintf(comando, 55, "%s-%d_", comando, data_hora_atual->tm_year + 1900);
-    snprintf(comando, 55, "%s%dh", comando, data_hora_atual->tm_hour);
-    snprintf(comando, 55, "%s%dm", comando, data_hora_atual->tm_min);
-    snprintf(comando, 55, "%s%ds", comando, data_hora_atual->tm_sec);
+    char comando[60] = "cd arquivos/notas && notepad NP_";
+    snprintf(comando, 60, "%s%d", comando, data_hora_atual->tm_mday);
+    snprintf(comando, 60, "%s-%d", comando, data_hora_atual->tm_mon + 1);
+    snprintf(comando, 60, "%s-%d_", comando, data_hora_atual->tm_year + 1900);
+    snprintf(comando, 60, "%s%dh", comando, data_hora_atual->tm_hour);
+    snprintf(comando, 60, "%s%dm", comando, data_hora_atual->tm_min);
+    snprintf(comando, 60, "%s%ds", comando, data_hora_atual->tm_sec);
     system(comando);
 //-----------------------------------------------------------------------------
     
