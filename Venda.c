@@ -12,7 +12,7 @@
 #include "Venda.h"
 
 int cadastrarVendaTXT(Venda v) {
-    printf("DEBUG: ENTROU CADASTRAR VENDA TXT\n");
+    //printf("DEBUG: ENTROU CADASTRAR VENDA TXT\n");
     FILE* arVenda;
     //abre o arquivo de hospedes.txt
     arVenda = fopen(".\\arquivos\\vendas.txt", "a");
@@ -195,6 +195,7 @@ int numVendas() {
 }
 
 float somaVendaCaixa(int caixa) {
+    //PEGA A LISTA DE VENDAS DO ARQUIVO E SOMA O VALOR TOTAL DELAS
     float valor = 0;
     Venda *vendas;
     int num = 0;
