@@ -156,12 +156,12 @@ ContaPagar* listarContaPagarBIN(int* numContasPagar) {
 
 int atualizar() {
     int bd = listar();
-    Data datah = getDataHoje();
-  /*  Data datah;
+    //Data datah = getDataHoje();
+    Data datah;
     datah.dia = 23;
     datah.mes = 4;
     datah.ano = 2021;
-  */
+
     ContaPagar* arrayCP;
     ContaPagar cp;
     int aux;
@@ -179,6 +179,8 @@ int atualizar() {
     for (i = 0; i < numContas; i++) {
         if (arrayCP[i].data.dia == datah.dia && arrayCP[i].data.mes == datah.mes && arrayCP[i].data.ano == datah.ano) {
             if (strcmp(arrayCP[i].status, "Pendente") == 0) {
+                printf("ACHO UMA CONTA PARA ATUALIZAR\n");
+
                 cp.codigo = arrayCP[i].codigo;
                 strcpy(cp.descricao, arrayCP[i].descricao);
                 cp.valor = arrayCP[i].valor;
@@ -191,6 +193,18 @@ int atualizar() {
                 cp.caixa.data.mes = arrayCP[i].caixa.data.mes;
                 cp.caixa.data.ano = arrayCP[i].caixa.data.ano;
                 cp.codForn = arrayCP[i].codForn;
+
+                /*
+
+                                cp = arrayCP[i];
+                                printf("\n\nÉ ESSA AQUI QUE VAI ATUALIZAR:\n");
+                                printf("DATA: %d / %d  DESC: %s\n", cp.data.dia, cp.data.mes, cp.descricao);
+                                printf("STATUS ANTES: %s \n", cp.status);
+                                strcpy(cp.status, "Concluido");
+                                printf("STATUS DEPOIS: %s \n", cp.status);
+
+                 */
+
                 /*    printf("%d \n", cp.codigo);
                     printf("%s\n", cp.descricao);
                     printf("%f\n", cp.valor);
@@ -204,8 +218,9 @@ int atualizar() {
                     printf("%d\n", cp.caixa.data.ano);
                     printf("%d\n", cp.codForn);*/
                 aux = 1;
+                break;
             }
-            break;
+
         } else {
             aux = 0;
         }
@@ -213,6 +228,7 @@ int atualizar() {
 
     if (aux == 1) {
         if (bd == 1) {
+            printf("ATUALIZOU?\n");
             r = editarStatusTXT(arrayCP, cp, numContas);
         } else if (bd == 2) {
             r = editarStatusBIN(cp, i);
@@ -274,17 +290,21 @@ int editarStatusTXT(ContaPagar *arrayPC, ContaPagar cp, int num) {
     int i;
     for (i = 0; i < num; i++) {//sobre escreve os dados
         if ((int) (arrayPC[i].codigo) == (int) (cp.codigo)) {
-            strcpy(arrayPC[i].descricao, cp.descricao);
-            arrayPC[i].valor = cp.valor;
-            arrayPC[i].data.dia = cp.data.dia;
-            arrayPC[i].data.mes = cp.data.mes;
-            arrayPC[i].data.ano = cp.data.ano;
-            strcpy(arrayPC[i].status, cp.status);
-            arrayPC[i].caixa.codigo = cp.caixa.codigo;
-            arrayPC[i].caixa.data.dia = cp.caixa.data.dia;
-            arrayPC[i].caixa.data.mes = cp.caixa.data.mes;
-            arrayPC[i].caixa.data.ano = cp.caixa.data.ano;
-            arrayPC[i].codForn = cp.codForn;
+            if (arrayPC[i].data.dia == cp.data.dia && arrayPC[i].data.mes == cp.data.mes && arrayPC[i].data.ano == cp.data.ano) {
+                printf("ENTROU NO SEGUNODO IF\n");
+                strcpy(arrayPC[i].descricao, cp.descricao);
+                arrayPC[i].valor = cp.valor;
+                arrayPC[i].data.dia = cp.data.dia;
+                arrayPC[i].data.mes = cp.data.mes;
+                arrayPC[i].data.ano = cp.data.ano;
+                strcpy(arrayPC[i].status, cp.status);
+                arrayPC[i].caixa.codigo = cp.caixa.codigo;
+                arrayPC[i].caixa.data.dia = cp.caixa.data.dia;
+                arrayPC[i].caixa.data.mes = cp.caixa.data.mes;
+                arrayPC[i].caixa.data.ano = cp.caixa.data.ano;
+                arrayPC[i].codForn = cp.codForn;
+            }
+
         }
     }
 
@@ -314,9 +334,9 @@ int salvarContasPagarTXT(ContaPagar *arrayCP, int num) {
     return 1;
 }
 
-float somaContaPagarCaixa(Data data,float* valor) {
+float somaContaPagarCaixa(Data data, float* valor) {
     //printf("DEBUG: ENTROU NO SOMA CONTA\n");
-    
+
     ContaPagar *cp;
     int num = 0;
     int bd = listar();
@@ -327,7 +347,7 @@ float somaContaPagarCaixa(Data data,float* valor) {
         cp = listarContaPagarBIN(&num);
     }
     int i;
-    
+
     for (i = 0; i < num; i++) {
         if (compararDatas(cp[i].data, data) == 1) {
             //printf("ACHOU UMA CONTA PAGAR\n");
