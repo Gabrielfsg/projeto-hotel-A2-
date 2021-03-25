@@ -89,7 +89,7 @@ void menuVendaHospedeReserva() {
         }
     }
 
-    printf("DEBUG 3\n");
+    //printf("DEBUG 3\n");
     printf("Digite a quantidade do Produto:\n");
     scanf("%d%*c", &qte);
     //VALIDAR ESTOQUE
@@ -97,18 +97,18 @@ void menuVendaHospedeReserva() {
         printf("NÃO EXISTE ESTOQUE SUFICIENTE DO PRODUTO\n");
         return;
     } else {
-        printf("DEBUG 4\n");
+        //printf("DEBUG 4\n");
         //SE OS DADOS ESTAO CORRETOS, COLOCA NA "CONTA" (produto Reserva)
         ProdutoReserva pr;
         pr.codProd = codProd;
         pr.codRes = codReserva;
         pr.data = getDataHoje();
         pr.quantidade = qte;
-        printf("DEBUG 5\n");
+        //printf("DEBUG 5\n");
         if (bd == 1) {
-            printf("DEBUG ANTES DO CADASTRO\n");
+            
             cadastrarProdutoReservaTXT(pr);
-            printf("DEBUG DEPOIS DO CADASTRO\n");
+            
         }
         if (bd == 2) {
             cadastrarProdutoReservaBIN(pr);
@@ -195,20 +195,20 @@ void menuVendaAVista() {
     float precoTotal = 0.0;
     for (int i = 0; i < qteItensDaVenda; i++) {
         precoTotal += arrQte[i] * prodVendidos[i].precoVenda;
-        printf("PR TOTAL = %f\n", precoTotal);
+        //printf("PREÇO TOTAL = %f\n", precoTotal);
     }
-    printf("\n PR TOTAL FINAL = %f\n", precoTotal);
+    printf("\n PREÇO TOTAL FINAL = %f\n", precoTotal);
     for (int i = 0; i < qteItensDaVenda; i++) {
-        printf("ESTOQUE DO PROD %s ANTES: %d\n", prodVendidos[i].descricao, prodVendidos[i].estoque);
+        //printf("ESTOQUE DO PROD %s ANTES: %d\n", prodVendidos[i].descricao, prodVendidos[i].estoque);
         prodVendidos[i].estoque -= arrQte[i];
-        printf("ESTOQUE DO PROD %s DEPOIS: %d\n", prodVendidos[i].descricao, prodVendidos[i].estoque);
+        //printf("ESTOQUE DO PROD %s DEPOIS: %d\n", prodVendidos[i].descricao, prodVendidos[i].estoque);
 
         //ATUALIZAR ESTOQUE
         if (bd == 1) {
-            printf("ANTES DE ATUALIZAR ESTOQUE\n");
+            
             strtok(prodVendidos[i].descricao, "\r");
             atualizarProdutoTXT(prodVendidos[i]);
-            printf("DEPOIS DE ATUALIZAR ESTOQUE\n");
+            
         }
         if (bd == 2) {
             atualizarProdutoBIN(prodVendidos[i]);
@@ -224,22 +224,23 @@ void menuVendaAVista() {
 
     if (bd == 1) {
         cadastrarVendaTXT(v);
-        printf("DEBUG: DEPOIS DO CADASTRO??\n");
+        printf("VENDA CADASTRADA COM SUCESSO\n");
     }
     if (bd == 2) {
         cadastrarVendaBIN(v);
+        printf("VENDA CADASTRADA COM SUCESSO\n");
     }
 
     //CADASTRA OS PRODUTOAS DA VENDA
     VendaProduto vp;
     vp.codVenda = v.codVenda;
-    printf("\nTESTE  VENDA PRODUTOS\n");
-    printf("COD %d = %d \n", vp.codVenda, v.codVenda);
+   // printf("\nTESTE  VENDA PRODUTOS\n");
+    //printf("COD %d = %d \n", vp.codVenda, v.codVenda);
 
     for (int i = 0; i < qteItensDaVenda; i++) {
         vp.codProduto = prodVendidos[i].codigo;
         vp.quantidade = arrQte[i];
-        printf("COD PROD %d | QTE = %d \n", vp.codProduto, vp.quantidade);
+        //printf("COD PROD %d | QTE = %d \n", vp.codProduto, vp.quantidade);
         //CADASTRAR PRODUTOS DA VENDA TXT OU BIN
         bd = 2;
         if (bd == 1) {

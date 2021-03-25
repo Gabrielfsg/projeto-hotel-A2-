@@ -28,5 +28,7 @@ typedef struct contaPagar{
     int codForn;
 }ContaPagar;
 
+float somaContaPagarCaixa(Data data,float* valor);
+
 #endif /* CONTASPAGAR_H */
 
