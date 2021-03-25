@@ -154,7 +154,7 @@ ContaPagar* listarContaPagarBIN(int* numContasPagar) {
     }
 }
 
-int atualizar() {
+int atualizar() {// atualiza o satatus da compra se o dia de vencer for igual o dia corrente
     int bd = listar();
     //Data datah = getDataHoje();
     Data datah;
@@ -175,12 +175,12 @@ int atualizar() {
     if (bd == 2) {
         arrayCP = listarContaPagarBIN(&numContas);
     }
-
-    for (i = 0; i < numContas; i++) {
+    // pega os dados
+    for (i = 0; i < numContas; i++) {// valida para achar se a conta no atual dia para validar
         if (arrayCP[i].data.dia == datah.dia && arrayCP[i].data.mes == datah.mes && arrayCP[i].data.ano == datah.ano) {
             if (strcmp(arrayCP[i].status, "Pendente") == 0) {
                 printf("ACHO UMA CONTA PARA ATUALIZAR\n");
-
+                // pega os dados
                 cp.codigo = arrayCP[i].codigo;
                 strcpy(cp.descricao, arrayCP[i].descricao);
                 cp.valor = arrayCP[i].valor;
@@ -229,17 +229,17 @@ int atualizar() {
     if (aux == 1) {
         if (bd == 1) {
             printf("ATUALIZOU?\n");
-            r = editarStatusTXT(arrayCP, cp, numContas);
+            r = editarStatusTXT(arrayCP, cp, numContas);// edita o status para concluido txt
         } else if (bd == 2) {
-            r = editarStatusBIN(cp, i);
+            r = editarStatusBIN(cp, i); // edita status para concluido bin
         }
     }
 
     if (r == 1) {
         printf("Atualizado. \n");
-    } else {
-        printf("Erro ao atualizar. \n");
-    }
+    }// else {
+      //  printf("Erro ao atualizar. \n");
+    //}
     mostrarContasPagar();
 }
 
