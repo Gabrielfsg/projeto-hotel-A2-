@@ -17,7 +17,7 @@
 
 #include "Caixa.h"
 
-typedef struct contaPagar{
+typedef struct contaPagar {
     int codigo;
     char descricao[50];
     float valor;
@@ -26,9 +26,20 @@ typedef struct contaPagar{
     Caixa caixa;
     //Fornecedor *fornecedor;
     int codForn;
-}ContaPagar;
-
-float somaContaPagarCaixa(Data data,float* valor);
+} ContaPagar;
+int cadastrarContaPagarTXT(ContaPagar cp);
+int cadastrarContaPagarBIN(ContaPagar *conta, int quantidade);
+ContaPagar* listarContaPagarTXT(int numContasPagar);
+ContaPagar* listarContaPagarBIN(int* numContasPagar);
+int atualizar();
+void mostrarContasPagar();
+int editarStatusBIN(ContaPagar cp, int posi);
+int editarStatusTXT(ContaPagar *arrayPC, ContaPagar cp, int num) ;
+int salvarContasPagarTXT(ContaPagar *arrayCP, int num);
+int maiorCodContasPagar();
+int getNumContaPagar();
+int maiorCodContasPagar() ;
+float somaContaPagarCaixa(Data data);
 
 #endif /* CONTASPAGAR_H */
 

@@ -24,13 +24,13 @@ typedef struct caixa {
 } Caixa;
 int getCaixaAtual(Data dataHoje);
 int cadastrarCaixaTXT(Caixa aco);
-int salvarCaixaTXT(Caixa *aco, int num);
+int fecharCaixaTXT(Caixa c);
 Caixa * listarCaixaTXT();
 int numCaixa();
 int validarCaixa(int cod) ;
 int cadastrarCaixaBIN(Caixa *aco, int quantidade);
 Caixa * listarCaixaBIN(int *numLinha);
-int editarCaixaBIN(Caixa aco);
+int fecharCaixaBIN(Caixa aco);
 int validarCaixaBIN(int cod);
 int posicaoCaixaBIN(int cod);
 int removerCaixaBIN();

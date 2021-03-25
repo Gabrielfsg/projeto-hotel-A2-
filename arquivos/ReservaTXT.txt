@@ -1,58 +1,87 @@
 1
-1
-15
+0
+25
 3
 2021
-18
+26
 3
 2021
 1
-QUARTO UM
+CHALE LUXO
 1
 livre
-4
-QUATRO HOSPEDE
-54444444444
-54444444
-QUATROEMAIL
+1
+Daniel
+14316736680
+37998070898
+danielantonio23599@gmail.com
 M
-SOLTEIRO
-4
-4
-2004
-4
-ENGENHO DE SERRA
-4
-FMG
-APARTAMENTO
-99
-GM
+Casado
+23
+5
+1999
+1
+Serra Verde
+35570730
+Formiga
+rua antonio marinho da costa
+55
+MG
 2
-2
-12
+1
+24
 3
 2021
-13
+25
 3
 2021
 6
-QUARTO SEIS
+SUITE PREMIUM
+3
+livre
+1
+Daniel
+14316736680
+37998070898
+danielantonio23599@gmail.com
+M
+Casado
+23
+5
+1999
+1
+Serra Verde
+35570730
+Formiga
+rua antonio marinho da costa
+55
+MG
+3
+1
+24
+3
+2021
+25
+3
+2021
+3
+QUARTO 2
 2
 livre
-4
-QUATRO HOSPEDE
-54444444444
-54444444
-QUATROEMAIL
+2
+Gariel[D[D[D[Dbriel
+11111111
+22222222
+garielfernandes@gmail.com
 M
-SOLTEIRO
-4
-4
-2004
-4
-ENGENHO DE SERRA
-4
-FMG
-APARTAMENTO
-99
-GM
+solteiro
+20
+2
+2000
+2
+cidade nova
+35570000
+formiga
+rua um
+1
+mg

@@ -286,8 +286,8 @@ int removerCheckOutBIN() {
     return 1;
 }
 
-float somaCheckOutCaixa(int codigo, float* valor) {
-    
+float somaCheckOutCaixa(int codigo) {
+    float valor;
     CheckOut *cai;
     int num;
     int bd = listar();
@@ -300,9 +300,9 @@ float somaCheckOutCaixa(int codigo, float* valor) {
     int i;
     for (i = 0; i < num; i++) {
         if (cai[i].caixa == codigo) {
-            *valor += cai[i].valorTotal;
+            valor += cai[i].valorTotal;
         }
     }
-
+    return valor;
 }
 

@@ -15,5 +15,6 @@
 #define MENUCAIXA_H
 void menuCaixa();
 float somaValores();
+void relatorioValoresCaixa();
 #endif /* MENUCAIXA_H */
 

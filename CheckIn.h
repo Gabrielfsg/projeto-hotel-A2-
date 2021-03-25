@@ -36,5 +36,5 @@ int editarCheckInBIN(CheckIn cat);
 int validarCheckInBIN(int cod);
 int posicaoCheckInBIN(int cod);
 int removerCheckInBIN();
-//float somaCheckInCaixa(int codigo);
+float somaCheckInCaixa(int codigo);
 

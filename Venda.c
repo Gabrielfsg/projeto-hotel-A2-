@@ -195,9 +195,9 @@ int numVendas() {
     return numLinha / 6;
 }
 
-float somaVendaCaixa(Data data,float* valor) {
+float somaVendaCaixa(Data data) {
     //printf("DEBUG: ENTROU NO SOMA VENDA\n");
-    
+    float valor = 0;
     Venda *vendas;
     int num = 0;
     int bd = listar();
@@ -212,10 +212,11 @@ float somaVendaCaixa(Data data,float* valor) {
     for (i = 0; i < num; i++) {
 
         if (compararDatas(vendas[i].dataVenda, data) == 1) {
-            *valor += vendas[i].valorTotal;
+            valor += vendas[i].valorTotal;
             //printf("DEBUG SOMA VENDAS -> VALOR = %f \n",*valor);
         }
     }
     //printf("O VALOR DA SOMA VENDAS = %f\n", *valor);
+    return valor;
 
 }

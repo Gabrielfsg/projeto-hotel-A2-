@@ -24,6 +24,6 @@ typedef struct venda{
     
 Venda* listarVendaTXT();
 Venda* listarVendaBIN();
-//float somaVendaCaixa(Data data);
+float somaVendaCaixa(Data data);
 #endif /* VENDA_H */
 
