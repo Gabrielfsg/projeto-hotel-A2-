@@ -13,15 +13,17 @@
 #include "CheckOut.h"
 #include "ContaReceber.h"
 #include "ContaPagar.h"
-float somaValores() ;
+#include "Venda.h"
+#include "MenuCaixa.h"
+
 void menuCaixa() {
     float total;
     int opc = 0;
     Caixa c;
     Data data = getDataHoje();
     int bd = listar();
+    printf("bd %d\n", bd);
     while (opc >= 0) {
-        c = caixaAberto();
         printf("***** CAIXA***** \n");
         printf("Data: %d/%d/%d. \n", data.dia, data.mes, data.ano);
         printf("1.Abrir Caixa. \n");
@@ -66,6 +68,7 @@ void menuCaixa() {
                     printf("Deseja Fechar o caixa Aberto? 1-Sim 2-Não\n");
                     scanf("%d*c", &opc);
                     if (opc == 1) {
+                        c = caixaAberto();
                         c.valorFin = somaValores();
                         strcpy(c.status, "fechado");
                         if (bd == 1) {
@@ -73,13 +76,17 @@ void menuCaixa() {
                         } else {
                             fecharCaixaBIN(c);
                         }
+                        printf("Caixa Fechado com saldo %f\n", c.valorFin);
                         printf("Caixa Fechado com sucesso!!\n");
                     } else {
-
+                        printf("Operação canseada!!\n");
                     }
+                } else {
+                    printf("caixa Fechado!!\n");
                 }
                 break;
             case 4:
+                c.codigo = getCaixaAtual(data);
                 if (c.codigo > 0) {
                     printf("entrou!!\n");
                     relatorioValoresCaixa();
@@ -103,10 +110,11 @@ float somaValores() {
     float final = 0;
     float retiradas = 0;
     checkIn = somaCheckInCaixa(c.codigo);
-    checkOut = somaCheckOutCaixa(c.codigo);
     contasRece = somaContaReceberCaixa(c.data);
     retiradas = somaContaPagarCaixa(c.data);
-    prodV = somaVendaCaixa(c.data);
+    prodV = somaVendaCaixa(c.codigo);
+    printf("Soma valores\n");
+    checkOut = somaCheckOutCaixa(c.codigo);
     final = checkIn + checkOut + contasRece + prodV + c.valorIn - retiradas;
     //printf("DEBUG NO SOMA VALORES: RETIRADAS = %f  FINAL = %f:\n", retiradas, final);
     return final;
@@ -115,20 +123,20 @@ float somaValores() {
 void relatorioValoresCaixa() {
     Caixa c = caixaAberto();
     float checkIn = 0;
-    float checkOut = 0;
     float contasRece = 0;
     float prodV = 0;
     float final = 0;
     float retiradas = 0;
+    float checkOut = 0;
     checkIn = somaCheckInCaixa(c.codigo);
-    printf("CheckIn +%f \n", checkIn);
-    checkOut = somaCheckOutCaixa(c.codigo);
-    printf("CheckOut +%f \n", checkOut);
+    //printf("CheckIn +%f \n", checkIn);
+    // printf("CheckOut +%f \n", checkOut);
     contasRece = somaContaReceberCaixa(c.data);
     retiradas = somaContaPagarCaixa(c.data);
-    prodV = somaVendaCaixa(c.data);
+    prodV = somaVendaCaixa(c.codigo);
     printf("Valor Inicial %f \n", c.valorIn);
     printf("CheckIn %f \n", checkIn);
+    checkOut = somaCheckOutCaixa(c.codigo);
     printf("CheckOut %f \n", checkOut);
     printf("Montante de Cartão %f \n", contasRece);
     printf("Produtos Vendidos %f \n", prodV);

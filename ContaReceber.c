@@ -221,8 +221,8 @@ int atualizarCR() {
     if (bd == 2) {
         arrayCR = listarContaReceberBIN(&numContas);
     }
-
-    for (i = 0; i < numContas; i++) {
+    // pega os dados
+    for (i = 0; i < numContas; i++) {// verifica se a contas para atualizar o status
         if (arrayCR[i].data.dia == datah.dia && arrayCR[i].data.mes == datah.mes && arrayCR[i].data.ano == datah.ano) {
             if (strcmp(arrayCR[i].status, "Pendente") == 0) {
                 cr.codigo = arrayCR[i].codigo;
@@ -231,7 +231,7 @@ int atualizarCR() {
                 cr.data.dia = arrayCR[i].data.dia;
                 cr.data.mes = arrayCR[i].data.mes;
                 cr.data.ano = arrayCR[i].data.ano;
-                strcpy(cr.status, "Concluido");
+                strcpy(cr.status, "Concluido");// seta status como concluido
                 cr.caixa = arrayCR[i].caixa;
                 aux = 1;
                 break;
@@ -243,23 +243,23 @@ int atualizarCR() {
     valor = cr.valor;
     if (aux == 1) {
         if (bd == 1) {
-              r = editarContaReceberTXT(arrayCR, cr, numContas);
+              r = editarContaReceberTXT(arrayCR, cr, numContas);// joga no metodo que edita o status txt
         } else if (bd == 2) {
-            r = editarContaReceberBIN(cr);
+            r = editarContaReceberBIN(cr);// joga no metodo que edita o status bin
         }
     }
 
     if (r == 1) {
         printf("Atualizado. \n");
         //somaContaReceberCaixa(cr.data);
-    } else {
-        printf("Erro ao atualizar. \n");
-    }
-    visualizarHistContas();
+    }// else {
+      //  printf("Erro ao atualizar. \n");
+   // }
+    visualizarHistContas();// mostra todas as contas
 
 }
 
-int editarContaReceberTXT(ContaReceber *arrayCR, ContaReceber cr, int num) {
+int editarContaReceberTXT(ContaReceber *arrayCR, ContaReceber cr, int num) {// editar status txt das contas
     int i;
     for (i = 0; i < num; i++) {//sobre escreve os dados
         if ((int) (arrayCR[i].codigo) == (int) (cr.codigo)) {
@@ -278,7 +278,7 @@ int editarContaReceberTXT(ContaReceber *arrayCR, ContaReceber cr, int num) {
     return salvarContaReceberTXT(arrayCR, num); // chama o metodo que salva de novo os dados no arquivo
 }
 
-int editarContaReceberBIN(ContaReceber cat) {
+int editarContaReceberBIN(ContaReceber cat) {// editar status bin das contas
     FILE *arquivo;
     //abre arquivo para leitura e escrita "r+b"
     arquivo = fopen("arquivos\\ContaReceberBIN.bin", "r+b");
@@ -387,7 +387,7 @@ float somaContaReceberCaixa(Data data, float* valor) {
 }
 */
 
-float somaContaReceberCaixa(Data data) {
+float somaContaReceberCaixa(Data data) {// metodo que soma valores ao caixa
     float valor = 0;
     ContaReceber *cai;
     int num;
@@ -399,16 +399,16 @@ float somaContaReceberCaixa(Data data) {
         cai = listarContaReceberBIN(&num);
     }
     int i;
-    for (i = 0; i < num; i++) {
+    for (i = 0; i < num; i++) {// pega a data e ve se é igual ao atual dia se for soma no caixa
         if (compararDatas(cai[i].data, data) == 1) {
             valor += cai[i].valor;
         }
     }
-    return valor;
+    return valor;// retorna o valor para um método no caixa
 
 }
 
-void visualizarHistContas() {
+void visualizarHistContas() {// metodo que lista as contas receber
     int n, aux;
     int bd = listar();
     ContaReceber *cr;

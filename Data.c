@@ -245,7 +245,7 @@ Data getDataHoje() {
     strncat(mes, __DATE__, 3);
     strncat(dia, __DATE__ + 4, 2);
     strncat(ano, __DATE__ + 7, 4);
-    //printf("Data %s \n", __DATE__);
+    printf("Data %s \n", __DATE__);
     data.ano = atoi(ano);
     data.dia = atoi(dia);
     if (strcmp("Jan", mes) == 0) {

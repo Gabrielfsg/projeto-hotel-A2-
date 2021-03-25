@@ -53,7 +53,7 @@ void menuContas() {
 
 }
 
-void contasRec() {
+void contasRec() {// cadastrar contas que o hotel recebe/ montante cartão
     ContaReceber cr;
     Data dataH = getDataHoje();
     int bd = listar();
@@ -108,7 +108,7 @@ void contasRec() {
         }
         if (aux == 1) {
             if (r == 1) {
-                somaContaReceberCaixa(cr.data);
+                somaContaReceberCaixa(cr.data);// se for concluido ja faz a soma
             }
         }
     }

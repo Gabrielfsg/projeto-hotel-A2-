@@ -52,30 +52,37 @@ int getCaixaAtual(Data dataHoje) {
     }
     int i;
     for (i = 0; i < num; i++) {
-        if (compararDatas(cai[i].data, dataHoje) == 1 && strcmp(cai[i].status, "aberto") == 0) {
+        if ((compararDatas(cai[i].data, dataHoje) == 1 && strcmp(cai[i].status, "aberto") == 0) || strcmp(cai[i].status, "aberto") == 0) {
             return cai[i].codigo;
         }
     }
     return 0;
 }
 
-Caixa caixaAberto() { 
+Caixa caixaAberto() {
     Caixa *cai;
-    int num;
+    int num = 0;
     int bd = listar();
     if (bd == 1) {
-        cai = listarCaixaTXT();
         num = numCaixa();
+        if (num > 0) {
+            cai = listarCaixaTXT();
+        }
     } else {
         cai = listarCaixaBIN(&num);
     }
     int i;
-    for (i = 0; i < num; i++) {        
-        if (strcmp(cai[i].status, "aberto") == 0) {
-            return cai[i];
+    if (num > 0) {
+        for (i = 0; i < num; i++) {
+            if (strcmp(cai[i].status, "aberto") == 0) {
+                return cai[i];
+            }
         }
+    } else {
+        cai[0].codigo = 0;
+        return cai[0];
     }
-    return cai[0];
+
 }
 
 int cadastrarCaixaTXT(Caixa aco) {
@@ -199,6 +206,9 @@ int numCaixa() {
     //libera memoria
     free(arquivo);
     // divide se por 4 pois acomodação tem 4 linhas
+    if (numLinha == 0) {
+        return 0;
+    }
 
     return numLinha / 7;
 }
@@ -252,7 +262,7 @@ Caixa * listarCaixaBIN(int *numLinha) {
     arquivo = fopen("arquivos\\CaixaBIN.bin", "rb");
     if (arquivo == NULL) {
         //cria arquivo para leitura\escrita se não houver "w+b"
-        arquivo = fopen("arquivos\\CaixaBIN.bin", "w+b");
+        arquivo = fopen("arquivos\\CaixaBIN.bin", "wb");
         if (arquivo == NULL) {
             printf("\nERRO ao acessar arquivo\n");
             return NULL;
@@ -278,6 +288,7 @@ Caixa * listarCaixaBIN(int *numLinha) {
             //verifica se chegou no fim do arquivo
         } while (!feof(arquivo));
     } else {
+        printf("null");
         return NULL;
     }
     //fecha arquivo
