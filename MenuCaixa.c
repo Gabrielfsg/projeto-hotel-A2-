@@ -22,8 +22,8 @@ void menuCaixa() {
     Caixa c;
     Data data = getDataHoje();
     int bd = listar();
+    printf("bd %d\n", bd);
     while (opc >= 0) {
-        c = caixaAberto();
         printf("***** CAIXA***** \n");
         printf("Data: %d/%d/%d. \n", data.dia, data.mes, data.ano);
         printf("1.Abrir Caixa. \n");
@@ -34,7 +34,7 @@ void menuCaixa() {
         scanf("%d*c", &opc);
         switch (opc) {
             case 1:
-                // c.codigo = getCaixaAtual(data);
+                c.codigo = getCaixaAtual(data);
                 if (c.codigo > 0) {
                     printf("Caixa Aberto!!\n");
                 } else {
@@ -68,6 +68,7 @@ void menuCaixa() {
                     printf("Deseja Fechar o caixa Aberto? 1-Sim 2-Não\n");
                     scanf("%d*c", &opc);
                     if (opc == 1) {
+                        c = caixaAberto();
                         c.valorFin = somaValores();
                         strcpy(c.status, "fechado");
                         if (bd == 1) {
@@ -75,13 +76,17 @@ void menuCaixa() {
                         } else {
                             fecharCaixaBIN(c);
                         }
+                        printf("Caixa Fechado com saldo %f\n", c.valorFin);
                         printf("Caixa Fechado com sucesso!!\n");
                     } else {
-
+                        printf("Operação canseada!!\n");
                     }
+                } else {
+                    printf("caixa Fechado!!\n");
                 }
                 break;
             case 4:
+                c.codigo = getCaixaAtual(data);
                 if (c.codigo > 0) {
                     printf("entrou!!\n");
                     relatorioValoresCaixa();
