@@ -21,6 +21,8 @@
 #include "MenuEntradaProdutos.h"
 #include "VendaProduto.h"
 #include "VendaProdutosMenu.h"
+#include "menuXML.h"
+#include "CategoriaXML.h"
 
 void subArquivo();
 void subCadastros();
@@ -365,6 +367,8 @@ void subRelatorios() {
 
 void subConfiguracoes() {
     int opc = 0, r;
+    int num;
+    Categoria *cat;
     while (opc >= 0) {
         printf("*******Configurações********\n");
         printf("1.Op de BD.\n");
@@ -405,10 +409,10 @@ void subConfiguracoes() {
 
                 break;
             case 3:
-
+                menuImportXML();
                 break;
             case 4:
-
+                menuExportaXML();
                 break;
             case 5:
                 menuPrincipal();

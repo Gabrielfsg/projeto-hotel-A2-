@@ -42,9 +42,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/Categoria.o \
 	${OBJECTDIR}/CategoriaMenu.o \
 	${OBJECTDIR}/CategoriaSUB.o \
+	${OBJECTDIR}/CategoriaXML.o \
 	${OBJECTDIR}/CheckIn.o \
 	${OBJECTDIR}/CheckOut.o \
-	${OBJECTDIR}/CheckOutProduto.o \
 	${OBJECTDIR}/ContaPagar.o \
 	${OBJECTDIR}/ContaReceber.o \
 	${OBJECTDIR}/ContasMenu.o \
@@ -79,10 +79,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/ReservaSubCancel.o \
 	${OBJECTDIR}/Retirada.o \
 	${OBJECTDIR}/SalvamentoBD.o \
+	${OBJECTDIR}/Tag.o \
 	${OBJECTDIR}/Venda.o \
 	${OBJECTDIR}/VendaProduto.o \
 	${OBJECTDIR}/VendaProdutosMenu.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/menuXML.o \
+	${OBJECTDIR}/xml.o
 
 
 # C Compiler Flags
@@ -144,6 +147,11 @@ ${OBJECTDIR}/CategoriaSUB.o: CategoriaSUB.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CategoriaSUB.o CategoriaSUB.c
 
+${OBJECTDIR}/CategoriaXML.o: CategoriaXML.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CategoriaXML.o CategoriaXML.c
+
 ${OBJECTDIR}/CheckIn.o: CheckIn.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -153,11 +161,6 @@ ${OBJECTDIR}/CheckOut.o: CheckOut.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CheckOut.o CheckOut.c
-
-${OBJECTDIR}/CheckOutProduto.o: CheckOutProduto.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CheckOutProduto.o CheckOutProduto.c
 
 ${OBJECTDIR}/ContaPagar.o: ContaPagar.c 
 	${MKDIR} -p ${OBJECTDIR}
@@ -329,6 +332,11 @@ ${OBJECTDIR}/SalvamentoBD.o: SalvamentoBD.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SalvamentoBD.o SalvamentoBD.c
 
+${OBJECTDIR}/Tag.o: Tag.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tag.o Tag.c
+
 ${OBJECTDIR}/Venda.o: Venda.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -348,6 +356,16 @@ ${OBJECTDIR}/main.o: main.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.c
+
+${OBJECTDIR}/menuXML.o: menuXML.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/menuXML.o menuXML.c
+
+${OBJECTDIR}/xml.o: xml.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/xml.o xml.c
 
 # Subprojects
 .build-subprojects:

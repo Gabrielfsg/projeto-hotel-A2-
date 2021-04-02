@@ -109,6 +109,30 @@ int cadastrarCaixaTXT(Caixa aco) {
 }
 //metodo salva, sobrescrevendo o array de tamanho num
 
+int salvarCaixaTXT(Caixa *aco, int num) {
+    FILE *cad;
+    // w pra substituir o arquivo
+    cad = fopen("arquivos\\CaixaTXT.txt", "w");
+    if (cad == NULL) {
+        printf("\nErro ao abrir arquivo!!");
+        return 0;
+    } else {
+        int i;
+        // grava todos os dados do vetor no arquivo
+        for (i = 0; i < num; i++) {
+            fprintf(cad, "%d\n%d\n%d\n%d\n%f\n%f\n%s\n", aco[i].codigo, aco[i].data.dia, aco[i].data.mes, aco[i].data.ano, aco[i].valorIn, aco[i].valorFin, aco[i].status); // f
+        }
+    }
+    // força salvar arquivo
+    fflush(cad);
+    //fecha arquivo
+    fclose(cad);
+    //libera memoria
+    free(cad);
+    free(aco);
+    return 1;
+}
+
 int fecharCaixaTXT(Caixa c) {
     FILE *arq;
     Caixa *aco = listarCaixaTXT();
@@ -172,7 +196,8 @@ Caixa * listarCaixaTXT() {
         fgets(t, 100, arquivo);
         aco[i].valorFin = atof(t);
         fgets(aco[i].status, 100, arquivo);
-        strtok(aco[i].status, "\n");
+        strtok(aco[i].status, "\n\r");
+        strtok(aco[i].status, "\n\r");
     }
     //fecha arquivo
     fclose(arquivo);

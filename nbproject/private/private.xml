@@ -7,12 +7,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/main.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/MenuCaixa.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/VendaProdutosMenu.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Caixa.c</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Caixa.h</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Principal.c</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/xml.h</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Fornecedor.h</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Endereco.h</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/menuXML.c</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Fornecedor.c</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/xml.c</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/ContaReceber.h</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Hotel/Tag.c</file>
         </group>
     </open-files>
 </project-private>

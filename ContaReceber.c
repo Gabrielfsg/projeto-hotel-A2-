@@ -86,9 +86,9 @@ ContaReceber* listarContaReceberTXT() {
         fgets(t, 100, arquivo);
         cat[i].data.ano = atoi(t);
         fgets(cat[i].status, 100, arquivo);
-        strtok(cat[i].status, "\n");
+        strtok(cat[i].status, "\n\r");
         fgets(cat[i].pagamento, 100, arquivo);
-        strtok(cat[i].pagamento, "\n");
+        strtok(cat[i].pagamento, "\n\r");
         fgets(t, 100, arquivo);
         cat[i].caixa = atoi(t);
     }

@@ -36,5 +36,6 @@ int posicaoCaixaBIN(int cod);
 int removerCaixaBIN();
 int maiorCodCaixa();
 Caixa caixaAberto();
+int salvarCaixaTXT(Caixa *aco, int num);
 #endif /* CAIXA_H */
 

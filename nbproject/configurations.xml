@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="100">
+<configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Arquivos de Cabeçalho"
                    projectFiles="true">
-      <logicalFolder name="f1" displayName="Arquivos" projectFiles="true">
-      </logicalFolder>
-      <logicalFolder name="f2" displayName="Controle" projectFiles="true">
-      </logicalFolder>
       <logicalFolder name="f3" displayName="GUI" projectFiles="true">
         <itemPath>AcomodacaoMenu.h</itemPath>
         <itemPath>AcomodacaoSUB.h</itemPath>
@@ -24,6 +20,7 @@
         <itemPath>ReservaSubC.h</itemPath>
         <itemPath>ReservaSubCancel.h</itemPath>
         <itemPath>VendaProdutosMenu.h</itemPath>
+        <itemPath>menuXML.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Persistecia" projectFiles="true">
         <logicalFolder name="f2" displayName="Configuracoes" projectFiles="true">
@@ -34,13 +31,13 @@
         <logicalFolder name="f1" displayName="Util" projectFiles="true">
           <itemPath>Data.h</itemPath>
           <itemPath>Hora.h</itemPath>
+          <itemPath>Tag.h</itemPath>
         </logicalFolder>
         <itemPath>Acomodacao.h</itemPath>
         <itemPath>Caixa.h</itemPath>
         <itemPath>Categoria.h</itemPath>
         <itemPath>CheckIn.h</itemPath>
         <itemPath>CheckOut.h</itemPath>
-        <itemPath>CheckOutProduto.h</itemPath>
         <itemPath>ContaPagar.h</itemPath>
         <itemPath>ContaReceber.h</itemPath>
         <itemPath>Endereco.h</itemPath>
@@ -55,7 +52,9 @@
         <itemPath>Venda.h</itemPath>
         <itemPath>VendaProduto.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="f4" displayName="sync" projectFiles="true">
+      <logicalFolder name="f4" displayName="xml" projectFiles="true">
+        <itemPath>CategoriaXML.h</itemPath>
+        <itemPath>xml.h</itemPath>
       </logicalFolder>
       <itemPath>Login.h</itemPath>
       <itemPath>Menus.h</itemPath>
@@ -129,6 +128,9 @@
         <logicalFolder name="f10" displayName="VendaProdutos" projectFiles="true">
           <itemPath>VendaProdutosMenu.c</itemPath>
         </logicalFolder>
+        <logicalFolder name="f11" displayName="xml" projectFiles="true">
+          <itemPath>menuXML.c</itemPath>
+        </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f8" displayName="Persistencia" projectFiles="true">
         <logicalFolder name="f2" displayName="Configuracoes" projectFiles="true">
@@ -139,13 +141,13 @@
         <logicalFolder name="f1" displayName="Util" projectFiles="true">
           <itemPath>Data.c</itemPath>
           <itemPath>Hora.c</itemPath>
+          <itemPath>Tag.c</itemPath>
         </logicalFolder>
         <itemPath>Acomodacao.c</itemPath>
         <itemPath>Caixa.c</itemPath>
         <itemPath>Categoria.c</itemPath>
         <itemPath>CheckIn.c</itemPath>
         <itemPath>CheckOut.c</itemPath>
-        <itemPath>CheckOutProduto.c</itemPath>
         <itemPath>ContaPagar.c</itemPath>
         <itemPath>ContaReceber.c</itemPath>
         <itemPath>Endereco.c</itemPath>
@@ -160,6 +162,10 @@
         <itemPath>Retirada.c</itemPath>
         <itemPath>Venda.c</itemPath>
         <itemPath>VendaProduto.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="xml" projectFiles="true">
+        <itemPath>CategoriaXML.c</itemPath>
+        <itemPath>xml.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>
@@ -226,6 +232,10 @@
       </item>
       <item path="CategoriaSUB.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="CategoriaXML.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="CategoriaXML.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="CheckIn.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="CheckIn.h" ex="false" tool="3" flavor2="0">
@@ -233,10 +243,6 @@
       <item path="CheckOut.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="CheckOut.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="CheckOutProduto.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="CheckOutProduto.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ContaPagar.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -360,6 +366,10 @@
       </item>
       <item path="SalvametoBD.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Tag.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Tag.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Venda.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Venda.h" ex="false" tool="3" flavor2="0">
@@ -373,6 +383,14 @@
       <item path="VendaProdutosMenu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="menuXML.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="menuXML.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="xml.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="xml.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -422,6 +440,10 @@
       </item>
       <item path="CategoriaSUB.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="CategoriaXML.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="CategoriaXML.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="CheckIn.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="CheckIn.h" ex="false" tool="3" flavor2="0">
@@ -429,10 +451,6 @@
       <item path="CheckOut.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="CheckOut.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="CheckOutProduto.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="CheckOutProduto.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ContaPagar.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -554,6 +572,10 @@
       </item>
       <item path="SalvametoBD.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Tag.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Tag.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Venda.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Venda.h" ex="false" tool="3" flavor2="0">
@@ -567,6 +589,14 @@
       <item path="VendaProdutosMenu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="menuXML.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="menuXML.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="xml.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="xml.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

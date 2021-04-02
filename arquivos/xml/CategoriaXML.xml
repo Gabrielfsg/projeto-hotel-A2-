@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF - 8"?>
+<dados>
+	<tabela =categoria>
+		<registro>
+			<codigo>1</codigo>
+			<descricao>LUXO</descricao>
+			<quatidade_pessoas>2</quatidade_pessoas>
+			<valor_diaria>300.000000</valor_diaria>
+			<facilidade>AR,FRIGOBAR,TV,HIDRO</facilidade>
+		</registro>
+		<registro>
+			<codigo>2</codigo>
+			<descricao>STANDART</descricao>
+			<quatidade_pessoas>2</quatidade_pessoas>
+			<valor_diaria>160.000000</valor_diaria>
+			<facilidade>FRIGOAR,TV,VENTILADOR</facilidade>
+		</registro>
+		<registro>
+			<codigo>3</codigo>
+			<descricao>PREMIUM</descricao>
+			<quatidade_pessoas>2</quatidade_pessoas>
+			<valor_diaria>200.000000</valor_diaria>
+			<facilidade>AR,FRIGOAR,TV</facilidade>
+		</registro>
+	</tabela>
+</dados>

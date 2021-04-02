@@ -5,16 +5,20 @@
  */
 
 /* 
- * File:   CheckOutProduto.h
+ * File:   Tag.h
  * Author: Daniel
  *
- * Created on 7 de Janeiro de 2021, 00:42
+ * Created on 2 de Abril de 2021, 08:59
  */
 
-#ifndef CHECKOUTPRODUTO_H
-#define CHECKOUTPRODUTO_H
+#ifndef TAG_H
+#define TAG_H
 
-typedef struct checkOutProduto CheckOutProduto;
-
-#endif /* CHECKOUTPRODUTO_H */
-
+#ifdef __cplusplus
+extern "C" {
+#endif
+#ifdef __cplusplus
+}
+#endif
+#endif /* TAG_H */
+int comparaString(char *s1, char *s2);
