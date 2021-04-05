@@ -202,7 +202,7 @@ void listarHospedesControl() {
 
     }
     //se não existe nenhum hóspede, termina a função
-    if(numHospedes == 0){
+    if (numHospedes == 0) {
         printf("NENHUM HÓSPEDE CADASTRADO\n");
         return;
     }
@@ -544,7 +544,7 @@ int validarCodHospede(int cod, int ext) {
     }
 
     //se não existe nenhum hóspede, retorna 1
-    if(numHospedes ==0){
+    if (numHospedes == 0) {
         return 1;
     }
     //verifica se o cod existe
@@ -564,4 +564,110 @@ int validarCodHospede(int cod, int ext) {
     }
 }
 
+char listarHospedesSexoControl(char sex) {
+    int numHospedes = 0; // o valor será atualizado, para poder mostrar todos os hóspedes;
+    Hospede* arrayHospedes;
+    printf("###### RELATÓRIO DE HOSPEDES POR %c ###### \n", sex);
 
+    //pega a extensão do arquivo
+    int ext = listar();
+    if (ext == 2) {
+        //BIN
+        arrayHospedes = getAllHospedesBIN(&numHospedes);
+    }
+    if (ext == 1) {
+        //TXT
+        numHospedes = getNumHospedes();
+        arrayHospedes = getAllHospedesTXT(numHospedes);
+
+    }
+    //se não existe nenhum hóspede, termina a função
+    if (numHospedes == 0) {
+        printf("NENHUM HÓSPEDE CADASTRADO\n");
+        return;
+    }
+    //lista os hóspedes
+    for (int i = 0; i < numHospedes; i++) {
+        if (arrayHospedes[i].sexo == sex) {
+            printf("***************\n");
+            printf("COD: %d\n", arrayHospedes[i].codigo);
+            printf("NOME: %s\n", arrayHospedes[i].nome);
+            printf("CPF: %s\n", arrayHospedes[i].cpf);
+            printf("FONE: %s\n", arrayHospedes[i].telefone);
+            printf("EMAIL: %s\n", arrayHospedes[i].email);
+            printf("SEXO: %c\n", arrayHospedes[i].sexo);
+            printf("ESTADO CIVIL: %s\n", arrayHospedes[i].esCivil);
+            //DATA
+            printf("DATA NASC: %d / %d / %d \n", arrayHospedes[i].dataNascimento.dia, arrayHospedes[i].dataNascimento.mes, arrayHospedes[i].dataNascimento.ano);
+            //ENDEREÇO
+            printf("COD ENDER: %d\n", arrayHospedes[i].endereco.codigo);
+            printf("BAIRRO: %s\n", arrayHospedes[i].endereco.bairro);
+            printf("CEP: %s\n", arrayHospedes[i].endereco.cep);
+            printf("CIDADE: %s\n", arrayHospedes[i].endereco.cidade);
+            printf("LOGRADOURO: %s\n", arrayHospedes[i].endereco.logradouro);
+            printf("NUMERO: %d\n", arrayHospedes[i].endereco.numero);
+            printf("UF: %s\n", arrayHospedes[i].endereco.uf);
+            printf("***************\n");
+        }
+    }
+    printf("\n FIM DA LISTA DE HÓSPEDES \n");
+    //printf("NUMHOSPEDES: %d\n", numHospedes);
+
+    //libera memória
+    free(arrayHospedes);
+
+}
+
+int listarHospedesFaixaCodControl(int c1, int c2) {
+    int numHospedes = 0; // o valor será atualizado, para poder mostrar todos os hóspedes;
+    Hospede* arrayHospedes;
+    printf("###### RELATÓRIO DE HOSPEDES POR CÓDIGO ENTRE (%d - %d) ###### \n", c1, c2);
+
+    //pega a extensão do arquivo
+    int ext = listar();
+    if (ext == 2) {
+        //BIN
+        arrayHospedes = getAllHospedesBIN(&numHospedes);
+    }
+    if (ext == 1) {
+        //TXT
+        numHospedes = getNumHospedes();
+        arrayHospedes = getAllHospedesTXT(numHospedes);
+
+    }
+    //se não existe nenhum hóspede, termina a função
+    if (numHospedes == 0) {
+        printf("NENHUM HÓSPEDE CADASTRADO\n");
+        return;
+    }
+    //lista os hóspedes
+    for (int i = 0; i < numHospedes; i++) {
+        if (arrayHospedes[i].codigo >= c1 && arrayHospedes[i].codigo <= c2) {
+            printf("***************\n");
+            printf("COD: %d\n", arrayHospedes[i].codigo);
+            printf("NOME: %s\n", arrayHospedes[i].nome);
+            printf("CPF: %s\n", arrayHospedes[i].cpf);
+            printf("FONE: %s\n", arrayHospedes[i].telefone);
+            printf("EMAIL: %s\n", arrayHospedes[i].email);
+            printf("SEXO: %c\n", arrayHospedes[i].sexo);
+            printf("ESTADO CIVIL: %s\n", arrayHospedes[i].esCivil);
+            //DATA
+            printf("DATA NASC: %d / %d / %d \n", arrayHospedes[i].dataNascimento.dia, arrayHospedes[i].dataNascimento.mes, arrayHospedes[i].dataNascimento.ano);
+            //ENDEREÇO
+            printf("COD ENDER: %d\n", arrayHospedes[i].endereco.codigo);
+            printf("BAIRRO: %s\n", arrayHospedes[i].endereco.bairro);
+            printf("CEP: %s\n", arrayHospedes[i].endereco.cep);
+            printf("CIDADE: %s\n", arrayHospedes[i].endereco.cidade);
+            printf("LOGRADOURO: %s\n", arrayHospedes[i].endereco.logradouro);
+            printf("NUMERO: %d\n", arrayHospedes[i].endereco.numero);
+            printf("UF: %s\n", arrayHospedes[i].endereco.uf);
+            printf("***************\n");
+        }
+    }
+    printf("\n FIM DA LISTA DE HÓSPEDES \n");
+    //printf("NUMHOSPEDES: %d\n", numHospedes);
+
+    //libera memória
+    free(arrayHospedes);
+
+}

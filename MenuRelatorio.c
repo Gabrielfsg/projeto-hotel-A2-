@@ -11,103 +11,319 @@
 #include "Categoria.h"
 #include "AcomodacaoSUB.h"
 #include "SalvametoBD.h"
+#include "Hospede.h"
+#include "HospedeMenu.h"
+#include "MenuCaixa.h"
 
-void relatarAcomodacao() {
-    Acomodacao *a;
-    Categoria *c;
-    int num2, num;
-    int i, j;
-    int bd = listar();
-    if (bd == 1) {
-        //pega a lista de ACOMODAÇÃO do arquivo
-        num = numAcomodacao();
-        a = listarAcomodacaoTXT();
-        c = listarCategoriaTXT();
-        num2 = numCategoria();
-    } else if (bd == 2) {
-        //lista as acomodaçoes e aponta o tamanho do vetor para num
-        a = listarAcomodacaoBIN(&num);
-        //lista as categrias e aponta o tamanho do vetor para num2
-        c = listarCategoriaBIN(&num2);
-    } else {
-        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
-    }
-    if (bd > 0) {
-        int opc;
-        int aux = 0;
-        int cod;
-        while (aux == 0) {
-            printf("Entre com a opção de filtro: \n"
-                    "1.FAIXA DE CÓDIGOS. \n"
-                    "2.CATEGORIA. \n"
-                    "3.DATA DISPONÍVEL. \n"
-                    "OPÇÃO: ");
-            scanf("%d*c", &opc);
+void subRelatorios() {
+    int opc = 0;
+    int aux = 0;
+    while (opc >= 0) {
+        printf("*******Relatorios********\n");
+        printf("1.Listagem de Hospedes.\n");
+        printf("2.Listagem de Acomodaçoes.\n");
+        printf("3.Listagens de Reservas.\n");
+        printf("4.Listagem de Movimentacao de Acomodacao.\n");
+        printf("5.Listagem de produtos de consumo.\n");
+        printf("6.Produto em Estoque Minimo.\n");
+        printf("8.Vendas.\n");
+        printf("9.Contas a Receber.\n");
+        printf("10.Contas a Pagar.\n");
+        printf("11.Movimentação de Caixa.\n");
+        printf("12.Voltar.\n");
+        scanf("%d%*c", &opc);
+        switch (opc) {
+            case 1:
+                relatorioHospedes();
+                break;
+            case 2:
 
-            switch (opc) {
-                case 1:
-                    if (num > 0) {
-                        printf("\n********* RELATORIO *********\n");
-                        for (i = 0; i < num; i++) {
-                            printf("\n**************** %d *****************\n", i);
-                            printf("COD: %d\n", a[i].codigo);
-                            printf("DESCRIÇÃO: %s\n", a[i].descricao);
-                            printf("STATUS: %s\n", a[i].status);
-                            //LISTAR FACILIDADES PRECISARÁ DE UM TRATAMENTO ESPECIAL
-                            for (j = 0; j < num2; j++) {
-                                if (a[i].categoria.codigo == c[j].codigo) {
-                                    printf("CATEGORIAS: %s\n", c[j].descricao);
-                                    printf("FACILIDADES: %s\n", c[j].facilidade);
-                                    printf("VALOR DIARIA: %f\n", c[j].valorDiario);
-                                    printf("N° PESSOAS: %d\n", c[j].quantidadePessoas);
-                                    printf("\n      ******************\n");
-                                }
+                break;
+            case 3:
+                //metodo mostrar dados empresa
+                break;
+            case 4:
 
-                            }
-                        }
-                    } else {
-                        printf("\n*********NENHUMA ACOMODAÇÃO CADASTRADA*********\n");
-                    }
-                    break;
+                break;
+            case 5:
 
-                case 2:
+                break;
+            case 6:
 
-                    printf("Entre com o código da categoria: ");
-                    scanf("%d*c", &cod);
+                break;
+            case 7:
 
-                    if (num > 0) {
-                        printf("\n********* RELATORIO *********\n");
-                        for (i = 0; i < num; i++) {
-                            if (a[i].categoria.codigo == cod) {
-                                printf("\n**************** %d *****************\n", i);
-                                printf("COD: %d\n", a[i].codigo);
-                                printf("DESCRIÇÃO: %s\n", a[i].descricao);
-                                printf("STATUS: %s\n", a[i].status);
-                                
-                                //LISTAR FACILIDADES PRECISARÁ DE UM TRATAMENTO ESPECIAL
-                                for (j = 0; j < num2; j++) {
-                                    if (a[i].categoria.codigo == c[j].codigo) {
-                                        printf("CATEGORIAS: %s\n", c[j].descricao);
-                                        printf("FACILIDADES: %s\n", c[j].facilidade);
-                                        printf("VALOR DIARIA: %f\n", c[j].valorDiario);
-                                        printf("N° PESSOAS: %d\n", c[j].quantidadePessoas);
-                                        printf("\n          ******************\n");
-                                    }
+                break;
+            case 8:
 
-                                }
-                            }
+                break;
+            case 9:
 
-                        }
-                    } else {
-                        printf("\n*********NENHUMA ACOMODAÇÃO CADASTRADA*********\n");
-                    }
-                    break;
+                break;
+            case 10:
+                mostrarContasPagar();
+                break;
+            case 11:
 
-                case 3:
-
-                    break;
-            }
-
+                break;
+            case 12:
+                menuPrincipal();
+                break;
+            default:
+                printf("Valor Invalido!\n");
+                break;
         }
     }
 }
+
+void relatorioHospedes() {
+    int opc = 0;
+    int bd = listar();
+    int cod1, cod2;
+    int sex;
+    char sexxo;
+    Hospede *arrayHospedes;
+    int r;
+    int opc1 = 0, opc2 = 0, opcV = 0, opcV2 = 0;
+    while (opc == 0) {
+        printf("*******Relatorios********\n");
+        printf("1.Faixa de Código.\n");
+        printf("2.Sexo.\n");
+        printf("3.Voltar.\n");
+        scanf("%d%*c", &opc);
+        switch (opc) {
+            case 1:
+                printf("Digite o número de início da faixa de código: ");
+                scanf("%d", &cod1);
+                while (opc1 == 0) {
+                    printf("Digite o número final da faixa de código: ");
+                    scanf("%d", &cod2);
+                    if (cod2 < cod1) {
+                        printf("Entre com um valor maior que o valor do código de início. \n");
+                    } else {
+                        opc1 = 2;
+                    }
+                }
+                opc1 = 0;
+                while (opc1 == 0) {
+                    printf("Deseja: \n"
+                            "1. Listar na Tela. \n"
+                            "2. Gravar Arquivo CSV. \n");
+                    scanf("%d", &opcV);
+                    if (opcV == 1) {
+                        listarHospedesFaixaCodControl(cod1, cod2);
+                        opc1 = 2;
+                    } else if (opcV == 2) {
+
+                        opc1 = 2;
+                    } else {
+                        printf("Digite uma opção válida. \n");
+                    }
+                }
+                break;
+
+            case 2:
+                while (opc2 == 0) {
+                    printf("Entre com o sexo: \n"
+                            "1.Masculino. \n"
+                            "2.Feminino. \n"
+                            "Opção: ");
+                    scanf("%d", &sex);
+
+                    if (sex == 1) {
+                        sexxo = 'm';
+                        opc2 = 1;
+                    } else if (sex == 2) {
+                        sexxo = 'f';
+                        opc2 = 1;
+                    } else {
+                        printf("Opção Incorreta. \n");
+                    }
+                }
+                //printf("%c", sexxo);
+                opc2 = 0;
+                while (opc2 == 0) {
+                    printf("Deseja: \n"
+                            "1. Listar na Tela. \n"
+                            "2. Gravar Arquivo CSV. \n");
+                    scanf("%d", &opcV);
+                    if (opcV == 1) {
+                        listarHospedesSexoControl(sexxo);
+                        opc2 = 2;
+                    } else if (opcV == 2) {
+                        if (bd == 1) {
+
+                        } else if (bd == 2) {
+                            //arrayHospedes = listarHospedesSexoCSV(sexxo);
+                            // r = cadastraHospCSV(arrayHospedes, 1);
+                            if (r == 1) {
+
+                            }
+                        }
+                        opc2 = 2;
+                    } else {
+                        printf("Digite uma opção válida. \n");
+                    }
+                }
+
+
+
+                break;
+
+            case 3:
+                subRelatorios();
+                break;
+
+            default:
+                printf("Valor Invalido!\n");
+                break;
+        }
+    }
+}
+
+void relatorioAcomodacao() {
+    int opc = 0;
+    int bd = listar();
+    int cod1, cod2;
+    int cod;
+    int r;
+    int opc1 = 0, opc2 = 0, opcV = 0, opcV2 = 0;
+    while (opc == 0) {
+        printf("*******Relatorios********\n");
+        printf("1.Faixa de Código.\n");
+        printf("2.Categoria.\n");
+        printf("3.Data Disponível.\n");
+        printf("4.Voltar.\n");
+        scanf("%d%*c", &opc);
+        switch (opc) {
+            case 1:
+                printf("Digite o número de início da faixa de código: ");
+                scanf("%d", &cod1);
+                while (opc1 == 0) {
+                    printf("Digite o número final da faixa de código: ");
+                    scanf("%d", &cod2);
+                    if (cod2 < cod1) {
+                        printf("Entre com um valor maior que o valor do código de início. \n");
+                    } else {
+                        opc1 = 2;
+                    }
+                }
+                opc1 = 0;
+                while (opc1 == 0) {
+                    printf("Deseja: \n"
+                            "1. Listar na Tela. \n"
+                            "2. Gravar Arquivo CSV. \n");
+                    scanf("%d", &opcV);
+                    if (opcV == 1) {
+                        listarAcoFaixaCodControl(cod1, cod2);
+                        opc1 = 2;
+                    } else if (opcV == 2) {
+
+                        opc1 = 2;
+                    } else {
+                        printf("Digite uma opção válida. \n");
+                    }
+                }
+                break;
+
+            case 2:
+                printf("Entre com o código da categoria: ");
+                scanf("%d", &cod);
+                opc2 = 0;
+                while (opc2 == 0) {
+                    printf("Deseja: \n"
+                            "1. Listar na Tela. \n"
+                            "2. Gravar Arquivo CSV. \n");
+                    scanf("%d", &opcV);
+                    if (opcV == 1) {
+                        listaAcoCat(cod);
+                        opc2 = 2;
+                    } else if (opcV == 2) {
+                        if (bd == 1) {
+
+                        } else if (bd == 2) {
+
+                            if (r == 1) {
+
+                            }
+                        }
+                        opc2 = 2;
+                    } else {
+                        printf("Digite uma opção válida. \n");
+                    }
+                }
+
+
+
+                break;
+
+            case 3:
+
+                break;
+
+            case 4:
+                subRelatorios();
+                break;
+            default:
+                printf("Valor Invalido!\n");
+                break;
+        }
+    }
+}
+
+
+void relatorioProdCon() {
+    int opc = 0;
+    int bd = listar();
+    int cod1, cod2;
+    int cod;
+    int r;
+    int opc1 = 0, opc2 = 0, opcV = 0, opcV2 = 0;
+    while (opc == 0) {
+        printf("*******Relatorios********\n");
+        printf("1.Faixa de Código.\n");
+        printf("2.Voltar.\n");
+        scanf("%d%*c", &opc);
+        switch (opc) {
+            case 1:
+                printf("Digite o número de início da faixa de código: ");
+                scanf("%d", &cod1);
+                while (opc1 == 0) {
+                    printf("Digite o número final da faixa de código: ");
+                    scanf("%d", &cod2);
+                    if (cod2 < cod1) {
+                        printf("Entre com um valor maior que o valor do código de início. \n");
+                    } else {
+                        opc1 = 2;
+                    }
+                }
+                opc1 = 0;
+                while (opc1 == 0) {
+                    printf("Deseja: \n"
+                            "1. Listar na Tela. \n"
+                            "2. Gravar Arquivo CSV. \n");
+                    scanf("%d", &opcV);
+                    if (opcV == 1) {
+                        listarAcoFaixaCodControl(cod1, cod2);
+                        opc1 = 2;
+                    } else if (opcV == 2) {
+
+                        opc1 = 2;
+                    } else {
+                        printf("Digite uma opção válida. \n");
+                    }
+                }
+                break;
+
+            case 2:
+              subRelatorios();
+                break;
+
+            default:
+                printf("Valor Invalido!\n");
+                break;
+        }
+    }
+}
+
+
