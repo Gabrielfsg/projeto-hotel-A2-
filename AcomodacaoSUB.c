@@ -305,3 +305,97 @@ int printCategoria(Acomodacao *a) {
     }
     return 0;
 }
+
+void listarAcoFaixaCodControl(int c1, int c2) {
+    Acomodacao *a;
+    Categoria *c;
+    int num2, num;
+    int bd = listar();
+    if (bd == 1) {
+        //pega a lista de ACOMODAÇÃO do arquivo
+        num = numAcomodacao();
+        a = listarAcomodacaoTXT();
+        c = listarCategoriaTXT();
+        num2 = numCategoria();
+    } else if (bd == 2) {
+        //lista as acomodaçoes e aponta o tamanho do vetor para num
+        a = listarAcomodacaoBIN(&num);
+        //lista as categrias e aponta o tamanho do vetor para num2
+        c = listarCategoriaBIN(&num2);
+    } else {
+        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
+    }
+    if (bd > 0) {
+        //lista ACOMODAÇÃO
+        if (num > 0) {
+            int i, j;
+            for (i = 0; i < num; i++) {
+                if (a[i].codigo >= c1 && a[i].codigo <= c2) {
+                    printf("\n**************** %d *****************\n", i);
+                    printf("COD: %d\n", a[i].codigo);
+                    printf("DESCRIÇÃO: %s\n", a[i].descricao);
+                    printf("STATUS: %s\n", a[i].status);
+                    //LISTAR FACILIDADES PRECISARÁ DE UM TRATAMENTO ESPECIAL
+                    for (j = 0; j < num2; j++) {
+                        if (a[i].categoria.codigo == c[j].codigo) {
+                            printf("CATEGORIAS: %s\n", c[j].descricao);
+                            printf("FACILIDADES: %s\n", c[j].facilidade);
+                            printf("VALOR DIARIA: %f\n", c[j].valorDiario);
+                            printf("N° PESSOAS: %d\n", c[j].quantidadePessoas);
+                        }
+
+                    }
+                }
+            }
+        } else {
+            printf("\n*********NENHUMA ACOMODAÇÃO CADASTRADA*********\n");
+        }
+    }
+}
+
+void listaAcoCat(int c) {
+    Acomodacao *a;
+    Categoria *c;
+    int num2, num;
+    int bd = listar();
+    if (bd == 1) {
+        //pega a lista de ACOMODAÇÃO do arquivo
+        num = numAcomodacao();
+        a = listarAcomodacaoTXT();
+        c = listarCategoriaTXT();
+        num2 = numCategoria();
+    } else if (bd == 2) {
+        //lista as acomodaçoes e aponta o tamanho do vetor para num
+        a = listarAcomodacaoBIN(&num);
+        //lista as categrias e aponta o tamanho do vetor para num2
+        c = listarCategoriaBIN(&num2);
+    } else {
+        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
+    }
+    if (bd > 0) {
+        //lista ACOMODAÇÃO
+        if (num > 0) {
+            int i, j;
+            for (i = 0; i < num; i++) {
+                if (a[i].categoria.codigo == c) {
+                    printf("\n**************** %d *****************\n", i);
+                    printf("COD: %d\n", a[i].codigo);
+                    printf("DESCRIÇÃO: %s\n", a[i].descricao);
+                    printf("STATUS: %s\n", a[i].status);
+                    //LISTAR FACILIDADES PRECISARÁ DE UM TRATAMENTO ESPECIAL
+                    for (j = 0; j < num2; j++) {
+                        if (a[i].categoria.codigo == c[j].codigo) {
+                            printf("CATEGORIAS: %s\n", c[j].descricao);
+                            printf("FACILIDADES: %s\n", c[j].facilidade);
+                            printf("VALOR DIARIA: %f\n", c[j].valorDiario);
+                            printf("N° PESSOAS: %d\n", c[j].quantidadePessoas);
+                        }
+
+                    }
+                }
+            }
+        } else {
+            printf("\n*********NENHUMA ACOMODAÇÃO CADASTRADA*********\n");
+        }
+    }
+}
