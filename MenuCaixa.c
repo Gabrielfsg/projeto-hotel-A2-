@@ -141,3 +141,34 @@ void relatorioValoresCaixa() {
     final = checkIn + checkOut + contasRece + prodV + c.valorIn - retiradas;
     printf("SALDO: %f \n", final);
 }
+
+void listarCaixaData(int dia1, int dia2, int mes) {
+    //VERIFICAR EXTENSÃO DO ARQUIVO
+    int ext = listar();
+    int numCaixa;
+    Caixa* cai;
+    if (ext == 2) {
+        //BIN
+        cai = listarCaixaBIN(&numCaixa);
+        //printf("NUM PROD = %d\n", numProdutos);
+    }
+    if (ext == 1) {
+        //TXT
+        cai = listarCaixaTXT();
+
+    }
+    printf("***** LISTA DE TODOS OS PRODUTOS*****\n");
+    for (int i = 0; i < numCaixa; i++) {
+        //lista os produtos
+        if (cai[i].data.mes == mes && cai[i].data.dia >= dia1 && cai[i].data.dia =< dia2) {
+            printf("***************\n");
+            printf("COD: %d\n", cai[i].codigo);
+            printf("DESC: %s\n", cai[i].status);
+            printf("Data: /%d/%d/%d/", cai[i].data.dia, cai[i].data.mes, cai[i].data.ano);
+            printf("Valor Inicial: %f\n", cai[i].valorIn);
+            printf("Valor Final: %d\n", cai[i].valorFin);
+            printf("***************\n");
+        }
+    }
+    printf("\n FIM DA LISTA DE PRODUTOS \n");
+}

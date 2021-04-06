@@ -68,7 +68,7 @@ void cadastrarProdConsumoControl() {
     printf("***** CADASTRAR PRODUTO *****\n");
     Produto p;
     int cod;
-    int ext = listar();//pega a extensão do arquivo
+    int ext = listar(); //pega a extensão do arquivo
 
     printf("Digite o cod do Produto \n");
     scanf("%d%*c", &cod);
@@ -339,7 +339,6 @@ void deletarProdConsumoControl() {
     printf("PRODUTO DELETADO\n");
 }
 
-
 /*
  * FUNÇÃO: validarCodProdConsumo 
  * 
@@ -353,7 +352,7 @@ void deletarProdConsumoControl() {
  * RETORNO: retorna 1 se o cod não existe, ou 0, se já existe
  */
 int validarCodProdConsumo(int cod, int ext) {
-    
+
     int codExistente = 1;
     Produto* arrayProdutos;
     int numProdutos = 0;
@@ -383,4 +382,38 @@ int validarCodProdConsumo(int cod, int ext) {
         //printf("CÓDIGO NÃO EXISTE\n");
         return 1;
     }
+}
+
+void listarProdFaixa(int c1, int c2) {
+    //VERIFICAR EXTENSÃO DO ARQUIVO
+    int ext = listar();
+    int numProdutos;
+    Produto* arrayProdutos;
+    if (ext == 2) {
+        //BIN
+        numProdutos = 0;
+        arrayProdutos = getAllProdutoBIN(&numProdutos);
+        //printf("NUM PROD = %d\n", numProdutos);
+    }
+    if (ext == 1) {
+        //TXT
+        numProdutos = getNumProdConsumo();
+        arrayProdutos = getAllProdutoTXT(numProdutos);
+
+    }
+    printf("***** LISTA DE TODOS OS PRODUTOS*****\n");
+    for (int i = 0; i < numProdutos; i++) {
+        //lista os produtos
+        if (arrayProdutos[i].codigo >= c1 && arrayProdutos[i].codigo <= c2) {
+            printf("***************\n");
+            printf("COD: %d\n", arrayProdutos[i].codigo);
+            printf("DESC: %s\n", arrayProdutos[i].descricao);
+            printf("ESTOQUE: %d\n", arrayProdutos[i].estoque);
+            printf("ESTOQUE MINIMO: %d\n", arrayProdutos[i].estoqueMinimo);
+            printf("PREÇO DE CUSTO: %.2f\n", arrayProdutos[i].precoCusto);
+            printf("PREÇO DE VENDA: %.2f\n", arrayProdutos[i].precoVenda);
+            printf("***************\n");
+        }
+    }
+    printf("\n FIM DA LISTA DE PRODUTOS \n");
 }

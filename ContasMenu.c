@@ -60,7 +60,7 @@ void contasRec() {// cadastrar contas que o hotel recebe/ montante cartão
     int aux = 0, aux2 = 0;
     int cod = caixaAberto().codigo;
     int r;
-    int valid,valid2;
+    int valid, valid2;
     if (bd > 0) {
         printf("### RECEBER CONTAS ### \n");
         printf("Entre com o código da conta: ");
@@ -108,14 +108,14 @@ void contasRec() {// cadastrar contas que o hotel recebe/ montante cartão
         }
         if (aux == 1) {
             if (r == 1) {
-                somaContaReceberCaixa(cr.data);// se for concluido ja faz a soma
+                somaContaReceberCaixa(cr.data); // se for concluido ja faz a soma
             }
         }
     }
 
 }
 
-/*void visualizarHistContas() {
+void listarContasR(int c1, int c2) {
     int n, aux;
     int bd = listar();
     ContaReceber *cr;
@@ -131,16 +131,18 @@ void contasRec() {// cadastrar contas que o hotel recebe/ montante cartão
         int i;
         if (n > 0) {
             for (i = 0; i < n; i++) {// pela contagem de linhas eles mostra os dados
-                printf("\n*******%d************", i);
-                printf("\nCodigo: %d", cr[i].codigo);
-                printf("\nValor: %f", cr[i].valor);
-                printf("\nDia Pagamento: %d", cr[i].data.dia);
-                printf("\nMes Pagamento: %d", cr[i].data.mes);
-                printf("\nAno Pagamento: %d", cr[i].data.ano);
-                printf("\nStatus: %s", cr[i].status);
-                printf("\nForma de Pagamento: %s", cr[i].pagamento);
-                printf("\nCodigo do caixa: %d", cr[i].caixa);
-                printf("\n");
+                if (cr[i].codigo >= c1 && cr[i].codigo <= c2) {
+                    printf("\n*******%d************", i);
+                    printf("\nCodigo: %d", cr[i].codigo);
+                    printf("\nValor: %f", cr[i].valor);
+                    printf("\nDia Pagamento: %d", cr[i].data.dia);
+                    printf("\nMes Pagamento: %d", cr[i].data.mes);
+                    printf("\nAno Pagamento: %d", cr[i].data.ano);
+                    printf("\nStatus: %s", cr[i].status);
+                    printf("\nForma de Pagamento: %s", cr[i].pagamento);
+                    printf("\nCodigo do caixa: %d", cr[i].caixa);
+                    printf("\n");
+                }
             }
         } else {
             printf("Não à operadores cadastrados. \n");
@@ -148,4 +150,40 @@ void contasRec() {// cadastrar contas que o hotel recebe/ montante cartão
         free(cr);
     }
 }
- */
+
+void listarContasDia(int d, int m ,int a) {
+    int n, aux;
+    int bd = listar();
+    ContaReceber *cr;
+    if (bd == 1) {//verifica o tipo de salvamento
+        cr = listarContaReceberTXT();
+        n = numContaReceber();
+    } else if (bd == 2) {
+        cr = listarContaReceberBIN(&n);
+    } else {
+        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
+    }
+    if (bd > 0) {
+        int i;
+        if (n > 0) {
+            for (i = 0; i < n; i++) {// pela contagem de linhas eles mostra os dados
+                if (cr[i].data.dia == d && cr[i].data.mes == m && cr[i].data.ano == a) {
+                    printf("\n*******%d************", i);
+                    printf("\nCodigo: %d", cr[i].codigo);
+                    printf("\nValor: %f", cr[i].valor);
+                    printf("\nDia Pagamento: %d", cr[i].data.dia);
+                    printf("\nMes Pagamento: %d", cr[i].data.mes);
+                    printf("\nAno Pagamento: %d", cr[i].data.ano);
+                    printf("\nStatus: %s", cr[i].status);
+                    printf("\nForma de Pagamento: %s", cr[i].pagamento);
+                    printf("\nCodigo do caixa: %d", cr[i].caixa);
+                    printf("\n");
+                }
+            }
+        } else {
+            printf("Não à operadores cadastrados. \n");
+        }
+        free(cr);
+    }
+}
+

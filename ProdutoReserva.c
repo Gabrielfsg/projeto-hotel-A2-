@@ -202,3 +202,36 @@ float somaProdutosConsumido(int codReserva) {
 
     return total;
 }
+
+
+void listarProdResFaixa(int c1, int c2) {
+    //VERIFICAR EXTENSÃO DO ARQUIVO
+    int ext = listar();
+    int numProdutos;
+    ProdutoReserva* arrayProdutos;
+    if (ext == 2) {
+        //BIN
+        numProdutos = 0;
+        arrayProdutos = getAllProdutoReservaBIN(&numProdutos);
+        //printf("NUM PROD = %d\n", numProdutos);
+    }
+    if (ext == 1) {
+        //TXT
+        numProdutos = getNumProdReserva();
+        arrayProdutos = getAllProdutoReservaTXT(numProdutos);
+
+    }
+    printf("***** LISTA DE TODOS OS PRODUTOS*****\n");
+    for (int i = 0; i < numProdutos; i++) {
+        //lista os produtos
+        if (arrayProdutos[i].codProd >= c1 && arrayProdutos[i].codProd <= c2) {
+            printf("***************\n");
+            printf("COD: %d\n", arrayProdutos[i].codProd);
+            printf("COD RES: %s\n", arrayProdutos[i].codRes);
+            printf("ESTOQUE: %d\n", arrayProdutos[i].quantidade);
+            printf("DATA: /%d/%d/%d ", arrayProdutos[i].data.dia, arrayProdutos[i].data.mes,arrayProdutos[i].data.ano);
+            printf("***************\n");
+        }
+    }
+    printf("\n FIM DA LISTA DE PRODUTOS \n");
+}

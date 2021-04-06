@@ -37,19 +37,19 @@ void subRelatorios() {
                 relatorioHospedes();
                 break;
             case 2:
-
+                relatorioAcomodacao();
                 break;
             case 3:
-                //metodo mostrar dados empresa
+
                 break;
             case 4:
 
                 break;
             case 5:
-
+                relatorioProdCon();
                 break;
             case 6:
-
+                relatorioProdRes();
                 break;
             case 7:
 
@@ -58,13 +58,13 @@ void subRelatorios() {
 
                 break;
             case 9:
-
+                relatorioContasRec();
                 break;
             case 10:
                 mostrarContasPagar();
                 break;
             case 11:
-
+                relatorioCaixa();
                 break;
             case 12:
                 menuPrincipal();
@@ -181,6 +181,98 @@ void relatorioHospedes() {
     }
 }
 
+void relatorioContasRec() {
+    int opc = 0;
+    int bd = listar();
+    int cod1, cod2;
+    int dia, mes, ano;
+    int r;
+    int opc1 = 0, opc2 = 0, opcV = 0, opcV2 = 0;
+    while (opc == 0) {
+        printf("*******Relatorios********\n");
+        printf("1.Faixa de Código.\n");
+        printf("2.Data de recebimento.\n");
+        printf("3.Voltar.\n");
+        scanf("%d%*c", &opc);
+        switch (opc) {
+            case 1:
+                printf("Digite o número de início da faixa de código: ");
+                scanf("%d", &cod1);
+                while (opc1 == 0) {
+                    printf("Digite o número final da faixa de código: ");
+                    scanf("%d", &cod2);
+                    if (cod2 < cod1) {
+                        printf("Entre com um valor maior que o valor do código de início. \n");
+                    } else {
+                        opc1 = 2;
+                    }
+                }
+                opc1 = 0;
+                while (opc1 == 0) {
+                    printf("Deseja: \n"
+                            "1. Listar na Tela. \n"
+                            "2. Gravar Arquivo CSV. \n");
+                    scanf("%d", &opcV);
+                    if (opcV == 1) {
+                        listarContasR(cod1, cod2);
+                        opc1 = 2;
+                    } else if (opcV == 2) {
+
+                        opc1 = 2;
+                    } else {
+                        printf("Digite uma opção válida. \n");
+                    }
+                }
+                break;
+
+            case 2:
+                printf("Entre com o dia: ");
+                scanf("%d", &dia);
+                printf("Entre com o mes: ");
+                scanf("%d", &mes);
+                printf("Entre com o ano: ");
+                scanf("%d", &ano);
+
+        }
+        //printf("%c", sexxo);
+        opc2 = 0;
+        while (opc2 == 0) {
+            printf("Deseja: \n"
+                    "1. Listar na Tela. \n"
+                    "2. Gravar Arquivo CSV. \n");
+            scanf("%d", &opcV);
+            if (opcV == 1) {
+                listarContasDia(dia, mes, ano);
+                opc2 = 2;
+            } else if (opcV == 2) {
+                if (bd == 1) {
+
+                } else if (bd == 2) {
+
+                    if (r == 1) {
+
+                    }
+                }
+                opc2 = 2;
+            } else {
+                printf("Digite uma opção válida. \n");
+            }
+        }
+
+
+
+        break;
+
+        case 3:
+        subRelatorios();
+        break;
+
+        default:
+        printf("Valor Invalido!\n");
+        break;
+    }
+}
+
 void relatorioAcomodacao() {
     int opc = 0;
     int bd = listar();
@@ -271,7 +363,6 @@ void relatorioAcomodacao() {
     }
 }
 
-
 void relatorioProdCon() {
     int opc = 0;
     int bd = listar();
@@ -304,7 +395,7 @@ void relatorioProdCon() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        listarAcoFaixaCodControl(cod1, cod2);
+                        listarProdFaixa(cod1, cod2);
                         opc1 = 2;
                     } else if (opcV == 2) {
 
@@ -316,7 +407,7 @@ void relatorioProdCon() {
                 break;
 
             case 2:
-              subRelatorios();
+                subRelatorios();
                 break;
 
             default:
@@ -326,4 +417,105 @@ void relatorioProdCon() {
     }
 }
 
+void relatorioProdRes() {
+    int opc = 0;
+    int bd = listar();
+    int cod1, cod2;
+    int cod;
+    int r;
+    int opc1 = 0, opc2 = 0, opcV = 0, opcV2 = 0;
+    while (opc == 0) {
+        printf("*******Relatorios********\n");
+        printf("1.Faixa de Código.\n");
+        printf("2.Voltar.\n");
+        scanf("%d%*c", &opc);
+        switch (opc) {
+            case 1:
+                printf("Digite o número de início da faixa de código: ");
+                scanf("%d", &cod1);
+                while (opc1 == 0) {
+                    printf("Digite o número final da faixa de código: ");
+                    scanf("%d", &cod2);
+                    if (cod2 < cod1) {
+                        printf("Entre com um valor maior que o valor do código de início. \n");
+                    } else {
+                        opc1 = 2;
+                    }
+                }
+                opc1 = 0;
+                while (opc1 == 0) {
+                    printf("Deseja: \n"
+                            "1. Listar na Tela. \n"
+                            "2. Gravar Arquivo CSV. \n");
+                    scanf("%d", &opcV);
+                    if (opcV == 1) {
+                        listarProdResFaixa(cod1, cod2);
+                        opc1 = 2;
+                    } else if (opcV == 2) {
 
+                        opc1 = 2;
+                    } else {
+                        printf("Digite uma opção válida. \n");
+                    }
+                }
+                break;
+
+            case 2:
+                subRelatorios();
+                break;
+
+            default:
+                printf("Valor Invalido!\n");
+                break;
+        }
+    }
+}
+
+void relatorioCaixa() {
+    int opc = 0;
+    int bd = listar();
+    int d1, d2, m;
+    int cod;
+    int r;
+    int opc1 = 0, opc2 = 0, opcV = 0, opcV2 = 0;
+    while (opc == 0) {
+        printf("*******Relatorios********\n");
+        printf("1.Data.\n");
+        printf("2.Voltar.\n");
+        scanf("%d%*c", &opc);
+        switch (opc) {
+            case 1:
+                printf("Digite o dia inicial: ");
+                scanf("%d", &d1);
+                printf("Digite o dia final: ");
+                scanf("%d", &d2);
+                printf("Digite o mês: ");
+                scanf("%d", &m);
+                opc1 = 0;
+                while (opc1 == 0) {
+                    printf("Deseja: \n"
+                            "1. Listar na Tela. \n"
+                            "2. Gravar Arquivo CSV. \n");
+                    scanf("%d", &opcV);
+                    if (opcV == 1) {
+                        listarCaixaData(d1, d2, m);
+                        opc1 = 2;
+                    } else if (opcV == 2) {
+
+                        opc1 = 2;
+                    } else {
+                        printf("Digite uma opção válida. \n");
+                    }
+                }
+                break;
+
+            case 2:
+                subRelatorios();
+                break;
+
+            default:
+                printf("Valor Invalido!\n");
+                break;
+        }
+    }
+}
