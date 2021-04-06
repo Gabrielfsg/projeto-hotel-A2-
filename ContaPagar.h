@@ -15,8 +15,6 @@
 #define CONTASPAGAR_H
 #include "Caixa.h"
 
-#include "Caixa.h"
-
 typedef struct contaPagar {
     int codigo;
     char descricao[50];

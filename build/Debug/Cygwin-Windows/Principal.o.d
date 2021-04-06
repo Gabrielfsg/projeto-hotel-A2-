@@ -4,7 +4,7 @@ build/Debug/Cygwin-Windows/Principal.o: Principal.c Login.h Principal.h \
  OperadorsistemaMenu.h SalvametoBD.h ReservaSubC.h Acomodacao.h \
  Categoria.h Reserva.h MenuCheckOut.h CheckIn.h Hora.h CheckOut.h \
  MenuCaixa.h MenuEntradaProdutos.h VendaProduto.h Venda.h \
- VendaProdutosMenu.h
+ VendaProdutosMenu.h menuXML.h CategoriaXML.h
 
 Login.h:
 
@@ -59,3 +59,7 @@ VendaProduto.h:
 Venda.h:
 
 VendaProdutosMenu.h:
+
+menuXML.h:
+
+CategoriaXML.h:

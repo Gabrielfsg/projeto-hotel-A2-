@@ -136,7 +136,7 @@ void checkInPorData() {
             } else {
                 printf("Nenhum reserva deste Hospede encontrada!!\n");
             }
-            free(dataIn);
+           // free(dataIn);
         } else {
             printf("Nenhuma Reserva encontrada!!\n");
         }

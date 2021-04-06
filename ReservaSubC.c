@@ -1121,6 +1121,7 @@ void mostrarReservas() {
         printf("COD : %d \n", res[i].codigo);
         printf("Data Inicio: %d/%d/%d \n", res[i].DataIn.dia, res[i].DataIn.mes, res[i].DataIn.ano);
         printf("Data Fim: %d/%d/%d \n", res[i].DataFin.dia, res[i].DataFin.mes, res[i].DataFin.ano);
+        printf("Status = %d \n", res[i].status);
         printf("----Acomodação---\n");
         printf("cod Aco: %d\n", res[i].acomodacao.codigo);
         printf("DESCRIÇÃO: %s\n", res[i].acomodacao.descricao);

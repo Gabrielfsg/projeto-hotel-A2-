@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF - 8"?>
+<dados>
+	<tabela =acomodacao>
+		<registro>
+			<codigo>1</codigo>
+			<descricao>CHALE LUXO</descricao>
+			<categoria_codigo>1</categoria_codigo>
+			<status>livre</status>
+		</registro>
+		<registro>
+			<codigo>2</codigo>
+			<descricao>QUARTO 1</descricao>
+			<categoria_codigo>2</categoria_codigo>
+			<status>livre</status>
+		</registro>
+		<registro>
+			<codigo>3</codigo>
+			<descricao>QUARTO 2</descricao>
+			<categoria_codigo>2</categoria_codigo>
+			<status>livre</status>
+		</registro>
+		<registro>
+			<codigo>4</codigo>
+			<descricao>QUARTO 5</descricao>
+			<categoria_codigo>1</categoria_codigo>
+			<status>livre</status>
+		</registro>
+		<registro>
+			<codigo>6</codigo>
+			<descricao>SUITE PREMIUM</descricao>
+			<categoria_codigo>3</categoria_codigo>
+			<status>livre</status>
+		</registro>
+	</tabela>
+	<tabela =categoria>
+		<registro>
+			<codigo>1</codigo>
+			<descricao>LUXO</descricao>
+			<quatidade_pessoas>2</quatidade_pessoas>
+			<valor_diaria>300.000000</valor_diaria>
+			<facilidade>AR,FRIGOBAR,TV,HIDRO</facilidade>
+		</registro>
+		<registro>
+			<codigo>2</codigo>
+			<descricao>STANDART</descricao>
+			<quatidade_pessoas>2</quatidade_pessoas>
+			<valor_diaria>160.000000</valor_diaria>
+			<facilidade>FRIGOAR,TV,VENTILADOR</facilidade>
+		</registro>
+		<registro>
+			<codigo>3</codigo>
+			<descricao>PREMIUM</descricao>
+			<quatidade_pessoas>2</quatidade_pessoas>
+			<valor_diaria>200.000000</valor_diaria>
+			<facilidade>AR,FRIGOAR,TV</facilidade>
+		</registro>
+	</tabela>
+	<tabela =caixa>
+		<registro>
+			<codigo>1</codigo>
+			<data>24/3/2021</data>
+			<valor_inicial>1000.000000</valor_inicial>
+			<valor_final>0.000000</valor_final>
+			<status>aberto</status>
+		</registro>
+		<registro>
+			<codigo>2</codigo>
+			<data>25/3/2021</data>
+			<valor_inicial>100.000000</valor_inicial>
+			<valor_final>0.000000</valor_final>
+			<status>aberto</status>
+		</registro>
+	</tabela>
+	<tabela =checkin>
+		<registro>
+			<codigo>2</codigo>
+			<valor>200.000000</valor>
+			<hora>22:0:40</hora>
+			<reserva_codigo>2</reserva_codigo>
+			<caixa_codigo>2</caixa_codigo>
+			<status>pendente</status>
+		</registro>
+		<registro>
+			<codigo>3</codigo>
+			<valor>160.000000</valor>
+			<hora>22:0:40</hora>
+			<reserva_codigo>3</reserva_codigo>
+			<caixa_codigo>3</caixa_codigo>
+			<status>pago</status>
+		</registro>
+		<registro>
+			<codigo>1</codigo>
+			<valor>300.000000</valor>
+			<hora>21:48:37</hora>
+			<reserva_codigo>1</reserva_codigo>
+			<caixa_codigo>1</caixa_codigo>
+			<status>pendente</status>
+		</registro>
+	</tabela>
+	<tabela =checkout>
+		<registro>
+			<codigo>2</codigo>
+			<valor_total>206.000000</valor_total>
+			<data_saida>24/3/2021</data_saida>
+			<hospede_codigo>1</hospede_codigo>
+			<checkin_codigo>2</checkin_codigo>
+			<checkin_valor>200.000000</checkin_valor>
+			<checkin_status>pendente</checkin_status>
+			<caixa_codigo>1</caixa_codigo>
+		</registro>
+		<registro>
+			<codigo>1</codigo>
+			<valor_total>300.000000</valor_total>
+			<data_saida>25/3/2021</data_saida>
+			<hospede_codigo>1</hospede_codigo>
+			<checkin_codigo>1</checkin_codigo>
+			<checkin_valor>300.000000</checkin_valor>
+			<checkin_status>pendente</checkin_status>
+			<caixa_codigo>2</caixa_codigo>
+		</registro>
+	</tabela>
+	<tabela =conta_pagar>
+		<registro>
+			<codigo>1</codigo>
+			<caixa_codigo>1</caixa_codigo>
+			<caixa_data>24/3/2021</caixa_data>
+			<fornecedor_codigo>1</fornecedor_codigo>
+			<data>24/3/2021</data>
+			<descricao>Pagamento_a_vista</descricao>
+			<valor>6.900000</valor>
+			<status>Concluido</status>
+		</registro>
+		<registro>
+			<codigo>2</codigo>
+			<caixa_codigo>2</caixa_codigo>
+			<caixa_data>25/3/2021</caixa_data>
+			<fornecedor_codigo>1</fornecedor_codigo>
+			<data>25/3/2021</data>
+			<descricao>Pagamento_a_vista</descricao>
+			<valor>49.330002</valor>
+			<status>Concluido</status>
+		</registro>
+		<registro>
+			<codigo>3</codigo>
+			<caixa_codigo>2</caixa_codigo>
+			<caixa_data>25/3/2021</caixa_data>
+			<fornecedor_codigo>1</fornecedor_codigo>
+			<data>25/3/2021</data>
+			<descricao>Pagamento_a_vista</descricao>
+			<valor>69.000000</valor>
+			<status>Concluido</status>
+		</registro>
+	</tabela>
+	<tabela =conta_receber>
+		<registro>
+			<codigo>1</codigo>
+			<valor>100.000000</valor>
+			<data>24/3/2021</data>
+			<caixa_codigo>1</caixa_codigo>
+			<pagamento>Dinheiro</pagamento>
+			<status>Concluido</status>
+		</registro>
+		<registro>
+			<codigo>99</codigo>
+			<valor>20.000000</valor>
+			<data>25/3/2021</data>
+			<caixa_codigo>2</caixa_codigo>
+			<pagamento>Dinheiro</pagamento>
+			<status>Concluido</status>
+		</registro>
+	</tabela>
+	<tabela =fornecedor>
+		<registro>
+			<codigo>1</codigo>
+			<fantazia>DISTRIUIDORA DE BEIDAS LTDA</fantazia>
+			<razao_social>DDL LTDA</razao_social>
+			<inscricao_estadual>0032135</inscricao_estadual>
+			<cnpj>2135465461</cnpj>
+			<telefone>3799707070</telefone>
+			<email>D.D.@GMAIL.COM</email>
+			<logradouro>RUA UM</logradouro>
+			<numero>90</numero>
+			<cidade>FORMIGA</cidade>
+			<bairro>LAJINHA</bairro>
+			<cep>35570000</cep>
+			<uf>MG</uf>
+		</registro>
+		<registro>
+			<codigo>2</codigo>
+			<fantazia>ELMA CHIPS</fantazia>
+			<razao_social>PEPSCO LTDA</razao_social>
+			<inscricao_estadual>0.213202321</inscricao_estadual>
+			<cnpj>16513215651</cnpj>
+			<telefone>3798921318</telefone>
+			<email>PEPSCO@GMAIL.COM</email>
+			<logradouro>RUA ANTOIO MARINHO DA COSTA</logradouro>
+			<numero>45</numero>
+			<cidade>FORMIGA</cidade>
+			<bairro>SERRA VERDE</bairro>
+			<cep>35570730</cep>
+			<uf>MG</uf>
+		</registro>
+	</tabela>
+</dados>
