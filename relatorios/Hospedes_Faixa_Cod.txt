@@ -1,0 +1,3 @@
+1,Daniel,14316736680,37998070898,danielantonio23599@gmail.com,M,Casado,23,5,1999,1,Serra Verde,35570730,Formiga,rua antonio marinho da costa,55,MG
+2,Gariel,11111111,22222222,garielfernandes@gmail.com,M,solteiro,20,2,2000,2,cidade nova,35570000,formiga,rua um,1,mg
+3,jose,213321313,2321321321,jose@gmail.com,M,solteiro,1,1,200,3,centro,35570000,formiga,seis de junho,70,mg

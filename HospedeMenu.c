@@ -671,3 +671,88 @@ int listarHospedesFaixaCodControl(int c1, int c2) {
     free(arrayHospedes);
 
 }
+
+Hospede* filtrarHospedesFaixaCodControl(int c1, int c2, int *qteHospedesFiltro) {
+    printf("ENTROU FILTRAR HOSP\n");
+    printf("QTE = %d\n", *qteHospedesFiltro);
+    
+    int numHospedes = 0; // o valor será atualizado, para poder mostrar todos os hóspedes;
+    *qteHospedesFiltro = 0;
+    printf("QTE = %d\n", *qteHospedesFiltro);
+    int index = 0;
+
+    Hospede* arrayHospedes;
+    Hospede* arrayFiltrado;
+
+
+    //pega a extensão do arquivo
+    int ext = listar();
+    if (ext == 2) {
+        //BIN
+        arrayHospedes = getAllHospedesBIN(&numHospedes);
+    }
+    if (ext == 1) {
+        //TXT
+        numHospedes = getNumHospedes();
+        arrayHospedes = getAllHospedesTXT(numHospedes);
+
+    }
+    //se não existe nenhum hóspede, termina a função
+    if (numHospedes == 0) {
+        printf("NENHUM HÓSPEDE CADASTRADO\n");
+        return;
+    }
+    //calcula quantos hospedes pertencem ao filtro
+    for (int i = 0; i < numHospedes; i++) {
+        if (arrayHospedes[i].codigo >= c1 && arrayHospedes[i].codigo <= c2) {
+            (*qteHospedesFiltro)++;
+            printf("QTE ++= %d\n", *qteHospedesFiltro);
+        }
+    }
+
+   printf("QTE FILTRO: %d\n", (*qteHospedesFiltro));
+
+    arrayFiltrado = (Hospede *) malloc(sizeof (Hospede) * (*qteHospedesFiltro));
+
+    for (int i = 0; i < numHospedes; i++) {
+        if (arrayHospedes[i].codigo >= c1 && arrayHospedes[i].codigo <= c2) {
+            arrayFiltrado[index] = arrayHospedes[i];
+            printf("ADD O HOSPEDE (%s) NA POS: %d\n", arrayFiltrado[i].nome, index);
+            index++;      
+        }
+    }
+
+    //TESTE DEU CERTO
+/*
+     printf("TESTE \n\n");
+
+     for (int i = 0; i < *qteHospedesFiltro; i++) {
+         
+             printf("***************\n");
+             printf("COD: %d\n", arrayFiltrado[i].codigo);
+             printf("NOME: %s\n", arrayFiltrado[i].nome);
+             printf("CPF: %s\n", arrayFiltrado[i].cpf);
+             printf("FONE: %s\n", arrayFiltrado[i].telefone);
+             printf("EMAIL: %s\n", arrayFiltrado[i].email);
+             printf("SEXO: %c\n", arrayFiltrado[i].sexo);
+             printf("ESTADO CIVIL: %s\n", arrayFiltrado[i].esCivil);
+             //DATA
+             printf("DATA NASC: %d / %d / %d \n", arrayFiltrado[i].dataNascimento.dia, arrayFiltrado[i].dataNascimento.mes, arrayFiltrado[i].dataNascimento.ano);
+             //ENDEREÇO
+             printf("COD ENDER: %d\n", arrayFiltrado[i].endereco.codigo);
+             printf("BAIRRO: %s\n", arrayFiltrado[i].endereco.bairro);
+             printf("CEP: %s\n", arrayFiltrado[i].endereco.cep);
+             printf("CIDADE: %s\n", arrayFiltrado[i].endereco.cidade);
+             printf("LOGRADOURO: %s\n", arrayFiltrado[i].endereco.logradouro);
+             printf("NUMERO: %d\n", arrayFiltrado[i].endereco.numero);
+             printf("UF: %s\n", arrayFiltrado[i].endereco.uf);
+             printf("***************\n");
+         
+     }
+*/
+  
+
+    //libera memória
+    free(arrayHospedes);
+    return arrayFiltrado;
+}
