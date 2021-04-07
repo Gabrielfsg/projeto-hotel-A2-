@@ -466,6 +466,8 @@ void mostrarVendas() {
     }
 }
 
+
+
 /*void menuVendaAVista2() {
     printf("DEBUG: ENTROU VENDA VISTA \n");
     int bd = listar();

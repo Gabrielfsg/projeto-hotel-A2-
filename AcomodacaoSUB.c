@@ -353,7 +353,7 @@ void listarAcoFaixaCodControl(int c1, int c2) {
     }
 }
 
-void listaAcoCat(int cod) {
+void listaAcoCat(int co) {
     Acomodacao *a;
     Categoria *c;
     int num2, num;
@@ -377,7 +377,7 @@ void listaAcoCat(int cod) {
         if (num > 0) {
             int i, j;
             for (i = 0; i < num; i++) {
-                if (a[i].categoria.codigo == cod) {
+                if (a[i].categoria.codigo == co) {
                     printf("\n**************** %d *****************\n", i);
                     printf("COD: %d\n", a[i].codigo);
                     printf("DESCRIÇÃO: %s\n", a[i].descricao);
