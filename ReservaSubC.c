@@ -1300,7 +1300,7 @@ void relaResData(int d1, int d2, int m1, int m2, int a) {
     if (bd > 0) {
         int i;
         for (i = 0; i < n; i++) {
-            if(res[i].DataIn.dia >= d1 && res[i].DataFin.dia <= d2 && res[i].DataIn.mes >= m1 && res[i].DataFin.mes <= m2 && res[i].DataIn.ano == a && res[i].DataFin == a);
+            if(res[i].DataIn.dia >= d1 && res[i].DataFin.dia <= d2 && res[i].DataIn.mes >= m1 && res[i].DataFin.mes <= m2 && res[i].DataIn.ano == a && res[i].DataFin.ano == a);
                 printf("COD: %d \n", res[i].codigo);
                 printf("DATA INI: %d /%d /%d\n", res[i].DataIn.dia, res[i].DataIn.mes, res[i].DataIn.ano);
                 printf("DATA FIM: %d /%d /%d\n", res[i].DataFin.dia, res[i].DataFin.mes, res[i].DataFin.ano);

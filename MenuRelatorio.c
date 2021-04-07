@@ -343,43 +343,44 @@ void relatorioContasRec() {
                 printf("Entre com o ano: ");
                 scanf("%d", &ano);
 
-        }
-        //printf("%c", sexxo);
-        opc2 = 0;
-        while (opc2 == 0) {
-            printf("Deseja: \n"
-                    "1. Listar na Tela. \n"
-                    "2. Gravar Arquivo CSV. \n");
-            scanf("%d", &opcV);
-            if (opcV == 1) {
-                listarContasDia(dia, mes, ano);
-                opc2 = 2;
-            } else if (opcV == 2) {
-                if (bd == 1) {
 
-                } else if (bd == 2) {
+                //printf("%c", sexxo);
+                opc2 = 0;
+                while (opc2 == 0) {
+                    printf("Deseja: \n"
+                            "1. Listar na Tela. \n"
+                            "2. Gravar Arquivo CSV. \n");
+                    scanf("%d", &opcV);
+                    if (opcV == 1) {
+                        listarContasDia(dia, mes, ano);
+                        opc2 = 2;
+                    } else if (opcV == 2) {
+                        if (bd == 1) {
 
-                    if (r == 1) {
+                        } else if (bd == 2) {
 
+                            if (r == 1) {
+
+                            }
+                        }
+                        opc2 = 2;
+                    } else {
+                        printf("Digite uma opção válida. \n");
                     }
                 }
-                opc2 = 2;
-            } else {
-                printf("Digite uma opção válida. \n");
-            }
+
+
+
+                break;
+
+            case 3:
+                subRelatorios();
+                break;
+
+            default:
+                printf("Valor Invalido!\n");
+                break;
         }
-
-
-
-        break;
-
-        case 3:
-        subRelatorios();
-        break;
-
-        default:
-        printf("Valor Invalido!\n");
-        break;
     }
 }
 
@@ -487,43 +488,44 @@ void relatorioContasPag() {
                 printf("Entre com o ano: ");
                 scanf("%d", &ano);
 
-        }
-        //printf("%c", sexxo);
-        opc2 = 0;
-        while (opc2 == 0) {
-            printf("Deseja: \n"
-                    "1. Listar na Tela. \n"
-                    "2. Gravar Arquivo CSV. \n");
-            scanf("%d", &opcV);
-            if (opcV == 1) {
-                mostrarContasPagarData(dia, dia2, mes, mes2, ano);
-                opc2 = 2;
-            } else if (opcV == 2) {
-                if (bd == 1) {
 
-                } else if (bd == 2) {
+                //printf("%c", sexxo);
+                opc2 = 0;
+                while (opc2 == 0) {
+                    printf("Deseja: \n"
+                            "1. Listar na Tela. \n"
+                            "2. Gravar Arquivo CSV. \n");
+                    scanf("%d", &opcV);
+                    if (opcV == 1) {
+                        mostrarContasPagarData(dia, dia2, mes, mes2, ano);
+                        opc2 = 2;
+                    } else if (opcV == 2) {
+                        if (bd == 1) {
 
-                    if (r == 1) {
+                        } else if (bd == 2) {
 
+                            if (r == 1) {
+
+                            }
+                        }
+                        opc2 = 2;
+                    } else {
+                        printf("Digite uma opção válida. \n");
                     }
                 }
-                opc2 = 2;
-            } else {
-                printf("Digite uma opção válida. \n");
-            }
+
+
+
+                break;
+
+            case 3:
+                subRelatorios();
+                break;
+
+            default:
+                printf("Valor Invalido!\n");
+                break;
         }
-
-
-
-        break;
-
-        case 3:
-        subRelatorios();
-        break;
-
-        default:
-        printf("Valor Invalido!\n");
-        break;
     }
 }
 

@@ -458,7 +458,7 @@ void mostrarContasPagarData(int d1, int d2, int m1, int m2, int a) {
     }
     printf("O NÚMERO DE CONTAS É: %d\n", numContas);
     for (int i = 0; i < numContas; i++) {
-        if (arrayCP[i].data.ano == a arrayCP[i].data.mes >= m1 && arrayCP[i].data.mes <= m2 && arrayCP[i].data.dia >= d1 && arrayCP[i].data.dia <= d2) {
+        if (arrayCP[i].data.ano == a && arrayCP[i].data.mes >= m1 && arrayCP[i].data.mes <= m2 && arrayCP[i].data.dia >= d1 && arrayCP[i].data.dia <= d2) {
             printf("********** %d  **********\n", i + 1);
             printf("CÓDIGO: = %d\n", arrayCP[i].codigo);
             printf("CÓDIGO FORNECEDOR: = %d\n", arrayCP[i].codForn);

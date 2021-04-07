@@ -160,13 +160,13 @@ void listarCaixaData(int dia1, int dia2, int mes) {
     printf("***** LISTA DE TODOS OS PRODUTOS*****\n");
     for (int i = 0; i < numCaixa; i++) {
         //lista os produtos
-        if (cai[i].data.mes == mes && cai[i].data.dia >= dia1 && cai[i].data.dia =< dia2) {
+        if (cai[i].data.mes == mes && cai[i].data.dia >= dia1 && cai[i].data.dia <= dia2) {
             printf("***************\n");
             printf("COD: %d\n", cai[i].codigo);
             printf("DESC: %s\n", cai[i].status);
             printf("Data: /%d/%d/%d/", cai[i].data.dia, cai[i].data.mes, cai[i].data.ano);
             printf("Valor Inicial: %f\n", cai[i].valorIn);
-            printf("Valor Final: %d\n", cai[i].valorFin);
+            printf("Valor Final: %f\n", cai[i].valorFin);
             printf("***************\n");
         }
     }

@@ -305,65 +305,7 @@ void subVisualizarReservas() {
 
 }
 
-void subRelatorios() {
-    int opc = 0;
-    while (opc >= 0) {
-        printf("*******Relatorios********\n");
-        printf("1.Listagem de Hospedes.\n");
-        printf("2.Listagem de Acomodaçoes.\n");
-        printf("3.Listagens de Reservas.\n");
-        printf("4.Listagem de Movimentacao de Acomodacao.\n");
-        printf("5.Listagem de produtos de consumo.\n");
-        printf("6.Produto em Estoque Minimo.\n");
-        printf("8.Vendas.\n");
-        printf("9.Contas a Receber.\n");
-        printf("10.Contas a Pagar.\n");
-        printf("11.Movimentação de Caixa.\n");
-        printf("12.Sair.\n");
-        scanf("%d%*c", &opc);
-        switch (opc) {
-            case 1:
 
-                break;
-            case 2:
-                relatarAcomodacao();
-                break;
-            case 3:
-                //metodo mostrar dados empresa
-                break;
-            case 4:
-
-                break;
-            case 5:
-
-                break;
-            case 6:
-
-                break;
-            case 7:
-
-                break;
-            case 8:
-
-                break;
-            case 9:
-
-                break;
-            case 10:
-                mostrarContasPagar();
-                break;
-            case 11:
-
-                break;
-            case 12:
-                menuPrincipal();
-                break;
-            default:
-                printf("Valor Invalido!\n");
-                break;
-        }
-    }
-}
 
 void subConfiguracoes() {
     int opc = 0, r;
