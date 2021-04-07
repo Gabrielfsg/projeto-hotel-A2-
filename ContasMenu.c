@@ -151,7 +151,7 @@ void listarContasR(int c1, int c2) {
     }
 }
 
-void listarContasDia(int d, int m ,int a) {
+void listarContasDia(int d, int m, int a) {
     int n, aux;
     int bd = listar();
     ContaReceber *cr;
@@ -187,3 +187,89 @@ void listarContasDia(int d, int m ,int a) {
     }
 }
 
+void listarContasR(int c1, int c2) {
+    int n, aux;
+    int bd = listar();
+    ContaReceber *cr;
+    if (bd == 1) {//verifica o tipo de salvamento
+        cr = listarContaReceberTXT();
+        n = numContaReceber();
+    } else if (bd == 2) {
+        cr = listarContaReceberBIN(&n);
+    } else {
+        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
+    }
+    if (bd > 0) {
+        int i;
+        if (n > 0) {
+            for (i = 0; i < n; i++) {// pela contagem de linhas eles mostra os dados
+                if (cr[i].codigo >= c1 && cr[i].codigo <= c2) {
+                    printf("\n*******%d************", i);
+                    printf("\nCodigo: %d", cr[i].codigo);
+                    printf("\nValor: %f", cr[i].valor);
+                    printf("\nDia Pagamento: %d", cr[i].data.dia);
+                    printf("\nMes Pagamento: %d", cr[i].data.mes);
+                    printf("\nAno Pagamento: %d", cr[i].data.ano);
+                    printf("\nStatus: %s", cr[i].status);
+                    printf("\nForma de Pagamento: %s", cr[i].pagamento);
+                    printf("\nCodigo do caixa: %d", cr[i].caixa);
+                    printf("\n");
+                }
+            }
+        } else {
+            printf("Não à operadores cadastrados. \n");
+        }
+        free(cr);
+    }
+}
+
+void listarContasTipo(int t) {
+    int n, aux;
+    int bd = listar();
+    ContaReceber *cr;
+    if (bd == 1) {//verifica o tipo de salvamento
+        cr = listarContaReceberTXT();
+        n = numContaReceber();
+    } else if (bd == 2) {
+        cr = listarContaReceberBIN(&n);
+    } else {
+        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
+    }
+    if (bd > 0) {
+        int i;
+        if (n > 0) {
+            for (i = 0; i < n; i++) {// pela contagem de linhas eles mostra os dados
+                if (t == 1) {
+                    if (strcmp(cr[i].status, "Pendente") == 0) {
+                        printf("\n*******%d************", i);
+                        printf("\nCodigo: %d", cr[i].codigo);
+                        printf("\nValor: %f", cr[i].valor);
+                        printf("\nDia Pagamento: %d", cr[i].data.dia);
+                        printf("\nMes Pagamento: %d", cr[i].data.mes);
+                        printf("\nAno Pagamento: %d", cr[i].data.ano);
+                        printf("\nStatus: %s", cr[i].status);
+                        printf("\nForma de Pagamento: %s", cr[i].pagamento);
+                        printf("\nCodigo do caixa: %d", cr[i].caixa);
+                        printf("\n");
+                    }
+                } else if (t == 2) {
+                    if (strcmp(cr[i].status, "Concluido") == 0) {
+                        printf("\n*******%d************", i);
+                        printf("\nCodigo: %d", cr[i].codigo);
+                        printf("\nValor: %f", cr[i].valor);
+                        printf("\nDia Pagamento: %d", cr[i].data.dia);
+                        printf("\nMes Pagamento: %d", cr[i].data.mes);
+                        printf("\nAno Pagamento: %d", cr[i].data.ano);
+                        printf("\nStatus: %s", cr[i].status);
+                        printf("\nForma de Pagamento: %s", cr[i].pagamento);
+                        printf("\nCodigo do caixa: %d", cr[i].caixa);
+                        printf("\n");
+                    }
+                }
+            }
+        } else {
+            printf("Não à operadores cadastrados. \n");
+        }
+        free(cr);
+    }
+}

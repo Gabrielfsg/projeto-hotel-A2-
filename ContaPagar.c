@@ -238,7 +238,7 @@ int atualizar() {// atualiza o satatus da compra se o dia de vencer for igual o 
     if (r == 1) {
         printf("Atualizado. \n");
     }// else {
-      //  printf("Erro ao atualizar. \n");
+    //  printf("Erro ao atualizar. \n");
     //}
     mostrarContasPagar();
 }
@@ -418,3 +418,54 @@ int getNumContaPagar() {
 
 }
 
+void mostrarContasPagarCod(int cod1, int cod2) {
+    int bd = listar();
+    ContaPagar* arrayCP;
+    int numContas = 0;
+    if (bd == 1) {
+        numContas = getNumContaPagar();
+        //printf("DEBUG: O NUM DE CONTAS A PAGAR É %d\n", numContas);
+        arrayCP = listarContaPagarTXT(numContas);
+    }
+    if (bd == 2) {
+        arrayCP = listarContaPagarBIN(&numContas);
+    }
+    printf("O NÚMERO DE CONTAS É: %d\n", numContas);
+    for (int i = 0; i < numContas; i++) {
+        if (arrayCP[i].codigo >= cod1 && arrayCP[i].codigo <= cod2) {
+            printf("********** %d  **********\n", i + 1);
+            printf("CÓDIGO: = %d\n", arrayCP[i].codigo);
+            printf("CÓDIGO FORNECEDOR: = %d\n", arrayCP[i].codForn);
+            printf("DATA: %d / %d / %d \n", arrayCP[i].data.dia, arrayCP[i].data.mes, arrayCP[i].data.ano);
+            printf("DESC = %s\n", arrayCP[i].descricao);
+            printf("STATUS = %s\n", arrayCP[i].status);
+            printf("VALOR = %.2f\n", arrayCP[i].valor);
+        }
+    }
+}
+
+void mostrarContasPagarData(int d1, int d2, int m1, int m2, int a) {
+    int bd = listar();
+    ContaPagar* arrayCP;
+    int numContas = 0;
+    if (bd == 1) {
+        numContas = getNumContaPagar();
+        //printf("DEBUG: O NUM DE CONTAS A PAGAR É %d\n", numContas);
+        arrayCP = listarContaPagarTXT(numContas);
+    }
+    if (bd == 2) {
+        arrayCP = listarContaPagarBIN(&numContas);
+    }
+    printf("O NÚMERO DE CONTAS É: %d\n", numContas);
+    for (int i = 0; i < numContas; i++) {
+        if (arrayCP[i].data.ano == a arrayCP[i].data.mes >= m1 && arrayCP[i].data.mes <= m2 && arrayCP[i].data.dia >= d1 && arrayCP[i].data.dia <= d2) {
+            printf("********** %d  **********\n", i + 1);
+            printf("CÓDIGO: = %d\n", arrayCP[i].codigo);
+            printf("CÓDIGO FORNECEDOR: = %d\n", arrayCP[i].codForn);
+            printf("DATA: %d / %d / %d \n", arrayCP[i].data.dia, arrayCP[i].data.mes, arrayCP[i].data.ano);
+            printf("DESC = %s\n", arrayCP[i].descricao);
+            printf("STATUS = %s\n", arrayCP[i].status);
+            printf("VALOR = %.2f\n", arrayCP[i].valor);
+        }
+    }
+}

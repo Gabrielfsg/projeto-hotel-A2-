@@ -1234,3 +1234,80 @@ Acomodacao* listarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDi
 
 }
 
+void relaRescodH(int c) {
+    int bd = listar();
+    int n, aux;
+    Reserva *res;
+    if (bd == 1) {
+        n = numReserva();
+        res = listarReservaTXT();
+    } else if (bd == 2) {
+        res = listarReservaBIN(&n);
+    }
+    if (bd > 0) {
+        int i;
+        for (i = 0; i < n; i++) {
+            if (res[i].hospede.codigo == c) {
+                printf("COD: %d \n", res[i].codigo);
+                printf("DATA INI: %d /%d /%d\n", res[i].DataIn.dia, res[i].DataIn.mes, res[i].DataIn.ano);
+                printf("DATA FIM: %d /%d /%d\n", res[i].DataFin.dia, res[i].DataFin.mes, res[i].DataFin.ano);
+                printf("HOSPEDES: (%d) - %s \n", res[i].hospede.codigo, res[i].hospede.nome);
+                printf("Acomodação: (%d) - %s \n", res[i].acomodacao.codigo, res[i].acomodacao.descricao);
+                printf("\n");
+            }
+        }
+        free(res);
+    }
+}
+
+void relaRescodA(int c) {
+    int bd = listar();
+    int n, aux;
+    Reserva *res;
+    if (bd == 1) {
+        n = numReserva();
+        res = listarReservaTXT();
+    } else if (bd == 2) {
+        res = listarReservaBIN(&n);
+    }
+    if (bd > 0) {
+        int i;
+        for (i = 0; i < n; i++) {
+            if (res[i].acomodacao.codigo == c) {
+                printf("COD: %d \n", res[i].codigo);
+                printf("DATA INI: %d /%d /%d\n", res[i].DataIn.dia, res[i].DataIn.mes, res[i].DataIn.ano);
+                printf("DATA FIM: %d /%d /%d\n", res[i].DataFin.dia, res[i].DataFin.mes, res[i].DataFin.ano);
+                printf("HOSPEDES: (%d) - %s \n", res[i].hospede.codigo, res[i].hospede.nome);
+                printf("Acomodação: (%d) - %s \n", res[i].acomodacao.codigo, res[i].acomodacao.descricao);
+                printf("\n");
+            }
+        }
+        free(res);
+    }
+}
+
+
+void relaResData(int d1, int d2, int m1, int m2, int a) {
+    int bd = listar();
+    int n, aux;
+    Reserva *res;
+    if (bd == 1) {
+        n = numReserva();
+        res = listarReservaTXT();
+    } else if (bd == 2) {
+        res = listarReservaBIN(&n);
+    }
+    if (bd > 0) {
+        int i;
+        for (i = 0; i < n; i++) {
+            if(res[i].DataIn.dia >= d1 && res[i].DataFin.dia <= d2 && res[i].DataIn.mes >= m1 && res[i].DataFin.mes <= m2 && res[i].DataIn.ano == a && res[i].DataFin == a);
+                printf("COD: %d \n", res[i].codigo);
+                printf("DATA INI: %d /%d /%d\n", res[i].DataIn.dia, res[i].DataIn.mes, res[i].DataIn.ano);
+                printf("DATA FIM: %d /%d /%d\n", res[i].DataFin.dia, res[i].DataFin.mes, res[i].DataFin.ano);
+                printf("HOSPEDES: (%d) - %s \n", res[i].hospede.codigo, res[i].hospede.nome);
+                printf("Acomodação: (%d) - %s \n", res[i].acomodacao.codigo, res[i].acomodacao.descricao);
+                printf("\n");
+            }
+        }
+        free(res);
+    }
