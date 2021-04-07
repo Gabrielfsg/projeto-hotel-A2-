@@ -23,6 +23,7 @@ Hospede* getAllHospedesBIN(int* numHospedes);
 void atualizarHospedesControl();
 void deletarHospedesControl();
 int validarCodHospede(int cod, int ext);
+Hospede* filtrarHospedesFaixaCodControl(int c1, int c2, int *qteHospedesFiltro);
 
 #endif /* HOSPEDEMENU_H */
 

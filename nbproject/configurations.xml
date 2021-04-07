@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="97">
+<configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Arquivos de Cabeçalho"
@@ -15,6 +15,7 @@
         <itemPath>MenuCaixa.h</itemPath>
         <itemPath>MenuCheckIn.h</itemPath>
         <itemPath>MenuCheckOut.h</itemPath>
+        <itemPath>MenuRelatorio.h</itemPath>
         <itemPath>OperadorsistemaMenu.h</itemPath>
         <itemPath>ProdutoConsumoMenu.h</itemPath>
         <itemPath>ReservaSubC.h</itemPath>
@@ -27,6 +28,10 @@
           <logicalFolder name="f1" displayName="BD" projectFiles="true">
             <itemPath>SalvametoBD.h</itemPath>
           </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="f3" displayName="csv" projectFiles="true">
+          <itemPath>csvContasRec.h</itemPath>
+          <itemPath>csvHospede.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="Util" projectFiles="true">
           <itemPath>Data.h</itemPath>
@@ -137,6 +142,10 @@
           <logicalFolder name="f1" displayName="BD" projectFiles="true">
             <itemPath>SalvamentoBD.c</itemPath>
           </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="f3" displayName="csv" projectFiles="true">
+          <itemPath>csvContasRec.c</itemPath>
+          <itemPath>csvHospede.c</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="Util" projectFiles="true">
           <itemPath>Data.c</itemPath>
@@ -316,6 +325,8 @@
       </item>
       <item path="MenuRelatorio.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="MenuRelatorio.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Menus.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="OperadorMenu.c" ex="false" tool="0" flavor2="0">
@@ -381,6 +392,14 @@
       <item path="VendaProdutosMenu.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="VendaProdutosMenu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="csvContasRec.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="csvContasRec.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="csvHospede.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="csvHospede.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -524,6 +543,8 @@
       </item>
       <item path="MenuRelatorio.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="MenuRelatorio.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Menus.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="OperadorMenu.c" ex="false" tool="0" flavor2="0">
@@ -587,6 +608,14 @@
       <item path="VendaProdutosMenu.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="VendaProdutosMenu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="csvContasRec.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="csvContasRec.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="csvHospede.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="csvHospede.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>

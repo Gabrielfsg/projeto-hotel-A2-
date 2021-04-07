@@ -169,7 +169,7 @@ void menuVendaAnotar() {
     snprintf(str, 50, "%s%dh", str, data_hora_atual->tm_hour);
     snprintf(str, 50, "%s%dm", str, data_hora_atual->tm_min);
     snprintf(str, 50, "%s%ds.txt", str, data_hora_atual->tm_sec);
-    
+    printf("DEBUG: STR = %s\n",str);
     FILE *arq;
     // abre o arquivo com o cursor no final
     arq = fopen(str, "w");

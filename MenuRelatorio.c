@@ -14,6 +14,7 @@
 #include "Hospede.h"
 #include "HospedeMenu.h"
 #include "MenuCaixa.h"
+#include "csvHospede.h"
 #include "Data.h"
 
 void subRelatorios() {
@@ -32,6 +33,7 @@ void subRelatorios() {
         printf("9.Movimentação de Caixa.\n");
         printf("10.Voltar.\n");
         scanf("%d%*c", &opc);
+        
         switch (opc) {
             case 1:
                 relatorioHospedes();
@@ -189,7 +191,7 @@ void relatorioHospedes() {
     int cod1, cod2;
     int sex;
     char sexxo;
-    Hospede *arrayHospedes;
+    Hospede* arrayHospedesFiltrado;
     int r;
     int opc1 = 0, opc2 = 0, opcV = 0, opcV2 = 0;
     while (opc == 0) {
@@ -198,13 +200,16 @@ void relatorioHospedes() {
         printf("2.Sexo.\n");
         printf("3.Voltar.\n");
         scanf("%d%*c", &opc);
+
         switch (opc) {
             case 1:
                 printf("Digite o número de início da faixa de código: ");
                 scanf("%d", &cod1);
+
                 while (opc1 == 0) {
                     printf("Digite o número final da faixa de código: ");
                     scanf("%d", &cod2);
+
                     if (cod2 < cod1) {
                         printf("Entre com um valor maior que o valor do código de início. \n");
                     } else {
@@ -217,12 +222,26 @@ void relatorioHospedes() {
                             "1. Listar na Tela. \n"
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
+
                     if (opcV == 1) {
                         listarHospedesFaixaCodControl(cod1, cod2);
                         opc1 = 2;
                     } else if (opcV == 2) {
 
+                        int qteHospedesFiltrados = 0;
+                        arrayHospedesFiltrado = filtrarHospedesFaixaCodControl(cod1, cod2, &qteHospedesFiltrados);
+                        printf("TESTE MENU\n");
+                        printf("QTE MENU = %d\n", qteHospedesFiltrados);
+                        for (int i = 0; i < qteHospedesFiltrados; i++) {
+                            printf("i = %d | qte = %d\n", i, qteHospedesFiltrados);
+                            printf("COD = %d\n", arrayHospedesFiltrado[i].codigo);
+                        }
+
+
+                        gerarCSVHospede(arrayHospedesFiltrado, &qteHospedesFiltrados, 1);
                         opc1 = 2;
+
+
                     } else {
                         printf("Digite uma opção válida. \n");
                     }
@@ -238,10 +257,10 @@ void relatorioHospedes() {
                     scanf("%d", &sex);
 
                     if (sex == 1) {
-                        sexxo = 'm';
+                        sexxo = 'M';
                         opc2 = 1;
                     } else if (sex == 2) {
-                        sexxo = 'f';
+                        sexxo = 'F';
                         opc2 = 1;
                     } else {
                         printf("Opção Incorreta. \n");
@@ -258,15 +277,21 @@ void relatorioHospedes() {
                         listarHospedesSexoControl(sexxo);
                         opc2 = 2;
                     } else if (opcV == 2) {
-                        if (bd == 1) {
+                        printf("DEBUG 1\n");
+                        int qteHospedesFiltrados = 0;
+                        printf("DEBUG 2\n");
+                        //arrayHospedesFiltrado = filtrarHospedesSexoControl(sexxo, &qteHospedesFiltrados);
+                        filtrarHospedesSexoControl(sexxo, &qteHospedesFiltrados);
+                        //printf("COD = %d\n", arrayHospedesFiltrado[0].codigo);
+                        printf("DEBUG 3\n");
+                        printf("TESTE MENU\n");
+                        //printf("QTE MENU = %d\n", qteHospedesFiltrados);
+                        //for (int i = 0; i < qteHospedesFiltrados; i++) {
+                         //   printf("i = %d | qte = %d\n", i, qteHospedesFiltrados);
+                         //   printf("COD = %d\n", arrayHospedesFiltrado[i].codigo);
+                       // }
+                        //gerarCSVHospede(arrayHospedesFiltrado, &qteHospedesFiltrados, 2);
 
-                        } else if (bd == 2) {
-                            //arrayHospedes = listarHospedesSexoCSV(sexxo);
-                            // r = cadastraHospCSV(arrayHospedes, 1);
-                            if (r == 1) {
-
-                            }
-                        }
                         opc2 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -278,7 +303,7 @@ void relatorioHospedes() {
                 break;
 
             case 3:
-                subRelatorios();
+                subCadastros();
                 break;
 
             default:
@@ -324,7 +349,7 @@ void relatorioContasRec() {
                         listarContasR(cod1, cod2);
                         opc1 = 2;
                     } else if (opcV == 2) {
-
+                        filtrarContasRecFaixaCodControl(cod1,cod2);
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -339,6 +364,16 @@ void relatorioContasRec() {
                 scanf("%d", &mes);
                 printf("Entre com o ano: ");
                 scanf("%d", &ano);
+
+                break;
+
+            case 3:;
+                subRelatorios();
+                break;
+
+            default:;
+                printf("Valor Invalido!\n");
+                break;
 
 
                 //printf("%c", sexxo);

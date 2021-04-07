@@ -24,6 +24,8 @@
 #include "menuXML.h"
 #include "CategoriaXML.h"
 
+
+
 void subArquivo();
 void subCadastros();
 void subListagem();
@@ -32,6 +34,8 @@ void subReservas();
 void subVisualizarReservas();
 void subRelatorios();
 void subConfiguracoes();
+
+
 
 void menuPrincipal() {
     int opc = 0;
@@ -50,6 +54,8 @@ void menuPrincipal() {
         printf("10.Sair.\n");
         printf("Opção: ");
         scanf("%d%*c", &opc);
+        
+        
         printf("\n");
         switch (opc) {
             case 1:

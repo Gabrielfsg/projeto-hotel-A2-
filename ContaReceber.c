@@ -123,6 +123,7 @@ int numContaReceber() {
     //libera memoria
     free(arquivo);
     // divide se por 8 pois categoria tem 5 linhas
+    printf("NUM LINHAS = %d\n",numLinha);
     return numLinha / 8;
 }
 

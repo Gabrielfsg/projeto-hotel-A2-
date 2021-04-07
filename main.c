@@ -29,9 +29,6 @@
 
 
 int main() {
-    //float num=0.0;
-    //somaContaPagarCaixa(getDataHoje(),&num);
-    //somaValores();
     
     menuPrincipal(); 
     
