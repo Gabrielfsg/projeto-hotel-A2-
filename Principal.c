@@ -53,8 +53,9 @@ void menuPrincipal() {
         printf("9.Configurações.\n");
         printf("10.Sair.\n");
         printf("Opção: ");
-        //scanf("%d%*c", &opc);
-        opc = 5;
+        scanf("%d%*c", &opc);
+        
+        
         printf("\n");
         switch (opc) {
             case 1:

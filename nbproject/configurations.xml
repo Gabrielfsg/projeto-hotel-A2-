@@ -30,6 +30,7 @@
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="f3" displayName="csv" projectFiles="true">
+          <itemPath>csvContasRec.h</itemPath>
           <itemPath>csvHospede.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="Util" projectFiles="true">
@@ -143,6 +144,7 @@
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="f3" displayName="csv" projectFiles="true">
+          <itemPath>csvContasRec.c</itemPath>
           <itemPath>csvHospede.c</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="Util" projectFiles="true">
@@ -391,6 +393,10 @@
       </item>
       <item path="VendaProdutosMenu.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="csvContasRec.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="csvContasRec.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="csvHospede.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="csvHospede.h" ex="false" tool="3" flavor2="0">
@@ -602,6 +608,10 @@
       <item path="VendaProdutosMenu.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="VendaProdutosMenu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="csvContasRec.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="csvContasRec.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="csvHospede.c" ex="false" tool="0" flavor2="0">
       </item>
