@@ -353,6 +353,54 @@ void listarAcoFaixaCodControl(int c1, int c2) {
     }
 }
 
+Acomodacao* filtrarAcoFaixaCodControl(int c1, int c2) {
+    Acomodacao *a;
+    Acomodacao *arrayFiltrado;
+    //Categoria *c;
+    int num2, num;
+    int qte = 0;
+    int index = 0;
+    int bd = listar();
+    if (bd == 1) {
+        //pega a lista de ACOMODAÇÃO do arquivo
+        num = numAcomodacao();
+        a = listarAcomodacaoTXT();
+        //c = listarCategoriaTXT();
+        //num2 = numCategoria();
+        printf("DEBUG 3\n");
+    } else if (bd == 2) {
+        a = listarAcomodacaoBIN(&num);
+        //c = listarCategoriaBIN(&num2);
+    } else {
+        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
+    }
+
+    if (num == 0) {
+        printf("\n*********NENHUMA ACOMODAÇÃO CADASTRADA*********\n");
+        return;
+    }
+
+    for (int i = 0; i < num; i++) {
+        if (a[i].codigo >= c1 && a[i].codigo <= c2) {
+            qte++;
+
+        }
+    }
+
+    arrayFiltrado = (Acomodacao *) malloc(sizeof (Acomodacao) * qte);
+
+
+    for (int i = 0; i < num; i++) {
+        if (a[i].codigo >= c1 && a[i].codigo <= c2) {
+            arrayFiltrado[index] = a[i];
+            //printf("DEBUG: ADD UMA ACOMODAÇÃO (%d)\n", a[i].codigo);
+            index++;
+        }
+    }
+
+    gerarCSVAcomodacao(arrayFiltrado, qte, 1);
+}
+
 void listaAcoCat(int co) {
     Acomodacao *a;
     Categoria *c;
@@ -398,4 +446,49 @@ void listaAcoCat(int co) {
             printf("\n*********NENHUMA ACOMODAÇÃO CADASTRADA*********\n");
         }
     }
+}
+
+void filtrarAcoCat(int codCat) {
+    Acomodacao *a;
+    Acomodacao *arrayFiltrado;
+    //Categoria *c;
+    int num2, num;
+    int qte = 0;
+    int index = 0;
+    int bd = listar();
+    if (bd == 1) {
+        num = numAcomodacao();
+        a = listarAcomodacaoTXT();
+        
+    } else if (bd == 2) {
+        a = listarAcomodacaoBIN(&num);
+     
+    } else {
+        printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
+    }
+
+    if (num == 0) {
+        printf("\n*********NENHUMA ACOMODAÇÃO CADASTRADA*********\n");
+        return;
+    }
+
+    for (int i = 0; i < num; i++) {
+        if (a[i].categoria.codigo == codCat) {
+            qte++;
+
+        }
+    }
+
+    arrayFiltrado = (Acomodacao *) malloc(sizeof (Acomodacao) * qte);
+
+
+    for (int i = 0; i < num; i++) {
+        if (a[i].categoria.codigo == codCat) {
+            arrayFiltrado[index] = a[i];
+            //printf("DEBUG: ADD UMA ACOMODAÇÃO (%d)\n", a[i].codigo);
+            index++;
+        }
+    }
+
+    gerarCSVAcomodacao(arrayFiltrado, qte, 2);
 }

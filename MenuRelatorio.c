@@ -33,7 +33,7 @@ void subRelatorios() {
         printf("10.Movimentação de Caixa.\n");
         printf("11.Voltar.\n");
         scanf("%d%*c", &opc);
-        
+
         switch (opc) {
             case 1:
                 relatorioHospedes();
@@ -104,7 +104,7 @@ void relatorioReservas() {
                         relaRescodH(cod1);
                         opc1 = 2;
                     } else if (opcV == 2) {
-
+                        filtrarReservaCodHosp(cod1);
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -125,14 +125,7 @@ void relatorioReservas() {
                         relaRescodA(cod2);
                         opc2 = 2;
                     } else if (opcV == 2) {
-                        if (bd == 1) {
-
-                        } else if (bd == 2) {
-
-                            if (r == 1) {
-
-                            }
-                        }
+                        filtrarReservaCodAco(cod2);
                         opc2 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -161,14 +154,7 @@ void relatorioReservas() {
                         relaResData(dia1, dia2, mes1, mes2, ano);
                         opc2 = 2;
                     } else if (opcV == 2) {
-                        if (bd == 1) {
-
-                        } else if (bd == 2) {
-
-                            if (r == 1) {
-
-                            }
-                        }
+                        FiltrarResData(dia1, dia2, mes1, mes2, ano);
                         opc2 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -290,9 +276,9 @@ void relatorioHospedes() {
                         printf("TESTE MENU\n");
                         //printf("QTE MENU = %d\n", qteHospedesFiltrados);
                         //for (int i = 0; i < qteHospedesFiltrados; i++) {
-                         //   printf("i = %d | qte = %d\n", i, qteHospedesFiltrados);
-                         //   printf("COD = %d\n", arrayHospedesFiltrado[i].codigo);
-                       // }
+                        //   printf("i = %d | qte = %d\n", i, qteHospedesFiltrados);
+                        //   printf("COD = %d\n", arrayHospedesFiltrado[i].codigo);
+                        // }
                         //gerarCSVHospede(arrayHospedesFiltrado, &qteHospedesFiltrados, 2);
 
                         opc2 = 2;
@@ -352,7 +338,7 @@ void relatorioContasRec() {
                         listarContasR(cod1, cod2);
                         opc1 = 2;
                     } else if (opcV == 2) {
-                        filtrarContasRecFaixaCodControl(cod1,cod2);
+                        filtrarContasRecFaixaCodControl(cod1, cod2);
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -408,13 +394,6 @@ void relatorioContasRec() {
 
                 break;
 
-            case 3:
-                subRelatorios();
-                break;
-
-            default:
-                printf("Valor Invalido!\n");
-                break;
         }
     }
 }
@@ -567,9 +546,13 @@ void relatorioContasPag() {
 void relatorioAcomodacao() {
     int opc = 0;
     int bd = listar();
+    Data *dataIn, *dataFim;
+    Acomodacao *aco;
     int cod1, cod2;
     int cod;
     int r;
+    int num = 0;
+    int dia, mes, ano, dia2, mes2, ano2;
     int opc1 = 0, opc2 = 0, opcV = 0, opcV2 = 0;
     while (opc == 0) {
         printf("*******Relatorios********\n");
@@ -602,6 +585,9 @@ void relatorioAcomodacao() {
                         opc1 = 2;
                     } else if (opcV == 2) {
 
+
+                        filtrarAcoFaixaCodControl(cod1, cod2);
+
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -622,14 +608,9 @@ void relatorioAcomodacao() {
                         listaAcoCat(cod);
                         opc2 = 2;
                     } else if (opcV == 2) {
-                        if (bd == 1) {
 
-                        } else if (bd == 2) {
+                        filtrarAcoCat(cod);
 
-                            if (r == 1) {
-
-                            }
-                        }
                         opc2 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -641,6 +622,40 @@ void relatorioAcomodacao() {
                 break;
 
             case 3:
+                printf("Entre com o dia inicial: ");
+                scanf("%d", &dia);
+                printf("Entre com o mes inicial: ");
+                scanf("%d", &mes);
+                printf("Entre com o ano inicial: ");
+                scanf("%d", &ano);
+                dataIn = newData(dia, mes, ano);
+                printf("Entre com o dia final: ");
+                scanf("%d", &dia2);
+                printf("Entre com o ano inicial: ");
+                scanf("%d", &mes2);
+                printf("Entre com o ano inicial: ");
+                scanf("%d", &ano2);
+                dataFim = newData(dia, mes, ano);
+
+
+                opc2 = 0;
+                while (opc2 == 0) {
+                    printf("Deseja: \n"
+                            "1. Listar na Tela. \n"
+                            "2. Gravar Arquivo CSV. \n");
+                    scanf("%d", &opcV);
+                    if (opcV == 1) {
+                        aco = listarAcomodacoesDisponiveis(*dataIn, *dataFim, &num);
+                        opc2 = 2;
+                    } else if (opcV == 2) {
+
+                        filtrarAcomodacoesDisponiveis(*dataIn, *dataFim, &num);
+
+                        opc2 = 2;
+                    } else {
+                        printf("Digite uma opção válida. \n");
+                    }
+                }
 
                 break;
 

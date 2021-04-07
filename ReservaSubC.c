@@ -1234,6 +1234,64 @@ Acomodacao* listarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDi
 
 }
 
+void filtrarAcomodacoesDisponiveis(Data in, Data fin, int *quantidadeAcoDisponiveis) {
+
+    int bd = listar();
+    Acomodacao *aco;
+    Reserva * res;
+    int numA;
+    int numR;
+    if (bd == 1) {
+        aco = listarAcomodacaoTXT();
+        res = listarReservaTXT();
+        numA = numAcomodacao();
+        numR = numReserva();
+    } else {
+        aco = listarAcomodacaoBIN(&numA);
+        res = listarReservaBIN(&numR);
+    }
+    Acomodacao *aco2 = (Acomodacao*) calloc(numA, sizeof (Acomodacao));
+    //printf("numA = %d ,numR %d \n",numA,numR);
+    int i, j = 0, k = 0, aux = 0, aux2 = 0;
+    int acoNDis[numR];
+    for (i = 0; i < numR; i++) {
+
+        for (j = 0; j < numA; j++) {
+
+            if (aco[j].codigo == res[i].acomodacao.codigo) {
+
+                if (dataDisponivel(in, fin, res[i].DataIn, res[i].DataFin) == 0) {
+                    acoNDis[aux] = aco[j].codigo;
+                    aux++;
+                    break;
+                }
+            }
+        }
+    }
+
+    for (i = 0; i < numA; i++) {
+
+        for (j = 0; j <= aux; j++) {
+
+            if (aco[i].codigo == acoNDis[j]) {
+                aux2 = 1;
+            }
+        }
+        if (aux2 == 0) {
+            aco2[*quantidadeAcoDisponiveis] = aco[i];
+            *quantidadeAcoDisponiveis = (*quantidadeAcoDisponiveis) + 1;
+        }
+        aux2 = 0;
+
+    }
+
+
+    free(res);
+
+    gerarCSVAcomodacao(aco2, *quantidadeAcoDisponiveis, 3);
+
+}
+
 void relaRescodH(int c) {
     int bd = listar();
     int n, aux;
@@ -1258,6 +1316,44 @@ void relaRescodH(int c) {
         }
         free(res);
     }
+}
+
+void filtrarReservaCodHosp(int c) {
+    int bd = listar();
+    int n, aux;
+    Reserva *res;
+
+    Reserva *arrayFiltrado;
+    int qte = 0;
+    int index=0;
+
+    if (bd == 1) {
+        n = numReserva();
+        res = listarReservaTXT();
+    } else if (bd == 2) {
+        res = listarReservaBIN(&n);
+    }
+
+    int i;
+    for (i = 0; i < n; i++) {
+        if (res[i].hospede.codigo == c) {
+            //printf("COD: %d \n", res[i].codigo);
+            qte++;
+        }
+    }
+
+    arrayFiltrado = (Reserva *) malloc(sizeof (Reserva) * qte);
+
+    for (i = 0; i < n; i++) {
+        if (res[i].hospede.codigo == c) {
+            arrayFiltrado[index] = res[i];
+            index++;
+            
+        }
+    }
+
+    gerarCSVReserva(arrayFiltrado, qte, 1);
+    free(res);
 }
 
 void relaRescodA(int c) {
@@ -1287,6 +1383,45 @@ void relaRescodA(int c) {
 }
 
 
+void filtrarReservaCodAco(int c) {
+    int bd = listar();
+    int n, aux;
+    Reserva *res;
+
+    Reserva *arrayFiltrado;
+    int qte = 0;
+    int index=0;
+
+    if (bd == 1) {
+        n = numReserva();
+        res = listarReservaTXT();
+    } else if (bd == 2) {
+        res = listarReservaBIN(&n);
+    }
+
+    int i;
+    for (i = 0; i < n; i++) {
+        if (res[i].acomodacao.codigo == c) {
+            //printf("COD: %d \n", res[i].codigo);
+            qte++;
+        }
+    }
+
+    arrayFiltrado = (Reserva *) malloc(sizeof (Reserva) * qte);
+
+    for (i = 0; i < n; i++) {
+        if (res[i].acomodacao.codigo == c) {
+            arrayFiltrado[index] = res[i];
+            index++;
+            
+        }
+    }
+
+    gerarCSVReserva(arrayFiltrado, qte, 2);
+    free(res);
+}
+
+
 void relaResData(int d1, int d2, int m1, int m2, int a) {
     int bd = listar();
     int n, aux;
@@ -1300,14 +1435,53 @@ void relaResData(int d1, int d2, int m1, int m2, int a) {
     if (bd > 0) {
         int i;
         for (i = 0; i < n; i++) {
-            if(res[i].DataIn.dia >= d1 && res[i].DataFin.dia <= d2 && res[i].DataIn.mes >= m1 && res[i].DataFin.mes <= m2 && res[i].DataIn.ano == a && res[i].DataFin.ano == a);
-                printf("COD: %d \n", res[i].codigo);
-                printf("DATA INI: %d /%d /%d\n", res[i].DataIn.dia, res[i].DataIn.mes, res[i].DataIn.ano);
-                printf("DATA FIM: %d /%d /%d\n", res[i].DataFin.dia, res[i].DataFin.mes, res[i].DataFin.ano);
-                printf("HOSPEDES: (%d) - %s \n", res[i].hospede.codigo, res[i].hospede.nome);
-                printf("Acomodação: (%d) - %s \n", res[i].acomodacao.codigo, res[i].acomodacao.descricao);
-                printf("\n");
-            }
+            if (res[i].DataIn.dia >= d1 && res[i].DataFin.dia <= d2 && res[i].DataIn.mes >= m1 && res[i].DataFin.mes <= m2 && res[i].DataIn.ano == a && res[i].DataFin.ano == a);
+            printf("COD: %d \n", res[i].codigo);
+            printf("DATA INI: %d /%d /%d\n", res[i].DataIn.dia, res[i].DataIn.mes, res[i].DataIn.ano);
+            printf("DATA FIM: %d /%d /%d\n", res[i].DataFin.dia, res[i].DataFin.mes, res[i].DataFin.ano);
+            printf("HOSPEDES: (%d) - %s \n", res[i].hospede.codigo, res[i].hospede.nome);
+            printf("Acomodação: (%d) - %s \n", res[i].acomodacao.codigo, res[i].acomodacao.descricao);
+            printf("\n");
         }
-        free(res);
     }
+    free(res);
+}
+
+void FiltrarResData(int d1, int d2, int m1, int m2, int a) {
+    int bd = listar();
+    int n, aux;
+    Reserva *res;
+
+    Reserva *arrayFiltrado;
+    int qte = 0;
+    int index=0;
+
+    if (bd == 1) {
+        n = numReserva();
+        res = listarReservaTXT();
+    } else if (bd == 2) {
+        res = listarReservaBIN(&n);
+    }
+
+    int i;
+    for (i = 0; i < n; i++) {
+        if (res[i].DataIn.dia >= d1 && res[i].DataFin.dia <= d2 && res[i].DataIn.mes >= m1 && res[i].DataFin.mes <= m2 && res[i].DataIn.ano == a && res[i].DataFin.ano == a) {
+            //printf("COD: %d \n", res[i].codigo);
+            qte++;
+        }
+    }
+
+    arrayFiltrado = (Reserva *) malloc(sizeof (Reserva) * qte);
+
+    for (i = 0; i < n; i++) {
+        if (res[i].DataIn.dia >= d1 && res[i].DataFin.dia <= d2 && res[i].DataIn.mes >= m1 && res[i].DataFin.mes <= m2 && res[i].DataIn.ano == a && res[i].DataFin.ano == a) {
+            arrayFiltrado[index] = res[i];
+            index++;
+            
+        }
+    }
+
+    gerarCSVReserva(arrayFiltrado, qte, 3);
+    
+    free(res);
+}

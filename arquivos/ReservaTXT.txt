@@ -1,0 +1,87 @@
+1
+0
+1
+1
+1
+5
+1
+1
+1
+CHALE LUXO
+1
+livre
+1
+Daniel
+14316736680
+37998070898
+danielantonio23599@gmail.com
+M
+Casado
+23
+5
+1999
+1
+Serra Verde
+35570730
+Formiga
+rua antonio marinho da costa
+55
+MG
+2
+0
+7
+7
+7
+8
+8
+8
+1
+CHALE LUXO
+1
+livre
+1
+Daniel
+14316736680
+37998070898
+danielantonio23599@gmail.com
+M
+Casado
+23
+5
+1999
+1
+Serra Verde
+35570730
+Formiga
+rua antonio marinho da costa
+55
+MG
+3
+0
+1
+1
+1
+5
+1
+1
+4
+QUARTO 5
+1
+livre
+2
+Gariel
+11111111
+22222222
+garielfernandes@gmail.com
+M
+solteiro
+20
+2
+2000
+2
+cidade nova
+35570000
+formiga
+rua um
+1
+mg
