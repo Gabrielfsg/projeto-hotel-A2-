@@ -74,6 +74,29 @@ int cadastrarProdutoBIN(Produto p) {
     }
 }
 
+int cadastrarProdutoBin(Produto *prod, int quantidade) {
+    FILE *arq;
+    //abrea arquivo para escrita e posiciona cursor no final "ab"
+    arq = fopen(".\\arquivos\\produto.bin", "ab");
+    if (arq == NULL) {
+        //cria arquivo para escrita se não houver "wb"
+        arq = fopen(".\\arquivos\\produto.bin", "wb");
+        if (arq == NULL) {
+            printf("\nERRO ao acessar arquivo\n");
+            return 0;
+        }
+    }
+    //strlen()-> informa o tamanho de uma string 
+    /*grava toda struct de operador no arquivo*/
+    fwrite(&prod, sizeof (Produto), quantidade, arq);
+    fflush(arq);
+    /*fecha o arquivo*/
+    fclose(arq);
+    /*libera mémoria*/
+    free(arq);
+    return 1;
+}
+
 /*
  * FUNÇÃO: atualizarProdutoTXT 
  * 
@@ -505,3 +528,26 @@ int getNumProdConsumo() {
     return numProdutos;
 
 }
+
+int salvarProdutoTXT(Produto *prod, int num) {
+  FILE *arq;
+  // w para substituir o arquivo
+  arq = fopen("arquivos\\produtos.txt", "w");
+  if (arq == NULL) {
+    printf("\nErro ao abrir arquivo!!");
+    return 0;
+  } else {
+    int i;
+    // grava todos os dado do vetor no arquivo
+    for (int = 0; i < num; i++) {
+      fprintf(arq, "%d\r\n%s\r\n%d\r\n%d\r\n%f\r\n%f\r\n", prod[i].codigo,
+              prod[i].descricao, prod[i].estoque, prod[i].estoqueMinimo, 
+              prod[i].precoCusto, prod[i].precoVenda);
+    }
+  }
+  fflush(arq);
+  fclose(arq);
+  free(arq);
+  free(prod);
+  return 1;
+} 
