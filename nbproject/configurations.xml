@@ -147,6 +147,7 @@
           <itemPath>csvAcomodacao.c</itemPath>
           <itemPath>csvContasRec.c</itemPath>
           <itemPath>csvHospede.c</itemPath>
+          <itemPath>csvProdConsumo.c</itemPath>
           <itemPath>csvReserva.c</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="Util" projectFiles="true">
@@ -405,6 +406,8 @@
       </item>
       <item path="csvHospede.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="csvProdConsumo.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="csvReserva.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
@@ -624,6 +627,8 @@
       <item path="csvHospede.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="csvHospede.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="csvProdConsumo.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="csvReserva.c" ex="false" tool="0" flavor2="0">
       </item>

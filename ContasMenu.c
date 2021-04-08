@@ -240,7 +240,7 @@ void listarContasTipo(int t) {
     }
 }
 void filtrarContasRecFaixaCodControl(int cod1, int cod2) {
-    printf("ENTROU AQUI\n");
+    //printf("ENTROU AQUI\n");
     int n, aux;
     int bd = listar();
     
@@ -257,38 +257,7 @@ void filtrarContasRecFaixaCodControl(int cod1, int cod2) {
         printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
         if (n > 0) {
-           
-/*
-
-            printf("FOR TOTAL  ->   N = %d\n",n);
-            for(int i =0;i<n;i++){
-                printf("\n*******%d************", i);
-                    printf("\nCodigo: %d", cr[i].codigo);
-                    printf("\nValor: %f", cr[i].valor);
-                    printf("\nDia Pagamento: %d", cr[i].data.dia);
-                    printf("\nMes Pagamento: %d", cr[i].data.mes);
-                    printf("\nAno Pagamento: %d", cr[i].data.ano);
-                    printf("\nStatus: %s", cr[i].status);
-                    printf("\nForma de Pagamento: %s", cr[i].pagamento);
-                    printf("\nCodigo do caixa: %d", cr[i].caixa);
-                    printf("\n");
-            }
-
-*/
-
-/*
-            
-            for (int i = 0; i < n; i++) {
-                if (cr[i].codigo >= cod1 && cr[i].codigo <= cod2) {
-                    printf("CONTA %d ESTÁ DENTRO DOS COD\n",cr[i].codigo);
-                    qte++;
-                    printf("QTE++ = %d\n",qte);
-                }else{
-                    printf("CONTA %d NÃO ESTÁ DENTRO DOS COD\n",cr[i].codigo);
-                }
-            }
-            
-*/
+          
             printf("QTE TOTAL = %d\n",qte);
             crFiltrado = (ContaReceber *) malloc(sizeof (Hospede) * qte);
             
@@ -300,23 +269,6 @@ void filtrarContasRecFaixaCodControl(int cod1, int cod2) {
                 }
             }
             
-/*
-            
-            printf("FOR PARA VER O ARRAY QUE VAI MANDAR PARA O CSV\n");
-            for(int i =0; i<qte;i++){
-                printf("\n*******%d************", i);
-                    printf("\nCodigo: %d", crFiltrado[i].codigo);
-                    printf("\nValor: %f", crFiltrado[i].valor);
-                    printf("\nDia Pagamento: %d", crFiltrado[i].data.dia);
-                    printf("\nMes Pagamento: %d", crFiltrado[i].data.mes);
-                    printf("\nAno Pagamento: %d", crFiltrado[i].data.ano);
-                    printf("\nStatus: %s", crFiltrado[i].status);
-                    printf("\nForma de Pagamento: %s", crFiltrado[i].pagamento);
-                    printf("\nCodigo do caixa: %d", crFiltrado[i].caixa);
-                    printf("\n");
-            }
-            
-*/
 
             gerarCSVContasRec(crFiltrado,qte,1);
             

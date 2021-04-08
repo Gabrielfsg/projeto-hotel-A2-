@@ -85,6 +85,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/csvAcomodacao.o \
 	${OBJECTDIR}/csvContasRec.o \
 	${OBJECTDIR}/csvHospede.o \
+	${OBJECTDIR}/csvProdConsumo.o \
 	${OBJECTDIR}/csvReserva.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/menuXML.o \
@@ -364,6 +365,11 @@ ${OBJECTDIR}/csvHospede.o: csvHospede.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/csvHospede.o csvHospede.c
+
+${OBJECTDIR}/csvProdConsumo.o: csvProdConsumo.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/csvProdConsumo.o csvProdConsumo.c
 
 ${OBJECTDIR}/csvReserva.o: csvReserva.c
 	${MKDIR} -p ${OBJECTDIR}

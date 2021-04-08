@@ -9,8 +9,14 @@
         <group>
             <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/csvContasRec.c</file>
             <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Principal.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/csvReserva.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/ProdutoConsumoMenu.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/ContasMenu.c</file>
             <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/main.c</file>
             <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/MenuRelatorio.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/Produto.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/ReservaSubC.c</file>
+            <file>file:/C:/Users/Tales/Documents/NetBeansProjects/projeto-hotel-A2-/csvProdConsumo.c</file>
         </group>
     </open-files>
 </project-private>

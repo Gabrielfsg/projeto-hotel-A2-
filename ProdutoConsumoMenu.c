@@ -11,6 +11,7 @@
 #include "ProdutoConsumoMenu.h"
 #include "Principal.h"
 #include "SalvametoBD.h"
+#include "Hospede.h"
 
 void menuCRUDProdConsumo() {
     int sair = 0;
@@ -416,4 +417,42 @@ void listarProdFaixa(int c1, int c2) {
         }
     }
     printf("\n FIM DA LISTA DE PRODUTOS \n");
+}
+
+void filtrarProdFaixa(int c1, int c2) {
+    printf("DEBUG 1\n");
+    int bd = listar();
+    int n=0;
+    Produto *arrayProdutos;
+    Produto *arrayFiltrado;
+    int qte = 0;
+    int index = 0;
+
+    if (bd == 1) {
+        n = getNumProdConsumo();
+        arrayProdutos = getAllProdutoTXT(n);
+    } else if (bd == 2) {
+        arrayProdutos = getAllProdutoBIN(&n);
+    }
+
+
+    for (int i = 0; i < n; i++) {
+        if (arrayProdutos[i].codigo >= c1 && arrayProdutos[i].codigo <= c2) {
+            qte++;
+            //printf("QTE: %d \n", qte);
+        }
+    }
+
+    arrayFiltrado = (Produto *) malloc(sizeof (Produto) * qte);
+
+    for (int i = 0; i < n; i++) {
+        if (arrayProdutos[i].codigo >= c1 && arrayProdutos[i].codigo <= c2) {
+            arrayFiltrado[index] = arrayProdutos[i];
+            index++;
+            //printf("ADD PRODUTO: %d \n",arrayFiltrado[index].codigo);
+        }
+    }
+
+    gerarCSVProdConsumo(arrayFiltrado, qte);
+    free(arrayProdutos);
 }

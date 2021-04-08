@@ -15,6 +15,7 @@
 #include "HospedeMenu.h"
 #include "MenuCaixa.h"
 #include "csvHospede.h"
+#include "Data.h"
 
 void subRelatorios() {
     int opc = 0;
@@ -24,14 +25,13 @@ void subRelatorios() {
         printf("1.Listagem de Hospedes.\n");
         printf("2.Listagem de Acomodaçoes.\n");
         printf("3.Listagens de Reservas.\n");
-        printf("4.Listagem de Movimentacao de Acomodacao.\n");
-        printf("5.Listagem de produtos de consumo.\n");
-        printf("6.Produto em Estoque Minimo.\n");
-        printf("7.Vendas.\n");
-        printf("8.Contas a Receber.\n");
-        printf("9.Contas a Pagar.\n");
-        printf("10.Movimentação de Caixa.\n");
-        printf("11.Voltar.\n");
+        printf("4.Listagem de produtos de consumo.\n");
+        printf("5.Produto em Estoque Minimo.\n");
+        printf("6.Vendas.\n");
+        printf("7.Contas a Receber.\n");
+        printf("8.Contas a Pagar.\n");
+        printf("9.Movimentação de Caixa.\n");
+        printf("10.Voltar.\n");
         scanf("%d%*c", &opc);
 
         switch (opc) {
@@ -45,27 +45,24 @@ void subRelatorios() {
                 relatorioReservas();
                 break;
             case 4:
-
-                break;
-            case 5:
                 relatorioProdCon();
                 break;
-            case 6:
+            case 5:
                 relatorioProdRes();
                 break;
-            case 7:
+            case 6:
                 relatorioVenda();
                 break;
-            case 8:
+            case 7:
                 relatorioContasRec();
                 break;
-            case 9:
+            case 8:
                 relatorioContasPag();
                 break;
-            case 10:
+            case 9:
                 relatorioCaixa();
                 break;
-            case 11:
+            case 10:
                 menuPrincipal();
                 break;
             default:
@@ -491,13 +488,13 @@ void relatorioContasPag() {
                 break;
 
             case 2:
-                printf("Entre com o dia: ");
+                printf("Entre com o dia 1: ");
                 scanf("%d", &dia);
-                printf("Entre com o mes: ");
+                printf("Entre com o mes 1: ");
                 scanf("%d", &mes);
-                printf("Entre com o dia: ");
+                printf("Entre com o dia 2: ");
                 scanf("%d", &dia2);
-                printf("Entre com o mes: ");
+                printf("Entre com o mes 2: ");
                 scanf("%d", &mes2);
                 printf("Entre com o ano: ");
                 scanf("%d", &ano);
@@ -704,7 +701,7 @@ void relatorioProdCon() {
                         listarProdFaixa(cod1, cod2);
                         opc1 = 2;
                     } else if (opcV == 2) {
-
+                        filtrarProdFaixa(cod1,cod2);
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
