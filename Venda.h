@@ -23,7 +23,9 @@ typedef struct venda{
 }Venda;
     
 int cadastrarVendaTXT(Venda v);
+int salvarVendaTXT(Venda *ven, int num);
 int cadastrarVendaBIN(Venda v);
+int salvarVendaBIN(Venda *ven, int quantidade);
 int maiorCodVenda();
 Venda* listarVendaTXT(int numVendas);
 Venda* listarVendaBIN(int *numVendas);
