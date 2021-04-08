@@ -38,6 +38,12 @@ typedef struct hotel {
 Hotel* listarHotelBIN(int *numLinha);
 //int cadastrarHotelBin(Hotel h, int quantidade);
 Hotel * listarHTXT();
+int removerHotelBIN() ;
 int editarHotelTXT(Hotel *hot, Hotel h, int num);
+int cadastrarHotelBin(Hotel *h, int quantidade) ;
+int cadastrarHotelTXT(Hotel h);
+int salvarHotelTXT(Hotel *hot, int num);
+int editarHotelBin(Hotel h, int posi);
+
 #endif /* HOTEL_H */
 
