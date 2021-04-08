@@ -26,6 +26,27 @@ void cadastrarProdutoReservaTXT(ProdutoReserva pr) {
     return retorno;
 }
 
+int salvarProdutoReservaTXT(ProdutoReserva *pr, int num) {
+  FILE *arq;
+  arq = fopen("arquivos\\produtos_reserva.txt", "w");
+  if(arq == NULL) {
+    printf("\nErro ao abrir arquivo!!");
+    return 0;
+  } else {
+    int i;
+    // grava todos os dados do vetor no arquivo
+    for (i = 0; i < num; i++) {
+      fprintf(arq, "%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n%d\r\n", pr[i].codProd, 
+              pr[i].codRes, pr[i].quantidade, pr[i].data.dia, pr[i].data.mes, pr[i].data.ano); // f
+    }
+  }
+  fflush(arq);
+  fclose(arq);
+  free(arq);
+  free(pr);
+  return 1;
+}
+
 void cadastrarProdutoReservaBIN(ProdutoReserva pr) {
     FILE* arqProdutoReserva;
     //abre o arquivo, ou cria um novo se não conseguir abrir
@@ -48,6 +69,29 @@ void cadastrarProdutoReservaBIN(ProdutoReserva pr) {
         fclose(arqProdutoReserva);
         return count;
     }
+}
+
+int salvarProdutoReservaBIN(ProdutoReserva *pr, int quantidade) {
+    FILE *arq;
+    //abrea arquivo para escrita e posiciona cursor no final "ab"
+    arq = fopen("arquivos\\produtos_reserva.bin", "ab");
+    if (arq == NULL) {
+        //cria arquivo para escrita se não houver "wb"
+        arq = fopen("arquivos\\produtos_reserva.bin", "wb");
+        if (arq == NULL) {
+            printf("\nERRO ao acessar arquivo\n");
+            return 0;
+        }
+    }
+    //strlen()-> informa o tamanho de uma string 
+    /*grava toda struct de acomodacao no arquivo*/
+    fwrite(pr, sizeof (ProdutoReserva), quantidade, arq);
+    fflush(arq);
+    /*fecha o arquivo*/
+    fclose(arq);
+    /*libera mémoria*/
+    free(arq);
+    return 1;
 }
 
 ProdutoReserva* getAllProdutoReservaTXT(int numProdutos) {
@@ -194,7 +238,7 @@ float somaProdutosConsumido(int codReserva) {
             }
             //printf("DEBUG: PEGOU O PRODUTO %s\n",p.descricao);
             //printf("DEBUG: A QTE É %d\n",produtosDaReserva[i].quantidade);
-            total += p.precoVenda * produtosDaReserva[i].quantidade;
+            total += p.precoVenda* produtosDaReserva[i].quantidade;
             //printf("DEBUG: SOMA TOTAL =  %.2f\n",total);
         }
 
@@ -202,6 +246,7 @@ float somaProdutosConsumido(int codReserva) {
 
     return total;
 }
+
 
 void listarProdResFaixa(int c1, int c2) {
     //VERIFICAR EXTENSÃO DO ARQUIVO
@@ -228,81 +273,9 @@ void listarProdResFaixa(int c1, int c2) {
             printf("COD: %d\n", arrayProdutos[i].codProd);
             printf("COD RES: %d\n", arrayProdutos[i].codRes);
             printf("ESTOQUE: %d\n", arrayProdutos[i].quantidade);
-            printf("DATA: /%d/%d/%d ", arrayProdutos[i].data.dia, arrayProdutos[i].data.mes, arrayProdutos[i].data.ano);
+            printf("DATA: /%d/%d/%d ", arrayProdutos[i].data.dia, arrayProdutos[i].data.mes,arrayProdutos[i].data.ano);
             printf("***************\n");
         }
     }
     printf("\n FIM DA LISTA DE PRODUTOS \n");
-}
-
-ProdutoReserva* filtrarProdutoReservaCodControl(int c1, int c2) {
-    int numProdutos=0; // o valor será atualizado, para poder mostrar todos os hóspedes;
-    int qteProdResFiltro = 0;
-    int index = 0;
-
-    ProdutoReserva* arrayProdutos;
-    ProdutoReserva* arrayFiltrado;
-
-
-    //pega a extensão do arquivo
-    int ext = listar();
-    if (ext == 2) {
-        //BIN
-        numProdutos = 0;
-        arrayProdutos = getAllProdutoReservaBIN(&numProdutos);
-       
-    }
-    if (ext == 1) {
-        //TXT
-        numProdutos = getNumProdReserva();
-        arrayProdutos = getAllProdutoReservaTXT(numProdutos);
-
-    }
-    
-    
-    for (int i = 0; i < numProdutos; i++) {
-        if (arrayProdutos[i].codProd >= c1 && arrayProdutos[i].codProd <= c2) {
-            qteProdResFiltro++;
-
-        }
-    }
-
-
-    arrayFiltrado = (ProdutoReserva *) malloc(sizeof (ProdutoReserva) * qteProdResFiltro);
-
-    for (int i = 0; i < numProdutos; i++) {
-        if (arrayProdutos[i].codProd >= c1 && arrayProdutos[i].codProd <= c2) {
-            arrayFiltrado[index] = arrayProdutos[i];
-            //printf("ADD O HOSPEDE (%s) NA POS: %d\n", arrayFiltrado[i].nome, index);
-            index++;
-        }
-
-    }
-
-    gerarCSVProdRes(arrayFiltrado, qteProdResFiltro);
-
-
-}
-
-void gerarCSVProdRes(ProdutoReserva* arrayF, int qte) {
-    printf("ENTROU GERAR CSV\n");
-    printf("COD = %d\n", arrayF[1].codProd);
-    printf("QTE = %d\n", qte);
-    FILE* arCaixa;
-
-
-
-    arCaixa = fopen(".\\relatorios\\ProdutoReserva_FaixaCod.txt", "w");
-
-
-    for (int i = 0; i < qte; i++) {
-        printf("DENTRO DO FOR\n");
-     
-        fprintf(arCaixa, "%d,%d,%d,%d,%d,%d)", arrayF[i].codProd, arrayF[i].codRes, arrayF[i].data.dia, arrayF[i].data.mes, arrayF[i].data.ano, arrayF[i].quantidade);
-        fprintf(arCaixa, "\n");
-    }
-
-    fflush(arCaixa);
-    fclose(arCaixa);
-
 }
