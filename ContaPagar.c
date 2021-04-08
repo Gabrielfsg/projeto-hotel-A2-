@@ -469,3 +469,143 @@ void mostrarContasPagarData(int d1, int d2, int m1, int m2, int a) {
         }
     }
 }
+
+ContaPagar* filtrarContaPagarCod(int c1, int c2) {
+    int numCp = 0; // o valor será atualizado, para poder mostrar todos os hóspedes;
+    int qteCpFiltro = 0;
+    int index = 0;
+
+    ContaPagar* arrayCP;
+    ContaPagar* arrayFiltrado;
+
+
+    //pega a extensão do arquivo
+    int bd = listar();
+    if (bd == 1) {
+        numCp = getNumContaPagar();
+        //printf("DEBUG: O NUM DE CONTAS A PAGAR É %d\n", numContas);
+        arrayCP = listarContaPagarTXT(numCp);
+    }
+    if (bd == 2) {
+        arrayCP = listarContaPagarBIN(&numCp);
+    }
+    //se não existe nenhum hóspede, termina a função
+
+    //calcula quantos hospedes pertencem ao filtro
+    for (int i = 0; i < numCp; i++) {
+         if (arrayCP[i].codigo >= c1 && arrayCP[i].codigo <= c2) {
+            qteCpFiltro++;
+
+        }
+    }
+    arrayFiltrado = (ContaPagar *) malloc(sizeof (ContaPagar) * qteCpFiltro);
+
+    for (int i = 0; i < numCp; i++) {
+       if (arrayCP[i].codigo >= c1 && arrayCP[i].codigo <= c2) {
+            arrayFiltrado[index] = arrayCP[i];
+            //printf("ADD O HOSPEDE (%s) NA POS: %d\n", arrayFiltrado[i].nome, index);
+            index++;
+        }
+
+    }
+
+    gerarCSVCPC(arrayFiltrado, qteCpFiltro);
+
+
+}
+
+
+ContaPagar* filtrarContaPagarData(int d1, int d2, int m1, int m2, int a) {
+    int numCp = 0; // o valor será atualizado, para poder mostrar todos os hóspedes;
+    int qteCpFiltro = 0;
+    int index = 0;
+
+    ContaPagar* arrayCP;
+    ContaPagar* arrayFiltrado;
+
+
+    //pega a extensão do arquivo
+    int bd = listar();
+    if (bd == 1) {
+        numCp = getNumContaPagar();
+        //printf("DEBUG: O NUM DE CONTAS A PAGAR É %d\n", numContas);
+        arrayCP = listarContaPagarTXT(numCp);
+    }
+    if (bd == 2) {
+        arrayCP = listarContaPagarBIN(&numCp);
+    }
+    //se não existe nenhum hóspede, termina a função
+
+    //calcula quantos hospedes pertencem ao filtro
+    for (int i = 0; i < numCp; i++) {
+          if (arrayCP[i].data.ano == a && arrayCP[i].data.mes >= m1 && arrayCP[i].data.mes <= m2 && arrayCP[i].data.dia >= d1 && arrayCP[i].data.dia <= d2) {
+            qteCpFiltro++;
+
+        }
+    }
+    arrayFiltrado = (ContaPagar *) malloc(sizeof (ContaPagar) * qteCpFiltro);
+
+    for (int i = 0; i < numCp; i++) {
+         if (arrayCP[i].data.ano == a && arrayCP[i].data.mes >= m1 && arrayCP[i].data.mes <= m2 && arrayCP[i].data.dia >= d1 && arrayCP[i].data.dia <= d2) {
+            arrayFiltrado[index] = arrayCP[i];
+            //printf("ADD O HOSPEDE (%s) NA POS: %d\n", arrayFiltrado[i].nome, index);
+            index++;
+        }
+
+    }
+
+    gerarCSVCPD(arrayFiltrado, qteCpFiltro);
+
+
+}
+
+void gerarCSVCPC(ContaPagar* arrayF, int qte) {
+    printf("ENTROU GERAR CSV\n");
+    printf("COD = %d\n", arrayF[1].codigo);
+    printf("QTE = %d\n", qte);
+    FILE* arCP;
+
+
+
+    arCP = fopen(".\\relatorios\\ContaPagar_faixaCod", "w");
+
+
+    for (int i = 0; i < qte; i++) {
+        printf("DENTRO DO FOR\n");
+        fprintf(arCP, "%d,%d,%d,%d,%d,%s,%s,%f)",arrayF[i].codigo, arrayF[i].codForn,arrayF[i].data.dia,arrayF[i].data.mes,arrayF[i].data.ano,arrayF[i].descricao,arrayF[i].status,arrayF[i].valor);
+        fprintf(arCP, "\n");
+    }
+
+    //retorno += fprintf(arHospedes, "DiaNasc: %d\r\nMesNasc: %d\r\nAnoNasc: %d\r\n", h.dataNascimento.dia, h.dataNascimento.mes, h.dataNascimento.ano);
+    //retorno += fprintf(arHospedes, "CodEnder: %d\r\nBairro: %s\r\nCEP: %s\r\nCidade: %s\r\nLogradouro: %s\r\nNumero: %d\r\nUF: %s\r\n", h.endereco.codigo, h.endereco.bairro, h.endereco.cep, h.endereco.cidade, h.endereco.logradouro, h.endereco.numero, h.endereco.uf);
+
+    fflush(arCP);
+    fclose(arCP);
+
+}
+
+
+void gerarCSVCPD(ContaPagar* arrayF, int qte) {
+    printf("ENTROU GERAR CSV\n");
+    printf("COD = %d\n", arrayF[1].codigo);
+    printf("QTE = %d\n", qte);
+    FILE* arCP;
+
+
+
+    arCP = fopen(".\\relatorios\\ContaPagar_data", "w");
+
+
+    for (int i = 0; i < qte; i++) {
+        printf("DENTRO DO FOR\n");
+        fprintf(arCP, "%d,%d,%d,%d,%d,%s,%s,%f)",arrayF[i].codigo, arrayF[i].codForn,arrayF[i].data.dia,arrayF[i].data.mes,arrayF[i].data.ano,arrayF[i].descricao,arrayF[i].status,arrayF[i].valor);
+        fprintf(arCP, "\n");
+    }
+
+    //retorno += fprintf(arHospedes, "DiaNasc: %d\r\nMesNasc: %d\r\nAnoNasc: %d\r\n", h.dataNascimento.dia, h.dataNascimento.mes, h.dataNascimento.ano);
+    //retorno += fprintf(arHospedes, "CodEnder: %d\r\nBairro: %s\r\nCEP: %s\r\nCidade: %s\r\nLogradouro: %s\r\nNumero: %d\r\nUF: %s\r\n", h.endereco.codigo, h.endereco.bairro, h.endereco.cep, h.endereco.cidade, h.endereco.logradouro, h.endereco.numero, h.endereco.uf);
+
+    fflush(arCP);
+    fclose(arCP);
+
+}

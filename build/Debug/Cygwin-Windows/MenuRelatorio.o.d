@@ -1,6 +1,6 @@
 build/Debug/Cygwin-Windows/MenuRelatorio.o: MenuRelatorio.c Acomodacao.h \
  Categoria.h AcomodacaoSUB.h SalvametoBD.h Hospede.h Endereco.h Data.h \
- HospedeMenu.h MenuCaixa.h csvHospede.h
+ HospedeMenu.h MenuCaixa.h csvHospede.h Caixa.h
 
 Acomodacao.h:
 
@@ -21,3 +21,5 @@ HospedeMenu.h:
 MenuCaixa.h:
 
 csvHospede.h:
+
+Caixa.h:

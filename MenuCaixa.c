@@ -16,6 +16,7 @@
 #include "Venda.h"
 #include "MenuCaixa.h"
 
+
 void menuCaixa() {
     float total;
     int opc = 0;
@@ -157,7 +158,7 @@ void listarCaixaData(int dia1, int dia2, int mes) {
         cai = listarCaixaTXT();
 
     }
-    printf("***** LISTA DE TODOS OS PRODUTOS*****\n");
+    printf("***** LISTA Dos Caixas*****\n");
     for (int i = 0; i < numCaixa; i++) {
         //lista os produtos
         if (cai[i].data.mes == mes && cai[i].data.dia >= dia1 && cai[i].data.dia <= dia2) {
@@ -171,4 +172,88 @@ void listarCaixaData(int dia1, int dia2, int mes) {
         }
     }
     printf("\n FIM DA LISTA DE PRODUTOS \n");
+}
+
+Caixa* filtrarCaixaDataControl(int dia1, int dia2, int mes) {
+    int numCaixa = 0; // o valor será atualizado, para poder mostrar todos os hóspedes;
+    int qteCaixaFiltro = 0;
+    int index = 0;
+
+    Caixa* arrayCaixa;
+    Caixa* arrayFiltrado;
+
+
+    //pega a extensão do arquivo
+    int ext = listar();
+     if (ext == 2) {
+        //BIN
+        arrayCaixa = listarCaixaBIN(&numCaixa);
+        //printf("NUM PROD = %d\n", numProdutos);
+    }
+    if (ext == 1) {
+        //TXT
+        arrayCaixa = listarCaixaTXT();
+
+    }
+    //se não existe nenhum hóspede, termina a função
+   
+    //calcula quantos hospedes pertencem ao filtro
+    for (int i = 0; i < numCaixa; i++) {
+       if (arrayCaixa[i].data.mes == mes && arrayCaixa[i].data.dia >= dia1 && arrayCaixa[i].data.dia <= dia2) {
+            qteCaixaFiltro++;
+
+        }
+    }
+
+
+
+    arrayFiltrado = (Caixa *) malloc(sizeof (Caixa) * qteCaixaFiltro);
+
+    for (int i = 0; i < numCaixa; i++) {
+      if (arrayCaixa[i].data.mes == mes && arrayCaixa[i].data.dia >= dia1 && arrayCaixa[i].data.dia <= dia2) {
+            arrayFiltrado[index] = arrayCaixa[i];
+            //printf("ADD O HOSPEDE (%s) NA POS: %d\n", arrayFiltrado[i].nome, index);
+            index++;
+        }
+      
+    }
+    
+    gerarCSVCaixa(arrayFiltrado,qteCaixaFiltro);
+
+
+}
+
+void gerarCSVCaixa(Caixa* arrayF, int qte) {
+    printf("ENTROU GERAR CSV\n");
+    printf("COD = %d\n",arrayF[1].codigo);
+    printf("QTE = %d\n",qte);
+    FILE* arCaixa;
+    
+    
+
+        arCaixa = fopen(".\\relatorios\\Caixa_Data", "w");    
+
+          
+    for(int i =0; i<qte;i++){
+        printf("DENTRO DO FOR\n");
+/*
+       
+        fprintf(arHospedes, "%d,%s,%s,%s,%s,%c,%d,%d,%d,%d,%s,%s,%s,%s,%d,%s", arrayFiltrado[i].codigo, arrayFiltrado[i].nome, arrayFiltrado[i].cpf, arrayFiltrado[i].telefone, arrayFiltrado[i].email, arrayFiltrado[i].sexo, arrayFiltrado[i].esCivil
+                , arrayFiltrado[i].dataNascimento.dia, arrayFiltrado[i].dataNascimento.mes, arrayFiltrado[i].dataNascimento.ano
+                , arrayFiltrado[i].endereco.codigo, arrayFiltrado[i].endereco.bairro,arrayFiltrado[i].endereco.cep,arrayFiltrado[i].endereco.cidade,
+                arrayFiltrado[i].endereco.logradouro,arrayFiltrado[i].endereco.numero,arrayFiltrado[i].endereco.uf);
+        fprintf(arHospedes, "\n");
+    
+    
+*/
+        fprintf(arCaixa, "%d,%s,%d,%d,%d,%f,%f)",arrayF[i].codigo,arrayF[i].status,arrayF[i].data.dia,arrayF[i].data.mes,arrayF[i].data.ano,arrayF[i].valorIn,arrayF[i].valorFin);
+        fprintf(arCaixa, "\n");
+    }
+    
+        //retorno += fprintf(arHospedes, "DiaNasc: %d\r\nMesNasc: %d\r\nAnoNasc: %d\r\n", h.dataNascimento.dia, h.dataNascimento.mes, h.dataNascimento.ano);
+        //retorno += fprintf(arHospedes, "CodEnder: %d\r\nBairro: %s\r\nCEP: %s\r\nCidade: %s\r\nLogradouro: %s\r\nNumero: %d\r\nUF: %s\r\n", h.endereco.codigo, h.endereco.bairro, h.endereco.cep, h.endereco.cidade, h.endereco.logradouro, h.endereco.numero, h.endereco.uf);
+
+        fflush(arCaixa);
+        fclose(arCaixa);
+    
 }

@@ -194,7 +194,7 @@ float somaProdutosConsumido(int codReserva) {
             }
             //printf("DEBUG: PEGOU O PRODUTO %s\n",p.descricao);
             //printf("DEBUG: A QTE É %d\n",produtosDaReserva[i].quantidade);
-            total += p.precoVenda* produtosDaReserva[i].quantidade;
+            total += p.precoVenda * produtosDaReserva[i].quantidade;
             //printf("DEBUG: SOMA TOTAL =  %.2f\n",total);
         }
 
@@ -202,7 +202,6 @@ float somaProdutosConsumido(int codReserva) {
 
     return total;
 }
-
 
 void listarProdResFaixa(int c1, int c2) {
     //VERIFICAR EXTENSÃO DO ARQUIVO
@@ -227,11 +226,97 @@ void listarProdResFaixa(int c1, int c2) {
         if (arrayProdutos[i].codProd >= c1 && arrayProdutos[i].codProd <= c2) {
             printf("***************\n");
             printf("COD: %d\n", arrayProdutos[i].codProd);
-            printf("COD RES: %s\n", arrayProdutos[i].codRes);
+            printf("COD RES: %d\n", arrayProdutos[i].codRes);
             printf("ESTOQUE: %d\n", arrayProdutos[i].quantidade);
-            printf("DATA: /%d/%d/%d ", arrayProdutos[i].data.dia, arrayProdutos[i].data.mes,arrayProdutos[i].data.ano);
+            printf("DATA: /%d/%d/%d ", arrayProdutos[i].data.dia, arrayProdutos[i].data.mes, arrayProdutos[i].data.ano);
             printf("***************\n");
         }
     }
     printf("\n FIM DA LISTA DE PRODUTOS \n");
+}
+
+ProdutoReserva* filtrarProdutoReservaCodControl(int c1, int c2) {
+    int numProdutos=0; // o valor será atualizado, para poder mostrar todos os hóspedes;
+    int qteProdResFiltro = 0;
+    int index = 0;
+
+    ProdutoReserva* arrayProdutos;
+    ProdutoReserva* arrayFiltrado;
+
+
+    //pega a extensão do arquivo
+    int ext = listar();
+    if (ext == 2) {
+        //BIN
+        numProdutos = 0;
+        arrayProdutos = getAllProdutoReservaBIN(&numProdutos);
+        //printf("NUM PROD = %d\n", numProdutos);
+    }
+    if (ext == 1) {
+        //TXT
+        numProdutos = getNumProdReserva();
+        arrayProdutos = getAllProdutoReservaTXT(numProdutos);
+
+    }
+    //se não existe nenhum hóspede, termina a função
+
+    //calcula quantos hospedes pertencem ao filtro
+    for (int i = 0; i < numProdutos; i++) {
+        if (arrayProdutos[i].codProd >= c1 && arrayProdutos[i].codProd <= c2) {
+            qteProdResFiltro++;
+
+        }
+    }
+
+
+
+    arrayFiltrado = (ProdutoReserva *) malloc(sizeof (ProdutoReserva) * qteProdResFiltro);
+
+    for (int i = 0; i < numProdutos; i++) {
+        if (arrayProdutos[i].codProd >= c1 && arrayProdutos[i].codProd <= c2) {
+            arrayFiltrado[index] = arrayProdutos[i];
+            //printf("ADD O HOSPEDE (%s) NA POS: %d\n", arrayFiltrado[i].nome, index);
+            index++;
+        }
+
+    }
+
+    gerarCSVProdRes(arrayFiltrado, qteProdResFiltro);
+
+
+}
+
+void gerarCSVProdRes(ProdutoReserva* arrayF, int qte) {
+    printf("ENTROU GERAR CSV\n");
+    printf("COD = %d\n", arrayF[1].codProd);
+    printf("QTE = %d\n", qte);
+    FILE* arCaixa;
+
+
+
+    arCaixa = fopen(".\\relatorios\\ProdutoReserva_FaixaCod", "w");
+
+
+    for (int i = 0; i < qte; i++) {
+        printf("DENTRO DO FOR\n");
+        /*
+       
+                fprintf(arHospedes, "%d,%s,%s,%s,%s,%c,%d,%d,%d,%d,%s,%s,%s,%s,%d,%s", arrayFiltrado[i].codigo, arrayFiltrado[i].nome, arrayFiltrado[i].cpf, arrayFiltrado[i].telefone, arrayFiltrado[i].email, arrayFiltrado[i].sexo, arrayFiltrado[i].esCivil
+                        , arrayFiltrado[i].dataNascimento.dia, arrayFiltrado[i].dataNascimento.mes, arrayFiltrado[i].dataNascimento.ano
+                        , arrayFiltrado[i].endereco.codigo, arrayFiltrado[i].endereco.bairro,arrayFiltrado[i].endereco.cep,arrayFiltrado[i].endereco.cidade,
+                        arrayFiltrado[i].endereco.logradouro,arrayFiltrado[i].endereco.numero,arrayFiltrado[i].endereco.uf);
+                fprintf(arHospedes, "\n");
+    
+    
+         */
+        fprintf(arCaixa, "%d,%d,%d,%d,%d,%d)", arrayF[i].codProd, arrayF[i].codRes, arrayF[i].data.dia, arrayF[i].data.mes, arrayF[i].data.ano, arrayF[i].quantidade);
+        fprintf(arCaixa, "\n");
+    }
+
+    //retorno += fprintf(arHospedes, "DiaNasc: %d\r\nMesNasc: %d\r\nAnoNasc: %d\r\n", h.dataNascimento.dia, h.dataNascimento.mes, h.dataNascimento.ano);
+    //retorno += fprintf(arHospedes, "CodEnder: %d\r\nBairro: %s\r\nCEP: %s\r\nCidade: %s\r\nLogradouro: %s\r\nNumero: %d\r\nUF: %s\r\n", h.endereco.codigo, h.endereco.bairro, h.endereco.cep, h.endereco.cidade, h.endereco.logradouro, h.endereco.numero, h.endereco.uf);
+
+    fflush(arCaixa);
+    fclose(arCaixa);
+
 }

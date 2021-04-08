@@ -187,8 +187,6 @@ void listarContasDia(int d, int m, int a) {
     }
 }
 
-
-
 void listarContasTipo(int t) {
     int n, aux;
     int bd = listar();
@@ -239,13 +237,107 @@ void listarContasTipo(int t) {
         free(cr);
     }
 }
+
+ContaReceber* filtrarVendas(int t) {
+    int numVendas = 0; // o valor será atualizado, para poder mostrar todos os hóspedes;
+    int qteVendaFiltro = 0;
+    int index = 0;
+
+    ContaReceber* arrayVendas;
+    ContaReceber* arrayFiltrado;
+
+
+    //pega a extensão do arquivo
+    int ext = listar();
+    if (ext == 1) {//verifica o tipo de salvamento
+        arrayVendas = listarContaReceberTXT();
+        numVendas = numContaReceber();
+    } else if (ext == 2) {
+        arrayVendas = listarContaReceberBIN(&numVendas);
+    }
+    //se não existe nenhum hóspede, termina a função
+
+    //calcula quantos hospedes pertencem ao filtro
+    if (t == 1) {
+        for (int i = 0; i < numVendas; i++) {
+            if (strcmp(arrayVendas[i].status, "Pendente") == 0) {
+                qteVendaFiltro++;
+            }
+        }
+    } else if (t == 2) {
+        for (int i = 0; i < numVendas; i++) {
+            if (strcmp(arrayVendas[i].status, "Concluido") == 0) {
+                qteVendaFiltro++;
+            }
+        }
+    }
+    arrayFiltrado = (ContaReceber *) malloc(sizeof (ContaReceber) * qteVendaFiltro);
+
+    if (t == 1) {
+        for (int i = 0; i < numVendas; i++) {
+            if (strcmp(arrayVendas[i].status, "Pendente") == 0) {
+                arrayFiltrado[index] = arrayVendas[i];
+                index++;
+            }
+        }
+    } else if (t == 2) {
+        for (int i = 0; i < numVendas; i++) {
+            if (strcmp(arrayVendas[i].status, "Concluido") == 0) {
+                arrayFiltrado[index] = arrayVendas[i];
+                index++;
+            }
+        }
+    }
+
+
+
+    gerarCSVvenda(arrayFiltrado, qteVendaFiltro);
+
+
+}
+
+void gerarCSVvenda(ContaReceber* arrayF, int qte) {
+    printf("ENTROU GERAR CSV\n");
+    printf("COD = %d\n", arrayF[1].codigo);
+    printf("QTE = %d\n", qte);
+    FILE* arVenda;
+
+
+
+    arVenda = fopen(".\\relatorios\\Venda_Status", "w");
+
+
+    for (int i = 0; i < qte; i++) {
+        printf("DENTRO DO FOR\n");
+        /*
+       
+                fprintf(arHospedes, "%d,%s,%s,%s,%s,%c,%d,%d,%d,%d,%s,%s,%s,%s,%d,%s", arrayFiltrado[i].codigo, arrayFiltrado[i].nome, arrayFiltrado[i].cpf, arrayFiltrado[i].telefone, arrayFiltrado[i].email, arrayFiltrado[i].sexo, arrayFiltrado[i].esCivil
+                        , arrayFiltrado[i].dataNascimento.dia, arrayFiltrado[i].dataNascimento.mes, arrayFiltrado[i].dataNascimento.ano
+                        , arrayFiltrado[i].endereco.codigo, arrayFiltrado[i].endereco.bairro,arrayFiltrado[i].endereco.cep,arrayFiltrado[i].endereco.cidade,
+                        arrayFiltrado[i].endereco.logradouro,arrayFiltrado[i].endereco.numero,arrayFiltrado[i].endereco.uf);
+                fprintf(arHospedes, "\n");
+    
+    
+         */
+        fprintf(arVenda, "%d,%d,%d,%d,%d,%s,%s,%f)", arrayF[i].caixa, arrayF[i].codigo, arrayF[i].data.dia, arrayF[i].data.mes, arrayF[i].data.ano,arrayF[i].pagamento,arrayF[i].status,arrayF[i].valor);
+        fprintf(arVenda, "\n");
+    }
+
+    //retorno += fprintf(arHospedes, "DiaNasc: %d\r\nMesNasc: %d\r\nAnoNasc: %d\r\n", h.dataNascimento.dia, h.dataNascimento.mes, h.dataNascimento.ano);
+    //retorno += fprintf(arHospedes, "CodEnder: %d\r\nBairro: %s\r\nCEP: %s\r\nCidade: %s\r\nLogradouro: %s\r\nNumero: %d\r\nUF: %s\r\n", h.endereco.codigo, h.endereco.bairro, h.endereco.cep, h.endereco.cidade, h.endereco.logradouro, h.endereco.numero, h.endereco.uf);
+
+    fflush(arVenda);
+    fclose(arVenda);
+
+}
+
 void filtrarContasRecFaixaCodControl(int cod1, int cod2) {
     printf("ENTROU AQUI\n");
     int n, aux;
     int bd = listar();
-    
-    int qte=0;
-    int index=0;
+
+    int qte = 0;
+    int index = 0;
     ContaReceber *cr;
     ContaReceber *crFiltrado;
     if (bd == 1) {//verifica o tipo de salvamento
@@ -256,74 +348,74 @@ void filtrarContasRecFaixaCodControl(int cod1, int cod2) {
     } else {
         printf("\nAltere a opção de salvamento em (MENU Principal->9 . Configurações-> 1. Op de BD.)\n");
     }
-        if (n > 0) {
-           
-/*
+    if (n > 0) {
 
-            printf("FOR TOTAL  ->   N = %d\n",n);
-            for(int i =0;i<n;i++){
-                printf("\n*******%d************", i);
-                    printf("\nCodigo: %d", cr[i].codigo);
-                    printf("\nValor: %f", cr[i].valor);
-                    printf("\nDia Pagamento: %d", cr[i].data.dia);
-                    printf("\nMes Pagamento: %d", cr[i].data.mes);
-                    printf("\nAno Pagamento: %d", cr[i].data.ano);
-                    printf("\nStatus: %s", cr[i].status);
-                    printf("\nForma de Pagamento: %s", cr[i].pagamento);
-                    printf("\nCodigo do caixa: %d", cr[i].caixa);
-                    printf("\n");
+        /*
+
+                    printf("FOR TOTAL  ->   N = %d\n",n);
+                    for(int i =0;i<n;i++){
+                        printf("\n*******%d************", i);
+                            printf("\nCodigo: %d", cr[i].codigo);
+                            printf("\nValor: %f", cr[i].valor);
+                            printf("\nDia Pagamento: %d", cr[i].data.dia);
+                            printf("\nMes Pagamento: %d", cr[i].data.mes);
+                            printf("\nAno Pagamento: %d", cr[i].data.ano);
+                            printf("\nStatus: %s", cr[i].status);
+                            printf("\nForma de Pagamento: %s", cr[i].pagamento);
+                            printf("\nCodigo do caixa: %d", cr[i].caixa);
+                            printf("\n");
+                    }
+
+         */
+
+        /*
+            
+                    for (int i = 0; i < n; i++) {
+                        if (cr[i].codigo >= cod1 && cr[i].codigo <= cod2) {
+                            printf("CONTA %d ESTÁ DENTRO DOS COD\n",cr[i].codigo);
+                            qte++;
+                            printf("QTE++ = %d\n",qte);
+                        }else{
+                            printf("CONTA %d NÃO ESTÁ DENTRO DOS COD\n",cr[i].codigo);
+                        }
+                    }
+            
+         */
+        printf("QTE TOTAL = %d\n", qte);
+        crFiltrado = (ContaReceber *) malloc(sizeof (Hospede) * qte);
+
+        for (int i = 0; i < n; i++) {
+            if (cr[i].codigo >= cod1 && cr[i].codigo <= cod2) {
+                crFiltrado[index] = cr[i];
+                index++;
+                //printf("ADD CONTA: %s\n",crFiltrado[index-1].pagamento);
             }
-
-*/
-
-/*
-            
-            for (int i = 0; i < n; i++) {
-                if (cr[i].codigo >= cod1 && cr[i].codigo <= cod2) {
-                    printf("CONTA %d ESTÁ DENTRO DOS COD\n",cr[i].codigo);
-                    qte++;
-                    printf("QTE++ = %d\n",qte);
-                }else{
-                    printf("CONTA %d NÃO ESTÁ DENTRO DOS COD\n",cr[i].codigo);
-                }
-            }
-            
-*/
-            printf("QTE TOTAL = %d\n",qte);
-            crFiltrado = (ContaReceber *) malloc(sizeof (Hospede) * qte);
-            
-            for (int i = 0; i < n; i++) {
-                if (cr[i].codigo >= cod1 && cr[i].codigo <= cod2) {
-                    crFiltrado[index] = cr[i];
-                    index++;
-                    //printf("ADD CONTA: %s\n",crFiltrado[index-1].pagamento);
-                }
-            }
-            
-/*
-            
-            printf("FOR PARA VER O ARRAY QUE VAI MANDAR PARA O CSV\n");
-            for(int i =0; i<qte;i++){
-                printf("\n*******%d************", i);
-                    printf("\nCodigo: %d", crFiltrado[i].codigo);
-                    printf("\nValor: %f", crFiltrado[i].valor);
-                    printf("\nDia Pagamento: %d", crFiltrado[i].data.dia);
-                    printf("\nMes Pagamento: %d", crFiltrado[i].data.mes);
-                    printf("\nAno Pagamento: %d", crFiltrado[i].data.ano);
-                    printf("\nStatus: %s", crFiltrado[i].status);
-                    printf("\nForma de Pagamento: %s", crFiltrado[i].pagamento);
-                    printf("\nCodigo do caixa: %d", crFiltrado[i].caixa);
-                    printf("\n");
-            }
-            
-*/
-
-            gerarCSVContasRec(crFiltrado,qte,1);
-            
-
-        } else {
-            printf("Não à contas cadastradas. \n");
         }
-        free(cr);
-    
+
+        /*
+            
+                    printf("FOR PARA VER O ARRAY QUE VAI MANDAR PARA O CSV\n");
+                    for(int i =0; i<qte;i++){
+                        printf("\n*******%d************", i);
+                            printf("\nCodigo: %d", crFiltrado[i].codigo);
+                            printf("\nValor: %f", crFiltrado[i].valor);
+                            printf("\nDia Pagamento: %d", crFiltrado[i].data.dia);
+                            printf("\nMes Pagamento: %d", crFiltrado[i].data.mes);
+                            printf("\nAno Pagamento: %d", crFiltrado[i].data.ano);
+                            printf("\nStatus: %s", crFiltrado[i].status);
+                            printf("\nForma de Pagamento: %s", crFiltrado[i].pagamento);
+                            printf("\nCodigo do caixa: %d", crFiltrado[i].caixa);
+                            printf("\n");
+                    }
+            
+         */
+
+        gerarCSVContasRec(crFiltrado, qte, 1);
+
+
+    } else {
+        printf("Não à contas cadastradas. \n");
+    }
+    free(cr);
+
 }
