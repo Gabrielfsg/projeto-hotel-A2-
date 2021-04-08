@@ -24,7 +24,9 @@ typedef struct produto{
 }Produto;
 
 int cadastrarProdutoTXT(Produto p);
+int salvarProdutoTXT(Produto *prod, int num);
 int cadastrarProdutoBIN(Produto p);
+int cadastrarProdutoBin(Produto *prod, int quantidade);
 void atualizarProdutoTXT(Produto novoProd);
 void atualizarProdutoBIN(Produto novoProd);
 Produto* getAllProdutoTXT(int numProdutos);
