@@ -26,6 +26,12 @@ typedef struct produtoReserva {
 
 
 float somaProdutosConsumido(int reserva);
+int salvarProdutoReservaTXT(ProdutoReserva *pr, int num);
+int salvarProdutoReservaBIN(ProdutoReserva *pr, int quantidade);
+void cadastrarProdutoReservaTXT(ProdutoReserva pr);
+void cadastrarProdutoReservaBIN(ProdutoReserva pr);
 ProdutoReserva* getAllProdutoReservaBIN(int* numProdutos);
 ProdutoReserva* getAllProdutoReservaTXT(int numProdutos);
+int getNumProdReserva();
+void listarProdResFaixa(int c1, int c2);
 #endif /* PRODUTORESERVA_H */
