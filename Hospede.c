@@ -47,6 +47,32 @@ int cadastrarHospedesTXT(Hospede h) {
     }
 }
 
+int salvarHospedeTXT(Hospede *hos, int num) {
+  FILE *arq;
+  // w para substituir o arquivo
+  arq = fopen("arquivos\\hospedes.txt", "w");
+  if (arq == NULL) {
+    printf("\nErro ao abrir arquivo!!");
+    return 0;
+  } else {
+    int i;
+    // grava todos os dado do vetor no arquivo
+    for (int = 0; i < num; i++) {
+      fprintf(arq, "%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%c\r\n%s\r\n%d\r\n%d\r\n%d\r\n%s\r\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n", hos[i].codigo, hos[i].nome, 
+              hos[i].cpf, hos[i].telefone, hos[i].email, hos[i].sexo, hos[i].esCivil,
+              hos[i].dataNascimento.dia, hos[i].dataNascimento.mes, hos[i].dataNascimento.ano,
+              hos[i].endereco.logradouro, hos[i].endereco.numero, hos[i].endereco.bairro,
+              hos[i].endereco.cidade, hos[i].endereco.cep, hos[i].endereco.uf);
+    }
+  }
+  fflush(arq);
+  fclose(arq);
+  free(arq);
+  free(hos);
+  return 1;
+}
+
+
 /*
  * FUNÇÃO: cadastrarHospedesBIN 
  * 
@@ -81,6 +107,26 @@ int cadastrarHospedesBIN(Hospede h) {
         fclose(arqHospedes);
         return count;
     }
+}
+
+int cadastrarHospedeBIN(Hospede *hos, int quantidade) {
+  FILE *arq;
+  arq = fopen("arquivos\\hospedes.bin", "ab");
+  if (arq == NULL) {
+    arq = fopen("arquivos\\hospedes.bin", "wb");
+    if (arq == NULL) {
+      printf("\nERRO ao acessar arquivo\n");
+      return 0;
+    }        
+  }
+    /*grava toda struct de acomodacao no arquivo*/
+    fwrite(hos, sizeof (Hospede), quantidade, arq);
+    fflush(arq);
+    /*fecha o arquivo*/
+    fclose(arq);
+    /*libera mémoria*/
+    free(arq);
+    return 1;
 }
 
 /*
