@@ -384,3 +384,5 @@ int removerCaixaBIN() {
     }
     return 1;
 }
+
+

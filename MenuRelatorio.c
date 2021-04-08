@@ -16,6 +16,10 @@
 #include "MenuCaixa.h"
 #include "csvHospede.h"
 #include "Data.h"
+#include "Caixa.h"
+#include "ProdutoReserva.h"
+#include "ContaReceber.h"
+#include "ContaPagar.h"
 
 void subRelatorios() {
     int opc = 0;
@@ -350,19 +354,7 @@ void relatorioContasRec() {
                 scanf("%d", &mes);
                 printf("Entre com o ano: ");
                 scanf("%d", &ano);
-
-                break;
-
-            case 3:;
-                subRelatorios();
-                break;
-
-            default:;
-                printf("Valor Invalido!\n");
-                break;
-
-
-                //printf("%c", sexxo);
+                
                 opc2 = 0;
                 while (opc2 == 0) {
                     printf("Deseja: \n"
@@ -373,24 +365,23 @@ void relatorioContasRec() {
                         listarContasDia(dia, mes, ano);
                         opc2 = 2;
                     } else if (opcV == 2) {
-                        if (bd == 1) {
-
-                        } else if (bd == 2) {
-
-                            if (r == 1) {
-
-                            }
-                        }
+                        filtrarContasDia(dia, mes, ano);
                         opc2 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
                     }
                 }
-
-
-
                 break;
 
+            case 3:
+                subRelatorios();
+                break;
+
+
+
+            default:
+                printf("Valor Invalido!\n");
+                break;
         }
     }
 }
@@ -399,7 +390,7 @@ void relatorioVenda() {
     int opc = 0;
     int bd = listar();
     int cod1, cod2;
-
+    ContaReceber *cr;
     int r;
     int opc1 = 0, opc2 = 0, opcV = 0, opcV2 = 0;
     while (opc == 0) {
@@ -423,7 +414,7 @@ void relatorioVenda() {
                         listarContasTipo(r);
                         opc1 = 2;
                     } else if (opcV == 2) {
-
+                        cr = filtrarVendas(r);
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -449,6 +440,7 @@ void relatorioContasPag() {
     int cod1, cod2;
     int dia, mes, ano, dia2, mes2;
     int r;
+    ContaPagar* cp;
     int opc1 = 0, opc2 = 0, opcV = 0, opcV2 = 0;
     while (opc == 0) {
         printf("*******Relatorios********\n");
@@ -479,7 +471,7 @@ void relatorioContasPag() {
                         mostrarContasPagarCod(cod1, cod2);
                         opc1 = 2;
                     } else if (opcV == 2) {
-
+                        cp = filtrarContaPagarCod(cod1,cod2);
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -500,7 +492,6 @@ void relatorioContasPag() {
                 scanf("%d", &ano);
 
 
-                //printf("%c", sexxo);
                 opc2 = 0;
                 while (opc2 == 0) {
                     printf("Deseja: \n"
@@ -511,14 +502,7 @@ void relatorioContasPag() {
                         mostrarContasPagarData(dia, dia2, mes, mes2, ano);
                         opc2 = 2;
                     } else if (opcV == 2) {
-                        if (bd == 1) {
-
-                        } else if (bd == 2) {
-
-                            if (r == 1) {
-
-                            }
-                        }
+                        cp = filtrarContaPagarData(dia,dia2,mes,mes2,ano);
                         opc2 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -725,6 +709,7 @@ void relatorioProdRes() {
     int bd = listar();
     int cod1, cod2;
     int cod;
+    ProdutoReserva* arrayPR;
     int r;
     int opc1 = 0, opc2 = 0, opcV = 0, opcV2 = 0;
     while (opc == 0) {
@@ -755,7 +740,7 @@ void relatorioProdRes() {
                         listarProdResFaixa(cod1, cod2);
                         opc1 = 2;
                     } else if (opcV == 2) {
-
+                        arrayPR = filtrarProdutoReservaCodControl(cod1, cod2);
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -780,6 +765,7 @@ void relatorioCaixa() {
     int d1, d2, m;
     int cod;
     int r;
+    Caixa* arrayCaixaF;
     int opc1 = 0, opc2 = 0, opcV = 0, opcV2 = 0;
     while (opc == 0) {
         printf("*******Relatorios********\n");
@@ -804,7 +790,7 @@ void relatorioCaixa() {
                         listarCaixaData(d1, d2, m);
                         opc1 = 2;
                     } else if (opcV == 2) {
-
+                        arrayCaixaF = filtrarCaixaDataControl(d1, d2, m);                                             
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");

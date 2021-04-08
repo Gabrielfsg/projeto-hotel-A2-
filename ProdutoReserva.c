@@ -194,7 +194,7 @@ float somaProdutosConsumido(int codReserva) {
             }
             //printf("DEBUG: PEGOU O PRODUTO %s\n",p.descricao);
             //printf("DEBUG: A QTE É %d\n",produtosDaReserva[i].quantidade);
-            total += p.precoVenda* produtosDaReserva[i].quantidade;
+            total += p.precoVenda * produtosDaReserva[i].quantidade;
             //printf("DEBUG: SOMA TOTAL =  %.2f\n",total);
         }
 
@@ -202,7 +202,6 @@ float somaProdutosConsumido(int codReserva) {
 
     return total;
 }
-
 
 void listarProdResFaixa(int c1, int c2) {
     //VERIFICAR EXTENSÃO DO ARQUIVO
@@ -227,11 +226,83 @@ void listarProdResFaixa(int c1, int c2) {
         if (arrayProdutos[i].codProd >= c1 && arrayProdutos[i].codProd <= c2) {
             printf("***************\n");
             printf("COD: %d\n", arrayProdutos[i].codProd);
-            printf("COD RES: %s\n", arrayProdutos[i].codRes);
+            printf("COD RES: %d\n", arrayProdutos[i].codRes);
             printf("ESTOQUE: %d\n", arrayProdutos[i].quantidade);
-            printf("DATA: /%d/%d/%d ", arrayProdutos[i].data.dia, arrayProdutos[i].data.mes,arrayProdutos[i].data.ano);
+            printf("DATA: /%d/%d/%d ", arrayProdutos[i].data.dia, arrayProdutos[i].data.mes, arrayProdutos[i].data.ano);
             printf("***************\n");
         }
     }
     printf("\n FIM DA LISTA DE PRODUTOS \n");
+}
+
+ProdutoReserva* filtrarProdutoReservaCodControl(int c1, int c2) {
+    int numProdutos=0; // o valor será atualizado, para poder mostrar todos os hóspedes;
+    int qteProdResFiltro = 0;
+    int index = 0;
+
+    ProdutoReserva* arrayProdutos;
+    ProdutoReserva* arrayFiltrado;
+
+
+    //pega a extensão do arquivo
+    int ext = listar();
+    if (ext == 2) {
+        //BIN
+        numProdutos = 0;
+        arrayProdutos = getAllProdutoReservaBIN(&numProdutos);
+       
+    }
+    if (ext == 1) {
+        //TXT
+        numProdutos = getNumProdReserva();
+        arrayProdutos = getAllProdutoReservaTXT(numProdutos);
+
+    }
+    
+    
+    for (int i = 0; i < numProdutos; i++) {
+        if (arrayProdutos[i].codProd >= c1 && arrayProdutos[i].codProd <= c2) {
+            qteProdResFiltro++;
+
+        }
+    }
+
+
+    arrayFiltrado = (ProdutoReserva *) malloc(sizeof (ProdutoReserva) * qteProdResFiltro);
+
+    for (int i = 0; i < numProdutos; i++) {
+        if (arrayProdutos[i].codProd >= c1 && arrayProdutos[i].codProd <= c2) {
+            arrayFiltrado[index] = arrayProdutos[i];
+            //printf("ADD O HOSPEDE (%s) NA POS: %d\n", arrayFiltrado[i].nome, index);
+            index++;
+        }
+
+    }
+
+    gerarCSVProdRes(arrayFiltrado, qteProdResFiltro);
+
+
+}
+
+void gerarCSVProdRes(ProdutoReserva* arrayF, int qte) {
+    printf("ENTROU GERAR CSV\n");
+    printf("COD = %d\n", arrayF[1].codProd);
+    printf("QTE = %d\n", qte);
+    FILE* arCaixa;
+
+
+
+    arCaixa = fopen(".\\relatorios\\ProdutoReserva_FaixaCod.txt", "w");
+
+
+    for (int i = 0; i < qte; i++) {
+        printf("DENTRO DO FOR\n");
+     
+        fprintf(arCaixa, "%d,%d,%d,%d,%d,%d)", arrayF[i].codProd, arrayF[i].codRes, arrayF[i].data.dia, arrayF[i].data.mes, arrayF[i].data.ano, arrayF[i].quantidade);
+        fprintf(arCaixa, "\n");
+    }
+
+    fflush(arCaixa);
+    fclose(arCaixa);
+
 }

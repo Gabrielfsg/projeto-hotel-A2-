@@ -157,7 +157,7 @@ void listarCaixaData(int dia1, int dia2, int mes) {
         cai = listarCaixaTXT();
 
     }
-    printf("***** LISTA DE TODOS OS PRODUTOS*****\n");
+    printf("***** LISTA Dos Caixas*****\n");
     for (int i = 0; i < numCaixa; i++) {
         //lista os produtos
         if (cai[i].data.mes == mes && cai[i].data.dia >= dia1 && cai[i].data.dia <= dia2) {
@@ -171,4 +171,75 @@ void listarCaixaData(int dia1, int dia2, int mes) {
         }
     }
     printf("\n FIM DA LISTA DE PRODUTOS \n");
+}
+
+Caixa* filtrarCaixaDataControl(int dia1, int dia2, int mes) {
+    int numCaixa = 0; // o valor será atualizado, para poder mostrar todos os hóspedes;
+    int qteCaixaFiltro = 0;
+    int index = 0;
+
+    Caixa* arrayCaixa;
+    Caixa* arrayFiltrado;
+
+
+    //pega a extensão do arquivo
+    int ext = listar();
+    if (ext == 2) {
+        //BIN
+        arrayCaixa = listarCaixaBIN(&numCaixa);
+        //printf("NUM PROD = %d\n", numProdutos);
+    }
+    if (ext == 1) {
+        //TXT
+        arrayCaixa = listarCaixaTXT();
+
+    }
+    
+    for (int i = 0; i < numCaixa; i++) {
+        if (arrayCaixa[i].data.mes == mes && arrayCaixa[i].data.dia >= dia1 && arrayCaixa[i].data.dia <= dia2) {
+            qteCaixaFiltro++;
+
+        }
+    }
+
+
+
+    arrayFiltrado = (Caixa *) malloc(sizeof (Caixa) * qteCaixaFiltro);
+
+    for (int i = 0; i < numCaixa; i++) {
+        if (arrayCaixa[i].data.mes == mes && arrayCaixa[i].data.dia >= dia1 && arrayCaixa[i].data.dia <= dia2) {
+            arrayFiltrado[index] = arrayCaixa[i];
+            //printf("ADD O HOSPEDE (%s) NA POS: %d\n", arrayFiltrado[i].nome, index);
+            index++;
+        }
+
+    }
+
+    gerarCSVCaixa(arrayFiltrado, qteCaixaFiltro);
+
+
+}
+
+void gerarCSVCaixa(Caixa* arrayF, int qte) {
+    printf("ENTROU GERAR CSV\n");
+    printf("COD = %d\n", arrayF[1].codigo);
+    printf("QTE = %d\n", qte);
+    FILE* arCaixa;
+
+
+
+    arCaixa = fopen(".\\relatorios\\Caixa_Data", "w");
+
+
+    for (int i = 0; i < qte; i++) {
+        printf("DENTRO DO FOR\n");
+
+        fprintf(arCaixa, "%d,%s,%d,%d,%d,%f,%f)", arrayF[i].codigo, arrayF[i].status, arrayF[i].data.dia, arrayF[i].data.mes, arrayF[i].data.ano, arrayF[i].valorIn, arrayF[i].valorFin);
+        fprintf(arCaixa, "\n");
+    }
+
+
+    fflush(arCaixa);
+    fclose(arCaixa);
+
 }
