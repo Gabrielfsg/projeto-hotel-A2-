@@ -29,13 +29,12 @@ void menuImportXML() {
     printf("8.Fornecedor.\n");
     printf("9.Hospede.\n");
     printf("10.Hotel.\n");
-    printf("11.Hoperador.\n");
-    printf("12.Operador Sistema.\n");
-    printf("13.Produtos de Consumo.\n");
-    printf("14.Produto de Reserva.\n");
-    printf("15.Reservas.\n");
-    printf("16.VendaProduto.\n");
-    printf("17.Vendas.\n");
+    printf("11.Operador Sistema.\n");
+    printf("12.Produtos.\n");
+    printf("13.Produto de Reserva.\n");
+    printf("14.Reservas.\n");
+    printf("15.VendaProduto.\n");
+    printf("16.Vendas.\n");
 
     printf("Digite os numeros correspondete as tabelas as quais deseja importar:Ex(1,2,3):\n");
     scanf("%s%*c", tab);
@@ -123,13 +122,12 @@ void menuExportaXML() {
     printf("8.Fornecedor.\n");
     printf("9.Hospede.\n");
     printf("10.Hotel.\n");
-    printf("11.Hoperador.\n");
-    printf("12.Operador Sistema.\n");
-    printf("13.Produtos de Consumo.\n");
-    printf("14.Produto de Reserva.\n");
-    printf("15.Reservas.\n");
-    printf("16.VendaProduto.\n");
-    printf("17.Vendas.\n");
+    printf("11.Operador Sistema.\n");
+    printf("12.Produtos.\n");
+    printf("13.Produto de Reserva.\n");
+    printf("14.Reservas.\n");
+    printf("15.VendaProduto.\n");
+    printf("16.Vendas.\n");
 
     printf("Digite os numeros correspondete as tabelas as quais deseja Eportar para um arquivo XML:Ex(1,2,3):\n");
     scanf("%s%*c", tab);
