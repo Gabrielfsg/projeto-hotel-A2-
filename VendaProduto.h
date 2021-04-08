@@ -27,3 +27,8 @@ typedef struct vendaProduto {
 } VendaProduto;
 int cadastrarVendaProdutoTXT(VendaProduto vp);
 int cadastrarVendaProdutoBIN(VendaProduto vp);
+int salvarVendaProdutoTXT(VendaProduto *vpr, int num);
+int salvarVendaProdutoBIN(VendaProduto *vpr, int quantidade);
+int getNumVendaProduto();
+VendaProduto* listarVendaProdutoTXT();
+VendaProduto * listarVendaProdutoBIN(int *numLinha);
