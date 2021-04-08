@@ -8,7 +8,7 @@
 #include <string.h>
 #include "OperadorSistema.h"
 
-int cadastrarOpBin(OperadorSistema op, int quantidade) {
+int cadastrarOpBin(OperadorSistema *op, int quantidade) {
     FILE *arq;
     //abrea arquivo para escrita e posiciona cursor no final "ab"
     arq = fopen(".\\persist\\operador.bin", "ab");
