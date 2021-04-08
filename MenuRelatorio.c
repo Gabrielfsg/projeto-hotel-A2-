@@ -21,7 +21,7 @@
 #include "ContaReceber.h"
 #include "ContaPagar.h"
 
-void subRelatorios() {
+void subRelatorios() {// menu com todos os relatórios
     int opc = 0;
     int aux = 0;
     while (opc >= 0) {
@@ -38,7 +38,7 @@ void subRelatorios() {
         printf("10.Voltar.\n");
         scanf("%d%*c", &opc);
 
-        switch (opc) {
+        switch (opc) {// todas as opção de relatórios
             case 1:
                 relatorioHospedes();
                 break;
@@ -76,6 +76,13 @@ void subRelatorios() {
     }
 }
 
+
+/*
+ Todos os metodos fazem a entrada de dados e mostram na tela ou cria um arquivo csv com os dados de acordo
+ * com a opção desejada
+ */
+
+
 void relatorioReservas() {
     int opc = 0;
     int bd = listar();
@@ -102,10 +109,10 @@ void relatorioReservas() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        relaRescodH(cod1);
+                        relaRescodH(cod1);// metodo que lista na tela
                         opc1 = 2;
                     } else if (opcV == 2) {
-                        filtrarReservaCodHosp(cod1);
+                        filtrarReservaCodHosp(cod1);// metodo que cria o csv
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -123,10 +130,10 @@ void relatorioReservas() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        relaRescodA(cod2);
+                        relaRescodA(cod2);// metodo que lista na tela
                         opc2 = 2;
                     } else if (opcV == 2) {
-                        filtrarReservaCodAco(cod2);
+                        filtrarReservaCodAco(cod2);// metodo que cria o csv
                         opc2 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -152,10 +159,10 @@ void relatorioReservas() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        relaResData(dia1, dia2, mes1, mes2, ano);
+                        relaResData(dia1, dia2, mes1, mes2, ano);// metodo que lista na tela
                         opc2 = 2;
                     } else if (opcV == 2) {
-                        FiltrarResData(dia1, dia2, mes1, mes2, ano);
+                        FiltrarResData(dia1, dia2, mes1, mes2, ano);// metodo que cria o csv
                         opc2 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -214,7 +221,7 @@ void relatorioHospedes() {
                     scanf("%d", &opcV);
 
                     if (opcV == 1) {
-                        listarHospedesFaixaCodControl(cod1, cod2);
+                        listarHospedesFaixaCodControl(cod1, cod2);// metodo que lista na tela
                         opc1 = 2;
                     } else if (opcV == 2) {
 
@@ -228,7 +235,7 @@ void relatorioHospedes() {
                         }
 
 
-                        gerarCSVHospede(arrayHospedesFiltrado, &qteHospedesFiltrados, 1);
+                        gerarCSVHospede(arrayHospedesFiltrado, &qteHospedesFiltrados, 1);// metodo que cria o csv
                         opc1 = 2;
 
 
@@ -264,14 +271,14 @@ void relatorioHospedes() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        listarHospedesSexoControl(sexxo);
+                        listarHospedesSexoControl(sexxo);// metodo que lista na tela
                         opc2 = 2;
                     } else if (opcV == 2) {
                         printf("DEBUG 1\n");
                         int qteHospedesFiltrados = 0;
                         printf("DEBUG 2\n");
                         //arrayHospedesFiltrado = filtrarHospedesSexoControl(sexxo, &qteHospedesFiltrados);
-                        filtrarHospedesSexoControl(sexxo, &qteHospedesFiltrados);
+                        filtrarHospedesSexoControl(sexxo, &qteHospedesFiltrados);// metodo que cria o csv
                         //printf("COD = %d\n", arrayHospedesFiltrado[0].codigo);
                         printf("DEBUG 3\n");
                         printf("TESTE MENU\n");
@@ -336,10 +343,10 @@ void relatorioContasRec() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        listarContasR(cod1, cod2);
+                        listarContasR(cod1, cod2);// metodo que lista na tela
                         opc1 = 2;
                     } else if (opcV == 2) {
-                        filtrarContasRecFaixaCodControl(cod1, cod2);
+                        filtrarContasRecFaixaCodControl(cod1, cod2);// metodo que cria o csv
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -354,7 +361,7 @@ void relatorioContasRec() {
                 scanf("%d", &mes);
                 printf("Entre com o ano: ");
                 scanf("%d", &ano);
-                
+
                 opc2 = 0;
                 while (opc2 == 0) {
                     printf("Deseja: \n"
@@ -362,10 +369,10 @@ void relatorioContasRec() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        listarContasDia(dia, mes, ano);
+                        listarContasDia(dia, mes, ano);// metodo que lista na tela
                         opc2 = 2;
                     } else if (opcV == 2) {
-                        filtrarContasDia(dia, mes, ano);
+                        filtrarContasDia(dia, mes, ano);// metodo que cria o csv
                         opc2 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -411,10 +418,10 @@ void relatorioVenda() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        listarContasTipo(r);
+                        listarContasTipo(r);// metodo que lista na tela
                         opc1 = 2;
                     } else if (opcV == 2) {
-                        cr = filtrarVendas(r);
+                        cr = filtrarVendas(r);// metodo que cria o csv
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -438,8 +445,9 @@ void relatorioContasPag() {
     int opc = 0;
     int bd = listar();
     int cod1, cod2;
-    int dia, mes, ano, dia2, mes2;
+    int dia = 0, mes = 0, ano = 0, dia2 = 0, mes2 = 0;
     int r;
+    int aux;
     ContaPagar* cp;
     int opc1 = 0, opc2 = 0, opcV = 0, opcV2 = 0;
     while (opc == 0) {
@@ -468,10 +476,10 @@ void relatorioContasPag() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        mostrarContasPagarCod(cod1, cod2);
+                        mostrarContasPagarCod(cod1, cod2);// metodo que lista na tela
                         opc1 = 2;
                     } else if (opcV == 2) {
-                        cp = filtrarContaPagarCod(cod1,cod2);
+                        cp = filtrarContaPagarCod(cod1, cod2);// metodo que cria o csv
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -480,17 +488,25 @@ void relatorioContasPag() {
                 break;
 
             case 2:
-                printf("Entre com o dia 1: ");
-                scanf("%d", &dia);
-                printf("Entre com o mes 1: ");
-                scanf("%d", &mes);
-                printf("Entre com o dia 2: ");
-                scanf("%d", &dia2);
-                printf("Entre com o mes 2: ");
-                scanf("%d", &mes2);
+                aux = 0;
                 printf("Entre com o ano: ");
                 scanf("%d", &ano);
-
+                printf("Entre com o mes inicial: ");
+                scanf("%d", &mes);
+                printf("Entre com o mes final: ");
+                scanf("%d", &mes2);
+                if (mes2 < mes) {
+                    printf("Inválido. o mês final não pode ser menor que o mês inicial");
+                    subRelatorios();
+                }
+                printf("Entre com o dia inicial: ");
+                scanf("%d", &dia);
+                printf("Entre com o dia final: ");
+                scanf("%d", &dia2);
+                if (mes == mes2 && dia2 < dia) {
+                    printf("Inválido. o dia final não pode ser menor que o dia inicial");
+                    subRelatorios();
+                }
 
                 opc2 = 0;
                 while (opc2 == 0) {
@@ -499,10 +515,10 @@ void relatorioContasPag() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        mostrarContasPagarData(dia, dia2, mes, mes2, ano);
+                        mostrarContasPagarData(dia, dia2, mes, mes2, ano);// metodo que lista na tela
                         opc2 = 2;
                     } else if (opcV == 2) {
-                        cp = filtrarContaPagarData(dia,dia2,mes,mes2,ano);
+                        cp = filtrarContaPagarData(dia, dia2, mes, mes2, ano);// metodo que cria o csv
                         opc2 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -562,12 +578,12 @@ void relatorioAcomodacao() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        listarAcoFaixaCodControl(cod1, cod2);
+                        listarAcoFaixaCodControl(cod1, cod2);// metodo que lista na tela
                         opc1 = 2;
                     } else if (opcV == 2) {
 
 
-                        filtrarAcoFaixaCodControl(cod1, cod2);
+                        filtrarAcoFaixaCodControl(cod1, cod2);// metodo que cria o csv
 
                         opc1 = 2;
                     } else {
@@ -586,11 +602,11 @@ void relatorioAcomodacao() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        listaAcoCat(cod);
+                        listaAcoCat(cod);// metodo que lista na tela
                         opc2 = 2;
                     } else if (opcV == 2) {
 
-                        filtrarAcoCat(cod);
+                        filtrarAcoCat(cod);// metodo que cria o csv
 
                         opc2 = 2;
                     } else {
@@ -612,7 +628,7 @@ void relatorioAcomodacao() {
                 dataIn = newData(dia, mes, ano);
                 printf("Entre com o dia final: ");
                 scanf("%d", &dia2);
-                printf("Entre com o ano inicial: ");
+                printf("Entre com o mes final: ");
                 scanf("%d", &mes2);
                 printf("Entre com o ano inicial: ");
                 scanf("%d", &ano2);
@@ -626,11 +642,18 @@ void relatorioAcomodacao() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        aco = listarAcomodacoesDisponiveis(*dataIn, *dataFim, &num);
+                        aco = listarAcomodacoesDisponiveis(*dataIn, *dataFim, &num);// metodo que lista na tela
+                        int i, j;
+                        for (i = 0; i < num; i++) {
+                            printf("\n**************** %d *****************\n", i);
+                            printf("COD: %d\n", aco[i].codigo);
+                            printf("DESCRIÇÃO: %s\n", aco[i].descricao);
+                            printf("STATUS: %s\n", aco[i].status);
+                        }
                         opc2 = 2;
                     } else if (opcV == 2) {
 
-                        filtrarAcomodacoesDisponiveis(*dataIn, *dataFim, &num);
+                        filtrarAcomodacoesDisponiveis(*dataIn, *dataFim, &num);// metodo que cria o csv
 
                         opc2 = 2;
                     } else {
@@ -682,10 +705,10 @@ void relatorioProdCon() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        listarProdFaixa(cod1, cod2);
+                        listarProdFaixa(cod1, cod2);// metodo que lista na tela
                         opc1 = 2;
                     } else if (opcV == 2) {
-                        filtrarProdFaixa(cod1,cod2);
+                        filtrarProdFaixa(cod1, cod2);// metodo que cria o csv
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -737,10 +760,10 @@ void relatorioProdRes() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        listarProdResFaixa(cod1, cod2);
+                        listarProdResFaixa(cod1, cod2);// metodo que lista na tela
                         opc1 = 2;
                     } else if (opcV == 2) {
-                        arrayPR = filtrarProdutoReservaCodControl(cod1, cod2);
+                        arrayPR = filtrarProdutoReservaCodControl(cod1, cod2);// metodo que cria o csv
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");
@@ -787,10 +810,10 @@ void relatorioCaixa() {
                             "2. Gravar Arquivo CSV. \n");
                     scanf("%d", &opcV);
                     if (opcV == 1) {
-                        listarCaixaData(d1, d2, m);
+                        listarCaixaData(d1, d2, m);// metodo que lista na tela
                         opc1 = 2;
                     } else if (opcV == 2) {
-                        arrayCaixaF = filtrarCaixaDataControl(d1, d2, m);                                             
+                        arrayCaixaF = filtrarCaixaDataControl(d1, d2, m);// metodo que cria o csv
                         opc1 = 2;
                     } else {
                         printf("Digite uma opção válida. \n");

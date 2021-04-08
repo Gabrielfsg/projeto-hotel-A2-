@@ -320,10 +320,9 @@ void subConfiguracoes() {
     while (opc >= 0) {
         printf("*******Configurações********\n");
         printf("1.Op de BD.\n");
-        printf("2.Operador Sistema.\n");
-        printf("3.Importar Dados.\n");
-        printf("4.Exportar Dados.\n");
-        printf("5.Voltar.\n");
+        printf("2.Importar Dados.\n");
+        printf("3.Exportar Dados.\n");
+        printf("4.Voltar.\n");
         scanf("%d%*c", &opc);
         switch (opc) {
             case 1:
@@ -354,15 +353,12 @@ void subConfiguracoes() {
                 }
                 break;
             case 2:
-
-                break;
-            case 3:
                 menuImportXML();
                 break;
-            case 4:
+            case 3:
                 menuExportaXML();
                 break;
-            case 5:
+            case 4:
                 menuPrincipal();
                 break;
             default:

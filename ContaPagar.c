@@ -456,7 +456,7 @@ void mostrarContasPagarData(int d1, int d2, int m1, int m2, int a) {
     if (bd == 2) {
         arrayCP = listarContaPagarBIN(&numContas);
     }
-    printf("O NÚMERO DE CONTAS É: %d\n", numContas);
+   // printf("O NÚMERO DE CONTAS É: %d\n", numContas);
     for (int i = 0; i < numContas; i++) {
         if (arrayCP[i].data.ano == a && arrayCP[i].data.mes >= m1 && arrayCP[i].data.mes <= m2 && arrayCP[i].data.dia >= d1 && arrayCP[i].data.dia <= d2) {
             printf("********** %d  **********\n", i + 1);
@@ -516,7 +516,7 @@ ContaPagar* filtrarContaPagarCod(int c1, int c2) {
 
 
 ContaPagar* filtrarContaPagarData(int d1, int d2, int m1, int m2, int a) {
-    int numCp = 0; // o valor será atualizado, para poder mostrar todos os hóspedes;
+    int numCp = 0; // o valor será atualizado, para poder mostrar todos da conta;
     int qteCpFiltro = 0;
     int index = 0;
 
@@ -534,9 +534,9 @@ ContaPagar* filtrarContaPagarData(int d1, int d2, int m1, int m2, int a) {
     if (bd == 2) {
         arrayCP = listarContaPagarBIN(&numCp);
     }
-    //se não existe nenhum hóspede, termina a função
 
-    //calcula quantos hospedes pertencem ao filtro
+
+    //calcula quantas contas pertencem ao filtro
     for (int i = 0; i < numCp; i++) {
           if (arrayCP[i].data.ano == a && arrayCP[i].data.mes >= m1 && arrayCP[i].data.mes <= m2 && arrayCP[i].data.dia >= d1 && arrayCP[i].data.dia <= d2) {
             qteCpFiltro++;
@@ -548,18 +548,18 @@ ContaPagar* filtrarContaPagarData(int d1, int d2, int m1, int m2, int a) {
     for (int i = 0; i < numCp; i++) {
          if (arrayCP[i].data.ano == a && arrayCP[i].data.mes >= m1 && arrayCP[i].data.mes <= m2 && arrayCP[i].data.dia >= d1 && arrayCP[i].data.dia <= d2) {
             arrayFiltrado[index] = arrayCP[i];
-            //printf("ADD O HOSPEDE (%s) NA POS: %d\n", arrayFiltrado[i].nome, index);
+           
             index++;
         }
 
     }
-
+// chama o arquivo mandando a quantidade de contas e o raay com filtro
     gerarCSVCPD(arrayFiltrado, qteCpFiltro);
 
 
 }
 
-void gerarCSVCPC(ContaPagar* arrayF, int qte) {
+void gerarCSVCPC(ContaPagar* arrayF, int qte) {// metodo que gera o csv recebendo a struct com os parâmetros
     printf("ENTROU GERAR CSV\n");
     printf("COD = %d\n", arrayF[1].codigo);
     printf("QTE = %d\n", qte);
@@ -567,11 +567,11 @@ void gerarCSVCPC(ContaPagar* arrayF, int qte) {
 
 
 
-    arCP = fopen(".\\relatorios\\ContaPagar_faixaCod", "w");
+    arCP = fopen(".\\relatorios\\ContaPagar_faixaCod", "w");// cria um novo arquivo
 
 
     for (int i = 0; i < qte; i++) {
-        printf("DENTRO DO FOR\n");
+        printf("DENTRO DO FOR\n");// grava no arquivo os dados com , entre eles
         fprintf(arCP, "%d,%d,%d,%d,%d,%s,%s,%f)",arrayF[i].codigo, arrayF[i].codForn,arrayF[i].data.dia,arrayF[i].data.mes,arrayF[i].data.ano,arrayF[i].descricao,arrayF[i].status,arrayF[i].valor);
         fprintf(arCP, "\n");
     }
@@ -585,7 +585,7 @@ void gerarCSVCPC(ContaPagar* arrayF, int qte) {
 }
 
 
-void gerarCSVCPD(ContaPagar* arrayF, int qte) {
+void gerarCSVCPD(ContaPagar* arrayF, int qte) {// metodo que gera o csv recebendo a struct com os parâmetros
     printf("ENTROU GERAR CSV\n");
     printf("COD = %d\n", arrayF[1].codigo);
     printf("QTE = %d\n", qte);
@@ -593,11 +593,11 @@ void gerarCSVCPD(ContaPagar* arrayF, int qte) {
 
 
 
-    arCP = fopen(".\\relatorios\\ContaPagar_data.txt", "w");
+    arCP = fopen(".\\relatorios\\ContaPagar_data.txt", "w");// cria um novo arquivo
 
 
     for (int i = 0; i < qte; i++) {
-        printf("DENTRO DO FOR\n");
+        printf("DENTRO DO FOR\n");// grava no arquivo os dados com , entre eles
         fprintf(arCP, "%d,%d,%d,%d,%d,%s,%s,%f)",arrayF[i].codigo, arrayF[i].codForn,arrayF[i].data.dia,arrayF[i].data.mes,arrayF[i].data.ano,arrayF[i].descricao,arrayF[i].status,arrayF[i].valor);
         fprintf(arCP, "\n");
     }

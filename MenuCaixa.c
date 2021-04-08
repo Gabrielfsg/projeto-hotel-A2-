@@ -174,7 +174,7 @@ void listarCaixaData(int dia1, int dia2, int mes) {
 }
 
 Caixa* filtrarCaixaDataControl(int dia1, int dia2, int mes) {
-    int numCaixa = 0; // o valor será atualizado, para poder mostrar todos os hóspedes;
+    int numCaixa = 0; // o valor será atualizado, para poder mostrar todos o caixa;
     int qteCaixaFiltro = 0;
     int index = 0;
 
@@ -195,7 +195,7 @@ Caixa* filtrarCaixaDataControl(int dia1, int dia2, int mes) {
 
     }
     
-    for (int i = 0; i < numCaixa; i++) {
+    for (int i = 0; i < numCaixa; i++) {// faz o filtro pegando apenas os dados que interessa
         if (arrayCaixa[i].data.mes == mes && arrayCaixa[i].data.dia >= dia1 && arrayCaixa[i].data.dia <= dia2) {
             qteCaixaFiltro++;
 
@@ -204,7 +204,7 @@ Caixa* filtrarCaixaDataControl(int dia1, int dia2, int mes) {
 
 
 
-    arrayFiltrado = (Caixa *) malloc(sizeof (Caixa) * qteCaixaFiltro);
+    arrayFiltrado = (Caixa *) malloc(sizeof (Caixa) * qteCaixaFiltro);// cria o array dinamico com o tamanho correto
 
     for (int i = 0; i < numCaixa; i++) {
         if (arrayCaixa[i].data.mes == mes && arrayCaixa[i].data.dia >= dia1 && arrayCaixa[i].data.dia <= dia2) {
@@ -215,12 +215,12 @@ Caixa* filtrarCaixaDataControl(int dia1, int dia2, int mes) {
 
     }
 
-    gerarCSVCaixa(arrayFiltrado, qteCaixaFiltro);
+    gerarCSVCaixa(arrayFiltrado, qteCaixaFiltro);// chama o arquivo que converte
 
 
 }
 
-void gerarCSVCaixa(Caixa* arrayF, int qte) {
+void gerarCSVCaixa(Caixa* arrayF, int qte) {// cria arquivo csv que recebe a struct de caixa e a quantidade
     printf("ENTROU GERAR CSV\n");
     printf("COD = %d\n", arrayF[1].codigo);
     printf("QTE = %d\n", qte);
@@ -228,14 +228,14 @@ void gerarCSVCaixa(Caixa* arrayF, int qte) {
 
 
 
-    arCaixa = fopen(".\\relatorios\\Caixa_Data", "w");
+    arCaixa = fopen(".\\relatorios\\Caixa_Data", "w");// cria arquivo
 
 
     for (int i = 0; i < qte; i++) {
         printf("DENTRO DO FOR\n");
 
         fprintf(arCaixa, "%d,%s,%d,%d,%d,%f,%f)", arrayF[i].codigo, arrayF[i].status, arrayF[i].data.dia, arrayF[i].data.mes, arrayF[i].data.ano, arrayF[i].valorIn, arrayF[i].valorFin);
-        fprintf(arCaixa, "\n");
+        fprintf(arCaixa, "\n");// grava os dados
     }
 
 
