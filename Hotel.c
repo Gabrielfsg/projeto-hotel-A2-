@@ -8,7 +8,7 @@
 #include <string.h>
 #include "Hotel.h"
 
-int cadastrarHotelBin(Hotel h, int quantidade) {//recebe a struct e a quantidade cadastrada
+int cadastrarHotelBin(Hotel *h, int quantidade) {//recebe a struct e a quantidade cadastrada
     FILE *arq;
     //abrea arquivo para escrita e posiciona cursor no final "ab"
     arq = fopen(".\\persist\\hotel.bin", "ab");
