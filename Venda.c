@@ -34,6 +34,29 @@ int cadastrarVendaTXT(Venda v) {
     }
 }
 
+int salvarVendaTXT(Venda *ven, int num) {
+  FILE *arq;
+  // w para substituir o arquivo
+  arq = fopen("arquivos\\vendas.txt", "w");
+  if (arq == NULL) {
+    printf("\nErro ao abrir arquivo!!");
+    return 0;
+  } else {
+    int i;
+    // grava todos os dado do vetor no arquivo
+    for (int = 0; i < num; i++) {
+      fprintf(arq, "%d\r\n%f\r\n%d\r\n%d\r\n%d\r\n%d\r\n", ven[i].codCaixa,
+              ven[i].codVenda, ven[i].dataVenda.dia, ven[i].dataVenda.mes,
+              ven[i].dataVenda.ano, ven[i].valorTotal);
+    }
+  }
+  fflush(arq);
+  fclose(arq);
+  free(arq);
+  free(ven);
+  return 1;
+}
+
 int cadastrarVendaBIN(Venda v) {
     FILE* arqVendas;
     //abre o arquivo de venda.bin
@@ -57,6 +80,29 @@ int cadastrarVendaBIN(Venda v) {
         fclose(arqVendas);
         return count;
     }
+}
+
+int salvarVendaBIN(Venda *ven, int quantidade) {
+    FILE *arq;
+    //abrea arquivo para escrita e posiciona cursor no final "ab"
+    arq = fopen(".\\arquivos\\vendas.bin", "ab");
+    if (arq == NULL) {
+        //cria arquivo para escrita se não houver "wb"
+        arq = fopen(".\\arquivos\\vendas.bin", "wb");
+        if (arq == NULL) {
+            printf("\nERRO ao acessar arquivo\n");
+            return 0;
+        }
+    }
+    //strlen()-> informa o tamanho de uma string 
+    /*grava toda struct de operador no arquivo*/
+    fwrite(&ven, sizeof (Venda), quantidade, arq);
+    fflush(arq);
+    /*fecha o arquivo*/
+    fclose(arq);
+    /*libera mémoria*/
+    free(arq);
+    return 1;
 }
 
 int maiorCodVenda() {
