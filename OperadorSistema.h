@@ -25,9 +25,14 @@ typedef struct operadorSistema {
 int salvarOperadorTXT(OperadorSistema* opera, int num);
 int cadastrarOpTXT(OperadorSistema opera);
 int removerOperadorBIN();
+int removerOperadorTXT();
+int validarOpBIN(int cod);
+int validarOpTXT(int cod);
 int editarOpSBIN(OperadorSistema op, int posi);
-int cadastrarOpBIN(OperadorSistema op, int quantidade);
+int cadastrarOpBIN(OperadorSistema *op, int quantidade);
 OperadorSistema* listarOpBIN(int *numLinha);
 OperadorSistema* listarOpTXT();
+int editarOperadorTXT(OperadorSistema *opera, OperadorSistema op, int num);
+
 #endif /* OPERADORSISTEMA_H */
 
