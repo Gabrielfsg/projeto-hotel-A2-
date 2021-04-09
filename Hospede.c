@@ -57,7 +57,7 @@ int salvarHospedeTXT(Hospede *hos, int num) {
   } else {
     int i;
     // grava todos os dado do vetor no arquivo
-    for (int = 0; i < num; i++) {
+    for (i = 0; i < num; i++) {
       fprintf(arq, "%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n%c\r\n%s\r\n%d\r\n%d\r\n%d\r\n%s\r\n%d\r\n%s\r\n%s\r\n%s\r\n%s\r\n", hos[i].codigo, hos[i].nome, 
               hos[i].cpf, hos[i].telefone, hos[i].email, hos[i].sexo, hos[i].esCivil,
               hos[i].dataNascimento.dia, hos[i].dataNascimento.mes, hos[i].dataNascimento.ano,
