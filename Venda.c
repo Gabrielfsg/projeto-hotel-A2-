@@ -44,7 +44,7 @@ int salvarVendaTXT(Venda *ven, int num) {
   } else {
     int i;
     // grava todos os dado do vetor no arquivo
-    for (int = 0; i < num; i++) {
+    for (i = 0; i < num; i++) {
       fprintf(arq, "%d\r\n%f\r\n%d\r\n%d\r\n%d\r\n%d\r\n", ven[i].codCaixa,
               ven[i].codVenda, ven[i].dataVenda.dia, ven[i].dataVenda.mes,
               ven[i].dataVenda.ano, ven[i].valorTotal);
