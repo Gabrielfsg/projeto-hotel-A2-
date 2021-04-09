@@ -539,7 +539,7 @@ int salvarProdutoTXT(Produto *prod, int num) {
   } else {
     int i;
     // grava todos os dado do vetor no arquivo
-    for (int = 0; i < num; i++) {
+    for (i = 0; i < num; i++) {
       fprintf(arq, "%d\r\n%s\r\n%d\r\n%d\r\n%f\r\n%f\r\n", prod[i].codigo,
               prod[i].descricao, prod[i].estoque, prod[i].estoqueMinimo, 
               prod[i].precoCusto, prod[i].precoVenda);
