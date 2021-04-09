@@ -34,6 +34,15 @@ extern "C" {
 #include "ContaPagar.h"
 #include "ContaReceber.h"
 #include "Fornecedor.h"
+#include "Hotel.h"
+#include "OperadorSistema.h"
+#include "ProdutoReserva.h"
+#include "Produto.h"
+#include "ProdutoReserva.h"
+#include "Reserva.h"
+#include "VendaProduto.h"
+#include "Venda.h"
+
 int importarDadosXMLparaTXT(char caminho[], int tab[], int qtd);
 Categoria* getCategoriaXML(char local[], int *num);
 int printXMLCategoria(Categoria *cat, int num, FILE *cad);
