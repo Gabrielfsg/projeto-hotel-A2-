@@ -1,0 +1,5 @@
+1,CHALE LUXO,1,livre
+2,QUARTO 1,2,livre
+3,QUARTO 2,2,livre
+4,QUARTO 5,1,livre
+6,SUITE PREMIUM,3,livre
